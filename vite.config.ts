@@ -3,13 +3,11 @@ import { full as emoji } from 'markdown-it-emoji';
 import UnoCSS from 'unocss/vite';
 import { defineConfig } from 'vite';
 
+
 export default defineConfig({
     server: {
         fs: {
-            allow: [
-                "/Users/aaronyang/workspace/zillionare",
-                "/Users/aaronyang/slidev"
-            ]
+            strict: false
         }
     },
     slidev: {

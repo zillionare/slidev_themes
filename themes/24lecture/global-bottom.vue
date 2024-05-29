@@ -5,8 +5,6 @@
     }
 </style>
 <script>
-import {isPresenter} from '@slidev/client/logic/nav.ts'
-import { computed } from 'vue'
 
 document.onkeydown = checkKey;
 
@@ -55,6 +53,6 @@ function checkKey(e) {
     v-if="$slidev.nav.currentLayout !== 'cover'"
     class="absolute bottom-0 right-0 p-2 flex items-center"
   >
-    PRESENTED by 量化风云<mdi-wechat class="c-green-4 ml-1"/>
+    PRESENTED by 量化风云
   </footer>
 </template>

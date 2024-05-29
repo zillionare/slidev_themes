@@ -1,0 +1,49 @@
+{
+  "name": "slidev-theme-hep",
+  "version": "0.1.1",
+  "type": "module",
+  "keywords": [
+    "slidev-theme",
+    "slidev",
+    "HEP"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:AvencastF/slidev-theme-hep.git"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "slidev": ">=0.47.0"
+  },
+  "scripts": {
+    "build": "slidev build example.md",
+    "dev": "slidev example.md --open",
+    "export": "slidev export example.md",
+    "screenshot": "slidev export example.md --format png --output screenshot",
+    "publish:npmjs": "npm publish --access public --registry https://registry.npmjs.org/",
+    "publish:github": "npm publish --registry https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "@slidev/types": "^v0.47.5",
+    "codemirror-theme-vars": "^0.1.2",
+    "plotly.js-dist": "^2.29.1",
+    "prism-theme-vars": "^0.2.4"
+  },
+  "//": "Learn more: https://sli.dev/themes/write-a-theme.html",
+  "slidev": {
+    "colorSchema": "both",
+    "highlighter": "all",
+    "defaults": {
+      "aspectRatio": "16/9",
+      "canvasWidth": 1280,
+      "fonts": {
+        "mono": "Fira Code",
+        "sans": "Avenir Next,Nunito Sans",
+        "local": "Avenir Next"
+      }
+    }
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.42.0"
+  }
+}

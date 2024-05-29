@@ -5,9 +5,7 @@
     }
 </style>
 <script>
-import {useScriptTag} from '@vueuse/core'
-import {isPresenter} from '@slidev/client/logic/nav.ts'
-import { computed } from 'vue'
+
 // import { admonit } from './tools'
 
 // window.addEventListener('load', function(ev){

@@ -12,7 +12,7 @@ const props = defineProps({
   }
 })
 
-const image = computed(() => props.image || '/public/section-right.png')
+const image = computed(() => props.image || '/section-right.png')
 const imageOrder = computed(() => props.imageOrder === 1 ? 'order-1' : 'order-2')
 const textAlignment = computed(() => props.imageOrder === 1
       ? 'text-right order-2 justify-end'
