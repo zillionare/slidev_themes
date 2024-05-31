@@ -1,8 +1,8 @@
 <style>
-    footer {
-        color: #bebebe;
-        z-index: 999;
-    }
+footer {
+    color: #888;
+    z-index: 999;
+}
 </style>
 <script>
 
@@ -12,26 +12,26 @@ function checkKey(e) {
     e = e || window.event;
     // console.info("key pressed: " + e.keyCode)
 
-    var search = new URLSearchParams(location.search) 
+    var search = new URLSearchParams(location.search)
     var clicks = parseInt(search.get("clicks"))
     // console.info("clicks now is: " + clicks)
 
     if (e.keyCode == '37') {
         // left right and space
-       if (clicks == NaN || clicks <= 1){
+        if (clicks == NaN || clicks <= 1) {
             return
-       }
+        }
 
-       clicks = clicks - 1
+        clicks = clicks - 1
     }
-    else if (e.keyCode == '39' || e.keyCode == '32'){
-        if (clicks == NaN){
+    else if (e.keyCode == '39' || e.keyCode == '32') {
+        if (clicks == NaN) {
             clicks = 1
-        }else {
+        } else {
             clicks = clicks + 1
         }
     }
- 
+
     // scroll to SEC?
     document.querySelectorAll('div.note h1').forEach(function (item) {
         if (item.innerText.toUpperCase().startsWith('SEC' + clicks)) {
@@ -48,11 +48,11 @@ function checkKey(e) {
 </script>
 <template>
     <!-- <div v-if="isPresenter" style="position: absolute;bottom:0%;left:50%;color:red">{{ clicks }}</div> -->
-    <footer class="absolute bottom-0 left-5"><br/><small><SlideCurrentNo/>/<SlidesTotal/></small></footer>
-  <footer
-    v-if="$slidev.nav.currentLayout !== 'cover'"
-    class="absolute bottom-0 right-0 p-2 flex items-center"
-  >
-    PRESENTED by 量化风云
-  </footer>
+    <footer class="absolute bottom-0 left-5"><br /><small>
+            <SlideCurrentNo />/
+            <SlidesTotal />
+        </small></footer>
+    <footer v-if="$slidev.nav.currentLayout !== 'cover'" class="absolute bottom-0 right-0 p-2 flex items-center">
+        PRESENTED by 量化风云
+    </footer>
 </template>

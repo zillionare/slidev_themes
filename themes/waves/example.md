@@ -2,14 +2,19 @@
 theme: ./
 layout: cover
 title: Presentation title
+brand: 💤illionare量化课程
+presenter: Aaron【量化风云】
 ---
 
 
 Presentation subtitle
 
 ---
+layout: fact
+---
 
 # Slide Title
+
 
 Slide Subtitle
 
@@ -81,6 +86,13 @@ function updateUser(id: number, update: Partial<User>) {
   saveUser(id, newUser)
 }
 ```
+
+---
+layout: iframe
+url: http://139.196.218.124:5180/aaron_24/lab/workspaces/auto-D/tree/examples/%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96/%E5%90%8C%E8%8A%B1%E9%A1%BA%E6%A6%82%E5%BF%B5%E6%9D%BF%E5%9D%97%E6%95%B0%E6%8D%AE.ipynb
+scale: 1
+---
+# show me code
 
 ---
 layout: center
