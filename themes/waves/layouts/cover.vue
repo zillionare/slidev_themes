@@ -69,23 +69,15 @@ body {
 
 
 .header {
-    position: relative;
-    text-align: center;
+    position: absolute;
+    height: 65vh;
+    width: 100%;
     /* background-image: linear-gradient(to bottom,
             rgb(255 255 255 / 1%),
             rgb(255 255 255 / 30%),
             rgb(255 255 255 / 80%)), url('/wheat.jpg?1');
     background-size: cover; */
     /* background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%); */
-}
-
-
-
-.inner-header {
-    height: 65vh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 .flex {
@@ -96,21 +88,13 @@ body {
     text-align: center;
 }
 
-/* .waves-container {
-    position: absolute;
-    top: 65vh;
-    height: 15vh;
-    width: 100%;
-} */
+
 
 .waves {
-    position: relative;
     width: 100%;
+    position: absolute;
+    bottom: 0vh;
     height: 15vh;
-    margin-bottom: -7px;
-    /*Fix for safari gap*/
-    min-height: 100px;
-    max-height: 150px;
 }
 
 .content {
@@ -183,22 +167,19 @@ body {
             <!--presenter-->
             <div class="presenter"> {{ $slidev.nav.currentSlideRoute.meta.slide.frontmatter.presenter }}</div>
         </div>
-        <!--Waves Container-->
-        <div class="waves-container">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                <defs>
-                    <path id="gentle-wave"
-                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                </defs>
-                <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(209,68,245,0.7)" />
-                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(169,105,240,0.5)" />
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(105,240,240,0.5)" />
-                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(27,176,245,0.3)" />
-                </g>
-            </svg>
-        </div>
-        <!--Waves end-->
     </div>
+    <!--Waves-->
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+            <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(209,68,245,0.7)" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(169,105,240,0.5)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(105,240,240,0.5)" />
+            <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(27,176,245,0.3)" />
+        </g>
+    </svg>
+    <!--Waves end-->
 </template>

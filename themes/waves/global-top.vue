@@ -1,6 +1,6 @@
 <template>
     <div class="slidev-layout pageBar"
-        v-if="$slidev.nav.currentLayout !== 'cover' && $slidev.nav.currentLayout !== 'section'">
+        v-if="$slidev.nav.currentLayout !== 'cover' && $slidev.nav.currentLayout !== 'section' && $slidev.nav.currentLayout !== 'quote' && $slidev.nav.currentLayout !== 'center'">
         <div class="my-auto">
             <!-- Blue box with absolute positioning -->
             <div class="absolute-blue-box"></div>

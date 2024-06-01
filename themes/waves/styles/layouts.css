@@ -20,20 +20,6 @@
         @apply text-4xl text-left;
     }
 
-    @keyframes gradient-animation {
-        0% {
-            background-position: 0% 50%;
-        }
-
-        50% {
-            background-position: 100% 50%;
-        }
-
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
     h2 {
         @apply text-3xl text-left ml-4 mb-4;
     }
@@ -147,5 +133,12 @@
         border-bottom-width: 1px;
         border-bottom-style: solid;
         border-image: linear-gradient(to left, white 0%, var(--slidev-theme-primary) 50%, white 100%)1;
+    }
+}
+
+.slidev-layout.image-left {
+    h1 {
+        position: relative;
+        left: -108%;
     }
 }

@@ -4,6 +4,7 @@ layout: cover
 title: Presentation title
 brand: 💤illionare量化课程
 presenter: Aaron【量化风云】
+canvasWidth: 1200
 ---
 
 
