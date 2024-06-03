@@ -61,9 +61,9 @@ const bannerStyle = computed(() => {
     top: 30px;
     left: 30px;
     width: 80px;
-    border-radius: 48% 50% 48% 50% / 30% 30% 70% 70%;
+    /* border-radius: 48% 50% 48% 50% / 30% 30% 70% 70%; */
     /* background: #FF0099; */
-    background-image: radial-gradient(circle at center, red, red 30%, black);
+    /* background-image: radial-gradient(circle at center, red, red 30%, black); */
     box-shadow: 0px 5px 5px black;
 }
 
@@ -100,7 +100,7 @@ const bannerStyle = computed(() => {
 </style>
 <template>
     <div class="banner" :style="bannerStyle"></div>
-    <div class="stamp"><img src="https://images.jieyu.ai/images/hot/lhyh-badge.png" /></div>
+    <div class="stamp"><img src="https://images.jieyu.ai/images/hot/brand-figure.png" /></div>
     <div class="slidev-layout cover cover-override">
         <div class="motto"> {{ props.motto }}</div>
         <div class="title"> {{ title }}</div>
