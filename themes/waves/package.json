@@ -13,10 +13,7 @@
   "license": "MIT",
   "slidev": {
     "colorSchema": "light",
-    "highlighter": "all",
-    "defaults": {
-        "aspectRatio": "16/9"
-    }
+    "highlighter": "all"
   },
   "repository": {
     "type": "git",

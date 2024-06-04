@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
-import { computed} from 'vue'
-import { product, makeArr, choice } from '../../tools'
+import { computed } from 'vue'
+import { product, makeArr, choice } from '../tools'
 
 const props = defineProps({
     top: {
@@ -10,7 +10,7 @@ const props = defineProps({
     },
     left: {
         type: String,
-        default:"0"
+        default: "0"
     },
     w: {
         type: String,
@@ -30,7 +30,7 @@ const props = defineProps({
     },
     ry: {
         type: Number,
-        default:100
+        default: 100
     },
     durMin: {
         type: Number,
@@ -46,7 +46,7 @@ const props = defineProps({
     }
 })
 
-const style = computed(()=>{
+const style = computed(() => {
     return {
         "top": props.top,
         "left": props.left,
@@ -56,7 +56,7 @@ const style = computed(()=>{
     }
 })
 
-onMounted(()=>{
+onMounted(() => {
     var root = document.querySelector(".roaming")
     root.style.color = props.color
 
@@ -69,7 +69,7 @@ onMounted(()=>{
     var posy = makeArr(0, h, items.length - 1)
 
     var positions = product(posx, posy)
-    items.forEach(function(item){
+    items.forEach(function (item) {
         var pos = choice(positions)
         item.style.left = pos[0] + "px"
         item.style.top = pos[1] + "px"
@@ -78,7 +78,7 @@ onMounted(()=>{
         var duration = props.durMin + Math.random() * props.durMax;
         item.style.animation = `Roaming ${duration}s ease infinite`
 
-        setInterval(function(){
+        setInterval(function () {
             var dx = (Math.random() - 0.5) * props.rx
             var dy = (Math.random() - 0.5) * props.ry
             item.style.transform = `translateX(${dx}px)`
@@ -90,23 +90,21 @@ onMounted(()=>{
 })
 </script>
 <style>
-
-
 @keyframes Roaming {
-  0% {
-    opacity: 0;
-    color: var(--slidev-back-ground-color);
-  }
+    0% {
+        opacity: 0;
+        color: var(--slidev-back-ground-color);
+    }
 
-  50% {
-    opacity: 1;
-    text-shadow: 0 25px 50px rgba(0, 0, 0, 0.75);
-  }
+    50% {
+        opacity: 1;
+        text-shadow: 0 25px 50px rgba(0, 0, 0, 0.75);
+    }
 
-  100% {
-    opacity: 0;
-    color: var(--slidev-back-ground-color);
-  }
+    100% {
+        opacity: 0;
+        color: var(--slidev-back-ground-color);
+    }
 }
 
 .roaming {
@@ -118,14 +116,14 @@ onMounted(()=>{
 .roaming ul {
     list-style-type: none !important;
 }
+
 .roaming li {
     position: absolute;
     transform: none;
 }
-
 </style>
 <template>
     <div class="roaming" :style="style">
-        <slot/>
+        <slot />
     </div>
 </template>
