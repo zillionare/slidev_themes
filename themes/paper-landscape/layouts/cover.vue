@@ -21,6 +21,7 @@ import { computed, onMounted } from 'vue'
 //         }
 //     }, 200);
 // })
+const sound = "https://images.jieyu.ai/images/sounds/aggressive-hit-logo.mp3"
 
 </script>
 <style>
@@ -100,7 +101,6 @@ import { computed, onMounted } from 'vue'
 }
 
 /*layer-2 the content layer*/
-
 .title {
     position: absolute;
     top: 25%;
@@ -117,8 +117,10 @@ import { computed, onMounted } from 'vue'
 }
 
 .subtitle {
-    font-size: 4vw;
-    background-image: linear-gradient(90deg, #000000, #fff, #000);
+    position: absolute;
+    font-size: 3vw;
+    background-color: cadetblue;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
     background-size: 85%;
     color: transparent;
     background-clip: text;
@@ -130,6 +132,15 @@ import { computed, onMounted } from 'vue'
     animation-iteration-count: 1, 1;
     animation-delay: 0s, 3s;
     animation-fill-mode: forwards, forwards;
+}
+
+.content {
+    position: absolute;
+    top: 20vh;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2.5vw;
 }
 
 @keyframes moveTitle {
@@ -173,8 +184,10 @@ import { computed, onMounted } from 'vue'
 
 @keyframes shine {
     0% {
+        background-image: linear-gradient(90deg, #000000, #fff, #000);
         background-position-x: -500%;
-        opacity: 1;
+        background-size: 85%;
+        opacity: 0.8;
     }
 
     100% {
@@ -185,8 +198,8 @@ import { computed, onMounted } from 'vue'
 }
 </style>
 <template>
+    <audio id="audio" :src=sound autoplay />
     <div class="layer-0">
-        <audio id="audio" src="https://images.jieyu.ai/images/sounds/ambient-piano-logo.mp3" autoplay />
     </div>
     <!-- <div class="layer-2">
         <audio id="audio" src="https://images.jieyu.ai/images/sounds/boom-signal.mp3" autoplay />
@@ -198,7 +211,11 @@ import { computed, onMounted } from 'vue'
         <div class="profile-image" />
     </div>
     <div class="slidev-layout cover">
+        <!--用来让元素动画单独占一层-->
         <div class="title">{{ $slidev.nav.currentSlideRoute.meta.slide.title }}</div>
         <div class="subtitle">{{ $slidev.nav.currentSlideRoute.meta.slide.frontmatter.subtitle }}</div>
+        <div class="content">
+            <slot />
+        </div>
     </div>
 </template>
