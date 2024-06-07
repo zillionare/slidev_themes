@@ -1,4 +1,7 @@
-<!--象演员表一样向上滚动-->
+<!--象演员表一样向上滚动
+
+    通过perspective_origin来调节梯形的中心。
+-->
 <script setup>
 import { onMounted } from 'vue'
 import { computed } from 'vue'
@@ -7,19 +10,20 @@ import { parseRangeString } from '@slidev/parser/core'
 
 const props = defineProps({
     at: {
+        type: String,
         required: true
     },
     left: {
         type: String,
-        default: "50%"
+        default: "60%"
     },
     top: {
         type: String,
-        default: "25%"
+        default: "10%"
     },
     w: {
         type: String,
-        default: "50%",
+        default: "30%",
     },
     h: {
         type: String,
@@ -28,6 +32,10 @@ const props = defineProps({
     perspective: {
         type: String,
         default: "400px",
+    },
+    perspective_origin: {
+        type: String,
+        default: "70%",
     },
     rx: {/*rotationX*/
         type: String,
@@ -39,7 +47,7 @@ const props = defineProps({
     },
     tyEnd: {
         type: String,
-        default: "-110%"
+        default: "-120%"
     },
     z: {
         type: String,
@@ -50,40 +58,49 @@ const props = defineProps({
         default: "rgba(0, 0, 0, 0.75)"
     },
     dur: {
-        type: String,
+        type: Number,
         // 5 seconds
-        default: "5"
+        default: 5
+    },
+    mask: {
+        type: Boolean,
+        default: false
     }
 })
 
 const show = computed(() => {
     var at = props.at
     if (at === undefined) {
-        return false
+        return true
     }
 
-    if (typeof (at) === "number") {
-        at = String(at)
+    if (!Number.isNaN(at)) {
+        console.log(`show cast at ${at}`)
+        return $slidev.nav.clicks == at
     }
 
-    var ranges = parseRangeString(10, at)
-    if (ranges.includes($slidev.nav.clicks)) {
+    var ranges = parseRangeString(at, $slidev.nav.clicksTotal)
+    if (ranges.includes($clicks)) {
         return true
     } else {
+        console.log(`parsed ranges are ${ranges}, hiding casts`)
         return false
     }
 })
 
 const wrapperStyle = computed(() => {
+    var alpha = props.mask ? 0.75 : 0
     var style_ = {
-        "left": props.left,
-        "top": props.top,
-        "width": props.w,
-        "height": props.h,
+        "top": 0,
+        "left": 0,
+        "width": "100%",
+        "height": "100%",
         "perspective": props.perspective,
+        "perspective-origin": props.perspective_origin,
         "z-index": parseInt(props.z),
         "position": "absolute",
-        "padding": "10% 0"
+        "color": "white",
+        "background-color": `rgba(0,0,0,${alpha})`
     }
 
     return style_
@@ -92,7 +109,10 @@ const wrapperStyle = computed(() => {
 const childStyle = computed(() => {
     var style_ = {
         "transform": `rotateX(${props.rx}deg)`,
-        "overflow-y": "hidden"
+        "overflow-y": "hidden",
+        "width": "100%",
+        "height": "100%",
+        "position": "relative"
     }
 
     return style_
@@ -103,6 +123,17 @@ const scrollable = computed(() => {
         "animation": `cast-motion ${props.dur}s linear forwards`,
         "transform": `translateY(-${props.tyStart})`,
         "background": props.bg,
+        "width": props.w,
+        "height": props.h,
+        "top": props.top,
+        "left": props.left,
+        "position": "relative"
+    }
+})
+
+const slotWrapper = computed(() => {
+    return {
+        "mix-blend-mode": "difference"
     }
 })
 
@@ -143,7 +174,9 @@ onMounted(() => {
             <!--rotation child-->
             <div :style="scrollable">
                 <!--scrollable-->
-                <slot></slot>
+                <div :style="slotWrapper">
+                    <slot></slot>
+                </div>
             </div>
         </div>
     </div>
