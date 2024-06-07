@@ -1,154 +1,150 @@
 <!--象演员表一样向上滚动-->
 <script setup>
 import { onMounted } from 'vue'
-import { computed} from 'vue'
-import { product, makeArr, choice } from '../../tools'
+import { computed } from 'vue'
+import { product, makeArr, choice } from '../tools'
 import { parseRangeString } from '@slidev/parser/core'
 
 const props = defineProps({
-  at: {
-    required: true
-  },
-  left: {
-    type: String,
-    default: "50%"
-  },
-  textAlign: {
-    type: String,
-    default: "center"
-  },
-  color: {
-    type: String,
-    default: "rgb(20,20,20)"
-  },
-  z: {
-    type: String,
-    default: "20"
-  },
-  fc: {
-    type: String,
-    default: ""
-  },
-  dur: {
-    type: String,
-    // 5 seconds
-    default: "5"
-  }
+    at: {
+        required: true
+    },
+    left: {
+        type: String,
+        default: "50%"
+    },
+    top: {
+        type: String,
+        default: "25%"
+    },
+    w: {
+        type: String,
+        default: "50%",
+    },
+    h: {
+        type: String,
+        default: "50%",
+    },
+    perspective: {
+        type: String,
+        default: "400px",
+    },
+    rx: {/*rotationX*/
+        type: String,
+        default: "45"
+    },
+    tyStart: {
+        type: String,
+        default: "100%"
+    },
+    tyEnd: {
+        type: String,
+        default: "-110%"
+    },
+    z: {
+        type: String,
+        default: "20"
+    },
+    bg: {
+        type: String,
+        default: "rgba(0, 0, 0, 0.75)"
+    },
+    dur: {
+        type: String,
+        // 5 seconds
+        default: "5"
+    }
 })
 
 const show = computed(() => {
     var at = props.at
-    if (at === undefined){
+    if (at === undefined) {
         return false
     }
 
-    if (typeof(at) === "number") {
+    if (typeof (at) === "number") {
         at = String(at)
     }
 
     var ranges = parseRangeString(10, at)
-    if (ranges.includes($slidev.nav.clicks)){
-        setTimeout(rock_roll, 100)
+    if (ranges.includes($slidev.nav.clicks)) {
         return true
-    }else{
+    } else {
         return false
     }
 })
 
-const style = computed(()=>{
+const wrapperStyle = computed(() => {
     var style_ = {
-        "color": props.color,
         "left": props.left,
-        "text-align": props.textAlign,
-        "z-index": parseInt(props.z)
-    }
-
-    if (props.fc !== null){
-        style_["background"] = props.fc
+        "top": props.top,
+        "width": props.w,
+        "height": props.h,
+        "perspective": props.perspective,
+        "z-index": parseInt(props.z),
+        "position": "absolute",
+        "padding": "10% 0"
     }
 
     return style_
 })
 
-function rock_roll(){
-    var cast = document.querySelector(".cast")
-    cast.style.opacity = 1
-    if (cast == null){
-        return
+const childStyle = computed(() => {
+    var style_ = {
+        "transform": `rotateX(${props.rx}deg)`,
+        "overflow-y": "hidden"
     }
-    var myHeight = cast.clientHeight
-    var slideshow = document.getElementById("slideshow")
-    var containerHeight  = slideshow.clientHeight
-    cast.style.top = `${containerHeight - 20}px`
 
-    var i = containerHeight - 20
-    var speed = (myHeight + containerHeight) / (props.dur * 1000)
-    var step = speed * 10 
+    return style_
+})
 
-    var timer = setInterval(function(){
-        i = i - step
-        cast.style.top = `${i}px`
+const scrollable = computed(() => {
+    return {
+        "animation": `cast-motion ${props.dur}s linear forwards`,
+        "transform": `translateY(-${props.tyStart})`,
+        "background": props.bg,
+    }
+})
 
-        var arr = document.querySelectorAll(".cast li")
-
-        for (var item of arr){
-            var offsetY = item.offsetTop + cast.offsetTop
-            if (offsetY < 0 || offsetY > containerHeight)
-                continue
-
-            var op = offsetY / containerHeight
-
-            if (op > 1)
-                continue
-            else if (op > 0.5)
-                op = (1-op)
-            else if (op < 0)
-                continue
-
-
-            op *= 2
-            item.style.opacity = op
+onMounted(() => {
+    const keyframesName = 'cast-motion';
+    const existingKeyframes = Array.from(document.styleSheets).reduce((result, sheet) => {
+        try {
+            // 尝试访问sheet.cssRules，某些情况下可能抛出安全错误
+            return [...result, ...Array.from(sheet.cssRules).filter(rule => rule.key && rule.key === `@keyframes ${keyframesName}`)];
+        } catch (e) {
+            return result;
         }
-        
-        if (i <= -myHeight){
-            clearInterval(timer)
-        }
-    }, 10, i)
-}
+    }, []);
+
+    if (existingKeyframes.length > 0) {
+        // 如果keyframes已存在，则直接使用
+        console.log('Keyframes already exists. Reusing it.');
+    } else {
+        var ss = document.createElement('style');
+        ss.innerHTML = `
+            @keyframes cast-motion {
+                0% {
+                    transform: translateY(${props.tyStart});
+                }
+                100% {
+                    transform: translateY(${props.tyEnd});
+                }
+            }`
+        document.head.appendChild(ss);
+    }
+})
 </script>
-<style>
 
-@keyframes Fadeout {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes Fadein {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.cast {
-    position: absolute;
-    opacity: 0;
-}
-
-.cast ul {
-    list-style-type: none !important;
-}
-</style>
 <template>
-    <div class="cast" v-if="show" :style="style">
-        <slot></slot>
+    <div v-if="show" :style="wrapperStyle">
+        <!--wrapper-->
+        <div :style="childStyle">
+            <!--rotation child-->
+            <div :style="scrollable">
+                <!--scrollable-->
+                <slot></slot>
+            </div>
+        </div>
     </div>
 </template>
