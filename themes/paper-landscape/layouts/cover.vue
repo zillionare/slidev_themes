@@ -1,26 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 
-// 最后两秒fade out
-// onMounted(() => {
-//     var sound = document.querySelector('#audio');
-
-//     // Set the point in playback that fadeout begins. This is for a 2 second fade out.
-//     var fadePoint = sound.duration - 2;
-
-//     var timer = setInterval(function () {
-
-//         // Only fade if past the fade out point or not at zero already
-//         if ((sound.currentTime >= fadePoint) && (sound.volume != 0.0)) {
-//             var volume = Math.max(sound.volume, sound.volume - 0.1)
-//             if (volume >= 0) {
-//                 sound.volume = volume
-//             } else {
-//                 clearInterval(timer)
-//             }
-//         }
-//     }, 200);
-// })
 const sound = "https://images.jieyu.ai/images/sounds/aggressive-hit-logo.mp3"
 
 </script>
@@ -135,12 +115,9 @@ const sound = "https://images.jieyu.ai/images/sounds/aggressive-hit-logo.mp3"
 }
 
 .content {
-    position: absolute;
-    top: 20vh;
-    left: 0;
     width: 100%;
     height: 100%;
-    padding: 2.5vw;
+    margin-top: 11vh;
 }
 
 @keyframes moveTitle {
@@ -198,22 +175,18 @@ const sound = "https://images.jieyu.ai/images/sounds/aggressive-hit-logo.mp3"
 }
 </style>
 <template>
-    <audio id="audio" :src=sound autoplay />
-    <div class="layer-0">
+    <div v-if="$slidev.nav.clicks === 0">
+        <Audio :fadeOut=3 :src=sound></Audio>
+        <div class="layer-0">
+        </div>
+        <div class="layer-1">
+            <div class="profile-image" />
+        </div>
     </div>
-    <!-- <div class="layer-2">
-        <audio id="audio" src="https://images.jieyu.ai/images/sounds/boom-signal.mp3" autoplay />
-        <video preload="auto" autoplay="true" muted="muted">
-            <source src="https://images.jieyu.ai/images/hot/shanghai.mp4" type="video/mp4">
-        </video>
-    </div> -->
-    <div class="layer-1">
-        <div class="profile-image" />
-    </div>
+    <!--第一页永驻内容-->
     <div class="slidev-layout cover">
-        <!--用来让元素动画单独占一层-->
-        <div class="title">{{ $slidev.nav.currentSlideRoute.meta.slide.title }}</div>
-        <div class="subtitle">{{ $slidev.nav.currentSlideRoute.meta.slide.frontmatter.subtitle }}</div>
+        <div class="title">{{ $slidev.configs.title }}</div>
+        <div class="subtitle">{{ $slidev.configs.subtitle }}</div>
         <div class="content">
             <slot />
         </div>
