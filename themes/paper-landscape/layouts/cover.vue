@@ -115,9 +115,11 @@ const sound = "https://images.jieyu.ai/images/sounds/aggressive-hit-logo.mp3"
 }
 
 .content {
+    position: absolute;
+    top: 20vh;
+    left: 0;
     width: 100%;
     height: 100%;
-    margin-top: 11vh;
 }
 
 @keyframes moveTitle {
@@ -175,7 +177,7 @@ const sound = "https://images.jieyu.ai/images/sounds/aggressive-hit-logo.mp3"
 }
 </style>
 <template>
-    <div v-if="$slidev.nav.clicks === 0">
+    <div v-if="$clicks === 0">
         <Audio :fadeOut=3 :src=sound></Audio>
         <div class="layer-0">
         </div>

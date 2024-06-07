@@ -19,15 +19,15 @@ const props = defineProps({
     },
     top: {
         type: String,
-        default: "10%"
+        default: "0px"
     },
     w: {
         type: String,
-        default: "30%",
+        default: "40%",
     },
     h: {
         type: String,
-        default: "50%",
+        default: "80%",
     },
     perspective: {
         type: String,
@@ -75,7 +75,7 @@ const show = computed(() => {
     }
 
     if (!Number.isNaN(at)) {
-        console.log(`show cast at ${at}`)
+        // console.log(`show cast at ${at}`)
         return $slidev.nav.clicks == at
     }
 
@@ -83,7 +83,7 @@ const show = computed(() => {
     if (ranges.includes($clicks)) {
         return true
     } else {
-        console.log(`parsed ranges are ${ranges}, hiding casts`)
+        // console.log(`parsed ranges are ${ranges}, hiding casts`)
         return false
     }
 })
@@ -98,7 +98,7 @@ const wrapperStyle = computed(() => {
         "perspective": props.perspective,
         "perspective-origin": props.perspective_origin,
         "z-index": parseInt(props.z),
-        "position": "absolute",
+        "position": "fixed",
         "color": "white",
         "background-color": `rgba(0,0,0,${alpha})`
     }
@@ -109,10 +109,12 @@ const wrapperStyle = computed(() => {
 const childStyle = computed(() => {
     var style_ = {
         "transform": `rotateX(${props.rx}deg)`,
-        "overflow-y": "hidden",
-        "width": "100%",
-        "height": "100%",
-        "position": "relative"
+        "overflow": "hidden",
+        "position": "relative",
+        "top": props.top,
+        "left": props.left,
+        "width": props.w,
+        "height": props.h,
     }
 
     return style_
@@ -123,11 +125,8 @@ const scrollable = computed(() => {
         "animation": `cast-motion ${props.dur}s linear forwards`,
         "transform": `translateY(-${props.tyStart})`,
         "background": props.bg,
-        "width": props.w,
-        "height": props.h,
-        "top": props.top,
-        "left": props.left,
-        "position": "relative"
+        "position": "relative",
+        "padding": "50px 0 200px 0",
     }
 })
 
@@ -157,9 +156,14 @@ onMounted(() => {
             @keyframes cast-motion {
                 0% {
                     transform: translateY(${props.tyStart});
+                    opacity: 1;
+                }
+                80% {
+                    opacity: 0.6;
                 }
                 100% {
                     transform: translateY(${props.tyEnd});
+                    opacity: 0;
                 }
             }`
         document.head.appendChild(ss);
