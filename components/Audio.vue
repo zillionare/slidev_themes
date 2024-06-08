@@ -21,6 +21,10 @@ const props = defineProps({
     at: {
         type: Number,
         default: 0
+    },
+    volume: {
+        type: Number,
+        default: 1
     }
 })
 
@@ -56,6 +60,7 @@ function fadeIn(resetAt, sound) {
 
 onMounted(() => {
     var sound = document.querySelector(`#${props.id}`);
+    sound.volume = props.volume
 
     // Set the point in playback that fadeout begins. 
     if (props.fadeOut != 0) {
@@ -71,6 +76,6 @@ onMounted(() => {
 </script>
 <template>
     <div v-if="$slidev.nav.clicks === $props.at">
-        <audio :id="props.id" autoplay preload="auto" :src="$props.src"></audio>
+        <audio :id="props.id" preload="auto" autoplay :src="$props.src"></audio>
     </div>
 </template>

@@ -10,7 +10,7 @@ import { parseRangeString } from '@slidev/parser/core'
 
 const props = defineProps({
     at: {
-        type: String,
+        type: Number,
         required: true
     },
     left: {
@@ -43,7 +43,7 @@ const props = defineProps({
     },
     tyStart: {
         type: String,
-        default: "100%"
+        default: "50%"
     },
     tyEnd: {
         type: String,
@@ -100,7 +100,7 @@ const wrapperStyle = computed(() => {
         "z-index": parseInt(props.z),
         "position": "fixed",
         "color": "white",
-        "background-color": `rgba(0,0,0,${alpha})`
+        "background": `rgba(0,0,0,${alpha})`
     }
 
     return style_
@@ -122,11 +122,10 @@ const childStyle = computed(() => {
 
 const scrollable = computed(() => {
     return {
-        "animation": `cast-motion ${props.dur}s linear forwards`,
-        "transform": `translateY(-${props.tyStart})`,
-        "background": props.bg,
+        "animation": `cast-motion ${props.dur}s linear 0s forwards`,
+        "transform": `translateY(${props.tyStart})`,
         "position": "relative",
-        "padding": "50px 0 200px 0",
+        "background": props.bg
     }
 })
 

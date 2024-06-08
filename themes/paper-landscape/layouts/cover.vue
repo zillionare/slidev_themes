@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 
-const sound = "https://images.jieyu.ai/images/sounds/aggressive-hit-logo.mp3"
+const props = defineProps({
+    welcome_audio: {
+        type: String,
+        default: "https://images.jieyu.ai/images/sounds/boom-signal.mp3"
+    }
+})
 
+const welcome_audio = computed(() => {
+    if (props.welcome_audio.substr(0, 4) == "http") {
+        return props.welcome_audio
+    } else {
+        return "https://images.jieyu.ai/images/sounds/" + props.welcome_audio
+    }
+})
 </script>
-<style>
+<style scoped>
 /*layer-0, image background fade out*/
 .layer-0 {
     position: absolute;
@@ -178,7 +190,7 @@ const sound = "https://images.jieyu.ai/images/sounds/aggressive-hit-logo.mp3"
 </style>
 <template>
     <div v-if="$clicks === 0">
-        <Audio :fadeOut=3 :src=sound></Audio>
+        <Audio :fadeOut=3 :src=welcome_audio></Audio>
         <div class="layer-0">
         </div>
         <div class="layer-1">
