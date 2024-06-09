@@ -1,5 +1,5 @@
 <template>
-    <div class="lhfy-badge">
+    <div class="lhfy-badge" v-if="$slidev.nav.currentLayout !== 'cover'">
     </div>
 </template>
 
@@ -9,11 +9,11 @@
 
 <style>
 .lhfy-badge {
-    width: 3vw;
-    height: 3vw;
+    width: 15vw;
+    height: 15vw;
     position: absolute;
-    top: 1vw;
-    right: 1vw;
+    top: 5vw;
+    right: 5vw;
     background-image: url('https://images.jieyu.ai/images/2024/06/lhfy-badge.png');
     background-size: cover;
     filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.5));

@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 
-const props = defineProps({
-    welcome_audio: {
-        type: String,
-        default: "https://images.jieyu.ai/images/sounds/boom-signal.mp3"
-    }
-})
+const imgList = [
+    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0020.jpg",
+    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0017.jpg",
+    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0016.jpg",
+    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0019.jpg",
+    "https://images.jieyu.ai/images/hot/omega_arch.jpg",
+    "https://images.jieyu.ai/images/hot/book-cover-no-author.jpg",
+    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0021.jpg",
+    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0014.jpg",
 
-const welcome_audio = computed(() => {
-    if (props.welcome_audio.substr(0, 4) == "http") {
-        return props.welcome_audio
-    } else {
-        return "https://images.jieyu.ai/images/sounds/" + props.welcome_audio
-    }
+]
+
+onMounted(() => {
+    setTimeout(() => {
+        console.log("call next")
+        $slidev.nav.next()
+    }, 3000)
 })
 </script>
 <style scoped>
@@ -23,7 +27,7 @@ const welcome_audio = computed(() => {
     background-image: url('https://images.jieyu.ai/images/hot/shanghai-extra-wide.jpg');
     width: 100%;
     height: 100%;
-    animation: layer-0-anime 5s linear 0s;
+    animation: layer-0-anime 3s linear 0s;
     background-size: auto 100%;
     background-position-x: left;
     opacity: 0;
@@ -49,48 +53,30 @@ const welcome_audio = computed(() => {
 
 .layer-1 {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: auto;
+    height: 400px;
     left: 70%;
-    top: 30%;
+    top: 60%;
     animation: layer-1 3s 0s forwards;
+    display: flex;
+    flex-wrap: nowrap;
+
+    img {
+        margin-right: 4vw;
+    }
 }
 
 @keyframes layer-1 {
     0% {
-        transform: translateY(0);
+        transform: translateX(100%);
+        opacity: 1;
     }
 
     100% {
-        transform: translateY(100px);
+        transform: translateX(-1500px);
     }
 }
 
-.profile-image {
-    width: 100%;
-    height: 100%;
-    background-image: url("https://images.jieyu.ai/images/hot/me.png?0.1");
-    border-radius: 50%;
-    background-position: -150px -100px;
-    background-size: 600px;
-    background-repeat: no-repeat;
-    animation: profile-anime 3s 0s forwards;
-}
-
-@keyframes profile-anime {
-    0% {
-        background-position: 0px 0px;
-    }
-
-    50% {
-        opacity: 0.8;
-    }
-
-    100% {
-        background-position: -150px -100px;
-        opacity: 0;
-    }
-}
 
 /*layer-2 the content layer*/
 .title {
@@ -99,8 +85,10 @@ const welcome_audio = computed(() => {
     left: 0;
     opacity: 1;
     width: 100%;
-    height: 100%;
-    font-size: 6vw;
+    padding: 2vw;
+    text-align: center;
+    margin: auto;
+    font-size: 25vw;
     animation: 3s linear moveTitle 0s forwards;
     background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
     background-size: contain;
@@ -108,23 +96,6 @@ const welcome_audio = computed(() => {
     background-clip: text;
 }
 
-.subtitle {
-    position: absolute;
-    font-size: 3vw;
-    background-color: cadetblue;
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-    background-size: 85%;
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    opacity: 0;
-    animation-name: moveSubtitle, shine;
-    animation-duration: 3s, 8s;
-    animation-timing-function: ease-in, ease-out;
-    animation-iteration-count: 1, 1;
-    animation-delay: 0s, 3s;
-    animation-fill-mode: forwards, forwards;
-}
 
 .content {
     position: absolute;
@@ -136,73 +107,21 @@ const welcome_audio = computed(() => {
 
 @keyframes moveTitle {
     0% {
-        transform: translateX(-50%) scale(0);
-        opacity: 0;
-    }
-
-    25% {
-        /* transform: scale(0.5); */
-        opacity: 0.5;
-    }
-
-    50% {
-        transform: translateX(30%) scale(1);
-        opacity: 1;
-    }
-
-    75% {
-        /* transform: scale(0.5); */
-        opacity: 0.5;
+        transform: scaleX(0);
+        opacity: 50%;
     }
 
     100% {
-        opacity: 0;
-    }
-
-}
-
-@keyframes moveSubtitle {
-    0% {
-        transform: translate(50%) scale(0);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translate(0%) scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes shine {
-    0% {
-        background-image: linear-gradient(90deg, #000000, #fff, #000);
-        background-position-x: -500%;
-        background-size: 85%;
-        opacity: 0.8;
-    }
-
-    100% {
-        background-position-x: 500%;
-        background-size: 100%;
+        transform: scaleX(1);
         opacity: 1;
     }
 }
 </style>
 <template>
-    <div v-if="$clicks === 0">
-        <!-- <Audio :fadeOut=3 :src=welcome_audio></Audio> -->
-        <div class="layer-0">
-        </div>
-        <div class="layer-1">
-            <div class="profile-image" />
-        </div>
-    </div>
-    <!--第一页永驻内容-->
-    <div class="slidev-layout cover">
-        <div class="title">{{ $slidev.configs.title }}</div>
-        <div class="subtitle">{{ $slidev.configs.subtitle }}</div>
-        <div class="content">
-            <slot />
-        </div>
+    <!-- <Audio :fadeOut=3 :src=welcome_audio></Audio> -->
+    <div class="layer-0"></div>
+    <div class="title">{{ $slidev.configs.title }}</div>
+    <div class="layer-1">
+        <img v-for="(src, i) in imgList" :key="i" :src="src">
     </div>
 </template>

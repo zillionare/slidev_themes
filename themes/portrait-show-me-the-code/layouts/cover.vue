@@ -5,18 +5,27 @@ const props = defineProps({
 
 })
 
+const coverImg = computed(() => {
+    return {
+        backgroundImage: `url("${$slidev.configs.img}")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+    }
+})
 
 </script>
 <style scoped>
 /*layer-2 the content layer*/
 .title {
     position: absolute;
-    top: 10%;
+    top: 40%;
     margin: auto;
-    width: 50%;
+    width: 100%;
     left: 0;
     right: 0;
-    font-size: 6vw;
+    padding: 2vw;
+    font-size: 25vw;
     background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
     background-size: cover;
     color: transparent;
@@ -24,10 +33,19 @@ const props = defineProps({
     text-align: center
 }
 
-.subtitle {
+.cover-image {
     position: absolute;
-    font-size: 3vw;
-    background-color: cadetblue;
+    top: 0%;
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    height: 500px;
+    width: 100%;
+}
+
+.abstract {
+    position: absolute;
+    font-size: 8vw;
+    background-color: #000;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
     background-size: 85%;
     color: transparent;
@@ -36,14 +54,16 @@ const props = defineProps({
     margin: auto;
     left: 0;
     right: 0;
-    top: 60%;
-    width: 50%;
+    top: 75%;
+    width: 100%;
     text-align: center;
 }
 </style>
 <template>
     <div class="slidev-layout cover">
+        <div class="cover-image" :style="coverImg" />
         <div class="title">{{ $slidev.configs.title }}</div>
-        <div class="subtitle">{{ $slidev.configs.subtitle }}</div>
+        <div class="abstract">{{ $slidev.configs.abstract }}</div>
+        <Waves />
     </div>
 </template>
