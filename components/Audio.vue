@@ -1,7 +1,6 @@
 <script setup>
-import { onMounted, computed, ref } from 'vue';
+import { onMounted, computed } from 'vue';
 
-const isFirstMount = ref(true);
 var gallery = {
     "du": "https://images.jieyu.ai/images/sounds/du.wav",
     "mouse-click": "https://images.jieyu.ai/images/sounds/mouse-click.wav",
@@ -30,9 +29,9 @@ const props = defineProps({
         type: Number,
         default: 1
     },
-    seq: {
+    delay: {
         type: Number,
-        default: 10000
+        default: 0
     }
 })
 
@@ -66,21 +65,6 @@ function fadeIn(resetAt, sound) {
     }, 200);
 }
 
-onMounted(() => {
-    var sound = document.querySelector(`#${props.id}`);
-    sound.volume = props.volume
-
-    // Set the point in playback that fadeout begins. 
-    if (props.fadeOut != 0) {
-        sound.onloadedmetadata = () => {
-            fadeOut(sound.duration, props.fadeOut, sound)
-        };
-    }
-
-    if (props.fadeIn != 0) {
-        fadeIn(props.fadeIn, sound)
-    }
-})
 
 const src = computed(() => {
     var isurl = props.name.substr(0, 4) === "http"
@@ -107,11 +91,38 @@ const show = computed(() => {
 })
 
 const audioId = computed(() => {
-    return `audio-${props.seq}`
+    var seq = Math.floor(Math.random() * 10000)
+    return `#audio_${seq}`
+})
+
+onMounted(() => {
+    var sound = document.getElementById(audioId.value);
+
+    sound.volume = props.volume
+
+    var count = localStorage.getItem(audioId.value)
+    if (count == null) {
+        localStorage.setItem(audioId.value, 1)
+        setTimeout(() => {
+            sound.play()
+        }, props.delay)
+    }
+
+    // Set the point in playback that fadeout begins. 
+    if (props.fadeOut != 0) {
+        sound.onloadedmetadata = () => {
+            fadeOut(sound.duration, props.fadeOut, sound)
+        };
+    }
+
+    if (props.fadeIn != 0) {
+        fadeIn(props.fadeIn, sound)
+    }
+
 })
 </script>
 <template>
-    <div v-if="show">
-        <audio :id="audioId" autoplay :src="src"></audio>
+    <div v-show="show">
+        <audio :id="audioId" :src="src"></audio>
     </div>
 </template>

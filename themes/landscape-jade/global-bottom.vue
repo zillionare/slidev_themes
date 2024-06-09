@@ -1,10 +1,7 @@
-<style>
-
-</style>
+<style></style>
 <script>
-
 document.onkeydown = checkKey;
-
+localStorage.clear()
 function checkKey(e) {
     e = e || window.event;
     // console.info("key pressed: " + e.keyCode)
