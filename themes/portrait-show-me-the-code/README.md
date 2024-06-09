@@ -1,3 +1,4 @@
+<!--适合视频制作。只使用cover一页-->
 # @slidev/theme-seriph
 
 [![NPM version](https://img.shields.io/npm/v/@slidev/theme-seriph?color=3AB9D4&label=)](https://www.npmjs.com/package/@slidev/theme-seriph)
