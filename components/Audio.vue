@@ -1,14 +1,18 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 
+const isFirstMount = ref(true);
+var gallery = {
+    "du": "https://images.jieyu.ai/images/sounds/du.wav",
+    "mouse-click": "https://images.jieyu.ai/images/sounds/mouse-click.wav",
+    "tida": "https://images.jieyu.ai/images/sounds/tida.aiff",
+    "wechat-dingdong": "https://images.jieyu.ai/images/sounds/wechat-dingdong.wav",
+    "wechat-huwo": "https://images.jieyu.ai/images/sounds/wechat-huwo.mp3"
+}
 const props = defineProps({
-    src: {
+    name: {
         type: String,
         required: true,
-    },
-    id: {
-        type: String,
-        default: "Audio"
     },
     fadeOut: {
         type: Number,
@@ -20,11 +24,15 @@ const props = defineProps({
     },
     at: {
         type: Number,
-        default: 0
+        default: -1,
     },
     volume: {
         type: Number,
         default: 1
+    },
+    seq: {
+        type: Number,
+        default: 10000
     }
 })
 
@@ -73,9 +81,37 @@ onMounted(() => {
         fadeIn(props.fadeIn, sound)
     }
 })
+
+const src = computed(() => {
+    var isurl = props.name.substr(0, 4) === "http"
+    if (isurl) {
+        return props.name
+    }
+
+    // 带扩展名，是http://images.jieyu.ai/images/sounds下的文件
+    var ext = props.name.split(".").pop(-1)
+    if (["mp3", "wav", "aiff"].includes(ext)) {
+        return "https://images.jieyu.ai/images/sounds/" + props.name
+    }
+
+    // 不带扩展名，是预置文件
+    return gallery[props.name]
+})
+
+const show = computed(() => {
+    if (Array.isArray(props.at)) {
+        return props.at.includes($slidev.nav.clicks)
+    } else {
+        return [-1, $slidev.nav.clicks].includes(props.at)
+    }
+})
+
+const audioId = computed(() => {
+    return `audio-${props.seq}`
+})
 </script>
 <template>
-    <div v-if="$slidev.nav.clicks === $props.at">
-        <audio :id="props.id" preload="auto" autoplay :src="$props.src"></audio>
+    <div v-if="show">
+        <audio :id="audioId" autoplay :src="src"></audio>
     </div>
 </template>
