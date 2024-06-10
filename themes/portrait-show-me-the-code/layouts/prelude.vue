@@ -27,7 +27,7 @@ onMounted(() => {
     background-image: url('https://images.jieyu.ai/images/hot/shanghai-extra-wide.jpg');
     width: 100%;
     height: 100%;
-    animation: layer-0-anime 3s linear 0s;
+    animation: layer-0-anime 5s linear 0s;
     background-size: auto 100%;
     background-position-x: left;
     opacity: 0;
@@ -57,7 +57,7 @@ onMounted(() => {
     height: 400px;
     left: 70%;
     top: 60%;
-    animation: layer-1 3s 0s forwards;
+    animation: layer-1 5s 0s forwards;
     display: flex;
     flex-wrap: nowrap;
 
@@ -89,7 +89,7 @@ onMounted(() => {
     text-align: center;
     margin: auto;
     font-size: 25vw;
-    animation: 3s linear moveTitle 0s forwards;
+    animation: 5s linear moveTitle 0s forwards;
     background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
     background-size: contain;
     color: transparent;

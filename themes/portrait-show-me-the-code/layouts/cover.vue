@@ -57,6 +57,7 @@ const coverImg = computed(() => {
     top: 75%;
     width: 100%;
     text-align: center;
+    padding: 0 4vw;
 }
 </style>
 <template>

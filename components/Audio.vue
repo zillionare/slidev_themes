@@ -91,34 +91,50 @@ const show = computed(() => {
 })
 
 const audioId = computed(() => {
+    if (props.seq) {
+        return `#audio_${props.seq}`
+    }
+
+    var at = props.at
+    if (Number.isInteger(at) && at != -1) {
+        return `#audio_${at}`
+    }
+
     var seq = Math.floor(Math.random() * 10000)
     return `#audio_${seq}`
 })
 
 onMounted(() => {
-    var sound = document.getElementById(audioId.value);
+    var timer = setInterval(() => {
+        var sound = document.getElementById(audioId.value);
 
-    sound.volume = props.volume
+        sound.volume = props.volume
+        var count = localStorage.getItem(audioId.value)
 
-    var count = localStorage.getItem(audioId.value)
-    if (count == null) {
-        localStorage.setItem(audioId.value, 1)
-        setTimeout(() => {
-            sound.play()
-        }, props.delay)
-    }
+        if (count) {
+            clearInterval(timer)
+        }
 
-    // Set the point in playback that fadeout begins. 
-    if (props.fadeOut != 0) {
-        sound.onloadedmetadata = () => {
-            fadeOut(sound.duration, props.fadeOut, sound)
-        };
-    }
+        if (show.value && (count == null)) {
+            localStorage.setItem(audioId.value, 1)
+            setTimeout(() => {
+                console.log(`playing audio: ${audioId.value}, delay is ${props.delay}`)
+                sound.play()
 
-    if (props.fadeIn != 0) {
-        fadeIn(props.fadeIn, sound)
-    }
+                // Set the point in playback that fadeout begins. 
+                if (props.fadeOut != 0) {
+                    sound.onloadedmetadata = () => {
+                        fadeOut(sound.duration, props.fadeOut, sound)
+                    };
+                }
 
+                if (props.fadeIn != 0) {
+                    fadeIn(props.fadeIn, sound)
+                }
+            }, props.delay)
+
+        }
+    }, 200)
 })
 </script>
 <template>

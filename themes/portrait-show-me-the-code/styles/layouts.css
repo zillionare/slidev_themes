@@ -6,6 +6,7 @@
 
 .slidev-layout {
     @apply h-full text-$slidev-theme-primary;
+    font-size: 8vw;
 
     p+h2,
     ul+h2,
@@ -20,16 +21,16 @@
 
     h2 {
         color: cadetblue;
-        @apply text-3xl text-left ml-4 mb-4;
+        @apply text-6xl text-left ml-4 mb-4 mt-6;
     }
 
     h3 {
         color: rgb(86, 134, 136);
-        @apply text-2xl text-left ml-14 mb-4;
+        @apply text-4xl text-left ml-14 mb-4;
     }
 
     h4 {
-        @apply text-xl text-left ml-28 mb-2;
+        @apply text-3xl text-left ml-28 mb-2;
     }
 
     h5 {
