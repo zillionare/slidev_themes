@@ -1,14 +1,18 @@
 ---
-theme: ./
 layout: cover
 title: Presentation title
+abstract: 这是摘要部分
+img: https://images.jieyu.ai/images/hot/book-cover.jpg
 brand: 💤illionare量化课程
 presenter: Aaron【量化风云】
-canvasWidth: 1200
 ---
 
 
-Presentation subtitle
+---
+layout: prelude-brand-only
+---
+
+<Brand/>
 
 ---
 layout: fact

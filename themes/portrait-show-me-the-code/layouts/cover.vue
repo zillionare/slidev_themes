@@ -25,7 +25,7 @@ const coverImg = computed(() => {
     left: 0;
     right: 0;
     padding: 2vw;
-    font-size: 25vw;
+    font-size: 20vw;
     background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
     background-size: cover;
     color: transparent;
@@ -37,14 +37,13 @@ const coverImg = computed(() => {
     position: absolute;
     top: 0%;
     left: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
     height: 500px;
     width: 100%;
 }
 
 .abstract {
     position: absolute;
-    font-size: 8vw;
+    font-size: 6vw;
     background-color: #000;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
     background-size: 85%;
@@ -55,7 +54,7 @@ const coverImg = computed(() => {
     left: 0;
     right: 0;
     top: 75%;
-    width: 100%;
+    width: 80%;
     text-align: center;
     padding: 0 4vw;
 }
@@ -65,6 +64,5 @@ const coverImg = computed(() => {
         <div class="cover-image" :style="coverImg" />
         <div class="title">{{ $slidev.configs.title }}</div>
         <div class="abstract">{{ $slidev.configs.abstract }}</div>
-        <Waves />
     </div>
 </template>

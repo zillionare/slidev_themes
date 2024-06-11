@@ -15,7 +15,6 @@ const imgList = [
 
 onMounted(() => {
     setTimeout(() => {
-        console.log("call next")
         $slidev.nav.next()
     }, 3000)
 })

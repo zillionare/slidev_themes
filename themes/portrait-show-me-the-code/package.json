@@ -16,7 +16,7 @@
     "highlighter": "all",
     "defaults": {
         "width": 430,
-        "aspectRatio": "3/5"
+        "aspectRatio": "12/16"
     }
   },
   "repository": {

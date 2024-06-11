@@ -1,10 +1,16 @@
 <template>
-    <div class="lhfy-badge" v-if="$slidev.nav.currentLayout !== 'cover'">
+    <div class="lhfy-badge" v-if="show">
     </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue'
 
+const show = computed(() => {
+    var layout = $slidev.nav.currentLayout
+    return ['cover', 'prelude', 'purelude-brand-only'].includes(layout)
+
+})
 </script>
 
 <style>

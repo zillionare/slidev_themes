@@ -28,21 +28,22 @@ const show = computed(() => {
 })
 </script>
 <template>
-    <Cast v-if="show" :dur="props.dur" left="props.left" w="props.w">
+    <Cast v-if="show" :dur="props.dur" left="props.left" w="400px">
         <div style="text-align:center;">
             <div
                 style="padding:100px 20px;background: url('https://images.jieyu.ai/images/hot/black-gold.jpg') repeat-y center top / contain">
+
                 《大富翁.量化二十四课》
 
-                ### 视频
+                <h3>视频</h3>
 
                 <video src="https://images.jieyu.ai/images/hot/video-sample.mp4" preload autoplay loop></video>
 
-                ### Notebook文稿和代码
+                <h3>Notebook文稿和代码</h3>
 
                 ![75%](https://images.jieyu.ai/images/hot/course-screenshot.jpg)
 
-                ### 1对1指导
+                <h3>1对1指导</h3>
 
                 量化投研系统专家、大富翁架构师、《Python高效编程实践指南》作者一对一指导。
 
