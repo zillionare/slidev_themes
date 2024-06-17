@@ -1,3 +1,4 @@
+<!--建议使用900*1200-->
 <script setup>
 import { computed, onMounted } from 'vue'
 const props = defineProps({
@@ -35,15 +36,15 @@ onMounted(() => {
 }
 
 .badge {
-    width: 200px;
-    height: 200px;
+    width: 12vw;
+    height: 12vw;
     position: relative;
     margin: 0 auto;
     text-align: center;
     background-image: url('https://images.jieyu.ai/images/2024/06/lhfy-badge.png');
     background-size: cover;
     filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.7));
-    animation: logo-anime 1.5s linear forwards;
+    animation: logo-anime 2.5s linear forwards;
 }
 
 @keyframes logo-anime {
@@ -70,12 +71,12 @@ onMounted(() => {
 }
 
 .mission {
-    font-size: 10vw;
+    font-size: 4vw;
     position: relative;
     text-align: center;
     width: 50%;
     margin: 0 auto 0 auto;
-    animation: mission-anime 1s linear 0.5s forwards;
+    animation: mission-anime 2s linear 0.5s forwards;
     opacity: 0;
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
@@ -98,10 +99,10 @@ onMounted(() => {
 
 .badge-small {
     position: fixed;
-    width: 15vw;
-    height: 15vw;
-    top: 5vw;
-    right: 5vw;
+    width: 7vw;
+    height: 7vw;
+    top: 2vw;
+    right: 2vw;
     opacity: 0;
     background-image: url('https://images.jieyu.ai/images/2024/06/lhfy-badge.png');
     background-size: cover;

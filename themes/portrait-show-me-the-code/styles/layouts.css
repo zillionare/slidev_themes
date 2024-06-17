@@ -1,12 +1,25 @@
 :root {
     --slidev-theme-primary: black;
     --slidev-theme-secondary: rgba(0, 0, 0, 0.6);
+    --slidev-code-font-size: 3.3vw;
+    --slidev-code-line-height: 1.2em;
     counter-reset: h2counter;
 }
 
 .slidev-layout {
     @apply h-full text-$slidev-theme-primary;
     font-size: 6vw;
+
+    * {
+        text-justify: inter-character;
+    }
+
+    .abs {
+        position: absolute;
+        top: 30%;
+        left: 0;
+        width: 100%;
+    }
 
     p+h2,
     ul+h2,

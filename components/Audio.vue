@@ -2,11 +2,23 @@
 import { onMounted, computed } from 'vue';
 
 var gallery = {
-    "du": "https://images.jieyu.ai/images/sounds/du.wav",
+    "du": "https://images.jieyu.ai/images/sounds/du.wav", /*很短的嘟*/
     "mouse-click": "https://images.jieyu.ai/images/sounds/mouse-click.wav",
-    "tida": "https://images.jieyu.ai/images/sounds/tida.aiff",
+    "tida": "https://images.jieyu.ai/images/sounds/tida.aiff", /* 滴哒滴哒滴哒 */
     "wechat-dingdong": "https://images.jieyu.ai/images/sounds/wechat-dingdong.wav",
-    "wechat-huwo": "https://images.jieyu.ai/images/sounds/wechat-huwo.mp3"
+    "wechat-huwo": "https://images.jieyu.ai/images/sounds/wechat-huwo.mp3",
+    "laughing-man": "https://images.jieyu.ai/images/sounds/laughing-man-04s.mp3",
+    "giggling1": "https://images.jieyu.ai/images/sounds/giggling-8s.mp3",
+    "giggling2": "https://images.jieyu.ai/images/sounds/giggling-08s.mp3",
+    "giggling3": "https://images.jieyu.ai/images/sounds/baby-laugh-28s.mp3",
+    "evil-man-laughing": "https://images.jieyu.ai/images/sounds/evil-man-laughing-02s.mp3",
+    "crow": "https://images.jieyu.ai/images/sounds/crow-03s.wav",/*乌鸦叫*/
+    "dodo": "https://images.jieyu.ai/images/sounds/做做提醒.mp3",
+    "whoosh-2": "https://images.jieyu.ai/images/sounds/whoosh-2.mp3",
+    "whoosh": "https://images.jieyu.ai/images/sounds/whoosh.mp3",
+    "bloop": "https://images.jieyu.ai/images/sounds/bloop-0s.mp3" /*bloop*/,
+    "pop": "https://images.jieyu.ai/images/sounds/pop-0s.mp3",
+    "typer": "https://images.jieyu.ai/images/sounds/typewriter-typing-27s.mp3" /*打字音效*/,
 }
 const props = defineProps({
     name: {
@@ -31,7 +43,7 @@ const props = defineProps({
     },
     delay: {
         type: Number,
-        default: 0
+        default: 0 /*延迟播放，毫秒单位*/
     }
 })
 
@@ -92,21 +104,26 @@ const show = computed(() => {
 
 const audioId = computed(() => {
     if (props.seq) {
-        return `#audio_${props.seq}`
+        return `audio_${props.seq}`
     }
 
     var at = props.at
     if (Number.isInteger(at) && at != -1) {
-        return `#audio_${at}`
+        return `audio_${at}`
     }
 
     var seq = Math.floor(Math.random() * 10000)
-    return `#audio_${seq}`
+    return `audio_${seq}`
 })
 
 onMounted(() => {
     var timer = setInterval(() => {
         var sound = document.getElementById(audioId.value);
+        if (sound == null) {
+            clearInterval(timer);
+            console.info(`未找到Audio${audioId.value}`)
+            return
+        }
 
         sound.volume = props.volume
         var count = localStorage.getItem(audioId.value)

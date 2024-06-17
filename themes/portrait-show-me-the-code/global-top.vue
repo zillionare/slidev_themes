@@ -8,18 +8,18 @@ import { computed } from 'vue'
 
 const show = computed(() => {
     var layout = $slidev.nav.currentLayout
-    return ['cover', 'prelude', 'purelude-brand-only'].includes(layout)
+    return !['cover', 'prelude', 'prelude-brand-only'].includes(layout)
 
 })
 </script>
 
 <style>
 .lhfy-badge {
-    width: 15vw;
-    height: 15vw;
+    width: 7vw;
+    height: 7vw;
     position: absolute;
-    top: 5vw;
-    right: 5vw;
+    top: 2vw;
+    right: 2vw;
     background-image: url('https://images.jieyu.ai/images/2024/06/lhfy-badge.png');
     background-size: cover;
     filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.5));

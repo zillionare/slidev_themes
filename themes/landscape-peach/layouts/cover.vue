@@ -1,11 +1,17 @@
+<!-- 
+    title
+    subtile
+    sloga
+    seq
+-->
 <script setup lang="ts">
 import { computed } from 'vue'
 import { handleBackground } from '../layoutHelper'
 
 const props = defineProps({
-  background: {
-    default: '/public/desktop.jpg',
-  }
+    background: {
+        default: '/desktop.jpg',
+    }
 })
 
 const style = computed(() => handleBackground(props.background, false))
@@ -13,12 +19,12 @@ const style = computed(() => handleBackground(props.background, false))
 </script>
 <style>
 .title {
-        position: absolute;
-        top: 15%;
-        left: 1.5rem;
-        width:100%;
-        text-align: left;
-    }
+    position: absolute;
+    top: 15%;
+    left: 1.5rem;
+    width: 100%;
+    text-align: left;
+}
 
 .title:after {
     content: " ";
@@ -54,17 +60,17 @@ const style = computed(() => handleBackground(props.background, false))
 }
 
 .mask {
-    background-color:  var(--slidev-theme-three);
+    background-color: var(--slidev-theme-three);
     opacity: 80%;
     position: absolute;
-    width:100%;
+    width: 100%;
     top: 25%;
     height: 40%;
-    left:0;
+    left: 0;
 }
 
 .seq {
-    position:absolute;
+    position: absolute;
     left: 0.5rem;
     top: 1.5rem;
     font-size: small;
@@ -80,33 +86,30 @@ const style = computed(() => handleBackground(props.background, false))
     top: 10%;
     left: 65%;
     color: white;
+
     h3 {
         color: white;
     }
 }
-
 </style>
 <template>
-<div
-class="slidev-layout cover text-center"
-:style="style"
->
-    <div class="mask">
-    <h1 class="my-auto w-full title">
-        {{ $slidev.nav.currentRoute.meta.title }}
-    </h1>
-    <div class="subtitle">
-        {{ $slidev.nav.currentRoute.meta.subtitle }}
+    <div class="slidev-layout cover text-center" :style="style">
+        <div class="mask">
+            <h1 class="my-auto w-full title">
+                {{ $slidev.nav.currentRoute.meta.title }}
+            </h1>
+            <div class="subtitle">
+                {{ $slidev.nav.currentRoute.meta.subtitle }}
+            </div>
+        </div>
+        <div class="slogan">
+            {{ $slidev.nav.currentRoute.meta.slogan }}
+        </div>
+        <div class="seq">
+            {{ $slidev.nav.currentRoute.meta.seq }}
+        </div>
+        <div id="agenda">
+            <slot name="agenda" />
+        </div>
     </div>
-</div>
-<div class="slogan">
-    {{ $slidev.nav.currentRoute.meta.slogan }}
-</div>
-<div class="seq">
-    {{ $slidev.nav.currentRoute.meta.seq }}
-</div>
-<div id="agenda">
-    <slot name="agenda"/>
-</div>
-</div>
 </template>

@@ -28,7 +28,7 @@ const show = computed(() => {
 })
 </script>
 <template>
-    <Cast v-if="show" :dur="props.dur" left="props.left" w="400px">
+    <Cast v-if="show" :dur="props.dur" left="props.left" w="1200px">
         <div style="text-align:center;">
             <div
                 style="padding:100px 20px;background: url('https://images.jieyu.ai/images/hot/black-gold.jpg') repeat-y center top / contain">
@@ -41,7 +41,7 @@ const show = computed(() => {
 
                 <h3>Notebook文稿和代码</h3>
 
-                ![75%](https://images.jieyu.ai/images/hot/course-screenshot.jpg)
+                <img src="https://images.jieyu.ai/images/hot/course-screenshot.jpg" />
 
                 <h3>1对1指导</h3>
 

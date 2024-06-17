@@ -28,9 +28,9 @@ const props = defineProps({
     left: 0;
     right: 0;
     font-size: 6vw;
-    background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
+    background-image: url("https://images.jieyu.ai/images/hot/quant-logo.jpg");
     background-size: cover;
-    color: transparent;
+    color: rgba(0, 0, 0, 0);
     background-clip: text;
     text-align: center
 }
@@ -40,8 +40,8 @@ const props = defineProps({
     top: 0;
     text-align: left;
     left: 0;
-    border-left: 5px solid cadetblue;
-    border-right: 5px solid cadetblue;
+    border-left: 5px solid rgba(0, 0, 0, 0.2);
+    border-right: 5px solid rgba(0, 0, 0, 0.2);
     background-color: aliceblue;
     padding: 5px 20px 5px 10px;
     border-radius: 0 20px 0 20px;

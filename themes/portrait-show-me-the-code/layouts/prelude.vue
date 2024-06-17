@@ -15,7 +15,9 @@ const imgList = [
 
 onMounted(() => {
     setTimeout(() => {
-        $slidev.nav.next()
+        var layout = $slidev.nav.currentLayout
+        if (layout == "prelude")
+            $slidev.nav.next()
     }, 3000)
 })
 </script>

@@ -25,3 +25,5 @@ export function choice(arr){
 
     return arr[p]
 }
+
+

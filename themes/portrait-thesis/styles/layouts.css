@@ -10,6 +10,10 @@
 .slidev-layout {
     @apply h-full text-left text-$slidev-theme-primary;
 
+    * {
+        text-justify: inter-character;
+    }
+
     p+h2,
     ul+h2,
     table+h2 {
