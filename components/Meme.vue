@@ -53,8 +53,7 @@ const memes = {
     "crow": "https://images.jieyu.ai/images/hot/crow.gif",
     "turtle": "https://images.jieyu.ai/images/hot/turtle.gif",
     "anticipation": "https://images.jieyu.ai/images/hot/anticipation.gif",
-    // "so-broken": "https://images.jieyu.ai/images/hot/so-broken.gif",
-    "so-broken": "https://images.jieyu.ai/images/hot/anticipation.gif",
+    "so-broken": "https://images.jieyu.ai/images/hot/so-broken.gif",
 }
 
 const url = computed(() => {

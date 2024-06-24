@@ -20,8 +20,4 @@ export function makeArr(startValue, stopValue, cardinality) {
   return arr;
 }
 
-export function choice(arr){
-    var p = Math.round(Math.random() * (arr.length - 0.5))
 
-    return arr[p]
-}

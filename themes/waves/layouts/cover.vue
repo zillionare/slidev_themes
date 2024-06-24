@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 
 </script>
 <style>
@@ -34,7 +33,6 @@ import { computed } from 'vue'
 .brand {
     position: absolute;
     left: 0;
-    width: 18vw;
     height: 5vh;
     top: 2vh;
     text-align: left;
@@ -159,13 +157,13 @@ body {
     <div class="header">
         <div class="inner-header">
             <!--brand-->
-            <div class="brand"> {{ $slidev.nav.currentSlideRoute.meta.slide.frontmatter.brand }}</div>
+            <div class="brand"> {{ $slidev.configs.seq }}</div>
             <!--title-->
-            <div class="title"> {{ $slidev.nav.currentSlideRoute.meta.slide.title }}</div>
-            <div class="subtitle">{{ $slidev.nav.currentSlideRoute.meta.slide.subtitle }}</div>
+            <div class="title"> {{ $slidev.configs.title }}</div>
+            <div class="subtitle">{{ $slidev.configs.subtitle }}</div>
 
             <!--presenter-->
-            <div class="presenter"> {{ $slidev.nav.currentSlideRoute.meta.slide.frontmatter.presenter }}</div>
+            <div class="presenter"> {{ $slidev.configs.presenter }}</div>
         </div>
     </div>
     <!--Waves-->

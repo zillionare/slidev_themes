@@ -16,6 +16,14 @@ const props = defineProps({
     w: {
         type: String,
         default: '60%'
+    },
+    perspective: {
+        type: String,
+        default: '1000px'
+    },
+    perspective_origin: {
+        type: String,
+        default: '50%'
     }
 })
 
@@ -28,7 +36,8 @@ const show = computed(() => {
 })
 </script>
 <template>
-    <Cast v-if="show" :dur="props.dur" left="props.left" w="1200px">
+    <Cast v-if="show" :dur="props.dur" perspective="props.perspective" left="props.left" w="props.w"
+        perspective_origin="props.perspective_origin">
         <div style="text-align:center;">
             <div
                 style="padding:100px 20px;background: url('https://images.jieyu.ai/images/hot/black-gold.jpg') repeat-y center top / contain">
@@ -53,17 +62,11 @@ const show = computed(() => {
                     <img src="https://images.jieyu.ai/images/hot/me.png" style="width:200px">
                 </div>
 
-
-                ✥ 超翔实内容：文字稿约40万字节。
-
-                ✥ 快速上手：环境基于Jupyter Lab构建，在线使用，无须安装和拷贝数据。
-
-                ✥ 昂贵的商业数据：超过30亿条分钟级行情数据
-
-                ✥ 贴近实战：提供真实数据回测环境
-
-                ✥ 豪华环境：192核CPU和256GB内存（学员共享）
-
+                ✥ 超翔实内容：文字稿约40万字节。<br>
+                ✥ 快速上手：环境基于Jupyter Lab构建，在线使用，无须安装和拷贝数据。<br>
+                ✥ 昂贵的商业数据：超过30亿条分钟级行情数据<br>
+                ✥ 贴近实战：提供真实数据回测环境<br>
+                ✥ 豪华环境：192核CPU和256GB内存（学员共享）<br>
                 <slot></slot>
             </div>
         </div>

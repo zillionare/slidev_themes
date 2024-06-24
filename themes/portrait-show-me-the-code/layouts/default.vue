@@ -13,7 +13,8 @@ const style = computed(() => {
         return {}
     } else {
         return {
-            backgroundImage: `url(${props.img})`
+            backgroundImage: `url(${props.img})`,
+            zIndex: -100
         }
     }
 })

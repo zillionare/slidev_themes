@@ -1,6 +1,6 @@
 <!-- borrowed from https://github.com/moudev/slidev-theme-purplin -->
 <script setup>
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 const props = defineProps({
     image: {
@@ -12,7 +12,7 @@ const props = defineProps({
     }
 })
 
-const image = computed(() => props.image || '/section-right.jpg')
+const image = computed(() => props.image || 'https://images.jieyu.ai/images/hot/adventure.jpg')
 const imageOrder = computed(() => props.imageOrder === 1 ? 'order-1' : 'order-2')
 const textAlignment = computed(() => props.imageOrder === 1
     ? 'text-right order-2 justify-end'

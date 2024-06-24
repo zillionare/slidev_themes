@@ -5,7 +5,6 @@
 <script setup>
 import { onMounted } from 'vue'
 import { computed } from 'vue'
-import { product, makeArr, choice } from '../tools'
 import { parseRangeString } from '@slidev/parser/core'
 
 const props = defineProps({
