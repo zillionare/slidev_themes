@@ -78,7 +78,7 @@ const titleStyle = computed(() => {
         "box-shadow": "0 1px 2px rgba(0, 0, 0, 0.2)",
         "padding": ".8rem 1.0rem .8rem 1rem",
         "text-align": props.titleAlign,
-        "mix-blend-mode": "difference",
+        // "mix-blend-mode": "difference",
     }
     if (props.gradientTitle == true) {
         style["background"] = `linear-gradient(to right, ${props.color} 0%, ${darkColor} 100%)`
@@ -100,7 +100,7 @@ const mainStyle = computed(() => {
 }
 </style>
 <template>
-    <div class="title-box" v-motion v-bind="$attr" :style="boxStyle">
+    <div class="title-box" v-motion v-bind="$attrs" :style="boxStyle">
         <p :style="titleStyle">{{ $props.title }}</p>
         <div class="main" :style="mainStyle">
             <slot></slot>
