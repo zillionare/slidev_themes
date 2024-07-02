@@ -15,6 +15,12 @@
     "colorSchema": "light",
     "highlighter": "all"
   },
+  "scripts": {
+    "dev": "slidev example.md --open",
+    "deploy": "gh-pages -d dist",
+    "export": "slidev export example.md",
+    "screenshot": "slidev export example.md --format png"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/slidevjs/themes"

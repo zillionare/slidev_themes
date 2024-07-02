@@ -17,7 +17,7 @@
 
     h1 {
         /*this is title*/
-        @apply text-4xl text-left;
+        @apply text-4xl text-left mb-16;
     }
 
     h2 {
