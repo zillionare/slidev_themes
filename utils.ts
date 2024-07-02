@@ -1,9 +1,9 @@
 
-export function isShow(at, slidev){
-    if (Array.isArray(at)) {
-        return at.includes(slidev.nav.clicks)
+export function isShow(rng, click){
+    if (Array.isArray(rng)) {
+        return rng.includes(click)
     } else {
-        return [-1, slidev.nav.clicks].includes(at)
+        return [-1, click].includes(rng)
     }
 }
 
