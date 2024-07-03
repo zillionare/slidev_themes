@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watchEffect, ref, createVNode, nextTick, reactive } from 'vue';
+import { onMounted, watchEffect, ref, reactive } from 'vue';
 import Anime from './Anime.vue';
 import tinycolor from 'tinycolor2';
 
@@ -124,12 +124,20 @@ onMounted(() => {
             let [subtitle, background] = line.split(" ")
             lines.value.push(subtitle)
             if (background) {
-                console.log("background:", lines.value.length, background, line)
+                // console.log("background:", lines.value.length, background, line)
                 backgrounds[lines.value.length - 1] = background
             }
         })
     }
 })
+
+function randomColor() {
+    let hue = Math.floor(Math.random() * 360);
+    let saturation = Math.floor(Math.random() * 30) + 70;
+    let lightness = Math.random() * 30 + 30;
+    let color = tinycolor({ h: hue, s: saturation, l: lightness })
+    return color
+}
 
 watchEffect(() => {
     if ($renderContext.value !== 'slide')
@@ -159,6 +167,7 @@ watchEffect(() => {
     let bottom = rect.height - parseInt(computed.paddingBottom)
 
     let enter_action = Math.floor(Math.random() * props.enter.length)
+    let color = randomColor(props.lightness)
     let anime = {
         text: text,
         action: props.enter[enter_action],
@@ -169,7 +178,7 @@ watchEffect(() => {
             position: "absolute",
             width: "100%",
             lineHeight: fontSize * 1.2 + "px",
-            color: tinycolor.random().lighten(props.lightAdjust).toHexString(),
+            color: color,
             "mix-blend-mode": props.colorMix,
         }
     }
@@ -184,7 +193,7 @@ watchEffect(() => {
     let cum = 0
     for (let i = animes.length - 1; i >= 0; i--) {
         if (animes.length - i > props.maxLines) {
-            console.log(animes.length, i)
+            // console.log(animes.length, i)
             let j = Math.floor(Math.random() * props.exit.length);
             animes[i].action = props.exit[j]
         }
