@@ -15,7 +15,7 @@
     "colorSchema": "light",
     "highlighter": "all",
     "defaults": {
-        "width": 430,
+        "width": 800,
         "aspectRatio": "12/16"
     }
   },

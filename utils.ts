@@ -19,3 +19,8 @@ export function createStyle(content){
     ss.innerHTML = content
     document.head.appendChild(ss);
 }
+
+export function randomString(n=8, prefix=""){
+    const length = n - prefix.length;
+    return Math.random().toString(36).substring(2,2+length);
+}
