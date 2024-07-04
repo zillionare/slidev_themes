@@ -17,7 +17,6 @@ export function _buildChatBotClipPath(id_, rectWidth, rectHeight, triangleSide, 
         rw = rectWidth - triangleHeight
         rh = rectHeight
 
-        console.log(x0, y0, x1, y1, x2, y2, rectWidth, rectHeight)
     }else if (side === "left"){
         x0 = x1 = triangleHeight
         y0 = rectHeight/2 - triangleSide / 2
@@ -68,11 +67,8 @@ export function _buildChatBotClipPath(id_, rectWidth, rectHeight, triangleSide, 
     `;
 }
 
-/*
+//chatbox是指一个矩形，其中一边有三角形凸起。
 
-        <rect x="0" y="0" width="${rectWidth}" height="${rectHeight}" rx="${borderRadius}" />
-        <polygon points="${polygonPoints}" />
-*/
 export function buildChatBotClipPath(rectWidth, rectHeight, side="left", triSideLen=0, borderRadius=10, id_=""){
     if (!id_){
         id_ = randomString();
@@ -93,7 +89,7 @@ export function buildChatBotClipPath(rectWidth, rectHeight, side="left", triSide
     svgDefs.innerHTML = clipPath
     document.body.appendChild(svgDefs);
 
-    console.log("clip path is", clipPath);
+    console.debug("clip path is", clipPath);
     //返回clipPath, 可以用el.style.clipPath = buildChatBotClipPath()...
     return `url(#${id_})`;
 }

@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref, onMounted, reactive, watchEffect, computed, nextTick } from 'vue';
+import { ref, onMounted, reactive, watchEffect, nextTick } from 'vue';
 import { Icon } from '@iconify/vue'
 import { buildChatBotClipPath } from './paths/chatbox'
 
@@ -95,10 +95,8 @@ watchEffect(() => {
         offset += (lastClicks - $clicks.value) * 100
         lastClicks = $clicks.value
 
-        console.log("offset: " + offset)
         timeline.value.style.transform = `translateY(${offset}px)`;
     }
-    // console.log(wrapperBox.value)
 })
 
 onMounted(async () => {
@@ -148,7 +146,7 @@ onMounted(async () => {
         data.push(item)
     }
 
-    console.log("data", data)
+    // console.log("data", data)
     await nextTick()
 
     // 为各事件容器计算clipbox
@@ -173,6 +171,7 @@ const setRefs = (el, index) => {
     position: relative;
     overflow: hidden;
     transition: transform 0.5s ease;
+    padding: 2em 0;
 }
 
 .timeline:before {
@@ -196,8 +195,15 @@ const setRefs = (el, index) => {
     margin-bottom: 2em;
 }
 
+.timeline-event,
+.timeline-text {
+    flex-basis: calc(50% - 4vw);
+    padding: 1rem 0;
+}
+
 .timeline-event {
     font-size: 3.5vw;
+    background: #fcfcfc;
 
     p {
         text-align: center;
@@ -249,16 +255,6 @@ const setRefs = (el, index) => {
     width: 100%;
     /* background: #fcfcfc; */
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-
-    .timeline-event {
-        background: #fcfcfc;
-    }
-}
-
-.timeline-event,
-.timeline-text {
-    flex-basis: calc(50% - 4vw);
-    padding: 1rem 0;
 }
 
 .timeline-even::after {
@@ -288,10 +284,6 @@ const setRefs = (el, index) => {
     width: 100%;
     /* background: #fcfcfc; */
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-
-    .timeline-event {
-        background: #fcfcfc;
-    }
 }
 </style>
 <template>
