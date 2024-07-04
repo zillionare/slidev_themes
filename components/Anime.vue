@@ -21,20 +21,19 @@ const props = defineProps({
     }
 })
 
-const style = computed(() => {
-    var attrs = useAttrs()
+
+const animations = computed(() => {
     return {
         "animation": props.action,
         "animation-duration": props.dur,
         "animation-delay": props.delay,
         "animation-fill-mode": "forwards",
-        ...attrs.style
     }
 })
 </script>
 <template>
     <div v-if="isShow(props.at, $clicks)" v-motion v-bind="$attrs">
-        <div :style="style">
+        <div :style="animations">
             <slot />
         </div>
     </div>

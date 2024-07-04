@@ -1,14 +1,16 @@
 <script setup>
-import { onMounted, watchEffect, ref, reactive } from 'vue';
+import { onMounted, watchEffect, ref, reactive, nextTick, onUnmounted } from 'vue';
 import Anime from './Anime.vue';
 import tinycolor from 'tinycolor2';
 
 const text = ref(null)
 const lines = ref([])
 const animes = reactive([])
-const duplicates = ref({})
+let rendered = {}
 const container = ref(null)
 const backgrounds = {}
+const view = ref([])
+let observer
 
 const props = defineProps({
     maxLines: {
@@ -103,19 +105,26 @@ const props = defineProps({
             'zoomOutUp',
         ]
     },
-    offsetY: {// 文字出现时，离底部的距离
+    offsetY: {// The distance between the text appearance and the bottom
         type: Number,
         default: 0
     },
-    colorMix: {//文字与背景颜色混合模式
+    colorMix: {//Text and background color blend mode
         type: String,
         default: "difference"
     }
 })
 
-onMounted(() => {
+onUnmounted(() => {
+    if (observer && container.value) {
+        observer.unobserve(container.value);
+    }
+});
+
+onMounted(async () => {
     if (text.value !== null && $renderContext.value === 'slide') {
         animes.values = []
+        rendered = {}
 
         text.value.textContent.split("\n").forEach(function (line) {
             if (line === "")
@@ -124,12 +133,32 @@ onMounted(() => {
             let [subtitle, background] = line.split(" ")
             lines.value.push(subtitle)
             if (background) {
-                // console.log("background:", lines.value.length, background, line)
                 backgrounds[lines.value.length - 1] = background
             }
         })
     }
-})
+
+    await nextTick()
+    observer = new ResizeObserver(entries => {
+        for (let entry of entries) {
+            const { width, height, top, left } = entry.contentRect;
+            if (width > 0 || height > 0) {
+                view.value = {
+                    "x": left,
+                    "y": top,
+                    "width": width,
+                    "height": height
+                }
+
+                console.log("size changed", view.value)
+            }
+        }
+    })
+
+    if (container.value) {
+        observer.observe(container.value);
+    }
+});
 
 function randomColor() {
     let hue = Math.floor(Math.random() * 360);
@@ -140,12 +169,12 @@ function randomColor() {
 }
 
 watchEffect(() => {
-    if ($renderContext.value !== 'slide')
+    if ($renderContext.value !== 'slide' || !view.value.width || !view.value.height)
         return
 
     if ($clicks.value === 0) {
-        animes.values = []
-        duplicates.value = {}
+        animes.splice(0);
+        rendered = {}
     }
 
     // set background
@@ -155,17 +184,12 @@ watchEffect(() => {
     }
 
     let text = lines.value[$clicks.value]
-    if (text === undefined || $clicks.value in duplicates.value) {
+    if (text === undefined || text in rendered) {
+        //already rendered
         return
     }
 
-    let root = document.querySelector("div.slidev-layout")
-    let computed = window.getComputedStyle(root)
-    let rect = root.getBoundingClientRect()
-    let width = root.clientWidth - parseInt(computed.paddingLeft) - parseInt(computed.paddingRight)
-    let fontSize = Math.round(width / text.length)
-    let bottom = rect.height - parseInt(computed.paddingBottom)
-
+    let fontSize = Math.floor(view.value.width / text.length)
     let enter_action = Math.floor(Math.random() * props.enter.length)
     let color = randomColor(props.lightness)
     let anime = {
@@ -184,34 +208,42 @@ watchEffect(() => {
     }
     animes.push(anime)
 
-    duplicates.value[$clicks.value] = {
+    rendered[text] = {
         text: text,
-        top: rect.height * 0.8,
+        top: view.value.height - fontSize * 1.2,
         fontSize: fontSize
     }
 
+    // when new text is added, adjust old animes's position
     let cum = 0
     for (let i = animes.length - 1; i >= 0; i--) {
-        if (animes.length - i > props.maxLines) {
+        if (animes.length - i === props.maxLines + 1) {
             // console.log(animes.length, i)
             let j = Math.floor(Math.random() * props.exit.length);
             animes[i].action = props.exit[j]
         }
-        let item = duplicates.value[i]
+
+        if (animes.length - i > props.maxLines + 1) {
+            // console.log(animes.length, i)
+            animes[i].style.display = "none"
+        }
+
+        let item = rendered[animes[i].text];
         if (item === undefined) {
-            console.warn(`${i}th item not found, ${lines[i]}`)
+            console.warn(`${text} not found in rendered`)
             continue
         }
-        cum += item.fontSize + 10
-        animes[i].style.top = bottom - cum - props.offsetY + "px"
-    }
 
+        cum += item.fontSize + 30
+        animes[i].style.top = view.value.height - cum - props.offsetY + "px"
+        console.log("calc top:", animes[i].text, view.value.height - cum - props.offsetY + "px")
+    }
 })
 
 </script>
 
 <template>
-    <div style="opacity: 0" ref="text">
+    <div style="display: none" ref="text">
         <slot />
     </div>
     <div v-bind="$attrs" v-motion ref="container">
