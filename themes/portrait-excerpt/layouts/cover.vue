@@ -13,7 +13,7 @@ const props = defineProps({
     },
     img: {
         type: String,
-        default: "https://source.unsplash.com/random/360x200?spring"
+        default: ""
     }
 })
 
@@ -40,27 +40,33 @@ const stamp = computed(() => {
     return `${map[$slidev.configs.stamp]}`
 })
 
-onMounted(() => {
-    // console.log($slidev.nav.currentRoute)
-    var el = document.getElementById("title-img")
-    if (el == null) {
-        var html = `<img id="title-img" src=${props.img} class='title-img'>`;
-        document.getElementById("slideshow").insertAdjacentHTML("afterbegin", html)
+const titleImg = computed(() => {
+    return {
+        "background-image": "url(" + props.img + ")",
     }
-
-    setInterval(function () {
-        // console.log($slidev.nav.currentPage)
-        var el = document.getElementById("title-img")
-
-        // 在其它页面时隐藏
-        if ($slidev.nav.currentPage == 1) {
-            el.style.display = ""
-        } else {
-            el.style.display = "none"
-        }
-    });
-
 })
+
+// onMounted(() => {
+//     // console.log($slidev.nav.currentRoute)
+//     var el = document.getElementById("title-img")
+//     if (el == null) {
+//         var html = `<img id="title-img" src=${props.img} class='title-img'>`;
+//         document.getElementById("slideshow").insertAdjacentHTML("afterbegin", html)
+//     }
+
+//     setInterval(function () {
+//         // console.log($slidev.nav.currentPage)
+//         var el = document.getElementById("title-img")
+
+//         // 在其它页面时隐藏
+//         if ($slidev.nav.currentPage == 1) {
+//             el.style.display = ""
+//         } else {
+//             el.style.display = "none"
+//         }
+//     });
+
+// })
 
 </script>
 
@@ -68,12 +74,14 @@ onMounted(() => {
 <style>
 .title-img {
     width: 100%;
-    max-height: 450px;
+    height: 500px;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.6);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .cover {
-    margin-top: 45vh;
+    margin-top: 10vh;
 
     .title {
         font-size: 5vw;
@@ -132,8 +140,9 @@ onMounted(() => {
 }
 </style>
 <template>
-    <div class="stamp"><img :src="stamp" />
-        <div class="test" />
+    <div class="title-img" :style="titleImg">
+        <div class="stamp"><img :src="stamp" />
+        </div>
     </div>
     <div class="slidev-layout cover cover-override">
         <div class="motto"> {{ props.motto }}</div>
