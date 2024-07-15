@@ -202,7 +202,7 @@ const setRefs = (el, index) => {
 }
 
 .timeline-event {
-    font-size: 3.5vw;
+    font-size: 3vw;
     background: #fcfcfc;
 
     p {
@@ -223,18 +223,18 @@ const setRefs = (el, index) => {
 }
 
 .timeline-text {
-    font-size: 3vw;
+    font-size: 2vw;
 
-    .title {
-        font-size: 1.6em;
+    .timeline-title {
+        font-size: 1.4em;
     }
 
-    .subtitle {
-        font-size: 1.3em;
+    .timeline-subtitle {
+        font-size: 1.2em;
     }
 
     p {
-        font-size: 1em;
+        font-size: 0.8em;
         line-height: 1.2em;
     }
 }
@@ -300,16 +300,19 @@ const setRefs = (el, index) => {
                 </div>
                 <div class="dot" />
                 <div class="timeline-text">
-                    <div class="title" v-if="item.title" :style="{ color: item.titleColor }">{{ item.title }}</div>
-                    <div class="subtitle" v-if="item.subtitle">{{ item.subtitle }}</div>
+                    <div class="timeline-title" v-if="item.title" :style="{ color: item.titleColor }">{{ item.title }}
+                    </div>
+                    <div class="timeline-subtitle" v-if="item.subtitle">{{ item.subtitle }}</div>
                     <p v-if="item.text">{{ item.text }}</p>
                 </div>
             </div>
             <div v-else class="timeline-item-odd">
                 <div class="timeline-text">
-                    <div class="title" v-if="item.title" :style="{ color: item.titleColor }">{{ item.title }}</div>
-                    <div class="subtitle" v-if="item.subtitle" :style="{ color: item.subtitleColor }">{{ item.subtitle
-                        }}
+                    <div class="timeline-title" v-if="item.title" :style="{ color: item.titleColor }">{{ item.title }}
+                    </div>
+                    <div class="timeline-subtitle" v-if="item.subtitle" :style="{ color: item.subtitleColor }">{{
+        item.subtitle
+    }}
                     </div>
                     <p v-if="item.text" :style="{ color: item.textColor }">{{ item.text }}</p>
                 </div>

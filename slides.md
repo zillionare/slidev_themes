@@ -25,6 +25,9 @@ mdc: true
 
 # Welcome to Slidev
 
+!!! tip
+    ths is a tip
+
 Presentation slides for developers
 
 <div class="pt-12">

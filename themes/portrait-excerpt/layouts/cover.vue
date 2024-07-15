@@ -28,6 +28,18 @@ const calendar = computed(() => {
     }
 })
 
+const stamp = computed(() => {
+    let map = {
+        "figure": "https://images.jieyu.ai/images/hot/brand-figure.png",
+        "career": "https://images.jieyu.ai/images/hot/career.png",
+        "tools": "https://images.jieyu.ai/images/hot/tools.png",
+        "freshman": "https://images.jieyu.ai/images/hot/freshman.png",
+        "factors": "https://images.jieyu.ai/images/hot/factors.png",
+        "resources": "https://images.jieyu.ai/images/hot/resources.png"
+    }
+    return `${map[$slidev.configs.stamp]}`
+})
+
 onMounted(() => {
     // console.log($slidev.nav.currentRoute)
     var el = document.getElementById("title-img")
@@ -90,11 +102,42 @@ onMounted(() => {
         margin-bottom: 6vw;
     }
 }
+
+.stamp {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 80px;
+    height: auto;
+    /* border-radius: 48% 50% 48% 50% / 30% 30% 70% 70%; */
+    /* background: #FF0099; */
+    /* background-color: white; */
+    filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.5));
+}
+
+.stamp img {
+    display: block;
+}
+
+.stamp::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    z-index: -1;
+}
 </style>
 <template>
+    <div class="stamp"><img :src="stamp" />
+        <div class="test" />
+    </div>
     <div class="slidev-layout cover cover-override">
         <div class="motto"> {{ props.motto }}</div>
-        <div class="title"> {{ $slidev.configs.title }}</div>
+        <div class="title" v-html="$slidev.configs.title"></div>
         <!--<div class="date"> {{calendar.month_ch}}{{ calendar.day }}日 {{ calendar.week_day }}</div>-->
         <slot style="padding:03.vw 2vw" />
     </div>

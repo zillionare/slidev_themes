@@ -130,7 +130,7 @@ onMounted(async () => {
             if (line === "")
                 return
 
-            let [subtitle, background] = line.split(" ")
+            let [subtitle, background] = line.split("<bg>")
             lines.value.push(subtitle)
             if (background) {
                 backgrounds[lines.value.length - 1] = background

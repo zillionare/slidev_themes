@@ -155,7 +155,7 @@ onMounted(() => {
 })
 </script>
 <template>
-    <div v-show="show">
+    <div v-show="show" v-bind="$attrs">
         <audio :id="audioId" :src="src"></audio>
     </div>
 </template>

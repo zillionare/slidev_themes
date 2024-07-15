@@ -1,7 +1,5 @@
-
-
 <script lang="ts" setup>
-import { ref, onMounted, onUpdated, computed} from 'vue';
+import { ref, onMounted, onUpdated, computed } from 'vue';
 import { Transformer } from 'markmap-lib';
 import { Markmap } from 'markmap-view';
 import { deriveOptions } from 'markmap-view';
@@ -19,7 +17,7 @@ const props = defineProps({
         type: String,
         default: "50%"
     },
-    colorFreezeLevel:{
+    colorFreezeLevel: {
         type: Number,
         default: 3
     },
@@ -46,7 +44,7 @@ const props = defineProps({
 
 })
 
-const style = computed(()=>{
+const style = computed(() => {
     let style = {
         "width": props.w,
         "height": props.h
@@ -54,7 +52,7 @@ const style = computed(()=>{
 
     return style
 })
-const update = ()=>{
+const update = () => {
     const { root } = transformer.transform(text.value);
     mm.value.setData(root);
     mm.value.fit();
@@ -62,8 +60,8 @@ const update = ()=>{
 
 onUpdated(update);
 
-onMounted(()=>{
-	// 初始化markmap思维导图
+onMounted(() => {
+    // 初始化markmap思维导图
     const options = deriveOptions({
         "colorFreezeLevel": props.colorFreezeLevel,
         "duration": props.duration,
@@ -72,19 +70,19 @@ onMounted(()=>{
         "zoom": props.zoom,
         "pan": props.pan,
     });
-	// mm.value = Markmap.create(svgRef.value, options);
-	mm.value = Markmap.create(svgRef.value);
+    // mm.value = Markmap.create(svgRef.value, options);
+    mm.value = Markmap.create(svgRef.value);
 
     let selector = 'div.hide'
     text.value = document.querySelector(selector).textContent
-    console.info("text value is", text.value)
+    console.debug("text value is", text.value)
     setTimeout(update, 500)
 })
 </script>
 
 <style scoped>
 .hide {
-    display:none;
+    display: none;
 }
 
 .wrapper {
@@ -93,13 +91,12 @@ onMounted(()=>{
     display: flex;
     justify-content: center;
 }
-
 </style>
 <template>
-<div class="wrapper">
-    <div class="hide">
-        <slot></slot>
+    <div class="wrapper">
+        <div class="hide">
+            <slot></slot>
+        </div>
+        <svg ref="svgRef" :style="style" />
     </div>
-    <svg ref="svgRef" :style="style"/>
-</div>
 </template>

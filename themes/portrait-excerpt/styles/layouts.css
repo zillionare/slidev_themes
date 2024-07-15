@@ -8,6 +8,7 @@
 }
 
 .slidev-layout {
+    text-justify: inter-character;
     @apply h-full text-left text-$slidev-theme-primary;
 
     p+h2,
