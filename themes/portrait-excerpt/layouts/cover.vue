@@ -37,12 +37,17 @@ const stamp = computed(() => {
         "factors": "https://images.jieyu.ai/images/hot/factors.png",
         "resources": "https://images.jieyu.ai/images/hot/resources.png"
     }
-    return `${map[$slidev.configs.stamp]}`
+    return `${map[$slidev.configs.category]}`
 })
 
 const titleImg = computed(() => {
+    let width = $slidev.configs.stamp_width ? `${$slidev.configs.stamp_width}` : '60%'
+    let height = $slidev.configs.stamp_height ? `${$slidev.configs.stamp_height}` : '60%'
     return {
         "background-image": "url(" + props.img + ")",
+        // used for stamp background
+        "--stamp-bg-width": width,
+        "--stamp-bg-height": height
     }
 })
 
@@ -120,7 +125,24 @@ const titleImg = computed(() => {
     /* border-radius: 48% 50% 48% 50% / 30% 30% 70% 70%; */
     /* background: #FF0099; */
     /* background-color: white; */
-    filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.copyright {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: white;
+}
+
+.header-img-desc {
+    margin: 2.5em 0;
+
+    p {
+        color: #939393;
+        font-size: 1.1em;
+        line-height: 1.6em;
+    }
 }
 
 .stamp img {
@@ -133,16 +155,16 @@ const titleImg = computed(() => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
+    width: var(--stamp-bg-width);
+    height: var(--stamp-bg-height);
     background-color: white;
     z-index: -1;
 }
 </style>
 <template>
     <div class="title-img" :style="titleImg">
-        <div class="stamp"><img :src="stamp" />
-        </div>
+        <div class="stamp"><img :src="stamp" /></div>
+        <!-- <div class="copyright">{{ $slidev.configs.imgCopyRight }}</div> -->
     </div>
     <div class="slidev-layout cover cover-override">
         <div class="motto"> {{ props.motto }}</div>
