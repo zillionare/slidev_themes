@@ -1,13 +1,12 @@
 <style>
-    footer {
-        color: #404040;
-        z-index: 999;
-        font-size: 1.8vw;
-    }
+footer {
+    color: #404040;
+    z-index: 999;
+    font-size: 1.8vw;
+}
 </style>
 <script>
-import {useScriptTag} from '@vueuse/core'
-import {isPresenter} from '@slidev/client/logic/nav.ts'
+import { useScriptTag } from '@vueuse/core'
 import { computed } from 'vue'
 // import { admonit } from './tools'
 
@@ -23,22 +22,22 @@ function checkKey(e) {
     e = e || window.event;
     // console.info("key pressed: " + e.keyCode)
 
-    var search = new URLSearchParams(location.search) 
+    var search = new URLSearchParams(location.search)
     var clicks = parseInt(search.get("clicks"))
     // console.info("clicks now is: " + clicks)
 
     if (e.keyCode == '37') {
         // left right and space
-       if (clicks == NaN || clicks <= 1){
+        if (clicks == NaN || clicks <= 1) {
             return
-       }
+        }
 
-       clicks = clicks - 1
+        clicks = clicks - 1
     }
-    else if (e.keyCode == '39' || e.keyCode == '32'){
-        if (clicks == NaN){
+    else if (e.keyCode == '39' || e.keyCode == '32') {
+        if (clicks == NaN) {
             clicks = 1
-        }else {
+        } else {
             clicks = clicks + 1
         }
     }
@@ -58,11 +57,11 @@ function checkKey(e) {
 // })
 </script>
 <template>
-  <footer class="absolute bottom-0 left-5"><br/><small><SlideCurrentNo/>/<SlidesTotal/></small></footer>
-  <footer
-    v-if="$slidev.nav.currentLayout !== 'cover'"
-    class="absolute bottom-0 right-0 p-2 flex items-center"
-  >
-    <span class="c-green-4"></span>
-  </footer>
+    <footer class="absolute bottom-0 left-5"><br /><small>
+            <SlideCurrentNo />/
+            <SlidesTotal />
+        </small></footer>
+    <footer v-if="$slidev.nav.currentLayout !== 'cover'" class="absolute bottom-0 right-0 p-2 flex items-center">
+        <span class="c-green-4"></span>
+    </footer>
 </template>

@@ -35,7 +35,8 @@ const stamp = computed(() => {
         "tools": "https://images.jieyu.ai/images/hot/tools.png",
         "freshman": "https://images.jieyu.ai/images/hot/freshman.png",
         "factors": "https://images.jieyu.ai/images/hot/factors.png",
-        "resources": "https://images.jieyu.ai/images/hot/resources.png"
+        "resources": "https://images.jieyu.ai/images/hot/resources.png",
+        "others": "https://images.jieyu.ai/images/hot/lhfy-badge.png"
     }
     return `${map[$slidev.configs.category]}`
 })

@@ -1,24 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-
-const props = defineProps({
-  date: {
-    type: String,
-    required: true
-  },
-  lunar: {
-    type: String,
-    required: true
-  },
-  motto: {
-    type: String,
-    required: false
-  }
-})
-
-const calendar = computed(()=> {
-    var dt = new Date(props.date)
+const calendar = computed(() => {
+    var dt = new Date($slidev.configs.date)
 
     return {
         "day": dt.getDate().toString().padStart(2, "0"),
@@ -32,13 +16,12 @@ const calendar = computed(()=> {
 
 
 <style>
-
 .date {
     grid-area: date;
     position: relative;
     justify-self: center;
-    height: 300px; 
-    width: 300px; 
+    height: 300px;
+    width: 300px;
     background: var(--slidev-theme-secondary);
     color: #fff;
     text-align: center;
@@ -100,7 +83,7 @@ const calendar = computed(()=> {
     grid-template-columns: repeat(3, 33.33%);
     grid-template-rows: 50% 50%;
     grid-template-areas: ". date ."
-                         "month date week";
+        "month date week";
 }
 
 .main {
@@ -114,7 +97,7 @@ const calendar = computed(()=> {
     height: 30px;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 100px;
+    margin-bottom: 200px;
 }
 
 .title {
@@ -125,43 +108,33 @@ const calendar = computed(()=> {
     padding: 0.3vw 2vw;
     line-height: 4vw;
 }
-
-.brand {
-    font-size: 3vw;
-    color: white;
-    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
-    border-radius: 1vw;
-    padding: 0.5vw 2vw;
-    line-height: 2.2vw;
-}
-
 </style>
 <template>
-<div
-class="slidev-layout cover cover-override"
->
-    <div class="calendar">
-        <div class="date">
-            <div>
-                {{ calendar.day}}
+    <div class="slidev-layout cover cover-override">
+        <div class="calendar">
+            <div class="date">
+                <div>
+                    {{ calendar.day }}
+                </div>
+            </div>
+            <div class="motto">{{ $slidev.configs.motto }}</div>
+            <div class="month">
+                <div style="font-size: 3vw">{{ calendar.month_en }}</div>
+                <div style="font-size: 4vw">{{ calendar.month_ch }}</div>
+            </div>
+            <div class="week">
+                <div style="font-size: 3vw">{{ calendar.week_day }}</div>
+                <div style="font-size: 3vw">{{ $slidev.configs.lunar }}</div>
             </div>
         </div>
-        <div class="motto" v-html="props.motto"/>
-        <div class="month">
-        <div style="font-size: 3vw">{{ calendar.month_en }}</div>
-        <div style="font-size: 4vw">{{ calendar.month_ch }}</div>
-        </div>
-        <div class="week">
-        <div style="font-size: 3vw">{{ calendar.week_day }}</div>
-        <div style="font-size: 3vw">{{ props.lunar }}</div>
+        <div class="main">
+            <div class="w-full banner">
+                <div class="title"> {{ $slidev.configs.title }}</div>
+                <!-- <div class="brand w-200px h-50px left-0 absolute left-50%">
+                    <QuanTide />
+                </div> -->
+            </div>
+            <slot />
         </div>
     </div>
-    <div class="main">
-        <div class="w-full banner">
-            <div class="title"> {{ $slidev.nav.currentRoute.meta.title }}</div>
-            <!--div class="brand"> 量化早⑧点</div-->
-        </div>
-        <slot/>
-    </div>
-</div>
 </template>

@@ -15,8 +15,8 @@
     "colorSchema": "light",
     "highlighter": "all",
     "defaults": {
-        "aspectRatio": "12/16",
-        "canvasWidth": 1200
+        "aspectRatio": "3/4",
+        "canvasWidth": 1050
     }
   },
   "repository": {

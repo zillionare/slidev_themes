@@ -45,7 +45,7 @@ const scaleMe = computed(() => {
 <style scoped>
 .logo {
     display: grid;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     grid-template-columns: auto 1fr;
     /* 定义两列，第一列自动宽度，第二列剩余空间 */
     align-items: center;

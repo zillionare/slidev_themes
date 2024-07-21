@@ -5,6 +5,10 @@
     counter-reset: h2counter;
     font-family: 'WenQuanYi Micro Hei';
     --slidev-background-color: #fcfcfc;
+
+    .abs {
+        position: absolute;
+    }
 }
 
 .slidev-layout {
