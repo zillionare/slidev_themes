@@ -1,0 +1,79 @@
+@import "prism-theme-vars/base.css";
+@import "codemirror-theme-vars/base.css";
+@import "prism-theme-vars/to-codemirror.css";
+
+:root {
+    --prism-font-family: var(--slidev-code-font-family);
+    --prism-block-radius: var(--geist-radius);
+    --prism-foreground: var(--geist-foreground);
+    --prism-background: var(--geist-background);
+    --prism-keyword: var(--geist-highlight-purple);
+    --prism-function: var(--geist-success);
+    --prism-number: var(--geist-success);
+    --prism-class: var(--geist-success);
+    --prism-string: var(--geist-cyan);
+    --prism-literal: var(--geist-cyan);
+    --prism-builtin: var(--geist-cyan);
+    --prism-comment: var(--accents-4);
+    --prism-boolean: var(--geist-highlight-purple);
+}
+
+code,
+code * {
+    @apply select-text;
+    font-size: 2.5vw;
+    line-height: 3.5vw;
+    font-family: "Fira Code", monospace;
+}
+
+
+:not(pre)>code {
+    color: var(--geist-highlight-purple);
+    /* @apply text-sm; */
+    font-size: 2.8vw;
+    font-style: italic;
+}
+
+:not(pre)>code:before,
+:not(pre)>code:after {
+    content: " ";
+    color: var(--geist-highlight-purple);
+}
+
+pre {
+    border: 1px solid var(--accents-2);
+    margin: 4vw 0;
+    border-radius: 2vw;
+    padding: 8vw 2vw 2vw 2vw;
+}
+
+pre::before {
+    /* 设置三个圈圈 */
+    background: #fc625d;
+    border-radius: 50%;
+    box-shadow: 3vw 0 #fdbc40, 6vw 0 #35cd4b;
+    content: ' ';
+    height: 2vw;
+    left: 12px;
+    margin: -5vw 0 0 1vw;
+    position: absolute;
+    width: 2vw;
+}
+
+/* .line {
+    counter-increment: line;
+}
+
+.line::before {
+    font-size: 2.5vw;
+    content: counter(line);
+    color: rgb(239, 100, 100);
+    margin-right: 2vw;
+} */
+
+.slidev-code-wrapper {
+    padding: 1.8em 0 0 0;
+    background-color: #f8f8f8;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
