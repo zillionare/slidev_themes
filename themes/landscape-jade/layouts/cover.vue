@@ -2,19 +2,17 @@
 import { computed, onMounted } from 'vue'
 
 const imgList = [
-    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0020.jpg",
-    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0017.jpg",
-    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0016.jpg",
-    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0019.jpg",
-    "https://images.jieyu.ai/images/hot/book-cover-no-author.jpg",
-    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0021.jpg",
-    "https://images.jieyu.ai/images/hot/show-me-the-code-image-list/img_0014.jpg",
+    "https://images.jieyu.ai/images/hot/posts/img_0020.jpg",
+    "https://images.jieyu.ai/images/hot/posts/img_0017.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg",
+    "https://images.jieyu.ai/images/hot/posts/img_0016.jpg",
+    "https://images.jieyu.ai/images/hot/course/course-screenshot.png",
+    "https://images.jieyu.ai/images/hot/cheese-course-roadmap.png",
+    "https://images.jieyu.ai/images/hot/posts/img_0019.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/girl-hold-book-face.jpg",
+    "https://images.jieyu.ai/images/hot/posts/img_0014.jpg",
 
 ]
-
-const props = defineProps({
-
-})
 
 
 </script>
@@ -22,17 +20,19 @@ const props = defineProps({
 /*layer-2 the content layer*/
 .title {
     position: absolute;
-    top: 20%;
+    top: 25%;
     margin: auto;
-    width: 50%;
+    width: 75%;
     left: 0;
     right: 0;
-    font-size: 6vw;
-    background-image: url("https://images.jieyu.ai/images/hot/quant-logo.jpg");
-    background-size: cover;
-    color: rgba(0, 0, 0, 0);
+    font-size: 5vw;
+    background-image: url("https://images.jieyu.ai/images/hot/shanghai-extra-length.jpg");
+    background-size: contain;
+    color: transparent;
     background-clip: text;
-    text-align: center
+    -webkit-background-clip: text;
+    text-align: center;
+    display: inline-block;
 }
 
 .seq {
@@ -66,19 +66,32 @@ const props = defineProps({
 
 .gallery {
     position: absolute;
-    display: flex;
     height: 200px;
     left: 0%;
     bottom: -10%;
     display: flex;
-    /* flex-wrap: nowrap; */
-    align-items: flex-start;
+    justify-content: space-between;
+    overflow: hidden;
+    animation: slideRight 5s forwards;
 
-    img {
-        margin-right: 4vw;
-        flex: 1;
+    div {
+        width: 120px;
+        height: 100%;
+        background-size: cover;
+        margin: 0 10px;
+        background-position: center;
     }
 
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 </style>
 <template>
@@ -87,7 +100,7 @@ const props = defineProps({
         <div class="title">{{ $slidev.configs.title }}</div>
 
         <div class="gallery">
-            <img v-for="(src, i) in imgList" :key="i" :src="src">
+            <div v-for="(src, i) in imgList" :key="i" :style="{ backgroundImage: `url(${src})` }"></div>
         </div>
     </div>
 </template>
