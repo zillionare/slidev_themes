@@ -20,15 +20,15 @@ const imgList = [
 /*layer-2 the content layer*/
 .title {
     position: absolute;
-    top: 25%;
+    top: 20%;
     margin: auto;
-    width: 75%;
+    width: 80%;
     left: 0;
     right: 0;
-    font-size: 5vw;
-    background-image: url("https://images.jieyu.ai/images/hot/shanghai-extra-length.jpg");
+    font-size: 6vw;
+    /* background-image: url("https://images.jieyu.ai/images/hot/shanghai-extra-length.jpg"); */
     background-size: contain;
-    color: transparent;
+    color: black;
     background-clip: text;
     -webkit-background-clip: text;
     text-align: center;
@@ -98,6 +98,9 @@ const imgList = [
     <div class="slidev-layout cover">
         <div class="seq">{{ $slidev.configs.seq }}</div>
         <div class="title">{{ $slidev.configs.title }}</div>
+        <div class="abs w-full top-40% ml-0 pl-0 flex justify-center">
+            <QtBrand style="width: 120px" />
+        </div>
 
         <div class="gallery">
             <div v-for="(src, i) in imgList" :key="i" :style="{ backgroundImage: `url(${src})` }"></div>

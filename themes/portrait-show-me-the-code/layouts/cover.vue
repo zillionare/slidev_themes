@@ -15,13 +15,15 @@ const coverImg = computed(() => {
 <style scoped>
 /*layer-2 the content layer*/
 .title {
-    width: 100%;
-    font-size: 8vw;
+    height: 100%;
+    width: 80%;
     background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
     background-size: cover;
     color: transparent;
     background-clip: text;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cover-image {
@@ -60,8 +62,11 @@ const coverImg = computed(() => {
 <template>
     <div class="slidev-layout cover">
         <div class="cover-image" :style="coverImg" />
+        <div class="abs top-20px left-10px w-50% text-base text-white">{{ $slidev.configs.seq }}</div>
         <div class="title-wrapper">
-            <div class="title">{{ $slidev.configs.title }}</div>
+            <div class="title">
+                <AutoFitText :modelValue="$slidev.configs.title" class="h-full" />
+            </div>
         </div>
         <div class="abstract">{{ $slidev.configs.abstract }}</div>
     </div>
