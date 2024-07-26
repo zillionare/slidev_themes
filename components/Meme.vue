@@ -10,22 +10,6 @@ const props = defineProps({
         type: String,
         required: true
     },
-    top: {
-        type: String,
-        default: '50%'
-    },
-    left: {
-        type: String,
-        default: '50%'
-    },
-    h: {
-        type: String,
-        default: 'auto'
-    },
-    w: {
-        type: String,
-        default: 'auto'
-    },
     delay: {
         type: Number,
         default: 0
@@ -36,24 +20,16 @@ const props = defineProps({
     }
 })
 
-const style = computed(() => {
-    return {
-        top: props.top,
-        left: props.left,
-        height: props.h,
-        width: props.w,
-    }
-})
 
 const memes = {
-    "goodbye-1": "https://images.jieyu.ai/images/hot/goodby.gif",
-    "doyouhavequestions": "https://images.jieyu.ai/images/hot/do-you-have-questions.gif",
-    "enenen": "https://images.jieyu.ai/images/hot/enenen.gif",
-    "nice": "https://images.jieyu.ai/images/hot/enenen.gif",
-    "crow": "https://images.jieyu.ai/images/hot/crow.gif",
-    "turtle": "https://images.jieyu.ai/images/hot/turtle.gif",
-    "anticipation": "https://images.jieyu.ai/images/hot/anticipation.gif",
-    "so-broken": "https://images.jieyu.ai/images/hot/so-broken.gif",
+    "goodbye-1": "https://images.jieyu.ai/images/hot/meme/goodby.gif",
+    "doyouhavequestions": "https://images.jieyu.ai/images/hot/meme/do-you-have-questions.gif",
+    "enenen": "https://images.jieyu.ai/images/hot/meme/enenen.gif",
+    "nice": "https://images.jieyu.ai/images/hot/meme/enenen.gif",
+    "crow": "https://images.jieyu.ai/images/hot/meme/crow.gif",
+    "turtle": "https://images.jieyu.ai/images/hot/meme/turtle.gif",
+    "anticipation": "https://images.jieyu.ai/images/hot/meme/anticipation.gif",
+    "so-broken": "https://images.jieyu.ai/images/hot/meme/so-broken.gif",
 }
 
 const url = computed(() => {
@@ -73,19 +49,19 @@ const Id = computed(() => {
     return `${props.name}-${props.at}-${props.dur}`
 })
 
-onMounted(() => {
-    setTimeout(() => {
-        var el = document.getElementById(Id.value)
-        var clz = el.getAttribute("class")
-        clz = clz.concat(" animate__animated animate__fadeOut")
-        el.setAttribute("class", clz)
-    }, props.delay + props.dur)
-})
+// onMounted(() => {
+//     setTimeout(() => {
+//         var el = document.getElementById(Id.value)
+//         var clz = el.getAttribute("class")
+//         clz = clz.concat(" animate__animated animate__fadeOut")
+//         el.setAttribute("class", clz)
+//     }, props.delay + props.dur)
+// })
 </script>
 <style scoped></style>
 
 <template>
-    <div v-if="show" class="abs" :id="Id" :style="style">
+    <div v-if="show" :id="Id" v-bind="$attrs">
         <Audio :at="props.at" :name="props.name" :delay="props.delay" />
         <img :src="url" />
     </div>

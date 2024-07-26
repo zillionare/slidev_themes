@@ -37,7 +37,7 @@ const scaleMe = computed(() => {
     const scale = `scale(${w.value / 300})`
     console.debug("[QuantTide] scale is", scale)
     return {
-        "transform": `scale(${w.value / 300})`
+        "transform": `scale(${w.value / 300}) translateX(${-w.value}px)`
     }
 })
 

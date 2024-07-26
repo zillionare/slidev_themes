@@ -90,16 +90,17 @@ const show = computed(() => {
 const wrapperStyle = computed(() => {
     var alpha = props.mask ? 0.75 : 0
     var style_ = {
-        "top": 0,
-        "left": 0,
-        "width": "100%",
-        "height": "100%",
+        "--test": "check wrapper",
         "perspective": props.perspective,
         "perspective-origin": props.perspective_origin,
         "z-index": parseInt(props.z),
         "position": "fixed",
         "color": "white",
-        "background": `rgba(0,0,0,${alpha})`
+        "background": `rgba(0,0,0,${alpha})`,
+        "top": 0,
+        "left": 0,
+        "width": props.w,
+        "height": props.h,
     }
 
     return style_
@@ -170,7 +171,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <div v-if="show" :style="wrapperStyle">
+    <div :style="wrapperStyle">
+        <!--cast-->
         <!--wrapper-->
         <div :style="childStyle">
             <!--rotation child-->

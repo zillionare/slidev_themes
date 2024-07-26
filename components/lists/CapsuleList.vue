@@ -1,3 +1,17 @@
+<!--
+
+# usage:
+
+<CapsuleList>
+
+    ```yaml
+    quantiles, bins, binning_by_group, groupby, zero_aware
+    ```
+</CapsuleList>
+
+-->
+
+
 <script setup>
 import { computed, ref, onMounted, reactive } from 'vue';
 import YAML from 'yaml';
@@ -31,6 +45,7 @@ const orientation = computed(() => props.orientation);
 
 .capsule-container.vertical {
     flex-flow: column;
+    justify-content: space-between;
 }
 
 .horizontal .capsule-item {
@@ -58,7 +73,7 @@ const orientation = computed(() => props.orientation);
     <div slot style="display:none" ref="raw">
         <slot />
     </div>
-    <div :class="['capsule-container', { horizontal, vertical: !horizontal }, $attrs.class]">
+    <div :class="['capsule-container', { horizontal, vertical: !horizontal }, $attrs.class]" v-bind="$attrs" v-motion>
         <template v-for="(item, index) in data.items" :key="index">
             <div class="capsule-item">{{ item }}</div>
         </template>

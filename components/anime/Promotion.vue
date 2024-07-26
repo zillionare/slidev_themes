@@ -36,8 +36,9 @@ const show = computed(() => {
 })
 </script>
 <template>
-    <Cast v-if="show" :dur="props.dur" perspective="props.perspective" left="props.left" w="props.w"
-        perspective_origin="props.perspective_origin">
+    <!--promotion-->
+    <Cast v-if="show" :dur="props.dur" :perspective="props.perspective" left="props.left" w="props.w"
+        :perspective_origin="props.perspective_origin">
         <div style="text-align:center;">
             <div
                 style="padding:100px 20px;background: url('https://images.jieyu.ai/images/hot/black-gold.jpg') repeat-y center top / contain">
@@ -46,20 +47,21 @@ const show = computed(() => {
 
                 <h3>视频</h3>
 
-                <video src="https://images.jieyu.ai/images/hot/video-sample.mp4" preload autoplay loop></video>
+                <video src="https://images.jieyu.ai/images/hot/course/video-sample.mp4" preload autoplay loop></video>
 
                 <h3>Notebook文稿和代码</h3>
 
-                <img src="https://images.jieyu.ai/images/hot/course-screenshot.jpg" />
+                <img src="https://images.jieyu.ai/images/hot/course/course-screenshot.jpg" />
 
                 <h3>1对1指导</h3>
 
                 量化投研系统专家、大富翁架构师、《Python高效编程实践指南》作者一对一指导。
 
                 <div style="width:100%">
-                    <img src="https://images.jieyu.ai/images/hot/book-cover.jpg" style="float:left;width:200px">
+                    <img src="https://images.jieyu.ai/images/hot/mybook/book-cover-no-author.jpg"
+                        style="float:left;width:200px">
 
-                    <img src="https://images.jieyu.ai/images/hot/me.png" style="width:200px">
+
                 </div>
 
                 ✥ 超翔实内容：文字稿约40万字节。<br>
