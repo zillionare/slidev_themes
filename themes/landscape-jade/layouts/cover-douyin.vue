@@ -21,16 +21,15 @@ const coverImg = computed(() => {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 .subtitle {
-    font-size: 4.2vw;
+    font-size: 4.5vw;
     color: #e0e0e0;
     margin: auto;
     left: 0;
     right: 0;
-    width: 100%;
+    width: 90%;
     text-align: center;
     mix-blend-mode: lighten;
 }
@@ -48,7 +47,6 @@ const coverImg = computed(() => {
     @apply absolute top-50px w-42% left-10px text-2xl text-white bg-white h-50px rounded-full flex items-center justify-center color-black;
     background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    font-weight: 500;
 }
 
 .title-wrapper {

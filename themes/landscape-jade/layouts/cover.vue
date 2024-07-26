@@ -18,21 +18,29 @@ const imgList = [
 </script>
 <style scoped>
 /*layer-2 the content layer*/
+
+.title-wrapper {
+    @apply absolute top-30% flex flex-col items-center justify-center;
+}
+
 .title {
-    position: absolute;
-    top: 20%;
-    margin: auto;
-    width: 80%;
-    left: 0;
-    right: 0;
+    width: 100%;
     font-size: 6vw;
-    /* background-image: url("https://images.jieyu.ai/images/hot/shanghai-extra-length.jpg"); */
-    background-size: contain;
     color: black;
-    background-clip: text;
-    -webkit-background-clip: text;
-    text-align: center;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subtitle {
+    font-size: 3vw;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #303030;
 }
 
 .seq {
@@ -45,23 +53,6 @@ const imgList = [
     background-color: aliceblue;
     padding: 5px 20px 5px 10px;
     border-radius: 0 20px 0 20px;
-}
-
-.subtitle {
-    position: absolute;
-    font-size: 3vw;
-    background-color: cadetblue;
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-    background-size: 85%;
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 60%;
-    width: 50%;
-    text-align: center;
 }
 
 .gallery {
@@ -97,9 +88,11 @@ const imgList = [
 <template>
     <div class="slidev-layout cover">
         <div class="seq">{{ $slidev.configs.seq }}</div>
-        <div class="title">{{ $slidev.configs.title }}</div>
-        <div class="abs w-full top-40% ml-0 pl-0 flex justify-center">
-            <QtBrand style="width: 120px" />
+        <div class="title-wrapper">
+            <div class="title">{{ $slidev.configs.title }}</div>
+            <div class="subtitle">
+                {{ $slidev.configs.subtitle }}
+            </div>
         </div>
 
         <div class="gallery">
