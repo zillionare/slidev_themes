@@ -14,9 +14,6 @@
     justify-content: center;
     align-items: center;
     --border-width: 5px;
-    --hue1: 1;
-    --hue2: 0.8;
-    --hue3: 0.6;
     height: 100%;
     width: 100%;
     /* box-shadow: 3px 3px rgba(0,0,0,0.3); */
@@ -76,8 +73,11 @@
 
 <template>
     <!-- Box -->
-    <div :style="[{ '--hue1': $attrs.hue1 || 1, '--hue2': $attrs.hue2 || 1, '--hue3': $attrs.hue3 || 1 }, $attrs.style]"
-        class="box-wrapper">
+    <div :style="[{
+        '--hue1': $attrs.hue1 || 1,
+        '--hue2': $attrs.hue2 || 0.8,
+        '--hue3': $attrs.hue3 || 0.6
+    }, $attrs.style]" class="box-wrapper">
         <div class="box">
             <slot />
         </div>
