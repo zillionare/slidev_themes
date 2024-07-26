@@ -10,6 +10,9 @@
 
 .box {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     --border-width: 5px;
     --hue1: 1;
     --hue2: 0.8;
@@ -75,6 +78,8 @@
     <!-- Box -->
     <div :style="[{ '--hue1': $attrs.hue1 || 1, '--hue2': $attrs.hue2 || 1, '--hue3': $attrs.hue3 || 1 }, $attrs.style]"
         class="box-wrapper">
-        <div class="box">&nbsp</div>
+        <div class="box">
+            <slot />
+        </div>
     </div>
 </template>
