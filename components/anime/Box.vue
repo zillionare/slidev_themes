@@ -28,7 +28,7 @@
         right: 0;
         bottom: 0;
         border-radius: 4px;
-        background: linear-gradient(120deg, hsl(calc(360 * var(--hue1)) 100% 50%), hsl(calc(360 * var(--hue2)) 100% 50%), hsl(calc(360 * var(--hue3)) 100% 50%));
+        background: linear-gradient(120deg, hsl(calc(360 * var(--hue1)) 100% var(--light)), hsl(calc(360 * var(--hue2)) 100% var(--light)), hsl(calc(360 * var(--hue3)) 100% var(--light)));
         background-size: 300% 300%;
         animation: frame-enter 1s forwards ease-in-out reverse, gradient-animation 2s ease-in-out infinite;
     }
@@ -76,7 +76,8 @@
     <div :style="[{
         '--hue1': $attrs.hue1 || 1,
         '--hue2': $attrs.hue2 || 0.8,
-        '--hue3': $attrs.hue3 || 0.6
+        '--hue3': $attrs.hue3 || 0.6,
+        '--light': $attrs.light || '50%'
     }, $attrs.style]" class="box-wrapper">
         <div class="box">
             <slot />
