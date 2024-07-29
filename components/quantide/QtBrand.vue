@@ -37,7 +37,7 @@ const scaleMe = computed(() => {
     const scale = `scale(${w.value / 300})`
     console.debug("[QuantTide] scale is", scale)
     return {
-        "transform": `scale(${w.value / 300}) translateX(${-w.value}px)`
+        "transform": `scale(${w.value / 300})`
     }
 })
 
@@ -55,9 +55,10 @@ const scaleMe = computed(() => {
     .circle {
         width: 120px;
         height: 120px;
-        transform: translateX(100px);
+        /* transform: translateX(100px); */
         border-radius: 50%;
         border: 0.2em solid #f00000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         z-index: -1;
     }
 
@@ -66,9 +67,12 @@ const scaleMe = computed(() => {
         flex-direction: column;
         align-items: center;
         background-color: #ffffff;
-        /* padding: 0.5em 0 0.2em 0; */
         color: #f00000;
         font-size: 40px;
+        width: 200px;
+        margin-left: -100px;
+
+        margin-top: 10px;
 
         .cn {
             display: flex;
@@ -136,5 +140,6 @@ const scaleMe = computed(() => {
                 <div class="en">QUANTIDE</div>
             </div>
         </div>
+
     </div>
 </template>

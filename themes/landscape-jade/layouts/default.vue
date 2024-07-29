@@ -12,6 +12,8 @@
 }
 </style>
 <template>
-    <div class="seq">{{ $slidev.configs.seq }}</div>
-    <slot />
+    <div class="slidev-layout default">
+        <div class="seq">{{ $slidev.configs.seq }}</div>
+        <slot />
+    </div>
 </template>

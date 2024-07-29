@@ -27,6 +27,8 @@
         font-size: 6.3vw;
         color: var(--slidev-theme-secondary);
         margin: 9vw 0;
+        line-height: 8vw;
+        ;
     }
 
 
@@ -69,7 +71,7 @@
 
     p {
         font-size: 2.8vw;
-        margin: 4.5vw 0vw;
+        margin: 3vw 0vw;
         line-height: 4.5vw;
     }
 
@@ -113,6 +115,16 @@
         font-style: italic;
         position: relative;
         top: -2em;
+    }
+
+    remark {
+        color: #787878;
+        font-style: italic;
+    }
+
+    remark::before {
+        content: '评论:  ';
+        margin-left: 1em;
     }
 }
 

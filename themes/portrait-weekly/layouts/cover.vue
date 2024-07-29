@@ -111,13 +111,23 @@ const calendar = computed(() => {
         }
     }
 }
+
+.quantide-weekly {
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    left: 50%;
+    text-align: center;
+    font-size: 6vw;
+}
 </style>
 
 <template>
     <div class="slidev-layout weekly">
         <div class="header">
             <div class="first-row">
-                <QtBrand class="abs w-400px left-50% top-150px" />
+                <QtBrand class="abs w-180px right-15% top-10px" />
+                <div class="quantide-weekly">QuanTide Weekly</div>
 
                 <div class="calendar">
                     <div class="date">

@@ -35,7 +35,7 @@
 
     h2 {
         color: cadetblue;
-        @apply text-3xl text-left ml-4 mb-4;
+        @apply text-4xl text-left ml-4 mb-4;
     }
 
     h3 {
