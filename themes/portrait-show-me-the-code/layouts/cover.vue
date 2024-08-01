@@ -2,7 +2,7 @@
 import { computed, onMounted } from 'vue'
 
 const coverImg = computed(() => {
-    var img = $slidev.configs.img || "https://images.jieyu.ai/images/hot/shanghai-extra-length.jpg"
+    var img = $slidev.configs.img || "https://images.jieyu.ai/images/hot/mybook/girl-hold-book-face.jpg"
     return {
         backgroundImage: `url("${img}")`,
         backgroundSize: 'cover',
@@ -53,7 +53,7 @@ const coverImg = computed(() => {
 
 .title-wrapper {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
     left: 0;
     top: 60%;

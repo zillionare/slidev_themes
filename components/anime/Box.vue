@@ -1,3 +1,9 @@
+<!-- 一定要与v-drag一起食用
+
+    <v-drag class="abs left-10% top-10% w-200px h-80px">
+        <Box> Hello box</Box>
+    </v-drag>
+-->
 <style scoped>
 .box-wrapper {
     height: 100%;

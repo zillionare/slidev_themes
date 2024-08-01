@@ -15,8 +15,8 @@
     "colorSchema": "light",
     "highlighter": "all",
     "defaults": {
-        "width": 800,
-        "aspectRatio": "12/16"
+        "width": 1080,
+        "aspectRatio": "3/4"
     }
   },
   "repository": {
