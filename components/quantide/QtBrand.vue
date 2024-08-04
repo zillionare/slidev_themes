@@ -58,9 +58,9 @@ const scaleMe = computed(() => {
         /* transform: translateX(100px); */
         border-radius: 50%;
         border: 0.2em solid #f00000;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         z-index: -1;
     }
+
 
     .inner-wrapper {
         display: flex;
@@ -77,7 +77,6 @@ const scaleMe = computed(() => {
         .cn {
             display: flex;
             align-items: center;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 
             .liang,
             .hua,
@@ -140,6 +139,6 @@ const scaleMe = computed(() => {
                 <div class="en">QUANTIDE</div>
             </div>
         </div>
-
     </div>
+
 </template>
