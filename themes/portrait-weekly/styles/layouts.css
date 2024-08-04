@@ -15,7 +15,7 @@
 .slidev-layout {
     text-justify: inter-character;
     text-align: justify;
-    @apply h-full text-left text-$slidev-theme-primary;
+    @apply h-full text-left pt-20 pb-30 text-$slidev-theme-primary;
 
     p+h2,
     ul+h2,

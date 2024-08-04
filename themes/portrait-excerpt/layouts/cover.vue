@@ -80,7 +80,7 @@ const titleImg = computed(() => {
 <style>
 .title-img {
     width: 100%;
-    height: 500px;
+    height: 550px;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.6);
     background-size: cover;
     background-repeat: no-repeat;
@@ -90,12 +90,13 @@ const titleImg = computed(() => {
     margin-top: 10vh;
 
     .title {
-        font-size: 5vw;
+        font-size: 7vw;
         border-radius: 1vw;
         padding: 0.3vw 2vw;
         line-height: 8vw;
         text-align: center;
         text-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+        margin-bottom: 10vw;
     }
 
     .date {
@@ -109,11 +110,10 @@ const titleImg = computed(() => {
     .motto {
         color: #808080;
         width: 100%;
-        font-size: 2.8vw;
+        font-size: 3vw;
         font-style: italic;
         text-align: center;
-        margin-top: -10vw;
-        margin-bottom: 6vw;
+        margin-bottom: 10vw;
     }
 }
 

@@ -15,8 +15,8 @@
     "colorSchema": "light",
     "highlighter": "shiki",
     "defaults": {
-        "aspectRatio": "12/16",
-        "canvasWidth": 900
+        "aspectRatio": "10/16",
+        "canvasWidth": 1000
     }
   },
   "repository": {

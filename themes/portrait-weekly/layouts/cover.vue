@@ -44,7 +44,6 @@ const calendar = computed(() => {
 .slidev-layout.weekly {
     color: black;
     font-size: 3vw;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 
     .header {
         margin-bottom: 100px;

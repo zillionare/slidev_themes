@@ -83,4 +83,24 @@
         margin: 1vw 2vw 0 0 !important;
     }
 
+    copyright {
+        color: #c0c0c0;
+        font-size: 0.8em;
+        display: block;
+    }
+
+    copyright:before {
+        content: '本文版权归公众号量化风云(QuanTide)所有。通过在线版本管理工具存证。允许保持原样传播，未经书面授权，不得引用。'
+    }
+
+    about {
+        font-size: 3vw;
+        display: block;
+        color: #a0a0a0;
+        margin: 2em 0;
+    }
+
+    about:before {
+        content: 'QuanTide Weekly 是公众号 QuanTide【量化风云】每周制作的资讯汇总，作为粉丝福利，每周日群内推送。包含量化资源、精选文章（含部分付费文章）。'
+    }
 }

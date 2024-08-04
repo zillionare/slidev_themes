@@ -42,7 +42,7 @@ code * {
 
 pre {
     border: 1px solid var(--accents-2);
-    margin: 4vw 0;
+    margin: 5vw 1vw;
     border-radius: 2vw;
     padding: 8vw 2vw 2vw 2vw;
 }
@@ -54,7 +54,7 @@ pre::before {
     box-shadow: 3vw 0 #fdbc40, 6vw 0 #35cd4b;
     content: ' ';
     height: 2vw;
-    left: 12px;
+    left: 1vw;
     margin: -5vw 0 0 1vw;
     position: absolute;
     width: 2vw;

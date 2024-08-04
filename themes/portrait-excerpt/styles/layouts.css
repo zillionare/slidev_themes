@@ -3,7 +3,7 @@
     /* --slidev-theme-secondary: #E60000; */
     --slidev-theme-secondary: #09BED9;
     counter-reset: h2counter;
-    font-family: wqy-microhei-lite, sans-serif;
+    font-family: AlibabaPuHuiTi-Thin, sans-serif;
     --slidev-background-color: #fcfcfc;
 
     .abs {
@@ -64,16 +64,16 @@
     }
 
     p {
-        font-size: 3vw;
-        margin: 2vw 1vw;
-        line-height: 5vw;
+        font-size: 3.5vw;
+        margin: 3.5vw 1vw;
+        line-height: 5.2vw;
         text-align: justify;
         font-weight: 100;
     }
 
     .admonition p {
-        font-size: 2.5vw !important;
-        line-height: 3.5vw;
+        font-size: 2.8vw !important;
+        line-height: 4vw;
     }
 
     .admonition li {
@@ -147,42 +147,6 @@
     /* .katex {
         width: 1000px;
     } */
-
-    .L50 {
-        position: relative;
-        float: left;
-        width: 45%;
-        height: auto;
-        margin: 0 2em 0;
-        top: -2.2em
-    }
-
-    .L33 {
-        position: relative;
-        float: left;
-        width: 33%;
-        height: auto;
-        margin: 0 2em 0;
-        top: -2.2em
-    }
-
-    .R50 {
-        position: relative;
-        float: right;
-        width: 45%;
-        height: auto;
-        margin: 0 2em 0;
-        top: -2.2em
-    }
-
-    .R33 {
-        position: relative;
-        float: right;
-        width: 33%;
-        height: auto;
-        margin: 0 2em 0;
-        top: -2.2em
-    }
 }
 
 .slidev-layout.intro {
