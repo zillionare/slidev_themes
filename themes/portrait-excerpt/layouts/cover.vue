@@ -168,7 +168,7 @@ const titleImg = computed(() => {
         <!-- <div class="copyright">{{ $slidev.configs.imgCopyRight }}</div> -->
     </div>
     <div class="slidev-layout cover cover-override">
-        <div class="motto"> {{ props.motto }}</div>
+        <div class="motto" v-html="$slidev.configs.motto"></div>
         <div class="title" v-html="$slidev.configs.title"></div>
         <!--<div class="date"> {{calendar.month_ch}}{{ calendar.day }}日 {{ calendar.week_day }}</div>-->
         <slot style="padding:03.vw 2vw" />
