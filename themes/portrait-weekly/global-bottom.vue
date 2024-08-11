@@ -40,7 +40,7 @@
     <div v-if="($slidev.nav.currentPage !== $slidev.nav.total) & ($slidev.nav.currentPage !== 1)" class="footer">
         <!-- middle pages -->
         <div><small>
-                <SlideCurrentNo />/
+                {{ $slidev.nav.currentPage }}/
                 <SlidesTotal />
             </small>
         </div>

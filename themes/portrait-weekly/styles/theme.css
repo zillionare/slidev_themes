@@ -58,7 +58,7 @@
         position: relative;
         float: right;
         width: 45%;
-        margin: 1vw 0 0vw 2vw !important;
+        margin: 1vw 0 0vw 2em !important;
     }
 
     img[alt="R33"] {
@@ -66,41 +66,34 @@
         margin-top: 0;
         float: right;
         width: 33%;
-        margin: 1vw 0 0vw 2vw !important;
+        margin: 1vw 0 0vw 2em !important;
     }
 
     img[alt="L50"] {
         position: relative;
         float: left;
         width: 45%;
-        margin: 1vw 2vw 0 0 !important;
+        margin: 1vw 2em 0 0 !important;
     }
 
     img[alt="L33"] {
         position: relative;
         float: left;
         width: 33%;
-        margin: 1vw 2vw 0 0 !important;
+        margin: 1vw 2em 0 0 !important;
     }
 
-    copyright {
-        color: #c0c0c0;
-        font-size: 0.8em;
-        display: block;
-    }
 
-    copyright:before {
-        content: '本文版权归公众号量化风云(QuanTide)所有。通过在线版本管理工具存证。允许保持原样传播，未经书面授权，不得引用。'
-    }
 
     about {
-        font-size: 3vw;
+        white-space: pre-wrap;
+        font-size: 0.9em;
+        margin: 4em 2em 2em 2em;
         display: block;
-        color: #a0a0a0;
-        margin: 2em 0;
+        color: #b0b0b0;
     }
 
     about:before {
-        content: 'QuanTide Weekly 是公众号 QuanTide【量化风云】每周制作的资讯汇总，作为粉丝福利，每周日群内推送。包含量化资源、精选文章（含部分付费文章）。'
+        content: 'QuanTide Weekly 是公众号 QuanTide【量化风云】每周制作的资讯汇总，作为粉丝福利，每周日群内推送。包含量化策略、免费资源、教程和精选文章（含部分付费文章）。\A\A 除已声明第三方版权外，其余内容版权归公众号量化风云(QuanTide)所有。通过在线版本管理工具存证。允许保持原样传播，保留所有其它权利。';
     }
 }

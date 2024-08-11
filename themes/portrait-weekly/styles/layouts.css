@@ -87,6 +87,7 @@
 
     li {
         font-size: 2.5vw;
+        margin-bottom: 2.5vw;
     }
 
     red {
@@ -114,17 +115,18 @@
         color: grey;
         font-style: italic;
         position: relative;
-        top: -2em;
+        top: -1em;
     }
 
     remark {
         color: #787878;
         font-style: italic;
+        font-size: 2.8vw;
     }
 
     remark::before {
-        content: '评论:  ';
-        margin-left: 1em;
+        content: ' ';
+        margin-left: 3vw;
     }
 }
 
