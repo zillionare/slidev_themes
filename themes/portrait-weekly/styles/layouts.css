@@ -24,17 +24,17 @@
     }
 
     h1 {
-        font-size: 6.3vw;
+        font-size: 8vw;
         color: var(--slidev-theme-secondary);
-        margin: 9vw 0;
-        line-height: 8vw;
-        ;
+        margin: 10vw 0;
+        line-height: 10vw;
     }
 
 
     h2 {
         text-align: left;
-        font-size: 4.5vw;
+        font-size: 6vw;
+        line-height: 8vw;
         font-weight: 500;
         margin: 6.4vw 0vw;
         padding: 0.5vw 1vw;
@@ -47,7 +47,7 @@
 
     h3 {
         text-align: left;
-        font-size: 3.6vw;
+        font-size: 5vw;
         font-weight: 300;
         margin: 5.2vw 0vw;
     }
@@ -55,7 +55,7 @@
     h4,
     h5 {
         text-align: left;
-        font-size: 3.2vw;
+        font-size: 4.5vw;
         font-weight: 200;
         margin: 4.5vw 0vw;
     }
@@ -66,28 +66,27 @@
 
     b {
         font-weight: 400;
-        font-size: 3vw;
     }
 
     p {
-        font-size: 2.8vw;
+        font-size: 4vw;
         margin: 3vw 0vw;
-        line-height: 4.5vw;
+        line-height: 6vw;
     }
 
     .admonition p {
-        font-size: 2.5vw !important;
-        line-height: 3.5vw;
+        font-size: 3.5vw !important;
+        line-height: 4.2vw;
     }
 
     .admonition li {
-        font-size: 2.5vw !important;
-        margin-top: 2.5vw;
+        font-size: 3.5vw !important;
+        margin-top: 4.2vw;
     }
 
     li {
-        font-size: 2.5vw;
-        margin-bottom: 2.5vw;
+        font-size: 3.4vw;
+        margin-bottom: 2vw;
     }
 
     red {
@@ -111,7 +110,7 @@
         display: inline-block;
         width: 100%;
         text-align: center;
-        font-size: 2vw;
+        font-size: 2.8vw;
         color: grey;
         font-style: italic;
         position: relative;
@@ -121,12 +120,11 @@
     remark {
         color: #787878;
         font-style: italic;
-        font-size: 2.8vw;
+        font-size: 3vw;
     }
 
     remark::before {
         content: ' ';
-        margin-left: 3vw;
     }
 }
 
