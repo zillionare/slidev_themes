@@ -1,5 +1,14 @@
-<style></style>
+<style>
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 2rem;
+    right: 1rem;
+    color: #a0a0a0;
+}
+</style>
 <script>
+
 document.onkeydown = checkKey;
 localStorage.clear()
 function checkKey(e) {
@@ -41,6 +50,10 @@ function checkKey(e) {
 // })
 </script>
 <template>
-
-
+    <div v-if="($slidev.nav.currentPage !== $slidev.nav.total) & ($slidev.nav.currentPage !== 1)" class="footer">
+        <!-- middle pages -->
+        <small>
+            {{ $slidev.nav.currentPage }}/{{ $slidev.nav.total }}
+        </small>
+    </div>
 </template>

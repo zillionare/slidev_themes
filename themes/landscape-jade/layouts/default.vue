@@ -13,7 +13,7 @@
 </style>
 <template>
     <div class="slidev-layout default">
-        <div class="seq">{{ $slidev.configs.seq }}</div>
+        <div class="seq">{{ $frontmatter.title }}</div>
         <slot />
     </div>
 </template>

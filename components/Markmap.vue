@@ -70,8 +70,8 @@ onMounted(() => {
         "zoom": props.zoom,
         "pan": props.pan,
     });
-    // mm.value = Markmap.create(svgRef.value, options);
-    mm.value = Markmap.create(svgRef.value);
+    mm.value = Markmap.create(svgRef.value, options);
+    // mm.value = Markmap.create(svgRef.value);
 
     let selector = 'div.hide'
     text.value = document.querySelector(selector).textContent

@@ -20,7 +20,7 @@ const imgList = [
 /*layer-2 the content layer*/
 
 .title-wrapper {
-    @apply absolute top-30% flex flex-col items-center justify-center;
+    @apply absolute top-30% flex flex-col items-center justify-center w-full;
 }
 
 .title {
