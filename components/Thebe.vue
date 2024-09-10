@@ -128,7 +128,7 @@ onMounted(async () => {
         <div ref="code" :style="style" class="thebe-code">
             <slot></slot>
         </div>
-        <div class="output flex-1" />
+        <div :class="[$attrs.class, 'output', 'flex-1']" />
     </div>
 
 </template>
@@ -136,6 +136,8 @@ onMounted(async () => {
 .output {
     /* border: 1px solid #ccc; */
     /* padding-top: 1.5rem; */
+    overflow-y: scroll;
+    width: 100%;
 }
 
 .button-run {
