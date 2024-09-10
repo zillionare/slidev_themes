@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script type="text/x-thebe-config">
+            {
+            "requestKernel": true,
+            "mountActivateWidget":true,
+            "mountStatusWidget":true,
+            "bootstrap": true,
+            "useBinder": false,
+            "useJupyterLite": false,
+            "serverSettings": {
+                "baseUrl": "http://192.168.100.101:5180/teacher_fa/",
+                "token": "M@cao123"
+            }
+        }
+        </script>
+        <script src="https://unpkg.com/thebe@latest/lib/index.js"></script>
+    </head>
+    <body>
+        <div id="root" style="width:800px;height:200px">
+            <div data-executable="true" data-language="python">
+                import numpy as np
+np.random.seed(78)
+print(np.random.rand(3))
+            </div>
+        </div>
+    </body>
+</html>

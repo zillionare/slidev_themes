@@ -20,6 +20,7 @@
     "markmap-lib": "^0.17.0",
     "slidev-theme-hep": "^0.1.1",
     "slidev-theme-neversink": "^0.2.0",
+    "thebe-core": "^0.4.10",
     "tinycolor2": "^1.6.0",
     "ttf2woff2": "^6.0.1",
     "vue": "^3.4.27",
@@ -28,6 +29,7 @@
     "yaml": "^2.4.2"
   },
   "devDependencies": {
+    "@shikijs/transformers": "^1.16.3",
     "playwright-chromium": "^1.44.1"
   }
 }

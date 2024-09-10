@@ -43,3 +43,22 @@ export function mergeTransform(baseTransform, additionalTransform) {
     // Join the array back into a single string and return.
     return transforms.join(' ');
 }
+
+export function createJsTag(src: string) {
+    const scriptTag = document.createElement('script');
+    scriptTag.src = src;
+    scriptTag.onload = () => {
+        console.log(`Script loaded: ${src}`);
+    };
+    scriptTag.onerror = (error) => {
+        console.error(`Failed to load script: ${src}`, error);
+    };
+    document.head.appendChild(scriptTag);
+}
+
+export function createScriptTag(content: string, type: string) {
+    const scriptTag = document.createElement('script');
+    scriptTag.type = type;
+    scriptTag.textContent = content;
+    document.head.appendChild(scriptTag);
+}

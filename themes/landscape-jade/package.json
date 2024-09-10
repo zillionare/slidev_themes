@@ -13,7 +13,7 @@
   "license": "MIT",
   "slidev": {
     "colorSchema": "light",
-    "highlighter": "all",
+    "highlighter": "shiki",
     "defaults": {
         "width": 1280,
         "aspectRatio": "16/9"

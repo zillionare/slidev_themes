@@ -1,14 +1,16 @@
 import MdItAdmon from 'markdown-it-admon';
 import { full as emoji } from 'markdown-it-emoji';
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
-
+console.log(`public dir is ${resolve(__dirname, '../../public')}`)
 export default defineConfig({
     server: {
         fs: {
             strict: false
         }
     },
+    publicDir: resolve(__dirname, '../../public'),
     slidev: {
         vue: {
             /* vue options */
