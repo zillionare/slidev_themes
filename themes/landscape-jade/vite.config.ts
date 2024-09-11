@@ -16,7 +16,8 @@ export default defineConfig({
             /* vue options */
             template: {
                 compilerOptions: {
-                    whitespace: 'preserve'
+                    whitespace: 'preserve',
+                    isCustomElement: (tag) => ['thebe'].includes(tag)
                 }
             }
         },

@@ -152,20 +152,22 @@ const toggleCodeZoom = () => {
 }
 
 config.events.on('status',
-    (evt, { status, message }) => console.debug(evt, status, message)
+    (evt, { status, message }) => console.log(evt, status, message)
 )
 
-const executeCell = async () => {
+const onCodeCellDblClick = async () => {
     if (isModifierKeyPressed) {
         if (isBusy) {
             console.log("busy")
             return
         }
+
+        console.log(`executing cell ${cellId}`)
         const cell = thebe.notebook.getCellById(cellId)
-        code.value.style.cursor = 'wait'
+        document.body.style.cursor = 'wait'
         isBusy = true;
         await cell.execute();
-        code.value.style.cursor = 'default'
+        document.body.style.cursor = 'default'
         isBusy = false
     } else {
         toggleCodeZoom();
@@ -197,6 +199,7 @@ onMounted(async () => {
         // fron-end and the notebook share same id
         const cell = thebe.notebook.getCellById(cellId)
         cell.attachToDOM(output.value)
+
         if (props.init) {
             cell.execute()
             setTimeout(() => {
@@ -217,7 +220,7 @@ onUnmounted(() => {
 
 <template>
     <div :id="cellId" :class="[$attrs.class, 'abs', 'flex', 'flex-col']" v-motion v-bind="$attrs">
-        <div ref="code" :style="style" class="thebe-code" @dblclick="executeCell">
+        <div ref="code" :style="style" class="thebe-code" @dblclick="onCodeCellDblClick">
             <slot></slot>
         </div>
         <div ref="outputWrapper" class="output-wrapper flex-1" @dblclick="toggleOutputZoom">
