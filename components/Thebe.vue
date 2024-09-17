@@ -39,8 +39,8 @@ print("the sceond call")
 -->
 
 <script setup>
-import { onMounted, ref, computed, onUnmounted } from 'vue';
-import { setupThebeCore, makeConfiguration, ThebeNotebook, ThebeServer, shortId, makeRenderMimeRegistry } from 'thebe-core';
+import { ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
+import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps({
     "init": {
@@ -73,9 +73,7 @@ const style = computed(() => {
     }
 })
 
-let isModifierKeyPressed = false;
-
-let isBusy = false;
+const runButton = ref(null)
 const code = ref(null)
 const isCodeZoomIn = ref(false);
 
@@ -98,17 +96,6 @@ const config = makeConfiguration({
     },
 })
 
-const handleKeyDown = (event) => {
-    if (event.key === 'Meta' || event.ctrlKey) {
-        isModifierKeyPressed = true;
-    }
-};
-
-const handleKeyUp = (event) => {
-    if (event.key === 'Meta' || event.ctrlKey) {
-        isModifierKeyPressed = false;
-    }
-};
 
 const toggleOutputZoom = () => {
     if (isOutputZoomIn.value) {
@@ -152,27 +139,17 @@ const toggleCodeZoom = () => {
 }
 
 config.events.on('status',
-    (evt, { status, message }) => console.log(evt, status, message)
+    (evt, { status, message }) => console.debug(evt, status, message)
 )
 
-const onCodeCellDblClick = async () => {
-    if (isModifierKeyPressed) {
-        if (isBusy) {
-            console.log("busy")
-            return
-        }
-
-        console.log(`executing cell ${cellId}`)
-        const cell = thebe.notebook.getCellById(cellId)
-        document.body.style.cursor = 'wait'
-        isBusy = true;
-        await cell.execute();
-        document.body.style.cursor = 'default'
-        isBusy = false
-    } else {
-        toggleCodeZoom();
-    }
-};
+const onRunCode = async () => {
+    runButton.value.disabled = true
+    const cell = thebe.notebook.getCellById(cellId)
+    document.body.style.cursor = 'wait'
+    await cell.execute();
+    document.body.style.cursor = 'default'
+    runButton.value.disabled = false
+}
 
 onMounted(async () => {
     if ($renderContext.value === 'slide') {
@@ -206,21 +183,16 @@ onMounted(async () => {
                 outputWrapper.value.style.opacity = 0
             }, 5000)
         }
-
-        document.addEventListener('keydown', handleKeyDown);
-        document.addEventListener('keyup', handleKeyUp);
     }
 })
 
-onUnmounted(() => {
-    document.removeEventListener('keydown', handleKeyDown);
-    document.removeEventListener('keyup', handleKeyUp);
-});
 </script>
 
 <template>
     <div :id="cellId" :class="[$attrs.class, 'abs', 'flex', 'flex-col']" v-motion v-bind="$attrs">
-        <div ref="code" :style="style" class="thebe-code" @dblclick="onCodeCellDblClick">
+        <div ref="runButton" @click="onRunCode" class="thebe-run-button">run</div>
+
+        <div ref="code" :style="style" class="thebe-code" @dblclick="toggleCodeZoom">
             <slot></slot>
         </div>
         <div ref="outputWrapper" class="output-wrapper flex-1" @dblclick="toggleOutputZoom">
@@ -237,12 +209,36 @@ onUnmounted(() => {
     overflow-y: auto;
     width: 100%;
     background-color: #fefefe;
-    padding-top: 0.5rem;
+    padding: 0.5rem 1rem 0 0.5rem;
+    font-size: 0.8rem;
 }
 
 .thebe-code {
     position: relative;
     max-height: 50%;
     overflow-y: auto;
+}
+
+.thebe-run-button {
+    background-color: rgba(240, 180, 50);
+    width: 4rem;
+    padding: auto;
+    text-align: center;
+    border-radius: 10px;
+    height: 1.3rem;
+    position: absolute;
+    z-index: 1;
+    top: -1rem;
+    font-size: 0.9rem;
+}
+
+.thebe-run-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.thebe-run-button:disabled {
+    background-color: #ccc;
+    opacity: 0.5;
 }
 </style>
