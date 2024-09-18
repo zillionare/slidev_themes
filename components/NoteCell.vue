@@ -1,17 +1,19 @@
 <!--
     see https://thebe.readthedocs.io/en/stable/start.html
 
+每一张slides都有自己的惟一的notebook，不同的slides之间，notebook不共享
+
 在代码区，按住cmd + 双击运行代码，否则，双击为放大、还原
 在输出区，双击切换放大或者还原
 
-<Thebe init class="w-50% h-full top-10% left-50%">
+<NoteCell init class="w-50% h-full top-10% left-50%">
 ```python
 init_result = 5
 print("hello world")
 ```
-</Thebe>
+</NoteCell>
 
-<Thebe class="w-50% h-full top-10% left-50%"
+<NoteCell class="w-50% h-full top-10% left-50%"
         :enter="{scale: 0}"
         :click-1="{scale: 1}"
         :click-2="{scale: 0}">
@@ -25,22 +27,25 @@ if 1:
     print("hello world")
 ```
 
-</Thebe>
+</NoteCell>
 
-<Thebe class="w-50% h-full top-10% left-50%"
+<NoteCell class="w-50% h-full top-10% left-50%"
         :enter="{scale: 0}"
         :click-2="{scale: 1}">
 
 ```python
 print("the sceond call")
 ```
-</Thebe>
+</NoteCell>
 
 -->
 
 <script setup>
-import { ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
+import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
 import { computed, onMounted, ref } from 'vue';
+import { globals } from './utils'
+
+const notebook_name = `${$slidev.configs.slug}-p${$page.value}.ipynb`
 
 const props = defineProps({
     "init": {
@@ -61,11 +66,9 @@ const props = defineProps({
     },
     "path": {
         type: String,
-        default: "/home/teacher_fa/notebooks/thebe.ipynb"
+        default: "/home/teacher_fa/notebooks/"
     }
 })
-
-const cellId = `_${shortId()}`
 
 const style = computed(() => {
     return {
@@ -77,17 +80,16 @@ const runButton = ref(null)
 const code = ref(null)
 const isCodeZoomIn = ref(false);
 
-const output = ref(null)
 const outputWrapper = ref(null);
 const isOutputZoomIn = ref(false);
-const thebe = {}
+
 const config = makeConfiguration({
     useBinder: false,
     bootstrap: true,
     useJupyterLite: false,
     kernelOptions: {
         kernelName: "python3",
-        path: props.path
+        path: props.path + notebook_name
     },
     serverSettings: {
         appendToken: true,
@@ -95,7 +97,6 @@ const config = makeConfiguration({
         token: props.token
     },
 })
-
 
 const toggleOutputZoom = () => {
     if (isOutputZoomIn.value) {
@@ -142,62 +143,103 @@ config.events.on('status',
     (evt, { status, message }) => console.debug(evt, status, message)
 )
 
-const onRunCode = async () => {
+const onRunCode = async (event) => {
     runButton.value.disabled = true
-    const cell = thebe.notebook.getCellById(cellId)
+    const nbid = `p${$page.value}`
+    const notebook = globals.jupyter.notebooks[nbid]
+
+    console.log("onRuncode: notebook is ", nbid, ",cell id is ", event.target.id)
+
+    const cell = notebook.getCellById(event.target.id)
     document.body.style.cursor = 'wait'
+    notebook.attachSession(globals.jupyter.session)
     await cell.execute();
     document.body.style.cursor = 'default'
     runButton.value.disabled = false
 }
 
+const createCodeCell = (codeEl, config, outputWrapper, isInitCell) => {
+    const nbid = `p${$page.value}`
+    const metadata = {}
+    const cid = isInitCell ? `p${$page}-initial-cell` : shortId()
+
+    // 将runButton与cell绑定
+    console.log("bind runButton to cell", cid)
+    runButton.value.id = cid
+
+    const cell = new ThebeCodeCell(cid, nbid, codeEl.textContent, config, metadata)
+
+    // 创建output
+    const output = document.createElement("div")
+    output.id = isInitCell ? `p${$page}-initial-output` : cid + "-output"
+    output.style = {
+        width: '100%',
+        height: '100%'
+    }
+
+    outputWrapper.appendChild(output)
+
+    cell.attachToDOM(output)
+
+    console.info(`created ${cid} with output ${output.id}, src is`, codeEl)
+    if (isInitCell) {
+        cell.execute()
+        setTimeout(() => {
+            outputWrapper.removeChild(output)
+        }, 5000)
+    }
+
+    let notebook = globals.jupyter.notebooks[nbid]
+    notebook.cells.push(cell)
+}
+
 onMounted(async () => {
     if ($renderContext.value === 'slide') {
-        setupThebeCore();
+        if (!globals.jupyter) {
+            setupThebeCore();
 
-        thebe.server = new ThebeServer(config);
-        thebe.server.connectToJupyterServer();
-        const rendermime = makeRenderMimeRegistry(thebe.server.config.mathjax);
-        thebe.session = await thebe.server.startNewSession(rendermime);
+            let server = new ThebeServer(config)
+            server.connectToJupyterServer();
+            const rendermime = makeRenderMimeRegistry(server.config.mathjax);
+            let session = await server.startNewSession(rendermime);
+            if (session == null) {
+                console.error('could not start thebe jupyter session')
+                return
+            }
 
-        thebe.notebook = ThebeNotebook.fromCodeBlocks(
-            [{ id: cellId, source: code.value.textContent }],
-            config,
-            rendermime
-        )
-
-        if (thebe.session == null) {
-            console.error('could not start thebe session')
-            return
+            globals.jupyter = {
+                server: server,
+                session: session,
+                rendermime: rendermime,
+                notebooks: {}
+            }
+        } else {
+            console.log("thebe server already started", globals.jupyter)
         }
 
-        thebe.notebook.attachSession(thebe.session)
+        const nbid = `p${$page.value}`
 
-        // fron-end and the notebook share same id
-        const cell = thebe.notebook.getCellById(cellId)
-        cell.attachToDOM(output.value)
-
-        if (props.init) {
-            cell.execute()
-            setTimeout(() => {
-                outputWrapper.value.style.opacity = 0
-            }, 5000)
+        if (!(nbid in globals.jupyter.notebooks)) {
+            const notebook = new ThebeNotebook($page.value, config, globals.jupyter.rendermime);
+            notebook.cells = []
+            notebook.attachSession(globals.jupyter.session)
+            globals.jupyter.notebooks[nbid] = notebook;
         }
+
+        createCodeCell(code.value, config, outputWrapper.value, props.init)
     }
 })
 
 </script>
 
 <template>
-    <div :id="cellId" :class="[$attrs.class, 'abs', 'flex', 'flex-col']" v-motion v-bind="$attrs">
+    <div :class="[$attrs.class, 'abs', 'flex', 'flex-col']" v-motion v-bind="$attrs">
         <div ref="runButton" @click="onRunCode" class="thebe-run-button">run</div>
 
         <div ref="code" :style="style" class="thebe-code" @dblclick="toggleCodeZoom">
             <slot></slot>
         </div>
-        <div ref="outputWrapper" class="output-wrapper flex-1" @dblclick="toggleOutputZoom">
-            <div ref="output" />
-        </div>
+        <div ref="outputWrapper" class="output-wrapper" @dblclick="toggleOutputZoom"></div>
     </div>
 
 </template>
@@ -208,7 +250,7 @@ onMounted(async () => {
     position: relative;
     overflow-y: auto;
     width: 100%;
-    background-color: #fefefe;
+    /* background-color: #fefefe; */
     padding: 0.5rem 1rem 0 0.5rem;
     font-size: 0.8rem;
 }

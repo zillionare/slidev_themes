@@ -1,6 +1,6 @@
 <script setup>
 import { computed, useAttrs } from 'vue'
-import { mergeTransform } from '../utils'
+import { mergeTransform } from './utils'
 
 const props = defineProps({
     kind: {

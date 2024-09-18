@@ -1,5 +1,5 @@
 <script setup>
-import { isShow } from '../utils'
+import { isShow } from './utils'
 import { computed, useAttrs } from 'vue'
 
 const props = defineProps({

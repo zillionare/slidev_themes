@@ -1,4 +1,4 @@
-
+import CryptoJs from 'crypto-js'
 export function isShow(rng, click) {
     if (Array.isArray(rng)) {
         return rng.includes(click)
@@ -62,3 +62,9 @@ export function createScriptTag(content: string, type: string) {
     scriptTag.textContent = content;
     document.head.appendChild(scriptTag);
 }
+
+export function md5(msg) {
+    return CryptoJs.MD5(msg);
+}
+
+export const globals = window

@@ -13,6 +13,7 @@
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
     "animate.css": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "markdown-it-admon": "^1.0.1",
     "markdown-it-container": "^4.0.0",
     "markdown-it-emoji": "^3.0.0",
@@ -20,8 +21,8 @@
     "thebe-core": "^0.4.10",
     "tinycolor2": "^1.6.0",
     "ttf2woff2": "^6.0.1",
-    "vue": "3.5.2",
     "vite": "5.3",
+    "vue": "3.5.2",
     "vue3-carousel": "^0.3.3",
     "vuewordcloud": "^19.0.0",
     "yaml": "^2.4.2"
