@@ -3,8 +3,10 @@
 
 每一张slides都有自己的惟一的notebook，不同的slides之间，notebook不共享
 
-在代码区，按住cmd + 双击运行代码，否则，双击为放大、还原
+在代码区，按住cmd + 单击运行代码，否则，双击为放大、还原
 在输出区，双击切换放大或者还原
+
+在有多个组件时，请使用scale动画，以避免彼此干扰捕获鼠标
 
 <NoteCell init class="w-50% h-full top-10% left-50%">
 ```python
@@ -42,10 +44,8 @@ print("the sceond call")
 
 <script setup>
 import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { globals } from './utils'
-
-const notebook_name = `${$slidev.configs.slug}-p${$page.value}.ipynb`
 
 const props = defineProps({
     "init": {
@@ -76,27 +76,70 @@ const style = computed(() => {
     }
 })
 
-const runButton = ref(null)
+const isCommandKeyPressed = ref(false);
+
 const code = ref(null)
 const isCodeZoomIn = ref(false);
 
 const outputWrapper = ref(null);
 const isOutputZoomIn = ref(false);
 
-const config = makeConfiguration({
-    useBinder: false,
-    bootstrap: true,
-    useJupyterLite: false,
-    kernelOptions: {
-        kernelName: "python3",
-        path: props.path + notebook_name
-    },
-    serverSettings: {
-        appendToken: true,
-        baseUrl: props.baseUrl,
-        token: props.token
-    },
-})
+// 监听 keydown 事件
+function checkCommandKey(event) {
+    if (event.key === 'Meta') {
+        isCommandKeyPressed.value = true;
+    }
+}
+
+// 监听 keyup 事件
+function uncheckCommandKey(event) {
+    if (event.key === 'Meta') {
+        isCommandKeyPressed.value = false;
+    }
+}
+
+const createNotebook = () => {
+    const nbid = `p${$page.value}`
+
+    if (globals.jupyter[nbid]) {
+        // console.log(`notebook ${nbid} already exists`)
+        return
+    }
+
+    const notebook_name = `${$slidev.configs.slug}-${nbid}.ipynb`
+
+    const config = makeConfiguration({
+        useBinder: false,
+        bootstrap: true,
+        useJupyterLite: false,
+        kernelOptions: {
+            kernelName: "python3",
+            path: props.path + notebook_name
+        },
+        serverSettings: {
+            appendToken: true,
+            baseUrl: props.baseUrl,
+            token: props.token
+        },
+    })
+
+    config.events.on('status',
+        (evt, { status, message }) => console.debug(evt, status, message)
+    )
+
+    let server = new ThebeServer(config)
+
+    const rendermime = makeRenderMimeRegistry(server.config.mathjax);
+    const notebook = new ThebeNotebook(nbid, config, rendermime);
+    notebook.cells = []
+
+    globals.jupyter[nbid] = {
+        server: server,
+        session: null,
+        notebook: notebook
+    }
+}
+
 
 const toggleOutputZoom = () => {
     if (isOutputZoomIn.value) {
@@ -139,104 +182,122 @@ const toggleCodeZoom = () => {
     }
 }
 
-config.events.on('status',
-    (evt, { status, message }) => console.debug(evt, status, message)
-)
-
 const onRunCode = async (event) => {
-    runButton.value.disabled = true
-    const nbid = `p${$page.value}`
-    const notebook = globals.jupyter.notebooks[nbid]
+    if (isCommandKeyPressed.value) {
+        code.value.style.setProperty('--pseudo-before-content', "'running'")
+        document.body.style.cursor = 'wait'
 
-    console.log("onRuncode: notebook is ", nbid, ",cell id is ", event.target.id)
+        const nbid = `p${$page.value}`
+        const cellId = code.value.id
+        // console.log(`running cell ${cellId}`, code.value.textContent)
 
-    const cell = notebook.getCellById(event.target.id)
-    document.body.style.cursor = 'wait'
-    notebook.attachSession(globals.jupyter.session)
-    await cell.execute();
-    document.body.style.cursor = 'default'
-    runButton.value.disabled = false
+        const notebook = globals.jupyter[nbid].notebook
+
+        const cell = notebook.getCellById(cellId)
+        await executeCell(cell)
+
+        document.body.style.cursor = 'default'
+        code.value.style.setProperty('--pseudo-before-content', "'runnable'")
+    } else {
+        event.stopPropagation()
+    }
+
 }
 
-const createCodeCell = (codeEl, config, outputWrapper, isInitCell) => {
+const executeCell = async (cell) => {
     const nbid = `p${$page.value}`
-    const metadata = {}
-    const cid = isInitCell ? `p${$page}-initial-cell` : shortId()
 
-    // 将runButton与cell绑定
-    console.log("bind runButton to cell", cid)
-    runButton.value.id = cid
+    const server = globals.jupyter[nbid].server
+
+    if (globals.jupyter[nbid].session == null) {
+        await server.connectToJupyterServer();
+        const rendermime = makeRenderMimeRegistry(server.config.mathjax);
+        let session = await server.startNewSession(rendermime);
+
+        if (session == null) {
+            console.error('could not start thebe jupyter session')
+            return
+        }
+
+        // console.log(`started new session ${session.id}, notebook is ${nbid}`)
+
+        globals.jupyter[nbid].session = session
+    }
+
+    cell.session = globals.jupyter[nbid].session
+    console.log(`executing ${cell.id}:\n${cell.source}`)
+    await cell.execute()
+}
+
+const initNotebook = async () => {
+    const initCellId = `${nbid}-initial-cell`
+    const nbid = `p${$page.value}`
+
+    const notebook = globals.jupyter[nbid]
+    const cell = notebook.getCellById(initCellId)
+
+    await executeCell(cell)
+    setTimeout(() => {
+        outputWrapper.value.style.opacity = 0
+    }, 5000)
+}
+const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
+    const pageno = $page.value
+    const nbid = `p${pageno}`
+    const config = globals.jupyter[nbid].server.config
+    const notebook = globals.jupyter[nbid].notebook
+
+    const metadata = {}
+    const cid = isInitCell ? `${nbid}-initial-cell` : `${nbid}-${shortId()}`
+
+    codeEl.id = cid
 
     const cell = new ThebeCodeCell(cid, nbid, codeEl.textContent, config, metadata)
 
-    // 创建output
-    const output = document.createElement("div")
-    output.id = isInitCell ? `p${$page}-initial-output` : cid + "-output"
-    output.style = {
-        width: '100%',
-        height: '100%'
-    }
+    outputWrapper.id = `${cid}-output`
+    cell.attachToDOM(outputWrapper)
 
-    outputWrapper.appendChild(output)
-
-    cell.attachToDOM(output)
-
-    console.info(`created ${cid} with output ${output.id}, src is`, codeEl)
     if (isInitCell) {
-        cell.execute()
         setTimeout(() => {
-            outputWrapper.removeChild(output)
-        }, 5000)
+            initNotebook()
+        }, 100)
     }
 
-    let notebook = globals.jupyter.notebooks[nbid]
     notebook.cells.push(cell)
+
+    const total = notebook.numCells()
+    console.info(`created Cell: ${cid}, total cells: ${total}, code is: \n${codeEl.textContent}`)
 }
 
-onMounted(async () => {
-    if ($renderContext.value === 'slide') {
-        if (!globals.jupyter) {
-            setupThebeCore();
+onMounted(() => {
+    if (!globals.jupyter) {
+        setupThebeCore();
 
-            let server = new ThebeServer(config)
-            server.connectToJupyterServer();
-            const rendermime = makeRenderMimeRegistry(server.config.mathjax);
-            let session = await server.startNewSession(rendermime);
-            if (session == null) {
-                console.error('could not start thebe jupyter session')
-                return
-            }
-
-            globals.jupyter = {
-                server: server,
-                session: session,
-                rendermime: rendermime,
-                notebooks: {}
-            }
-        } else {
-            console.log("thebe server already started", globals.jupyter)
+        globals.jupyter = {
         }
-
-        const nbid = `p${$page.value}`
-
-        if (!(nbid in globals.jupyter.notebooks)) {
-            const notebook = new ThebeNotebook($page.value, config, globals.jupyter.rendermime);
-            notebook.cells = []
-            notebook.attachSession(globals.jupyter.session)
-            globals.jupyter.notebooks[nbid] = notebook;
-        }
-
-        createCodeCell(code.value, config, outputWrapper.value, props.init)
     }
+
+    if ($renderContext.value === 'slide') {
+        createNotebook()
+        createCodeCell(code.value, outputWrapper.value, props.init)
+    }
+
+    document.body.addEventListener('keydown', checkCommandKey)
+    document.body.addEventListener('keyup', uncheckCommandKey)
+    code.value.style.setProperty('--pseudo-before-content', "'runnable'");
+
+})
+
+onUnmounted(() => {
+    document.body.removeEventListener('keydown', checkCommandKey)
+    document.body.removeEventListener('keyup', uncheckCommandKey)
 })
 
 </script>
 
 <template>
-    <div :class="[$attrs.class, 'abs', 'flex', 'flex-col']" v-motion v-bind="$attrs">
-        <div ref="runButton" @click="onRunCode" class="thebe-run-button">run</div>
-
-        <div ref="code" :style="style" class="thebe-code" @dblclick="toggleCodeZoom">
+    <div :class="$attrs.class" v-motion v-bind="$attrs">
+        <div ref="code" :style="style" class="thebe-code" @click="onRunCode" @dblclick="toggleCodeZoom">
             <slot></slot>
         </div>
         <div ref="outputWrapper" class="output-wrapper" @dblclick="toggleOutputZoom"></div>
@@ -250,7 +311,7 @@ onMounted(async () => {
     position: relative;
     overflow-y: auto;
     width: 100%;
-    /* background-color: #fefefe; */
+    background-color: #fefefe;
     padding: 0.5rem 1rem 0 0.5rem;
     font-size: 0.8rem;
 }
@@ -261,17 +322,17 @@ onMounted(async () => {
     overflow-y: auto;
 }
 
-.thebe-run-button {
+.thebe-code:before {
+    content: var(--pseudo-before-content, 'runnable');
     background-color: rgba(240, 180, 50);
-    width: 4rem;
-    padding: auto;
+    padding: 0rem 0.5rem;
     text-align: center;
     border-radius: 10px;
     height: 1.3rem;
-    position: absolute;
-    z-index: 1;
-    top: -1rem;
     font-size: 0.9rem;
+    z-index: 10;
+    position: absolute;
+    right: 0;
 }
 
 .thebe-run-button:hover {
