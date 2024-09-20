@@ -3,7 +3,7 @@
 -->
 
 <template>
-    <div v-bind="$attrs">
+    <div v-bind="$attrs" style="display: flex;">
         <div v-if="labelPos === 'top'" class="label">{{ label }}</div>
         <table>
             <tbody>

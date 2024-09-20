@@ -157,6 +157,7 @@ const toggleOutputZoom = () => {
         outputWrapper.value.style.height = '100%';
         outputWrapper.value.style.left = 0;
         outputWrapper.value.style.top = 0;
+        outputWrapper.value.style.overflowY = 'auto';
         isOutputZoomIn.value = true;
     }
 };
@@ -164,8 +165,7 @@ const toggleOutputZoom = () => {
 const toggleCodeZoom = () => {
     if (isCodeZoomIn.value) {
         // 恢复原始样式
-        code.value.style.position = 'relative';
-        code.value.style.maxHeight = '50%';
+        code.value.style.maxHeight = '80%';
         code.value.style.width = '';
         code.value.style.height = '';
         code.value.style.left = '';
@@ -173,7 +173,7 @@ const toggleCodeZoom = () => {
         isCodeZoomIn.value = false;
     } else {
         // 设置缩放样式
-        code.value.style.maxHeight = '100%';
+        code.value.style.maxHeight = '50%';
         code.value.style.width = '100%';
         code.value.style.height = '100%';
         code.value.style.left = 0;
@@ -300,26 +300,28 @@ onUnmounted(() => {
         <div ref="code" :style="style" class="thebe-code" @click="onRunCode" @dblclick="toggleCodeZoom">
             <slot></slot>
         </div>
-        <div ref="outputWrapper" class="output-wrapper" @dblclick="toggleOutputZoom"></div>
+        <div ref="outputWrapper" class="output-wrapper" @dblclick="toggleOutputZoom" />
     </div>
 
 </template>
 <style scoped>
 .output-wrapper {
     /* border: 1px solid #ccc; */
-    /* padding-top: 1.5rem; */
-    position: relative;
-    overflow-y: auto;
     width: 100%;
     background-color: #fefefe;
-    padding: 0.5rem 1rem 0 0.5rem;
+    padding: 1rem 0rem 2rem 0.5rem;
     font-size: 0.8rem;
+    display: flex;
+}
+
+.thebe-output {
+    width: 100% !important;
 }
 
 .thebe-code {
     position: relative;
-    max-height: 50%;
     overflow-y: auto;
+    max-height: 80%;
 }
 
 .thebe-code:before {

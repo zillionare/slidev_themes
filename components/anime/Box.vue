@@ -27,7 +27,7 @@
     border-radius: calc(2 * var(--border-width));
 
     &::after {
-        content: '';
+        content: ' ';
         position: absolute;
         top: 0;
         left: 0;

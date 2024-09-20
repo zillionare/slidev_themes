@@ -1,4 +1,15 @@
+<!--
+<Device class="abs top-150px left-670px" 
+        kind="apple-watch-ultra"
+        autoplay loop="forever" muted 
+        :scale=0.6
+        style="transform: rotateZ(45deg)">
+<Video src="https://cdn.pixabay.com/video/2023/08/22/177210-857004263_large.mp4"/>
+</Device>
+
+-->
 <script setup>
+import '../styles/devices.min.css'
 import { computed, useAttrs } from 'vue'
 import { mergeTransform } from './utils'
 
@@ -30,24 +41,24 @@ const device = computed(() => {
     return `device device-${props.kind}`
 })
 
-// const wrapStyle = computed(() => {
-//     var style = useAttrs().style
-//     var scale = {
-//         transform: `scale(${props.scale})`
-//     }
-//     if (!style) {
-//         return scale
-//     }
+const wrapStyle = computed(() => {
+    var style = useAttrs().style
+    var scale = {
+        transform: `scale(${props.scale})`
+    }
+    if (!style) {
+        return scale
+    }
 
-//     style.transform = mergeTransform(style.transform, scale.transform)
+    style.transform = mergeTransform(style.transform, scale.transform)
 
-//     return style
-// })
+    return style
+})
 
 </script>
 <style scoped></style>
 <template>
-    <div :class="[$attrs.class, device]" v-bind="$attrs" v-motion>
+    <div :class="[$attrs.class, device]" :style="wrapStyle">
         <div class="device-frame">
             <div class="device-screen" style="overflow: hidden;">
                 <slot />
