@@ -17,28 +17,32 @@ const props = defineProps({
     },
     "scale": {
         type: Number,
-        default: 0.6
+        default: 0.5
     },
-    "msg": {
+    "q": {
         type: String,
         default: ""
     },
     "color": {
         type: String,
-        default: "red"
+        default: "white"
+    },
+    "at": {
+        type: Number,
+        default: -1
     }
 })
 
 const rootStyle = computed(() => {
     return {
-        'transform': `scale(${props.scale})`,
-        'display': 'flex',
-        'flex-flow': 'column',
-        'align-items': 'center'
+        'transform': `scale(${props.scale})`
     }
 })
 const play = () => {
     video.value.play()
+    setTimeout(() => {
+        root.value.style.display = 'none'
+    }, props.count * 1000)
 }
 
 
@@ -48,15 +52,28 @@ onMounted(() => {
 
 </script>
 <template>
-    <div class="$attrs.class" ref="root" :style="rootStyle" @click="play">
-        <Device kind="apple-watch-ultra" :scale="props.scale">
+    <div v-if="props.at === $clicks" :class="[$attrs.class, 'wrapper']" ref="root" @click="play">
+        <Device kind="apple-watch-ultra" :style="rootStyle" :scale="props.scale">
             <video ref="video" class="background-video"
                 src="https://images.jieyu.ai/images/hot/countdown-timer-30.mp4" />
         </Device>
-        <div :style="{ marginTop: '-4em', color: props.color }">{{ props.msg }}</div>
+        <div :style="{ marginTop: '-4em', color: props.color }">{{ props.q }}</div>
     </div>
 </template>
-<style>
+<style scoped>
+.wrapper {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .background-video {
     position: absolute;
     top: 0;
