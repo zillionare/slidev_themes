@@ -47,7 +47,9 @@ const play = () => {
 
 
 onMounted(() => {
-    video.value.currentTime = 29 - parseInt(props.count)
+    if (video.value) {
+        video.value.currentTime = 29 - parseInt(props.count)
+    }
 })
 
 </script>
@@ -72,6 +74,7 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+
 }
 
 .background-video {

@@ -84,6 +84,9 @@ const isCodeZoomIn = ref(false);
 const outputWrapper = ref(null);
 const isOutputZoomIn = ref(false);
 
+// 如果在presenter中点击运行代码，给出提示！以避免听众看不到实际运行。
+const warnPresenterMode = ref(null)
+
 // 监听 keydown 事件
 function checkCommandKey(event) {
     if (event.key === 'Meta') {
@@ -144,7 +147,7 @@ const createNotebook = () => {
 const toggleOutputZoom = () => {
     if (isOutputZoomIn.value) {
         // 恢复原始样式
-        outputWrapper.value.style.position = 'relative';
+        outputWrapper.value.style.position = '';
         outputWrapper.value.style.width = '';
         outputWrapper.value.style.height = '';
         outputWrapper.value.style.left = '';
@@ -152,9 +155,8 @@ const toggleOutputZoom = () => {
         isOutputZoomIn.value = false;
     } else {
         // 设置全屏样式
-        outputWrapper.value.style.position = 'fixed';
+        outputWrapper.value.style.position = 'absolute';
         outputWrapper.value.style.width = '100%';
-        outputWrapper.value.style.height = '100%';
         outputWrapper.value.style.left = 0;
         outputWrapper.value.style.top = 0;
         outputWrapper.value.style.overflowY = 'auto';
@@ -175,15 +177,25 @@ const toggleCodeZoom = () => {
         // 设置缩放样式
         code.value.style.maxHeight = '50%';
         code.value.style.width = '100%';
-        code.value.style.height = '100%';
         code.value.style.left = 0;
         code.value.style.top = 0;
         isCodeZoomIn.value = true;
     }
 }
 
+const promptRunInSlide = () => {
+    console.log('presenter mode: prompt to run in slide')
+    warnPresenterMode.value.style.opacity = 1
+    setTimeout(() => {
+        warnPresenterMode.value.style.opacity = 0
+    }, 3000)
+}
 const onRunCode = async (event) => {
     if (isCommandKeyPressed.value) {
+        if ($renderContext.value === 'presenter') {
+            promptRunInSlide()
+            return
+        }
         code.value.style.setProperty('--pseudo-before-content', "'running'")
         document.body.style.cursor = 'wait'
 
@@ -301,17 +313,17 @@ onUnmounted(() => {
             <slot></slot>
         </div>
         <div ref="outputWrapper" class="output-wrapper" @dblclick="toggleOutputZoom" />
+        <RenderWhen context="presenter">
+            <div ref="warnPresenterMode" class="warnPresnterMode">请在演示模式下运行！</div>
+        </RenderWhen>
     </div>
 
 </template>
 <style scoped>
 .output-wrapper {
-    /* border: 1px solid #ccc; */
     width: 100%;
     background-color: #fefefe;
-    padding: 1rem 0rem 2rem 0.5rem;
     font-size: 0.8rem;
-    display: flex;
 }
 
 .thebe-output {
@@ -345,5 +357,18 @@ onUnmounted(() => {
 .thebe-run-button:disabled {
     background-color: #ccc;
     opacity: 0.5;
+}
+
+.warnPresnterMode {
+    width: 100%;
+    height: 6rem;
+    position: fixed;
+    padding: 2rem;
+    top: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    opacity: 0;
+    text-align: center;
+    font-size: 2rem;
 }
 </style>
