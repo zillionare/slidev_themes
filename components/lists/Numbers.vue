@@ -1,5 +1,7 @@
 <!--
     显示一组数字。数字带方框，另可有一个label
+
+    <Numbers :data="1,2,3,...,5,6,7" class="bg-blue mt-10"/>
 -->
 
 <template>
@@ -7,10 +9,13 @@
         <div v-if="labelPos === 'top'" class="label">{{ label }}</div>
         <table>
             <tbody>
-                <tr>
-                    <td v-for="(value, index) in props.data" :key="index" :style="{ textAlign: 'center' }">
+                <tr v-if="props.flag === 'horizontal'">
+                    <td v-for="(value, index) in props.data.split(',')" :key="index" :style="{ textAlign: 'center' }">
                         {{ value }}
                     </td>
+                </tr>
+                <tr v-else v-for="(item, index) in props.data.split(',')" :key="index">
+                    <td>{{ item }}</td>
                 </tr>
             </tbody>
         </table>
@@ -24,7 +29,7 @@
 
 const props = defineProps({
     data: {
-        type: Array,
+        type: String,
         required: true,
     },
     label: {
@@ -36,6 +41,10 @@ const props = defineProps({
         default: 'top',
         validator: value => ['top', 'bottom', 'left', 'right'].includes(value),
     },
+    flag: {
+        type: String,
+        default: 'horizontal'
+    }
 });
 </script>
 
@@ -60,7 +69,7 @@ table td {
 }
 
 .label {
-    margin: 1em 0;
+    margin: 2em 0;
     text-align: center;
 }
 
@@ -68,8 +77,8 @@ table td {
     position: absolute;
     left: -50px;
     top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    writing-mode: vertical-lr;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
 }
 
 .right-label {

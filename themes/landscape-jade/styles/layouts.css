@@ -35,16 +35,16 @@
 
     h2 {
         color: cadetblue;
-        @apply text-4xl text-left ml-4 mb-4;
+        @apply text-4xl text-left mb-4 ml-0;
     }
 
     h3 {
         color: rgb(86, 134, 136);
-        @apply text-2xl text-left ml-14 mb-4;
+        @apply text-2xl text-left ml-8 mb-4;
     }
 
     h4 {
-        @apply text-xl text-left ml-28 mb-2;
+        @apply text-xl text-left ml-18 mb-2;
     }
 
     h5 {

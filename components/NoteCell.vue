@@ -79,10 +79,10 @@ const style = computed(() => {
 const isCommandKeyPressed = ref(false);
 
 const code = ref(null)
-const isCodeZoomIn = ref(false);
-
 const outputWrapper = ref(null);
-const isOutputZoomIn = ref(false);
+const codeStatus = {
+
+}
 
 // 如果在presenter中点击运行代码，给出提示！以避免听众看不到实际运行。
 const warnPresenterMode = ref(null)
@@ -144,44 +144,21 @@ const createNotebook = () => {
 }
 
 
-const toggleOutputZoom = () => {
-    if (isOutputZoomIn.value) {
-        // 恢复原始样式
-        outputWrapper.value.style.position = '';
-        outputWrapper.value.style.width = '';
-        outputWrapper.value.style.height = '';
-        outputWrapper.value.style.left = '';
-        outputWrapper.value.style.top = '';
-        isOutputZoomIn.value = false;
-    } else {
-        // 设置全屏样式
-        outputWrapper.value.style.position = 'absolute';
-        outputWrapper.value.style.width = '100%';
-        outputWrapper.value.style.left = 0;
-        outputWrapper.value.style.top = 0;
-        outputWrapper.value.style.overflowY = 'auto';
-        isOutputZoomIn.value = true;
-    }
+const onOutputDblClick = (event) => {
+    toggleOutput(false)
 };
 
-const toggleCodeZoom = () => {
-    if (isCodeZoomIn.value) {
-        // 恢复原始样式
-        code.value.style.maxHeight = '80%';
-        code.value.style.width = '';
-        code.value.style.height = '';
-        code.value.style.left = '';
-        code.value.style.top = '';
-        isCodeZoomIn.value = false;
+const toggleOutput = (flag) => {
+    if (!flag) {
+        code.value.style.opacity = 1
+        outputWrapper.value.style.opacity = 0
+        outputWrapper.value.style.height = '100%'
     } else {
-        // 设置缩放样式
-        code.value.style.maxHeight = '50%';
-        code.value.style.width = '100%';
-        code.value.style.left = 0;
-        code.value.style.top = 0;
-        isCodeZoomIn.value = true;
+        outputWrapper.value.style.opacity = 1
+        outputWrapper.value.style.height = '500px'
+        code.value.style.opacity = 0
     }
-}
+};
 
 const promptRunInSlide = () => {
     console.log('presenter mode: prompt to run in slide')
@@ -191,29 +168,33 @@ const promptRunInSlide = () => {
     }, 3000)
 }
 const onRunCode = async (event) => {
-    if (isCommandKeyPressed.value) {
-        if ($renderContext.value === 'presenter') {
-            promptRunInSlide()
-            return
-        }
-        code.value.style.setProperty('--pseudo-before-content', "'running'")
-        document.body.style.cursor = 'wait'
-
-        const nbid = `p${$page.value}`
-        const cellId = code.value.id
-        // console.log(`running cell ${cellId}`, code.value.textContent)
-
-        const notebook = globals.jupyter[nbid].notebook
-
-        const cell = notebook.getCellById(cellId)
-        await executeCell(cell)
-
-        document.body.style.cursor = 'default'
-        code.value.style.setProperty('--pseudo-before-content', "'runnable'")
-    } else {
-        event.stopPropagation()
+    console.log('onRunCode', codeStatus)
+    if (code.value.id in codeStatus) {
+        toggleOutput(true)
+        return
     }
 
+    if ($renderContext.value === 'presenter') {
+        promptRunInSlide()
+        return
+    }
+    code.value.style.setProperty('--pseudo-before-content', "'running'")
+    document.body.style.cursor = 'wait'
+
+    const nbid = `p${$page.value}`
+    const cellId = code.value.id
+    // console.log(`running cell ${cellId}`, code.value.textContent)
+
+    const notebook = globals.jupyter[nbid].notebook
+
+    const cell = notebook.getCellById(cellId)
+    await executeCell(cell)
+    toggleOutput(true)
+
+    document.body.style.cursor = 'default'
+    code.value.style.setProperty('--pseudo-before-content', "'runnable'")
+
+    codeStatus[code.value.id] = true
 }
 
 const executeCell = async (cell) => {
@@ -308,11 +289,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div :class="$attrs.class" v-motion v-bind="$attrs">
-        <div ref="code" :style="style" class="thebe-code" @click="onRunCode" @dblclick="toggleCodeZoom">
+    <div :class="$attrs.class" v-motion>
+        <div ref="code" :style="style" class="thebe-code" @dblclick="onRunCode">
             <slot></slot>
         </div>
-        <div ref="outputWrapper" class="output-wrapper" @dblclick="toggleOutputZoom" />
+        <div ref="outputWrapper" class="output-wrapper" @dblclick="onOutputDblClick" />
         <RenderWhen context="presenter">
             <div ref="warnPresenterMode" class="warnPresnterMode">请在演示模式下运行！</div>
         </RenderWhen>
@@ -320,20 +301,19 @@ onUnmounted(() => {
 
 </template>
 <style scoped>
+.thebe-code {
+    position: absolute;
+    width: 100%;
+}
+
 .output-wrapper {
+    height: 100%;
     width: 100%;
     background-color: #fefefe;
     font-size: 0.8rem;
-}
-
-.thebe-output {
-    width: 100% !important;
-}
-
-.thebe-code {
-    position: relative;
     overflow-y: auto;
-    max-height: 80%;
+    overflow-x: hidden;
+    scrollbar-width: none;
 }
 
 .thebe-code:before {
@@ -347,16 +327,6 @@ onUnmounted(() => {
     z-index: 10;
     position: absolute;
     right: 0;
-}
-
-.thebe-run-button:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-.thebe-run-button:disabled {
-    background-color: #ccc;
-    opacity: 0.5;
 }
 
 .warnPresnterMode {

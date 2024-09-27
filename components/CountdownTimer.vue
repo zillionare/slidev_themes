@@ -45,10 +45,17 @@ const play = () => {
     }, props.count * 1000)
 }
 
-
 onMounted(() => {
     if (video.value) {
         video.value.currentTime = 29 - parseInt(props.count)
+    }
+})
+
+const msg = computed(() => {
+    if ($renderContext.value === 'presenter') {
+        return "⚠️ 在演播界面中点击开始！ ⚠️ "
+    } else {
+        return props.q
     }
 })
 
@@ -59,7 +66,7 @@ onMounted(() => {
             <video ref="video" class="background-video"
                 src="https://images.jieyu.ai/images/hot/countdown-timer-30.mp4" />
         </Device>
-        <div :style="{ marginTop: '-4em', color: props.color }">{{ props.q }}</div>
+        <div :style="{ marginTop: '-4em', color: props.color, textAlign: 'center' }" v-html="msg"></div>
     </div>
 </template>
 <style scoped>
