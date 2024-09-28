@@ -2,10 +2,9 @@
   Usage:
 ```md
 ---
-layout: two-cols-header
+layout: two-cols
 ---
-This spans both
-::left::
+
 # Left
 This shows on the left
 ::right::
@@ -16,39 +15,57 @@ This shows on the right
 
 <script setup lang="ts">
 const props = defineProps({
-  class: {
-    type: String,
-  },
-  layoutClass: {
-    type: String,
-  },
+    class: {
+        type: String,
+    },
+    layoutClass: {
+        type: String,
+    },
 })
 </script>
 
 <template>
-  <div class="slidev-layout two-cols-header w-full h-full" :class="layoutClass">
-    <div class="col-header">
-      <slot />
+    <div class="slidev-layout w-full h-full" :class="layoutClass">
+        <div class="seq">{{ $frontmatter.title }}</div>
+
+        <div class="col-left" :class="props.class">
+            <slot />
+        </div>
+        <div class="col-right" :class="props.class">
+            <slot name="right" />
+        </div>
     </div>
-    <div class="col-left" :class="props.class">
-      <slot name="left" />
-    </div>
-    <div class="col-right" :class="props.class">
-      <slot name="right" />
-    </div>
-  </div>
 </template>
 
 <style scoped>
-.two-cols-header {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+.seq {
+    position: absolute;
+    top: 0;
+    text-align: left;
+    left: 0;
+    border-left: 5px solid rgba(0, 0, 0, 0.2);
+    border-right: 5px solid rgba(0, 0, 0, 0.2);
+    background-color: aliceblue;
+    padding: 5px 20px 5px 10px;
+    border-radius: 0 20px 0 20px;
 }
 
-.col-header { 
-    grid-area: 1 / 1 / 2 / 3; 
+
+.col-left {
+    position: absolute;
+    top: 12%;
+    width: 50%;
+    height: 88%;
+    left: 0;
+    padding-left: 1rem;
 }
-.col-left { grid-area: 2 / 1 / 2 / 2; }
-.col-right { grid-area: 2 / 2 / 5 / 3; }
+
+.col-right {
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    width: 50%;
+    height: 88%;
+    padding-left: 1rem;
+}
 </style>

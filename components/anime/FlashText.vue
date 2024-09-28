@@ -1,8 +1,23 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+const props = defineProps({
+    fontSize: {
+        type: String,
+        default: '5vw'
+    }
+})
+
+const style = computed(() => {
+    return {
+        "fontSize": props.fontSize
+    }
+})
+</script>
 <style>
 .janestreet-text {
     position: absolute;
     right: 2vw;
-    text-transform: uppercase;
     background-image: linear-gradient(-225deg,
             #231557 0%,
             #44107a 29%,
@@ -15,7 +30,6 @@
     background-clip: text;
     color: transparent;
     animation: textclip 2s linear infinite;
-    font-size: 5vw;
 }
 
 @keyframes textclip {
@@ -25,7 +39,7 @@
 }
 </style>
 <template>
-    <div class="janestreet-text">
+    <div :class="[$attrs.class, 'janestreet-text']" :style="style">
         <slot></slot>
     </div>
 </template>

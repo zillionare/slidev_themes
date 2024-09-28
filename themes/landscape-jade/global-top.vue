@@ -1,9 +1,9 @@
 <template>
-    <div class="lhfy-badge">
+    <div v-if="$nav.currentLayout !== 'end'" class="lhfy-badge">
     </div>
 </template>
 
-<script>
+<script setup>
 
 </script>
 

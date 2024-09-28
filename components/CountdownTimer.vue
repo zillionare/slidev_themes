@@ -46,7 +46,7 @@ const play = () => {
 }
 
 onMounted(() => {
-    if (video.value) {
+    if ($renderContext.value === 'slide' && video.value) {
         video.value.currentTime = 29 - parseInt(props.count)
     }
 })

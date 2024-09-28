@@ -1,8 +1,10 @@
 <!-- 一定要与v-drag一起食用
 
-    <v-drag class="abs left-10% top-10% w-200px h-80px">
-        <Box> Hello box</Box>
-    </v-drag>
+v-drag的定位是相对于父元素的。所以，如果父元素是absolute，那么最好初始化时，将Pos指定为0，0，100，100,再进调整。否则，可能不显示。
+<v-drag pos="0,0,100,100">
+<Box />
+</v-drag>
+
 -->
 <style scoped>
 .box-wrapper {
