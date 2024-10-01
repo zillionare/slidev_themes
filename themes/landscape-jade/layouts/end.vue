@@ -40,10 +40,10 @@ clicks: 1
             <Anime action="fadeOut" dur="5s">
                 <!--消除最下面，未能被video覆盖的白线-->
                 <video src="https://images.jieyu.ai/images/hot/the-end.mp4" autoplay style="width:101%;max-width:101%"
-                    playbackRate="1.5" />
+                    playbackRate="1.25" />
             </Anime>
-            <Anime class="abs top-35% w-full h-100px z-10" action="zoomIn" dur="8s">
-                <Anime class="abs w-full h-100px z-10" action="fadeIn" dur="8s">
+            <Anime class="abs top-35% w-full h-100px z-10" action="zoomIn" dur="6s">
+                <Anime class="abs w-full h-100px z-10" action="fadeIn" dur="6s">
                     <img style="width:150px;border-radius:50%"
                         src="https://images.jieyu.ai/images/hot/logo/quantide-alpha-yellow.jpg">
                     <FlashText class="abs left-19% top-150% scale-30%">感谢收看!</FlashText>

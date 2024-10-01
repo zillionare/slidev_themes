@@ -149,10 +149,10 @@ const onOutputDblClick = (event) => {
 };
 
 const toggleOutput = (flag) => {
-    if (!flag) {
+    if (!flag) {//show code
         code.value.style.opacity = 1
         outputWrapper.value.style.opacity = 0
-        outputWrapper.value.style.height = '100%'
+        outputWrapper.value.style.height = 0
     } else {
         outputWrapper.value.style.opacity = 1
         outputWrapper.value.style.height = '500px'
