@@ -1,0 +1,39 @@
+code,
+code * {
+    @apply select-text;
+    font-size: 2.5vw;
+    line-height: 3.5vw;
+    font-family: "Fira Code", monospace;
+}
+
+
+:not(pre)>code {
+    color: var(--geist-highlight-purple);
+    /* @apply text-sm; */
+    font-size: 2.8vw;
+    font-style: italic;
+}
+
+:not(pre)>code:before,
+:not(pre)>code:after {
+    content: " ";
+    color: var(--geist-highlight-purple);
+}
+
+/* .line {
+    counter-increment: line;
+}
+
+.line::before {
+    font-size: 2.5vw;
+    content: counter(line);
+    color: rgb(239, 100, 100);
+    margin-right: 2vw;
+} */
+
+.slidev-code-wrapper {
+    padding: 0.5em 0;
+    background-color: #f8f8f8;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}

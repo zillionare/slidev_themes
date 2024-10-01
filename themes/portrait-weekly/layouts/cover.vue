@@ -125,7 +125,10 @@ const calendar = computed(() => {
     <div class="slidev-layout weekly">
         <div class="header">
             <div class="first-row">
-                <QtBrand class="abs w-180px right-15% top-10px" />
+                <!--QtBrand class="abs w-180px right-15% top-10px" /-->
+                <div class="abs w-150px h-150px right-15%"><img class="rounded-full"
+                        src='https://images.jieyu.ai/images/hot/logo/quantide-alpha-yellow.jpg'>
+                </div>
                 <div class="quantide-weekly">QuanTide Weekly</div>
 
                 <div class="calendar">
