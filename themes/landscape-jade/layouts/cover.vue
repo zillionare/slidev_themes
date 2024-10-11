@@ -30,6 +30,7 @@ const imgList = [
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 3rem;
 }
 
 .subtitle {
@@ -89,7 +90,9 @@ const imgList = [
     <div class="slidev-layout cover">
         <div class="seq">{{ $slidev.configs.seq }}</div>
         <div class="title-wrapper">
-            <div class="title">{{ $slidev.configs.title }}</div>
+            <div class="title">
+                <AutoFitText>{{ $slidev.configs.title }}</AutoFitText>
+            </div>
             <div class="subtitle">
                 {{ $slidev.configs.subtitle }}
             </div>

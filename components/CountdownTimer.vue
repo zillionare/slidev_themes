@@ -66,7 +66,7 @@ const msg = computed(() => {
             <video ref="video" class="background-video"
                 src="https://images.jieyu.ai/images/hot/countdown-timer-30.mp4" />
         </Device>
-        <div :style="{ marginTop: '-4em', color: props.color, textAlign: 'center' }" v-html="msg"></div>
+        <div :style="{ marginTop: '-4em', color: props.color, textAlign: 'left' }" v-html="msg"></div>
     </div>
 </template>
 <style scoped>

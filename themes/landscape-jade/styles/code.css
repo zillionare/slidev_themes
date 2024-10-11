@@ -41,3 +41,7 @@ code {
 pre {
     border: 1px solid var(--accents-2);
 }
+
+.slidev-code {
+    scrollbar-width: None;
+}

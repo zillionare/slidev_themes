@@ -15,7 +15,7 @@ print("hello world")
 ```
 </NoteCell>
 
-<NoteCell class="w-50% h-full top-10% left-50%"
+<NoteCell class="w-50% h-full top-10% left-50%" hideOutput
         :enter="{scale: 0}"
         :click-1="{scale: 1}"
         :click-2="{scale: 0}">
@@ -46,6 +46,28 @@ print("the sceond call")
 import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { globals } from './utils'
+// import { useScriptTag } from '@vueuse/core'
+
+// useScriptTag(
+//     'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js',
+//     (el) => {
+//         console.log("requirejs is loaded")
+//     }
+// )
+
+// useScriptTag(
+//     'https://cdn.plot.ly/plotly-2.35.2.min.js',
+//     (el) => {
+//         console.log("plotly is loaded")
+//     }
+// )
+
+// useScriptTag(
+//     'https://unpkg.com/thebe@latest/lib/index.js',
+//     (el) => {
+//         console.log("thebe client is loaded", el)
+//     }
+// )
 
 const props = defineProps({
     "init": {
@@ -67,6 +89,10 @@ const props = defineProps({
     "path": {
         type: String,
         default: "/home/teacher_fa/notebooks/"
+    },
+    "hideOutput": { // 是否立即显示输出，还是需要双击两次显示
+        type: Boolean,
+        default: false
     }
 })
 
@@ -143,7 +169,6 @@ const createNotebook = () => {
     }
 }
 
-
 const onOutputDblClick = (event) => {
     toggleOutput(false)
 };
@@ -151,10 +176,11 @@ const onOutputDblClick = (event) => {
 const toggleOutput = (flag) => {
     if (!flag) {//show code
         code.value.style.opacity = 1
-        outputWrapper.value.style.opacity = 0
+        outputWrapper.value.style.display = 'none'
         outputWrapper.value.style.height = 0
     } else {
-        outputWrapper.value.style.opacity = 1
+        console.log("turn on output")
+        outputWrapper.value.style.display = 'block'
         outputWrapper.value.style.height = '500px'
         code.value.style.opacity = 0
     }
@@ -169,6 +195,7 @@ const promptRunInSlide = () => {
 }
 const onRunCode = async (event) => {
     console.log('onRunCode', codeStatus)
+    // window.thebe.bootstrap()
     if (code.value.id in codeStatus) {
         toggleOutput(true)
         return
@@ -189,7 +216,10 @@ const onRunCode = async (event) => {
 
     const cell = notebook.getCellById(cellId)
     await executeCell(cell)
-    toggleOutput(true)
+
+    if (!props.hideOutput) {
+        toggleOutput(true)
+    }
 
     document.body.style.cursor = 'default'
     code.value.style.setProperty('--pseudo-before-content', "'runnable'")
@@ -312,7 +342,8 @@ onUnmounted(() => {
     background-color: #fefefe;
     font-size: 0.8rem;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
+    display: none;
     scrollbar-width: none;
 }
 
