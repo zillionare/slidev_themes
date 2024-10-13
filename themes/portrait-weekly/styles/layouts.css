@@ -69,7 +69,7 @@
     }
 
     p {
-        font-size: 4vw;
+        font-size: 3.8vw;
         margin: 3vw 0vw;
         line-height: 6vw;
     }
@@ -125,6 +125,10 @@
 
     remark::before {
         content: ' ';
+    }
+
+    .katex {
+        font-size: 3.5vw !important;
     }
 }
 

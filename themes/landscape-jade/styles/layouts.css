@@ -171,3 +171,23 @@
         left: -108%;
     }
 }
+
+run::before {
+    content: ' 运行 ';
+}
+
+run {
+    font-size: 1.2em;
+    color: red;
+    font-weight: 700;
+}
+
+draw::before {
+    content: ' 手绘 '
+}
+
+draw {
+    font-size: 1.2em;
+    color: red;
+    font-weight: 700;
+}
