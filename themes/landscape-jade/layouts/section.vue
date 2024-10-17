@@ -26,6 +26,7 @@ const textAlignment = computed(() => props.imageOrder === 1
                 <img :src="image" class="rounded-2xl border-image h-full object-cover" />
             </div>
             <div class="w-1/2 flex flex-col justify-center" :class="textAlignment">
+                <h1>{{ $frontmatter.title }}</h1>
                 <slot />
             </div>
         </div>

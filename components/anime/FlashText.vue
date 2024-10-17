@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps({
-    fontSize: {
-        type: String,
-        default: '5vw'
-    }
-})
+// const props = defineProps({
+//     fontSize: {
+//         type: String,
+//         default: '5vw'
+//     }
+// })
 
-const style = computed(() => {
-    return {
-        "fontSize": props.fontSize
-    }
-})
+// const style = computed(() => {
+//     return {
+//         "fontSize": props.fontSize
+//     }
+// })
 </script>
 <style>
 .janestreet-text {
@@ -39,7 +39,7 @@ const style = computed(() => {
 }
 </style>
 <template>
-    <div :class="[$attrs.class, 'janestreet-text']" :style="style">
+    <div :class="[$attrs.class, 'janestreet-text']">
         <slot></slot>
     </div>
 </template>

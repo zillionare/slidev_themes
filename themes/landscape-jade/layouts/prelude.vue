@@ -23,7 +23,7 @@ const welcome_audio = computed(() => {
     background-image: url('https://images.jieyu.ai/images/hot/shanghai-extra-wide.jpg');
     width: 100%;
     height: 100%;
-    animation: layer-0-anime 5s linear 0s;
+    animation: layer-0-anime 3s linear 0s;
     background-size: auto 100%;
     background-position-x: left;
     opacity: 0;
@@ -199,7 +199,7 @@ const welcome_audio = computed(() => {
     </div>
     <!--第一页永驻内容-->
     <div class="slidev-layout cover">
-        <div class="title">{{ $slidev.configs.title }}</div>
+        <div class="title">{{ $slidev.title }}</div>
         <div class="subtitle">{{ $slidev.configs.subtitle }}</div>
         <div class="content">
             <slot />

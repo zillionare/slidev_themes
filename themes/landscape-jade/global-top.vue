@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$nav.currentLayout !== 'end'" class="lhfy-badge">
+    <div v-if="($nav.currentLayout !== 'end') & ($slidev.nav.currentLayout !== 'prelude')" class="lhfy-badge">
     </div>
 </template>
 

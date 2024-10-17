@@ -31,6 +31,7 @@
   "devDependencies": {
     "@iconify-json/ic": "^1.2.0",
     "@iconify-json/ion": "^1.2.0",
+    "@iconify-json/mdi": "^1.2.1",
     "@shikijs/transformers": "^1.16.3",
     "playwright-chromium": "^1.48.0"
   }
