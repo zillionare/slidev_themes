@@ -87,7 +87,7 @@ v-drag的定位是相对于父元素的。所以，如果父元素是absolute，
         '--hue3': $attrs.hue3 || 0.6,
         '--light': $attrs.light || '50%'
     }, $attrs.style]" class="box-wrapper">
-        <div class="box">
+        <div :class="['box', $attrs.class]">
             <slot />
         </div>
     </div>
