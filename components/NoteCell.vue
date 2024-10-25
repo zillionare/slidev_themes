@@ -253,10 +253,11 @@ const executeCell = async (cell) => {
 }
 
 const initNotebook = async () => {
-    const initCellId = `${nbid}-initial-cell`
     const nbid = `p${$page.value}`
+    const initCellId = `${nbid}-initial-cell`
 
-    const notebook = globals.jupyter[nbid]
+    const jupyter = globals.jupyter[nbid]
+    const notebook = jupyter.notebook
     const cell = notebook.getCellById(initCellId)
 
     await executeCell(cell)
@@ -283,7 +284,7 @@ const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
     if (isInitCell) {
         setTimeout(() => {
             initNotebook()
-        }, 100)
+        }, 500)
     }
 
     notebook.cells.push(cell)

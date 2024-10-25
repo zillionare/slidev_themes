@@ -69,9 +69,9 @@
     }
 
     p {
-        font-size: 3.8vw;
-        margin: 3vw 0vw;
-        line-height: 6vw;
+        font-size: 3.5vw;
+        margin: 2.8vw 0vw;
+        line-height: 5.5vw;
     }
 
     .admonition p {
@@ -85,8 +85,8 @@
     }
 
     li {
-        font-size: 3.4vw;
-        margin-bottom: 2vw;
+        font-size: 3.2vw;
+        margin-bottom: 1vw;
     }
 
     red {
