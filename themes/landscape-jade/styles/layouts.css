@@ -4,12 +4,28 @@
     counter-reset: h2counter;
 }
 
+* {
+    /*禁止 ipad中，长按时出现context menu */
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    touch-action: pan-x pan-y;
+}
+
+svg.pointer-events-none {
+    z-index: 100;
+}
+
 .abs {
     position: absolute;
 }
 
 .hide {
     display: none;
+}
+
+.slidev-presenter .slidev-page {
+    border: 1px solid black;
 }
 
 .slidev-layout {
