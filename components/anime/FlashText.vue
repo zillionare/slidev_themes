@@ -15,7 +15,7 @@ import { computed } from 'vue'
 // })
 </script>
 <style>
-.janestreet-text {
+.flash {
     position: absolute;
     right: 2vw;
     background-image: linear-gradient(-225deg,
@@ -39,7 +39,7 @@ import { computed } from 'vue'
 }
 </style>
 <template>
-    <div :class="[$attrs.class, 'janestreet-text']">
+    <div :class="[$attrs.class, 'flash']" v-motion>
         <slot></slot>
     </div>
 </template>

@@ -8,6 +8,8 @@
 
 在有多个组件时，请使用scale动画，以避免彼此干扰捕获鼠标
 
+color: 用以指定输出文本的颜色
+
 <NoteCell init class="w-50% h-full top-10% left-50%">
 ```python
 init_result = 5
@@ -15,7 +17,7 @@ print("hello world")
 ```
 </NoteCell>
 
-<NoteCell class="w-50% h-full top-10% left-50%" hideOutput
+<NoteCell class="w-50% h-full top-10% left-50%" hideOutput color="red"
         :enter="{scale: 0}"
         :click-1="{scale: 1}"
         :click-2="{scale: 0}">
@@ -84,7 +86,7 @@ const props = defineProps({
     },
     "token": {
         type: String,
-        default: "M@cao123"
+        default: "Qu@ntide2024"
     },
     "path": {
         type: String,
@@ -93,6 +95,10 @@ const props = defineProps({
     "hideOutput": { // 是否立即显示输出，还是需要双击两次显示
         type: Boolean,
         default: false
+    },
+    "color": {
+        type: String,
+        default: "pulse"
     }
 })
 
@@ -103,7 +109,7 @@ const style = computed(() => {
 })
 
 const isCommandKeyPressed = ref(false);
-
+let isCodeHidden = false;
 const code = ref(null)
 const outputWrapper = ref(null);
 const codeStatus = {
@@ -169,20 +175,19 @@ const createNotebook = () => {
     }
 }
 
-const onOutputDblClick = (event) => {
-    toggleOutput(false)
-};
-
-const toggleOutput = (flag) => {
-    if (!flag) {//show code
-        code.value.style.opacity = 1
-        outputWrapper.value.style.display = 'none'
-        outputWrapper.value.style.height = 0
+const toggleOutput = () => {
+    if (isCodeHidden) {//show code
+        code.value.classList.remove("hide")
+        outputWrapper.value.classList.add('hide')
+        isCodeHidden = false;
+        // outputWrapper.value.style.display = 'none'
+        // outputWrapper.value.style.height = 0
     } else {
-        console.log("turn on output")
-        outputWrapper.value.style.display = 'block'
-        outputWrapper.value.style.height = '500px'
-        code.value.style.opacity = 0
+        // outputWrapper.value.style.display = 'block'
+        // outputWrapper.value.style.height = '500px'
+        code.value.classList.add('hide')
+        outputWrapper.value.classList.remove('hide')
+        isCodeHidden = true;
     }
 };
 
@@ -194,11 +199,11 @@ const promptRunInSlide = () => {
     }, 3000)
 }
 const onRunCode = async (event) => {
-    console.log('onRunCode', codeStatus)
+    console.log('onRunCode', codeStatus, isCodeHidden)
     // window.thebe.bootstrap()
     if (code.value.id in codeStatus) {
-        toggleOutput(true)
-        return
+        console.log("code already executed")
+        return toggleOutput()
     }
 
     if ($renderContext.value === 'presenter') {
@@ -217,8 +222,8 @@ const onRunCode = async (event) => {
     const cell = notebook.getCellById(cellId)
     await executeCell(cell)
 
-    if (!props.hideOutput) {
-        toggleOutput(true)
+    if (props.hideOutput) {
+        outputWrapper.value.classList.add("hide")
     }
 
     document.body.style.cursor = 'default'
@@ -321,31 +326,46 @@ onUnmounted(() => {
 
 <template>
     <div :class="$attrs.class" v-motion>
-        <div ref="code" :style="style" class="thebe-code" @dblclick="onRunCode">
-            <slot></slot>
+        <div class="wrapper-all" @dblclick="onRunCode">
+            <div ref="code" :style="style" class="thebe-code">
+                <slot></slot>
+            </div>
+            <div ref="outputWrapper" class="output-wrapper" :style="{ '--output-text-color': props.color }" />
+            <RenderWhen context="presenter">
+                <div ref="warnPresenterMode" class="warnPresnterMode">请在演示模式下运行！</div>
+            </RenderWhen>
         </div>
-        <div ref="outputWrapper" class="output-wrapper" @dblclick="onOutputDblClick" />
-        <RenderWhen context="presenter">
-            <div ref="warnPresenterMode" class="warnPresnterMode">请在演示模式下运行！</div>
-        </RenderWhen>
     </div>
 
 </template>
 <style scoped>
-.thebe-code {
-    position: absolute;
+.wrapper-all {
+    height: 100vh;
     width: 100%;
+    display: flex;
+    flex-flow: column;
+    overflow: auto;
+    max-height: 450px;
+    scrollbar-width: none;
+}
+
+.thebe-code {
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
 }
 
 .output-wrapper {
-    height: 100%;
+    flex-grow: 1;
     width: 100%;
-    background-color: #fefefe;
+    height: 100vh;
+    /* background-color: #fefefe; */
     font-size: 0.8rem;
-    overflow-y: auto;
-    overflow-x: auto;
-    display: none;
+    overflow: auto;
+    /* display: none; */
+    padding-top: 15px;
     scrollbar-width: none;
+    color: var(--output-text-color);
 }
 
 .thebe-code:before {

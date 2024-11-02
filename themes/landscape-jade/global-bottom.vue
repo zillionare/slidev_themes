@@ -25,6 +25,11 @@
     background-image: url(https://images.jieyu.ai/images/hot/logo/quantide-alpha-yellow.jpg);
     background-size: cover;
     border-radius: 50% 50%;
+    font-size: 5vw;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 </style>
 <script>
@@ -96,6 +101,6 @@ const cutMeStyle = computed(() => {
         </small>
     </div>
     <div class="cut-me" :style="cutMeStyle">
-        <div class="cut-me-logo" />
+        <div class="cut-me-logo">{{ $slidev.nav.currentPage }}-{{ $slidev.nav.clicks }}</div>
     </div>
 </template>
