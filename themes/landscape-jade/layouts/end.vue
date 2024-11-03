@@ -46,7 +46,7 @@ clicks: 1
                 <Anime class="abs w-full h-100px z-10" action="fadeIn" dur="6s">
                     <img style="width:150px;border-radius:50%"
                         src="https://images.jieyu.ai/images/hot/logo/quantide-alpha-yellow.jpg">
-                    <FlashText class="abs left-19% top-150% scale-30%">感谢收看!</FlashText>
+                    <FlashText class="abs flex w-full justify-center mt-10">感谢收看!</FlashText>
                 </Anime>
             </Anime>
         </div>

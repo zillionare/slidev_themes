@@ -32,7 +32,7 @@ svg.pointer-events-none {
     @apply h-full text-$slidev-theme-primary;
     /* background-image: linear-gradient(45deg, rgba(95, 158, 160, 0.8), #f0f0f046, rgb(86, 134, 136, 0.9)); */
     /* animation: background-anime 3s ease infinite; */
-    padding: 2vw;
+    padding: 0;
 
     p+h2,
     ul+h2,
@@ -55,7 +55,7 @@ svg.pointer-events-none {
 
     h2 {
         color: cadetblue;
-        @apply text-4xl text-left mb-4 ml-0;
+        @apply text-4xl text-left mb-4 ml-2;
     }
 
     h3 {

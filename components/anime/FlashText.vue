@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+// import { computed } from 'vue'
 
-// const props = defineProps({
-//     fontSize: {
-//         type: String,
-//         default: '5vw'
-//     }
-// })
 
 // const style = computed(() => {
 //     return {
@@ -15,9 +9,7 @@ import { computed } from 'vue'
 // })
 </script>
 <style>
-.flash {
-    position: absolute;
-    right: 2vw;
+.flash-text {
     background-image: linear-gradient(-225deg,
             #231557 0%,
             #44107a 29%,
@@ -39,7 +31,7 @@ import { computed } from 'vue'
 }
 </style>
 <template>
-    <div :class="[$attrs.class, 'flash']" v-motion>
+    <div :class="[$attrs.class, 'flash-text']" v-motion>
         <slot></slot>
     </div>
 </template>

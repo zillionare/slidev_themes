@@ -193,9 +193,9 @@ const toggleOutput = () => {
 
 const promptRunInSlide = () => {
     console.log('presenter mode: prompt to run in slide')
-    warnPresenterMode.value.style.opacity = 1
+    warnPresenterMode.value.style.transform = 'scale(1)'
     setTimeout(() => {
-        warnPresenterMode.value.style.opacity = 0
+        warnPresenterMode.value.style.transform = 'scale(0)'
     }, 3000)
 }
 const onRunCode = async (event) => {
@@ -384,12 +384,12 @@ onUnmounted(() => {
 .warnPresnterMode {
     width: 100%;
     height: 6rem;
+    margin: auto;
     position: fixed;
     padding: 2rem;
-    top: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    opacity: 0;
+    transform: scale(0);
     text-align: center;
     font-size: 2rem;
 }
