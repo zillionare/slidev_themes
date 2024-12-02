@@ -24,6 +24,7 @@ const imgStyle = computed(() => {
     <div ref="container" :class="[$attrs.class, 'flex flex-col justify-center items-center']" v-motion>
         <div class="card-img-container" :style="{
         backgroundImage: 'url(' + $attrs.img + ')',
+        backgroundColor: $attrs.color,
         ...imgStyle
     }">
         </div>
