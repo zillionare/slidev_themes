@@ -8,6 +8,14 @@ export default defineConfig({
     server: {
         fs: {
             strict: false
+        },
+        proxy: {
+            '/thebe': {
+                target: 'https://ke.jieyu.ai:8888/teacher_fa/',
+                changeOrigin: true,
+                ws: true,
+                rewrite: (path) => path.replace(/^\/thebe/, '')
+            }
         }
     },
     publicDir: resolve(__dirname, '../../public'),

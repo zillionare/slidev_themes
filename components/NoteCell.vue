@@ -82,7 +82,7 @@ const props = defineProps({
     },
     "baseUrl": {
         type: String,
-        default: "http://192.168.100.101:5180/teacher_fa/"
+        default: "/thebe/"
     },
     "token": {
         type: String,
@@ -90,7 +90,7 @@ const props = defineProps({
     },
     "path": {
         type: String,
-        default: "/home/teacher_fa/notebooks/"
+        default: "/tmp/"
     },
     "hideOutput": { // 是否立即显示输出，还是需要双击两次显示
         type: Boolean,
@@ -99,6 +99,10 @@ const props = defineProps({
     "color": {
         type: String,
         default: "pulse"
+    },
+    "layout": {
+        type: String,
+        default: "vertical"
     }
 })
 
@@ -326,7 +330,7 @@ onUnmounted(() => {
 
 <template>
     <div :class="$attrs.class" v-motion>
-        <div class="wrapper-all" @dblclick="onRunCode">
+        <div class="wrapper-all" :class="{ 'horizontal-layout': layout === 'horizontal' }" @dblclick="onRunCode">
             <div ref="code" :style="style" class="thebe-code">
                 <slot></slot>
             </div>
@@ -392,5 +396,20 @@ onUnmounted(() => {
     transform: scale(0);
     text-align: center;
     font-size: 2rem;
+}
+
+.horizontal-layout {
+    flex-flow: row;
+}
+
+.horizontal-layout .thebe-code {
+    width: 50%;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+}
+
+.horizontal-layout .output-wrapper {
+    width: 50%;
+    margin-top: -3.2rem;
 }
 </style>
