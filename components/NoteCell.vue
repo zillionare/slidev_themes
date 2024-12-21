@@ -103,6 +103,10 @@ const props = defineProps({
     "layout": {
         type: String,
         default: "vertical"
+    },
+    "outputMt": {
+        type: String,
+        default: "-3.2rem"
     }
 })
 
@@ -334,7 +338,10 @@ onUnmounted(() => {
             <div ref="code" :style="style" class="thebe-code">
                 <slot></slot>
             </div>
-            <div ref="outputWrapper" class="output-wrapper" :style="{ '--output-text-color': props.color }" />
+            <div ref="outputWrapper" class="output-wrapper" :style="{
+        '--output-text-color': props.color,
+        '--margin-top': props.outputMt
+    }" />
             <RenderWhen context="presenter">
                 <div ref="warnPresenterMode" class="warnPresnterMode">请在演示模式下运行！</div>
             </RenderWhen>
@@ -410,6 +417,6 @@ onUnmounted(() => {
 
 .horizontal-layout .output-wrapper {
     width: 50%;
-    margin-top: -3.2rem;
+    margin-top: var(--margin-top)
 }
 </style>
