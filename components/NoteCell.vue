@@ -107,6 +107,14 @@ const props = defineProps({
     "outputMt": {
         type: String,
         default: "-3.2rem"
+    },
+    "outputMl": {
+        type: String,
+        default: "0"
+    },
+    "outputWidth": {
+        type: String,
+        default: "50%"
     }
 })
 
@@ -340,7 +348,9 @@ onUnmounted(() => {
             </div>
             <div ref="outputWrapper" class="output-wrapper" :style="{
         '--output-text-color': props.color,
-        '--margin-top': props.outputMt
+        '--margin-top': props.outputMt,
+        '--margin-left': props.outputMl,
+        '--output-width': props.outputWidth
     }" />
             <RenderWhen context="presenter">
                 <div ref="warnPresenterMode" class="warnPresnterMode">请在演示模式下运行！</div>
@@ -377,6 +387,8 @@ onUnmounted(() => {
     padding-top: 15px;
     scrollbar-width: none;
     color: var(--output-text-color);
+    margin-top: var(--margin-top);
+    margin-left: var(--margin-left);
 }
 
 .thebe-code:before {
@@ -410,13 +422,13 @@ onUnmounted(() => {
 }
 
 .horizontal-layout .thebe-code {
-    width: 50%;
+    flex-grow: 1;
+    width: auto;
     margin-right: 1rem;
     margin-top: 0.5rem;
 }
 
 .horizontal-layout .output-wrapper {
-    width: 50%;
-    margin-top: var(--margin-top)
+    width: var(--output-width);
 }
 </style>
