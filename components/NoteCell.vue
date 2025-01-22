@@ -115,10 +115,14 @@ const props = defineProps({
     "outputWidth": {
         type: String,
         default: "50%"
-    }
+    },
+    "scaleImg": {
+        type: String,
+        default: "100%"
+    },
 })
 
-const style = computed(() => {
+const codeStyle = computed(() => {
     return {
         'opacity': props.init ? 0 : 1
     }
@@ -271,6 +275,12 @@ const executeCell = async (cell) => {
     cell.session = globals.jupyter[nbid].session
     console.log(`executing ${cell.id}:\n${cell.source}`)
     await cell.execute()
+
+    // 如果设置了图片缩放，则对图片进行缩放
+    const imgElements = outputWrapper.value.querySelectorAll('img');
+    imgElements.forEach(img => {
+        img.style.transform = `scale(${props.scaleImg})`;
+    });
 }
 
 const initNotebook = async () => {
@@ -283,7 +293,9 @@ const initNotebook = async () => {
 
     await executeCell(cell)
     setTimeout(() => {
-        outputWrapper.value.style.opacity = 0
+        if (outputWrapper.value) {
+            outputWrapper.value.style.opacity = 0
+        }
     }, 5000)
 }
 const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
@@ -330,7 +342,6 @@ onMounted(() => {
     document.body.addEventListener('keydown', checkCommandKey)
     document.body.addEventListener('keyup', uncheckCommandKey)
     code.value.style.setProperty('--pseudo-before-content', "'runnable'");
-
 })
 
 onUnmounted(() => {
@@ -343,7 +354,7 @@ onUnmounted(() => {
 <template>
     <div :class="$attrs.class" v-motion>
         <div class="wrapper-all" :class="{ 'horizontal-layout': layout === 'horizontal' }" @dblclick="onRunCode">
-            <div ref="code" :style="style" class="thebe-code">
+            <div ref="code" :style="codeStyle" class="thebe-code">
                 <slot></slot>
             </div>
             <div ref="outputWrapper" class="output-wrapper" :style="{
@@ -359,6 +370,7 @@ onUnmounted(() => {
     </div>
 
 </template>
+
 <style scoped>
 .wrapper-all {
     height: 100vh;
