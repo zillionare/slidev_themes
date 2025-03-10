@@ -7,7 +7,7 @@
     height: 100%;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-image: url('https://images.jieyu.ai/images/hot/material/frame-blue.png');
+    background-image: url('https://images.jieyu.ai/images/hot/material/frame-purple.png');
     background-size: cover;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .title {
-    color: #5991A9;
+    color: #806BA3;
     font-size: 50px;
     font-weight: bold;
     margin: 1em 0 2em 1em;
@@ -42,7 +42,7 @@
 }
 
 .subtitle {
-    color: #5991A9;
+    color: #806BA3;
     position: absolute;
     opacity: 0.8;
     top: 250px;
@@ -59,7 +59,7 @@
 }
 
 .feature-item {
-    background: #5991A9;
+    background: #806BA3;
     color: white;
     padding: 10px 20px;
     border-radius: 25px;
@@ -107,13 +107,13 @@
 
                 </div>
 
-                <div>
-                    <div class="abs mt-10 text-white left-40% text-2xl bottom-7.5rem">赠送《Python高效编程实践指南》</div>
+                <div class="price-background">
+                    <div class="abs text-white left-40% text-2xl bottom-8.5rem">赠送《Python高效编程实践指南》</div>
                     <div class="abs bottom-4em flex flex-col color-white">
-                        <div class="text-4xl">仅PDF</div>
-                        <div class="text-7xl">0.99</div>
+                        <div class="text-4xl">联机学习版</div>
+                        <div class="text-6xl">99.00</div>
                     </div>
-                    <div class="abs w-80% left-40% bottom-2rem text-3xl">PDF阅读版，适合电子书收藏复习</div>
+                    <div class="abs w-80% left-40% bottom-3rem text-3xl">代码+数据，Jupyter服务器在线运行</div>
                 </div>
             </div>
 
