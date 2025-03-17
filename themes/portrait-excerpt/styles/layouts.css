@@ -1,9 +1,8 @@
 :root {
-    --slidev-theme-primary: #404040;
+    --slidev-theme-primary: #202020;
     /* --slidev-theme-secondary: #E60000; */
     --slidev-theme-secondary: #09BED9;
     counter-reset: h2counter;
-    font-family: AlibabaPuHuiTi-Thin, sans-serif;
     --slidev-background-color: #fcfcfc;
 
     .abs {
@@ -68,7 +67,7 @@
         margin: 3.5vw 1vw;
         line-height: 5.2vw;
         text-align: justify;
-        font-weight: 100;
+        font-weight: 200;
     }
 
     .admonition p {

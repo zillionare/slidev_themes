@@ -88,10 +88,10 @@ const titleImg = computed(() => {
 }
 
 .cover {
-    margin-top: 10vh;
+    margin-top: 8%;
 
     .title {
-        font-size: 7vw;
+        font-size: 8vw;
         border-radius: 1vw;
         padding: 0.3vw 2vw;
         line-height: 8vw;
@@ -110,11 +110,12 @@ const titleImg = computed(() => {
 
     .motto {
         color: #808080;
-        width: 100%;
+        width: 50%;
         font-size: 3vw;
         font-style: italic;
-        text-align: center;
-        margin-bottom: 10vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 
@@ -162,6 +163,23 @@ const titleImg = computed(() => {
     background-color: white;
     z-index: -1;
 }
+
+.series {
+    opacity: 0.8;
+    width: 50%;
+    height: 150px;
+    color: white;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: left;
+    font-size: 32px;
+    background: url('https://images.jieyu.ai/images/hot/material/left-blue-banner-arrow.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position-x: -40px;
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.7));
+}
 </style>
 <template>
     <div class="title-img" :style="titleImg">
@@ -169,7 +187,13 @@ const titleImg = computed(() => {
         <!-- <div class="copyright">{{ $slidev.configs.imgCopyRight }}</div> -->
     </div>
     <div class="slidev-layout cover cover-override">
-        <div class="motto" v-html="$slidev.configs.motto"></div>
+        <div class="abs w-full bottom-5% flex flex-row items-center left-0">
+            <div class="series pl-40px">
+                <div class="text-2xl">第 {{ $slidev.configs.seq }} 期</div>
+                <div v-html="$slidev.configs.series"></div>
+            </div>
+            <div class="motto" v-html="$slidev.configs.motto"></div>
+        </div>
         <div class="title" v-html="$slidev.configs.title"></div>
         <!--<div class="date"> {{calendar.month_ch}}{{ calendar.day }}日 {{ calendar.week_day }}</div>-->
         <slot style="padding:03.vw 2vw" />
