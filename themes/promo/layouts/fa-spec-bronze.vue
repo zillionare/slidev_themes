@@ -116,12 +116,12 @@
                 </div>
 
                 <div>
-                    <div class="abs mt-10 text-white left-40% text-2xl bottom-8.5rem">限时秒杀 随时下架</div>
-                    <div class="abs bottom-4em ml-2 flex flex-col color-white">
+                    <div class="abs mt-10 text-white left-40% text-2xl bottom-9.2rem">限时秒杀 随时下架</div>
+                    <div class="abs bottom-80px ml-30px flex flex-col color-white">
                         <div class="text-4xl">仅视频</div>
                         <div class="text-7xl underline">0.99</div>
                     </div>
-                    <div class="abs w-80% left-40% bottom-3.5rem text-1xl">本商品仅提供课程视频、不包含代码、文本和数据</div>
+                    <div class="abs w-80% left-40% bottom-3.5rem text-1.5xl">本商品仅提供课程视频、不包含代码、文本和数据<br>不含第19课</div>
                 </div>
             </div>
 

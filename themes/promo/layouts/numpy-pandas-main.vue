@@ -3,8 +3,8 @@
 
 <style scoped>
 .poster {
-    width: 900px;
-    height: 900px;
+    width: 1000px;
+    height: 1000px;
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -23,7 +23,7 @@
     width: 100%;
     height: 100px;
     background: #2E7D32;
-    clip-path: path('M0,0 L900,0 L900,80 Q450,100 0,80 Z');
+    clip-path: path('M0,0 L1000,0 L1000,80 Q500,100 0,80 Z');
     color: white;
 }
 
@@ -41,7 +41,7 @@
     width: 100%;
     height: 100px;
     background: linear-gradient(to right, #F5D0A1, #F5D0A1);
-    clip-path: path('M0,20 Q225,0 450,20 T900,20 L900,100 L0,100 Z');
+    clip-path: path('M0,20 Q250,0 500,20 T1000,20 L1000,100 L0,100 Z');
 }
 
 .header-container {
@@ -59,6 +59,8 @@
 .content {
     display: flex;
     justify-content: space-between;
+    height: 100%;
+    width: 100%;
 }
 
 .left-content {
@@ -130,7 +132,7 @@
             <div class="title text-center w-full">量化人的 Numpy/Pandas</div>
             <div class="subtitle text-right w-90%">每个量化人都应该掌握的『母语』</div>
             <div class="subtitle text-right w-89% mt-5">—— by Wes Mckinney</div>
-            <div class="abs left-400px w-500px">
+            <div class="abs left-450px mt-5 w-500px">
                 <div class="features w-80%">
                     <div class="feature-item">情景式教学，每一个示例都为完成KPI</div>
                     <div class="feature-item">拒做鹦鹉式教学 深入原理 知其然更知其所以然</div>
@@ -140,7 +142,7 @@
                 </div>
             </div>
 
-            <div class="abs top-210px w-550px">
+            <div class="abs top-300px w-550px">
                 <div>
                     <img src="https://images.jieyu.ai/images/hot/me-2025-02-07-transparent.png">
                 </div>

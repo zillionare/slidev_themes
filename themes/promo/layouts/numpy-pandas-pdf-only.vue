@@ -27,6 +27,8 @@
     padding: 30px;
     display: flex;
     justify-content: space-between;
+    height: 100%;
+    width: 100%;
 }
 
 .left-content {
@@ -45,7 +47,7 @@
     color: #5991A9;
     position: absolute;
     opacity: 0.8;
-    top: 250px;
+    top: 300px;
     right: 50px;
     z-index: 10;
     width: 100%;
@@ -71,7 +73,6 @@
     width: 40%;
     background-image: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.1)), url('https://images.jieyu.ai/images/hot/me-2025-2-7.jpg');
     background-size: cover;
-    margin-top: 210px;
 }
 
 .numpy {
@@ -99,7 +100,7 @@
                 <div class="subtitle">每个量化人都应该掌握的『母语』</div>
                 <div class="subtitle mt-5 mr-2">—— by Wes Mckinney</div>
 
-                <div class="features w-50%">
+                <div class="features w-50% mt-200px">
                     <div class="feature-item">情景式教学，每一个示例都为完成KPI</div>
                     <div class="feature-item">拒做鹦鹉式教学 深入原理 知其然更知其所以然</div>
                     <div class="feature-item">面试高频问题复现 防挂控场秘籍</div>
@@ -117,7 +118,7 @@
                 </div>
             </div>
 
-            <div class="abs left-55% teacher-image"> <img
+            <div class="abs left-55% teacher-image mt-250px"> <img
                     src="https://images.jieyu.ai/images/hot/me-2025-02-07-transparent.png">
             </div>
 

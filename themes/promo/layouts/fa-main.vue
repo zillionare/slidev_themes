@@ -1,7 +1,7 @@
 <style scoped>
 .poster {
-    width: 900px;
-    height: 900px;
+    width: 1000px;
+    height: 1000px;
     position: absolute;
     top: 0;
     left: 0;
@@ -65,7 +65,7 @@
     <div class="poster">
         <div class="bg-img">
         </div>
-        <div class="abs left-45% top-45%">
+        <div class="abs left-50% top-48%">
             <svg xmlns="http://www.w3.org/2000/svg" width="650" height="650" viewBox="-25 -25 250 250" class="float">
                 <defs>
                     <linearGradient id="lgrad" x1="100%" y1="100%" x2="0%" y2="0%">
@@ -127,6 +127,7 @@
             <div class="feature text-shadow">基于 LightGBM 的价格预测模型</div>
             <div class="feature text-shadow">基于 LightGBM 的形态预测模型</div>
         </div>
+        <slot />
     </div>
 
 </template>

@@ -71,7 +71,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     /* background-color: #1d681760; */
     color: #58457C;
-    font-weight: 500;
     padding: 10px 20px;
     border-radius: 25px;
     font-size: 16px;
@@ -91,15 +90,15 @@
                 <div class="features w-80% mt-30 ml-25%">
                     <div class="feature-row">
                         <div class="feature-row-icon">1</div>
-                        <div class="feature-item">海量习题 快速成长</div>
+                        <div class="feature-item font-bold">增加海量习题 加速成长</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">2</div>
-                        <div class="feature-item">包含课件、代码、数据、视频、习题</div>
+                        <div class="feature-item">包含课件、代码、数据、视频</div>
                     </div>
                     <div class="feature-row">
-                        <div class="feature-row-icon">2</div>
-                        <div class="feature-item">共享云端环境 课件代码可在线正确运行</div>
+                        <div class="feature-row-icon">3</div>
+                        <div class="feature-item">共享云端环境 课件代码可在线运行</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">4</div>
@@ -109,12 +108,12 @@
                 </div>
 
                 <div>
-                    <div class="abs mt-10 text-white left-45% text-2xl bottom-8.5rem">限时秒杀 随时下架</div>
-                    <div class="abs bottom-3em ml-2 flex flex-col color-white">
+                    <div class="abs mt-10 text-white left-40% text-2xl bottom-9.5rem">限时秒杀 随时下架</div>
+                    <div class="abs bottom-80px ml-30px  flex flex-col color-white">
                         <div class="text-4xl">勤学笃行</div>
                         <div class="text-6xl underline">2799</div>
                     </div>
-                    <div class="abs w-120% bottom-2.5rem text-1xl text-center">
+                    <div class="abs w-120% bottom-3rem text-1xl text-center">
                         套餐包含<b>习题和答案</b>、文本、代码、数据、视频和社区答疑<br><b>不含第19课价格预测模型</b></div>
                 </div>
             </div>

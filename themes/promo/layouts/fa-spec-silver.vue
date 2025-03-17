@@ -71,7 +71,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     /* background-color: #1d681760; */
     color: #4E7F98;
-    font-weight: 500;
     padding: 10px 20px;
     border-radius: 25px;
     font-size: 16px;
@@ -95,11 +94,11 @@
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">2</div>
-                        <div class="feature-item">包含课件、代码、数据、视频</div>
+                        <div class="feature-item font-bold">包含课件、代码、数据、视频</div>
                     </div>
                     <div class="feature-row">
-                        <div class="feature-row-icon">2</div>
-                        <div class="feature-item">共享云端环境 课件代码可在线正确运行</div>
+                        <div class="feature-row-icon">3</div>
+                        <div class="feature-item font-bold">共享云端环境 课件代码可在线运行</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">4</div>
@@ -109,8 +108,8 @@
                 </div>
 
                 <div>
-                    <div class="abs mt-10 text-white left-45% text-2xl bottom-7.5rem">限时秒杀 随时下架</div>
-                    <div class="abs bottom-3em flex flex-col color-white">
+                    <div class="abs mt-10 text-white left-40% text-2xl bottom-8.5rem">限时秒杀 随时下架</div>
+                    <div class="abs bottom-60px ml-10px flex flex-col color-white">
                         <div class="text-4xl">实战菁英</div>
                         <div class="text-6xl underline">1699</div>
                     </div>

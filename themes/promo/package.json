@@ -16,7 +16,7 @@
     "highlighter": "shiki",
     "defaults": {
         "aspectRatio": "1/1",
-        "canvasWidth": 900
+        "canvasWidth": 1000
     }
   },
   "repository": {
