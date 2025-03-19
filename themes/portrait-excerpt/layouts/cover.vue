@@ -88,114 +88,67 @@ const titleImg = computed(() => {
 }
 
 .cover {
-    margin-top: 8%;
+    border-left: 5vw solid #8b0000;
+    border-top: 5vw solid #8b0000;
+    border-bottom: 5vw solid #8b0000;
 
     .title {
-        font-size: 8vw;
-        border-radius: 1vw;
-        padding: 0.3vw 2vw;
-        line-height: 8vw;
+        position: absolute;
+        left: 0;
+        font-size: 12vw;
+        width: 100%;
         text-align: center;
         text-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-        margin-bottom: 10vw;
-    }
-
-    .date {
-        width: 100%;
-        color: #909090;
-        padding: 0.3vw 2vw;
-        margin-top: 2vw;
-        margin-bottom: 8vw;
     }
 
     .motto {
-        color: #808080;
-        width: 50%;
+        color: #606060;
+        width: 100%;
+        margin-top: 5vw;
         font-size: 3vw;
         font-style: italic;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-}
 
-.stamp {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    width: 80px;
-    height: auto;
-    /* border-radius: 48% 50% 48% 50% / 30% 30% 70% 70%; */
-    /* background: #FF0099; */
-    /* background-color: white; */
-    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
-}
-
-.copyright {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    color: white;
-}
-
-.header-img-desc {
-    margin: 2.5em 0;
-
-    p {
-        color: #939393;
-        font-size: 1.1em;
-        line-height: 1.6em;
+    .series {
+        width: 100%;
+        height: 20%;
+        color: white;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        background: url('https://images.jieyu.ai/images/hot/material/top-red-banner-3.png');
+        background-size: 70% 100%;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: -50px;
+        filter: drop-shadow(0 2px 2px #871910ff);
     }
-}
-
-.stamp img {
-    display: block;
-}
-
-.stamp::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: var(--stamp-bg-width);
-    height: var(--stamp-bg-height);
-    background-color: white;
-    z-index: -1;
-}
-
-.series {
-    opacity: 0.8;
-    width: 50%;
-    height: 150px;
-    color: white;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: left;
-    font-size: 32px;
-    background: url('https://images.jieyu.ai/images/hot/material/left-blue-banner-arrow.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position-x: -40px;
-    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.7));
 }
 </style>
 <template>
-    <div class="title-img" :style="titleImg">
-        <div class="stamp"><img :src="stamp" /></div>
-        <!-- <div class="copyright">{{ $slidev.configs.imgCopyRight }}</div> -->
-    </div>
-    <div class="slidev-layout cover cover-override">
-        <div class="abs w-full bottom-5% flex flex-row items-center left-0">
-            <div class="series pl-40px">
-                <div class="text-2xl">第 {{ $slidev.configs.seq }} 期</div>
-                <div v-html="$slidev.configs.series"></div>
-            </div>
-            <div class="motto" v-html="$slidev.configs.motto"></div>
+    <div class="slidev-layout cover">
+        <div class="title-img" :style="titleImg">
         </div>
-        <div class="title" v-html="$slidev.configs.title"></div>
-        <!--<div class="date"> {{calendar.month_ch}}{{ calendar.day }}日 {{ calendar.week_day }}</div>-->
-        <slot style="padding:03.vw 2vw" />
+        <div class="motto" v-html="$slidev.configs.motto"></div>
+
+        <div class="abs left-0 top-0 series">
+            <div class="text-4xl mt--100px">第 {{ $slidev.configs.seq }} 期</div>
+        </div>
+
+        <div class="top-50% title underline" v-html="$slidev.configs.title"></div>
+        <div class="abs left-4vw top-60% w-100% flex justify-center items-center">
+            <div class="w-50% text-center text-4xl p-2vw color-white rounded-100px bg-#202020 box-shadow-2xl"
+                v-html="$slidev.configs.series">
+            </div>
+        </div>
+        <div class="abs left-0 top-70% p-8vw">
+            <slot />
+        </div>
+
     </div>
 </template>

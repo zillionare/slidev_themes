@@ -21,7 +21,7 @@
     }
 
     h1 {
-        font-size: 6vw;
+        font-size: 10vw;
         color: var(--slidev-theme-secondary);
         margin: 9vw 0;
     }
@@ -29,18 +29,18 @@
 
     h2 {
         text-align: left;
-        font-size: 5vw;
+        font-size: 7vw;
         margin: 5vw 1vw;
         color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
         border-left: .5vw solid color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
         padding: 0.5vw 1vw;
-        line-height: 5vw;
+        line-height: 10vw;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 2px 5px 0 rgba(0, 0, 0, .03), 0 3px 1px -2px rgba(0, 0, 0, .01);
     }
 
     h3 {
         text-align: left;
-        font-size: 4vw;
+        font-size: 5vw;
         margin: 6vw 1vw;
         color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
         border-left: .3vw solid color-mix(in srgb, var(--slidev-theme-secondary), #000 25%);
@@ -51,7 +51,7 @@
 
     h4 {
         text-align: left;
-        font-size: 3.5vw;
+        font-size: 4vw;
         margin: 5vw 1vw;
         border-left: 2px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 30%);
         padding: 0.2em 0.2em 0.2em 0.5em;
@@ -63,25 +63,25 @@
     }
 
     p {
-        font-size: 3.3vw;
-        margin: 3.5vw 1vw;
-        line-height: 5.2vw;
+        font-size: 4vw;
+        margin: 3.5vw 0vw;
+        line-height: 6vw;
         text-align: justify;
         font-weight: 200;
     }
 
     .admonition p {
-        font-size: 2.8vw !important;
-        line-height: 4vw;
+        font-size: 3.5vw !important;
+        line-height: 4.5vw;
     }
 
     .admonition li {
-        font-size: 2.5vw !important;
-        margin-top: 2.5vw;
+        font-size: 3vw !important;
+        margin-top: 3vw;
     }
 
     li {
-        font-size: 2.5vw;
+        font-size: 3vw;
     }
 
     img {
