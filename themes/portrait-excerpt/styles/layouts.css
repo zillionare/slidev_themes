@@ -1,5 +1,5 @@
 :root {
-    --slidev-theme-primary: #202020;
+    --slidev-theme-primary: black;
     /* --slidev-theme-secondary: #E60000; */
     --slidev-theme-secondary: #09BED9;
     counter-reset: h2counter;
@@ -32,10 +32,11 @@
         font-size: 7vw;
         margin: 5vw 1vw;
         color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
-        border-left: .5vw solid color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
-        padding: 0.5vw 1vw;
+        border-left: 1vw solid color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
+        background-color: #09BED910;
+        border-radius: 0px 15px 15px 0;
+        padding: 0.5vw 2vw;
         line-height: 10vw;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 2px 5px 0 rgba(0, 0, 0, .03), 0 3px 1px -2px rgba(0, 0, 0, .01);
     }
 
     h3 {
@@ -44,9 +45,9 @@
         margin: 6vw 1vw;
         color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
         border-left: .3vw solid color-mix(in srgb, var(--slidev-theme-secondary), #000 25%);
-        padding: 0.5vw;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 2px 5px 0 rgba(0, 0, 0, .03), 0 3px 1px -2px rgba(0, 0, 0, .01);
-
+        padding: 2vw;
+        background-color: #09BED907;
+        border-radius: 0px 5px 5px 0;
     }
 
     h4 {
