@@ -85,12 +85,12 @@
 
         <div class="content">
             <div class="left-content">
-                <div class="title">勤学笃行套餐</div>
+                <div class="title">小试身手套餐</div>
 
                 <div class="features w-80% mt-30 ml-25%">
                     <div class="feature-row">
                         <div class="feature-row-icon">1</div>
-                        <div class="feature-item font-bold">增加海量习题 加速成长</div>
+                        <div class="feature-item font-bold">勤学笃行 + 第20课</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">2</div>
@@ -110,11 +110,11 @@
                 <div>
                     <div class="abs mt-10 text-white left-40% text-2xl bottom-9.5rem">限时秒杀 随时下架</div>
                     <div class="abs bottom-80px ml-30px  flex flex-col color-white">
-                        <div class="text-4xl">勤学笃行</div>
+                        <div class="text-4xl">小试身手</div>
                         <div class="text-6xl underline">2799</div>
                     </div>
                     <div class="abs w-120% bottom-3rem text-1xl text-center">
-                        套餐包含<b>习题和答案</b>、文本、代码、数据、视频和社区答疑<br><b>不含第19课价格预测模型</b></div>
+                        套餐包含<b>习题和答案</b>、文本、代码、数据、视频和答疑<br><b>包含第20课预测模型</b></div>
                 </div>
             </div>
 

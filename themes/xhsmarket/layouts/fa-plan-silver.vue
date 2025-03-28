@@ -4,7 +4,7 @@
     height: 100%;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-image: url('https://images.jieyu.ai/images/hot/material/frame-blue.png');
+    background-image: url('https://images.jieyu.ai/images/hot/material/frame-green.png');
     background-size: cover;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .title {
-    color: #4E7F98;
+    color: #4D6F4D;
     font-size: 50px;
     font-weight: bold;
     margin: 1em 0;
@@ -55,7 +55,7 @@
 .feature-row-icon {
     width: 50px;
     height: 50px;
-    background-color: #4E7F98;
+    background-color: #50754D;
     border-radius: 50%;
     color: white;
     font-size: 2em;
@@ -67,10 +67,10 @@
 }
 
 .feature-item {
-    border: 2px solid #4E7F989a;
+    border: 2px solid #689563;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     /* background-color: #1d681760; */
-    color: #4E7F98;
+    color: #689563;
     padding: 10px 20px;
     border-radius: 25px;
     font-size: 16px;
@@ -85,20 +85,20 @@
 
         <div class="content">
             <div class="left-content">
-                <div class="title">实战菁英套餐</div>
+                <div class="title">勤学笃行套餐</div>
 
                 <div class="features w-80% mt-30 ml-25%">
                     <div class="feature-row">
                         <div class="feature-row-icon">1</div>
-                        <div class="feature-item">社区答疑 适合自学</div>
+                        <div class="feature-item font-bold">海量习题 加速成长 求职必学</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">2</div>
-                        <div class="feature-item font-bold">包含课件、代码、数据、视频</div>
+                        <div class="feature-item">包含课件、代码、数据、视频</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">3</div>
-                        <div class="feature-item font-bold">共享云端环境 课件代码可在线运行</div>
+                        <div class="feature-item">共享云端环境 课件代码可在线运行</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">4</div>
@@ -108,13 +108,13 @@
                 </div>
 
                 <div>
-                    <div class="abs mt-10 text-white left-40% text-2xl bottom-8.5rem">限时秒杀 随时下架</div>
-                    <div class="abs bottom-60px ml-10px flex flex-col color-white">
-                        <div class="text-4xl">实战菁英</div>
-                        <div class="text-6xl underline">1699</div>
+                    <div class="abs mt-10 text-white left-40% text-2xl bottom-9.5rem">限时秒杀 随时下架</div>
+                    <div class="abs bottom-80px ml-10px flex flex-col color-white">
+                        <div class="text-4xl">勤学笃行</div>
+                        <div class="text-6xl underline">2199</div>
                     </div>
-                    <div class="abs w-120% bottom-1.8rem text-1xl text-center">
-                        套餐包含文本、代码、数据、视频和社区答疑<br><b>不含第19课价格预测模型</b>
+                    <div class="abs w-120% bottom-3rem text-1xl text-center">
+                        套餐包含文本、代码、数据、视频和大群答疑<br><b>不含第19/20课预测模型</b>
                     </div>
                 </div>
             </div>

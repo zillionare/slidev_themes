@@ -7,7 +7,7 @@
     height: 100%;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-image: url('https://images.jieyu.ai/images/hot/material/frame-green.png');
+    background-image: url('https://images.jieyu.ai/images/hot/material/frame_silver.png');
     background-size: cover;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .title {
-    color: #1d6817;
+    color: #68676D;
     font-size: 50px;
     font-weight: bold;
     margin: 1em 0;
@@ -44,7 +44,7 @@
 }
 
 .subtitle {
-    color: rgb(36, 105, 30);
+    color: #BDBCBF;
     position: absolute;
     opacity: 0.8;
     top: 250px;
@@ -68,7 +68,7 @@
 .feature-row-icon {
     width: 50px;
     height: 50px;
-    background-color: #1d6817;
+    background-color: #BDBCBF;
     border-radius: 50%;
     color: white;
     font-size: 2em;
@@ -79,10 +79,10 @@
 }
 
 .feature-item {
-    border: 2px solid #1d6817;
+    border: 2px solid #56555A;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     /* background-color: #1d681760; */
-    color: #1d6817;
+    color: #56555A;
     font-weight: 500;
     padding: 10px 20px;
     border-radius: 25px;
@@ -98,7 +98,7 @@
 
         <div class="content">
             <div class="left-content">
-                <div class="title">筑基新手套餐</div>
+                <div class="title">匡铁初遇套餐</div>
 
                 <div class="features w-80% mt-30 ml-25%">
                     <div class="feature-row">
@@ -117,11 +117,12 @@
 
                 <div>
                     <div class="abs mt-10 text-white left-40% text-2xl bottom-9.2rem">限时秒杀 随时下架</div>
-                    <div class="abs bottom-80px ml-30px flex flex-col color-white">
+                    <div class="abs bottom-60px ml-20px flex flex-col color-white">
                         <div class="text-4xl">仅视频</div>
                         <div class="text-7xl underline">0.99</div>
                     </div>
-                    <div class="abs w-80% left-40% bottom-3.5rem text-1.5xl">本商品仅提供课程视频、不包含代码、文本和数据<br>不含第19课</div>
+                    <div class="abs w-80% left-40% bottom-2.5rem text-1.5xl">本商品仅提供课程视频、不包含代码、文本和数据<br>不含第19/20课预测模型
+                    </div>
                 </div>
             </div>
 

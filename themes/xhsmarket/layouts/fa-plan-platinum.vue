@@ -131,15 +131,15 @@
                 <div class="features w-100% mt-20">
                     <div class="feature-row">
                         <div class="feature-row-icon">1</div>
-                        <div class="feature-item">全套资料 社区答疑</div>
+                        <div class="feature-item">全部资料</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">2</div>
-                        <div class="feature-item font-bold">包含第19课视频及代码</div>
+                        <div class="feature-item font-bold">独享云端环境 性能保障 策略保密</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">3</div>
-                        <div class="feature-item font-bold">独享云端环境 课件代码可在线运行</div>
+                        <div class="feature-item font-bold">提供Tushare高级账号 实现数据自由</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">4</div>
@@ -147,7 +147,7 @@
                     </div>
                 </div>
 
-                <div class="lesson19 text-white text-2xl">含第19课</div>
+                <div class="lesson19 text-white text-2xl">含19<br>20课</div>
                 <div>
                     <div class="abs price bottom-1em ml--43px flex flex-row color-white pl-4em items-center">
                         <div class="text-4xl mr-20px">限时特惠</div>

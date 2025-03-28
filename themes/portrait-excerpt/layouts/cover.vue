@@ -102,7 +102,7 @@ const titleImg = computed(() => {
     }
 
     .motto {
-        color: #505050;
+        color: #a00000;
         width: 100%;
         margin-top: 5vw;
         font-size: 3vw;
@@ -110,6 +110,7 @@ const titleImg = computed(() => {
         display: flex;
         justify-content: center;
         align-items: center;
+        font-weight: 500;
     }
 
     .series {

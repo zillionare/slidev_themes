@@ -190,23 +190,23 @@
                 <div class="features w-100% mt-20">
                     <div class="feature-row">
                         <div class="feature-row-icon">1</div>
-                        <div class="feature-item font-bold">专享私课 随时在线</div>
+                        <div class="feature-item font-bold">专享私课 1对1答疑 策略研讨</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">2</div>
-                        <div class="feature-item">包含第19课视频及代码</div>
-                    </div>
-                    <div class="feature-row">
-                        <div class="feature-row-icon">3</div>
                         <div class="feature-item font-bold">匡醍证书 研学证明 实习推荐</div>
                     </div>
                     <div class="feature-row">
+                        <div class="feature-row-icon">3</div>
+                        <div class="feature-item">专享云端环境 独立环境 尊贵体验</div>
+                    </div>
+                    <div class="feature-row">
                         <div class="feature-row-icon">4</div>
-                        <div class="feature-item">独享云端环境 课件代码可在线运行</div>
+                        <div class="feature-item">MacM4 Pro 强悍计算能力 卓越机器学习性能</div>
                     </div>
                 </div>
 
-                <div class="lesson19 text-white text-2xl">含第19课</div>
+                <div class="lesson19 text-white text-2xl">含19<br>20课</div>
                 <div>
                     <div class="abs price bottom-1em ml--47px flex flex-row color-white pl-4em items-center">
                         <div class="text-4xl mr-20px">限时特惠</div>
