@@ -120,7 +120,7 @@
 
         <div class="abs top-35% text-6xl text-center w-full text-shadow-[1px_4px_4px_rgba(0,0,0,0.5)]">因子分析与机器学习策略</div>
 
-        <div class="abs text-2xl top-65% left-30px">
+        <div class="abs text-3xl top-65% left-30px">
             <div class="feature text-shadow">21节课 400+因子 三大模型 </div>
             <div class="feature text-shadow">Alphalens 因子分析框架从入门到精通</div>
             <div class="feature text-shadow">基于 HDBSCAN 的 Pair Trading</div>

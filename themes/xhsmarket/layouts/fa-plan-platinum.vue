@@ -54,6 +54,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    transform: scale(1.5);
 }
 
 .feature-row {

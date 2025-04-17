@@ -58,6 +58,8 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    transform: scale(1.5);
+    transform-origin: 25%;
 }
 
 .feature-row {

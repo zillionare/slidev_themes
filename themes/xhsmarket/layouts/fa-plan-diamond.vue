@@ -88,6 +88,7 @@
 
 .content {
     flex: 1;
+    margin-top: -2em;
 }
 
 .title {
@@ -105,6 +106,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    transform: scale(1.4);
 }
 
 .feature-row {
@@ -185,12 +187,12 @@
             </div>
             <div class="diamon-wrapper abs top--20px left-300px"></div>
             <div class="content">
-                <div class="title">专享私课套餐</div>
+                <div class="title">尊享私课套餐</div>
 
                 <div class="features w-100% mt-20">
                     <div class="feature-row">
                         <div class="feature-row-icon">1</div>
-                        <div class="feature-item font-bold">专享私课 1对1答疑 策略研讨</div>
+                        <div class="feature-item font-bold">尊享私课 每月限购</div>
                     </div>
                     <div class="feature-row">
                         <div class="feature-row-icon">2</div>

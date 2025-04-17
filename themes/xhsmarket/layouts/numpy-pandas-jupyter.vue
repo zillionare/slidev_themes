@@ -56,6 +56,8 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    transform: scale(1.3);
+    transform-origin: 8%;
 }
 
 .feature-item {
@@ -98,7 +100,7 @@
                 <div class="subtitle">每个量化人都应该掌握的『母语』</div>
                 <div class="subtitle mt-5 mr-2">—— by Wes Mckinney</div>
 
-                <div class="features w-50% mt-200px">
+                <div class="features w-42% mt-190px">
                     <div class="feature-item">情景式教学，每一个示例都为完成KPI</div>
                     <div class="feature-item">拒做鹦鹉式教学 深入原理 知其然更知其所以然</div>
                     <div class="feature-item">面试高频问题复现 防挂控场秘籍</div>

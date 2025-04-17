@@ -8,7 +8,7 @@
     <div class="teacher-title text-4xl ml-40">
         AARON YANG
     </div>
-    <div class="abs text-white text-1xl w-50% h-50% top-75% left-55%">
+    <div class="abs text-white text-2xl w-70% h-50% top-75% left-40%">
         <div>匡醍（Quantide）创始人</div>
         <div>Former Global 500 Senior Manager</div>
         <div>量化开源框架 Zillionare 开发者</div>

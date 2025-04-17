@@ -64,16 +64,16 @@ li {
         </div>
 
         <div class="abs top-10 w-50% left-50% h-full text-shadow-[1px_4px_4px_rgba(0,0,0,0.5)] text-center">
-            <div class="text-5xl text-white mt-20">量化二十四课</div>
-            <div class="text-1xl text-yellow-400 mt-2">匡醍(Quantide) 好课推荐</div>
+            <div class="text-6xl text-white mt-20">量化二十四课</div>
+            <div class="text-2xl text-yellow-400 mt-2">匡醍(Quantide) 好课推荐</div>
         </div>
-        <div class="abs top-70% w-50% left-50% h-full text-shadow-[1px_2px_4px_rgba(0,0,0,0.5)] text-1.5xl text-white">
-            <li class="ml-30">量化交易全流程覆盖</li>
-            <li class="ml-25">原创教程 七年量化经验全披露</li>
-            <li class="ml-20">老师出身国际大厂、Python技术专家</li>
-            <li class="ml-15">提供服务器+商业数据 在线运行 免自己搭环境</li>
-            <li class="ml-10">24节课、40万字教材、461段超7000行代码及策略</li>
-            <li class="ml-5">藤校学生、大厂码农、基金经理、独立量化交易者都在学</li>
+        <div class="abs top-65% w-50% left-50% h-full text-shadow-[1px_2px_4px_rgba(0,0,0,0.5)] text-2xl text-white">
+            <li class="ml-40">量化交易全流程覆盖</li>
+            <li class="ml-30">原创教程 七年量化经验全披露</li>
+            <li class="ml-20 mb-15">老师出身国际大厂、Python技术专家</li>
+            <li class="ml--30">提供服务器+商业数据 在线运行 免自己搭环境</li>
+            <li class="ml--40">24节课、40万字教材、461段超7000行代码及策略</li>
+            <li class="ml--50">藤校学生、大厂码农、基金经理、独立量化交易者都在学</li>
         </div>
     </div>
 </template>

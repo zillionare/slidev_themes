@@ -89,6 +89,7 @@
     position: absolute;
     top: 480px;
     left: 30px;
+    transform: scale(1.4);
 }
 
 .feature-item {
@@ -134,7 +135,7 @@
             <div class="subtitle text-right w-89% mt-5">—— by Wes Mckinney</div>
             <div class="abs left-450px mt-5 w-500px">
                 <div class="features w-80%">
-                    <div class="feature-item">情景式教学，每一个示例都为完成KPI</div>
+                    <div class="feature-item">情景式教学，每一个示例都只为完成KPI</div>
                     <div class="feature-item">拒做鹦鹉式教学 深入原理 知其然更知其所以然</div>
                     <div class="feature-item">面试高频问题复现 防挂控场秘籍</div>
                     <div class="feature-item">量化专用 API 精讲 20% 函数，覆盖 80% 场景</div>
