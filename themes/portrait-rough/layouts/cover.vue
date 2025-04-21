@@ -62,6 +62,7 @@ const computedTitle = computed(() => {
     <div class="poster">
         <div class="title" v-html="computedTitle"></div>
         <div class="logo" />
+        <div class="aaron"></div>
     </div>
 </template>
 
@@ -139,6 +140,19 @@ const computedTitle = computed(() => {
     height: 120px;
     width: 120px;
     right: 0;
-    bottom: 0;
+    bottom: -10px;
+}
+
+.aaron {
+    background-image: url('https://images.jieyu.ai/images/hot/me-2025-02-07-transparent.png');
+    width: 800px;
+    height: 800px;
+    position: absolute;
+    background-size: 140%;
+    background-position-x: 30%;
+    right: 70px;
+    bottom: -10px;
+    background-repeat: no-repeat;
+    transform: rotateZ(-6deg);
 }
 </style>
