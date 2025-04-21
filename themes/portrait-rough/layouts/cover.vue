@@ -1,24 +1,53 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+// 生成带噪声的路径点
+function noisePoint(x: number, y: number, noise = 2) {
+    return `${x + (Math.random() - 0.5) * noise},${y + (Math.random() - 0.5) * noise}`
+}
+
+// 生成手绘风格的圆角矩形路径
+function generateRoughPath(width = 100, height = 100, radius = 20) {
+    // 定义主要的控制点
+    const points = [
+        // 右上角
+        `M ${noisePoint(width - radius, 0)}`,
+        `Q ${noisePoint(width, 0)} ${noisePoint(width, radius)}`,
+        // 右边
+        `L ${noisePoint(width, height - radius)}`,
+        `Q ${noisePoint(width, height)} ${noisePoint(width - radius, height)}`,
+        // 底边
+        `L ${noisePoint(radius, height)}`,
+        `Q ${noisePoint(0, height)} ${noisePoint(0, height - radius)}`,
+        // 左边
+        `L ${noisePoint(0, radius)}`,
+        `Q ${noisePoint(0, 0)} ${noisePoint(radius, 0)}`,
+        // 顶边
+        `L ${noisePoint(width - radius, 0)}`,
+    ].join(' ')
+
+    return points
+}
+
 const computedTitle = computed(() => {
     let title = $slidev.configs.title
     const strong = $slidev.configs.strong
 
     if (!strong) return title
 
-    // 处理strong是数组的情况
     const strongWords = Array.isArray(strong) ? strong : [strong]
 
-    // 对每个需要强调的词进行处理
     strongWords.forEach(word => {
         const regex = new RegExp(word, 'gi')
-        // 添加带有SVG的包装器
+        // 生成两条稍微不同的路径
+        const path1 = generateRoughPath(100, 50, 20, 10)
+        const path2 = generateRoughPath(100, 50, 20, 10)
+
         title = title.replace(regex, `
             <span class="rough-highlight">
-                <svg class="rough-ellipse" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <ellipse class="rough-path-1" cx="50" cy="50" rx="48" ry="45" />
-                    <ellipse class="rough-path-2" cx="50" cy="50" rx="48" ry="45" />
+                <svg class="rough-rect" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path class="rough-path-1" d="${path1}" />
+                    <path class="rough-path-2" d="${path2}" />
                 </svg>
                 <span class="word">${word}</span>
             </span>
@@ -64,16 +93,15 @@ const computedTitle = computed(() => {
 :deep(.rough-highlight) {
     position: relative;
     display: inline-block;
-    padding: 0.2em 0.4em;
+    padding: 0.1em 0.2em;
     color: var(--slidev-theme-secondary);
 }
 
-:deep(.rough-ellipse) {
+:deep(.rough-rect) {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    transform: translateY(10%) translateX(-10%);
+    width: calc(100% + 0.2em);
+    height: calc(100% + 0.2em);
     z-index: -1;
 }
 
@@ -81,20 +109,21 @@ const computedTitle = computed(() => {
 :deep(.rough-path-2) {
     fill: none;
     stroke: var(--slidev-theme-secondary);
-    stroke-width: 2;
+    stroke-width: 5;
+    stroke-linecap: round;
     vector-effect: non-scaling-stroke;
 }
 
 :deep(.rough-path-1) {
-    opacity: 0.3;
+    opacity: 0.4;
     transform-origin: center;
-    transform: scale(1.02) rotate(1deg);
+    transform: scale(1.02) rotate(0.5deg);
 }
 
 :deep(.rough-path-2) {
-    opacity: 0.2;
+    opacity: 0.3;
     transform-origin: center;
-    transform: scale(0.98) rotate(-1deg);
+    transform: scale(0.98) rotate(-0.5deg);
 }
 
 :deep(.word) {
