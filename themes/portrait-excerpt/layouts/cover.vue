@@ -13,7 +13,7 @@ const props = defineProps({
     },
     img: {
         type: String,
-        default: ""
+        default: "http://"
     }
 })
 
@@ -26,20 +26,6 @@ const calendar = computed(() => {
         "month_en": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][dt.getMonth()],
         "week_day": ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][dt.getDay()]
     }
-})
-
-const stamp = computed(() => {
-    let map = {
-        "figure": "https://images.jieyu.ai/images/hot/brand-figure.png",
-        "career": "https://images.jieyu.ai/images/hot/career.png",
-        "tools": "https://images.jieyu.ai/images/hot/tools.png",
-        "freshman": "https://images.jieyu.ai/images/hot/freshman.png",
-        "factors": "https://images.jieyu.ai/images/hot/factors.png",
-        "resources": "https://images.jieyu.ai/images/hot/resources.png",
-        "others": "https://images.jieyu.ai/images/hot/lhfy-badge.png",
-        "quantide": "https://images.jieyu.ai/images/hot/logo/quantide.png"
-    }
-    return `${map["quantide"]}`
 })
 
 const titleImg = computed(() => {
