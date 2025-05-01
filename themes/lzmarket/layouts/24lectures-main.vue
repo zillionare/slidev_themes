@@ -22,7 +22,7 @@
 
 .teacher-img-wrapper {
     position: relative;
-    top: -705px;
+    top: -300px;
     left: 250px;
     width: 500px;
     height: 500px;

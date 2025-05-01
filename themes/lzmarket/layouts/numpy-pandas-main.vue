@@ -130,8 +130,8 @@
             <div class="numpy"></div>
 
             <div class="title text-center w-full">量化人的 Numpy/Pandas</div>
-            <div class="subtitle text-right w-90%">每个量化人都应该掌握的『母语』</div>
-            <div class="subtitle text-right w-89% mt-5">—— by Wes Mckinney</div>
+            <div class="subtitle text-right w-80%">每个量化人都应该掌握的『母语』</div>
+            <div class="subtitle text-right w-80% mt-5">—— by Wes Mckinney</div>
             <div class="abs left-450px mt-5 w-500px">
                 <div class="features w-80%">
                     <div class="feature-item">情景式教学，每一个示例都为完成KPI</div>
@@ -142,7 +142,7 @@
                 </div>
             </div>
 
-            <div class="abs top-300px w-550px">
+            <div class="abs top-100px w-550px">
                 <div>
                     <img src="https://images.jieyu.ai/images/hot/me-2025-02-07-transparent.png">
                 </div>
