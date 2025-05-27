@@ -22,8 +22,8 @@
 
 .teacher-img-wrapper {
     position: relative;
-    top: -300px;
-    left: 250px;
+    top: -500px;
+    left: 100px;
     width: 500px;
     height: 500px;
 }
