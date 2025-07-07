@@ -1,0 +1,22 @@
+cmd=$1
+file=$2
+
+if [ "$#" == 3 ]; then
+    theme="/Users/aaronyang/workspace/slidev_themes/themes/$3"
+else
+    theme="/Users/aaronyang/workspace/slidev_themes/themes/landscape-jade"
+fi
+
+curdir=`pwd`
+cd /Users/aaronyang/workspace/slidev_themes
+echo "进入目录：`pwd`"
+if [ $cmd = "serve" ]; then
+  npx --verbose slidev $curdir/$file -t $theme --remote
+elif [ $cmd = "pdf" ]; then
+  mkdir -p /tmp/fa
+  rm -rf /tmp/fa/*
+  npx slidev export --format pdf -t $theme --output /tmp/fa_$file.pdf $curdir/$file --with-toc
+  cp -r /tmp/fa_$file.pdf $curdir/fa_$file.pdf
+elif [ $cmd = "notes" ]; then
+  npx slidev export-notes --output /tmp/fa_notes.txt $curdir/$file
+fi

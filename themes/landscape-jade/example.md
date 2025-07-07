@@ -1,105 +1,75 @@
 ---
-theme: ./
+class: text-center
+lineNumbers: false
+aspectRatio: 16/9
+transition: slide-left
+title: 第1课 导论
+seq: 因子分析与机器学习策略
 layout: cover
-title: Presentation title
-brand: 💤illionare量化课程
-presenter: Aaron【量化风云】
-canvasWidth: 1200
+sync: true
+presenter: true
+---
+
+# 第1课 导论
+
+<!--
+大家好！
+
+欢迎来到《因子投资与机器学习策略》的课堂。
+
+我是这门课的老师Aaron。
+
+今天我们上第1课 - 导论。
+
+在这一课中，将向大家介绍课程的目标、收获
+主要内容、课程编排和如何学习这门课等重要内容。
+
+今天的内容对应着教材的第1课。
+
+除了上面这些内容之外，我们还会介绍量化交易策略发展的历程
+-->
+
+---
+src: 01/10.md
+title: 这门课要解决什么问题？
+---
+
+<!-- 量化策略按交易品种分类 -->
+
+---
+src: 01/3.md
+title: 我们将达成什么样的目标？
 ---
 
 
-Presentation subtitle
-
 ---
-layout: fact
----
-
-# Slide Title
-
-
-Slide Subtitle
-
-* Slide bullet text
-  * Slide bullet text
-  * Slide bullet text
-* Slide bullet text
-* Slide bullet text
-
----
-layout: image-right
-image: https://source.unsplash.com/collection/94734566/1920x1080
+src: 01/4.md
+title: 我们将收获什么？
 ---
 
-# Slide Title
-
-Colons can be used to align columns.
-
-| Tables        |      Are      |  Cool |
-| ------------- | :-----------: | ----: |
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      |   centered    |   $12 |
-| zebra stripes |   are neat    |    $1 |
-
 ---
-layout: section
+src: 01/5.md
+title: 人类300年的量化史
 ---
 
-# Section Title
-
 ---
-layout: statement
----
-
-# Statement
-
----
-layout: fact
+src: 01/6.md
+title: 人类300年的量化史 - 期权篇
 ---
 
-# 100%
-Fact information
-
 ---
-layout: quote
+src: 01/7.md
+title: 人类300年的量化史 - 博弈篇
 ---
 
-# "Notable quote"
-Attribution
-
 ---
-layout: image-left
-image: https://source.unsplash.com/collection/94734566/1920x1080
+src: 01/8.md
+title: 如何有效利用本课程
 ---
 
-# Code
-
-```ts {all|2|1-6|all}
-interface User {
-  id: number
-  firstName: string
-  lastName: string
-  role: string
-}
-
-function updateUser(id: number, update: Partial<User>) {
-  const user = getUser(id)
-  const newUser = {...user, ...update}  
-  saveUser(id, newUser)
-}
-```
-
 ---
-layout: iframe
-url: http://139.196.218.124:5180/aaron_24/lab/workspaces/auto-D/tree/examples/%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96/%E5%90%8C%E8%8A%B1%E9%A1%BA%E6%A6%82%E5%BF%B5%E6%9D%BF%E5%9D%97%E6%95%B0%E6%8D%AE.ipynb
-scale: 1
----
-# show me code
-
----
-layout: center
-class: "text-center"
+src: 01/9.md
+title: 作业系统 NbGrader 介绍
 ---
 
-# Learn More
-
-[Documentations](https://sli.dev) / [GitHub Repo](https://github.com/slidevjs/slidev)
+<!-- 关于作业系统 -->
