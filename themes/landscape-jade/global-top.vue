@@ -9,8 +9,8 @@
 
 <style>
 .lhfy-badge {
-    width: 4vw;
-    height: 4vw;
+    width: 36px;
+    height: 36px;
     position: absolute;
     top: 1vw;
     right: 1vw;

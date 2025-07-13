@@ -34,7 +34,7 @@ const imgList = [
 }
 
 .subtitle {
-    font-size: 3vw;
+    font-size: @apply text-2xl;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
     white-space: pre-wrap;
     overflow-wrap: break-word;
