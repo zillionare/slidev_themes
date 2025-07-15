@@ -64,16 +64,7 @@ const titleImg = computed(() => {
 </script>
 
 
-<style scoped>
-.title-img {
-    width: 100%;
-    height: 550px;
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.6);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url('https://images.jieyu.ai/images/hot/instructor/flora-3.jpg')
-}
-
+<style>
 .cover {
     width: 100%;
     height: 100%;
@@ -87,39 +78,46 @@ const titleImg = computed(() => {
         width: 100%;
         text-align: center;
         text-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px 0;
     }
 
     .motto {
-        color: #a00000;
-        width: 100%;
-        margin-top: 5vw;
-        font-size: 3vw;
-        font-style: italic;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @apply relative left--10 mt-20px ml-20px text-xl text-white rounded-full flex items-center pl-30px pr-30px pt-10px pb-10px color-black;
+        background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         font-weight: 500;
+        width: fit-content;
+    }
+
+    .seq {
+        @apply relative left--10 top-10px ml-20px text-2xl text-white rounded-full flex items-center pl-30px pr-30px pt-10px pb-10px color-black;
+        background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        font-weight: 500;
+        width: fit-content;
+    }
+
+    .desc {
+        position: absolute;
+        bottom: 4rem;
+        right: 1rem;
+        @apply text-xl rounded-10px;
+        text-align: left;
+        opacity: 0.8;
+        max-width: 50%;
     }
 }
 </style>
 <template>
     <div class="slidev-layout cover">
-    </div>
-    <div class="motto" v-html="$slidev.configs.motto"></div>
+        <div v-if="$slidev.configs.seq" class="seq">{{ $slidev.configs.seq }}</div>
+        <div v-if="$slidev.configs.motto" class="motto">{{ $slidev.configs.motto }}</div>
 
-    <div class="abs left-0 top-0 series">
-        <div class="text-4xl mt--100px">第 {{ $slidev.configs.seq }} 期</div>
-    </div>
-
-    <div class="top-50% title underline" v-html="$slidev.configs.title"></div>
-    <div class="abs left-4vw top-60% w-100% flex justify-center items-center">
-        <div class="w-50% text-center text-4xl p-2vw color-white rounded-100px bg-#202020 box-shadow-2xl"
-            v-html="$slidev.configs.series">
+        <div class="top-60% title" v-html="$slidev.configs.title"></div>
+        <div v-if="$slidev.configs.desc" class="desc text-center p-2vw color-white bg-#202020 box-shadow-2xl"
+            v-html="$slidev.configs.desc">
         </div>
-    </div>
-    <div class="abs left-0 top-70% p-8vw">
-        <slot />
-    </div>
-
     </div>
 </template>
