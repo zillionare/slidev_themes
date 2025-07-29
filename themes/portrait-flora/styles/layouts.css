@@ -214,3 +214,13 @@
         border-image: linear-gradient(to left, white 0%, var(--slidev-theme-primary) 50%, white 100%)1;
     }
 }
+
+/* 仅在非演讲者视图隐藏工具条 */
+:not(.slidev-presenter) nav {
+    display: none !important;
+}
+
+/* 可选：允许观众通过快捷键显示工具条（按 ? 键） */
+:not(.slidev-presenter) nav:hover {
+    display: flex !important;
+}

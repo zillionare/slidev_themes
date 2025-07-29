@@ -2,6 +2,11 @@
 title: 收益怎么算？
 seq: Quantstats系列
 motto: 红云逐浪起 争知去路遥
+addons:
+  - tldraw
+  - slidev-addon-python-runner
+drawings:
+  syncAll: true
 ---
 
 ---
@@ -37,6 +42,8 @@ cumulative = qs.stats.compsum(returns)
 ```
 </template>
 </ApiCardCover>
+
+<tldraw class="inset-0 w-full h-full" doc="tldraw/doc-A7z5ZFWSQ_tjopcXc91lU.json"></tldraw>
 
 ---
 
