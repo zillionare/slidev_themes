@@ -11,7 +11,7 @@ export default defineConfig({
         },
         proxy: {
             '/thebe': {
-                target: 'http://coursea.jieyu.ai/teacher_fa/',
+                target: 'http://localhost:8080/course/fa/aaron/',
                 changeOrigin: true,
                 ws: true,
                 rewrite: (path) => path.replace(/^\/thebe/, '')
