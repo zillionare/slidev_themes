@@ -2,23 +2,19 @@
 
 <Table sep='|'>
 
-```yaml
-head: time|interest|dr
-body:
-    - 2018|0.5|20
+```md
+time|interest|dr
+2018|0.5|20
 ```
 </Table>
 
 -->
 <script setup>
 
-import { onMounted, onUpdated, ref } from 'vue';
-import YAML from 'yaml';
+import { onMounted, ref } from 'vue';
 const data = ref(null)
 const body = ref(null)
 const head = ref(null)
-const cols = ref('')
-const ncols = ref(null)
 
 const props = defineProps({
     theme: {
@@ -31,15 +27,18 @@ const props = defineProps({
 })
 
 onMounted(() => {
-    const parsed = YAML.parse(data.value.textContent)
+    const content = data.value.textContent.trim()
+    const lines = content.split('\n').filter(line => line.trim())
 
-    body.value = parsed.body
-    head.value = parsed.head.split(props.sep)
+    if (lines.length > 0) {
+        // 第一行作为表头
+        head.value = lines[0].split(props.sep)
+        // 其余行作为表体
+        body.value = lines.slice(1)
+    }
 })
 
-onUpdated(() => {
-    cols.value = `grid-cols-${ncols}`
-})
+
 </script>
 <template>
     <div :class="$attrs.class" v-bind="$attrs">
@@ -59,113 +58,3 @@ onUpdated(() => {
         </table>
     </div>
 </template>
-
-<style scoped>
-.z-table {
-    background: white;
-    border-radius: 3px;
-    border-collapse: collapse;
-    margin: auto;
-    max-width: 800px;
-    padding: 5px;
-    width: 80%;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    animation: float 5s infinite;
-
-    th {
-        color: #D5DDE5;
-        background: #1b1e24;
-        border-bottom: 1px solid #9ea7af;
-        border-right: 1px solid #343a45;
-        font-size: 1.1em;
-        font-weight: 100;
-        text-align: center;
-        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-        vertical-align: middle;
-    }
-
-    th:first-child {
-        border-top-left-radius: 3px;
-    }
-
-    th:last-child {
-        border-top-right-radius: 3px;
-        border-right: none;
-    }
-
-    tr {
-        border-top: 1px solid #C1C3D1;
-        border-bottom: 1px solid #C1C3D1;
-        color: #666B85;
-        font-weight: normal;
-        text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
-    }
-
-    tr:hover td {
-        background: #4E5066;
-        color: #FFFFFF;
-        border-top: 1px solid #22262e;
-    }
-
-    tr:first-child {
-        border-top: none;
-    }
-
-    tr:last-child {
-        border-bottom: none;
-    }
-
-    tr:nth-child(odd) td {
-        background: #EBEBEB;
-    }
-
-    tr:nth-child(odd):hover td {
-        background: #4E5066;
-    }
-
-    tr:last-child td:first-child {
-        border-bottom-left-radius: 3px;
-    }
-
-    tr:last-child td:last-child {
-        border-bottom-right-radius: 3px;
-    }
-
-    td {
-        background: #FFFFFF;
-        text-align: center;
-        vertical-align: middle;
-        font-weight: 300;
-        text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-        border-right: 1px solid #C1C3D1;
-    }
-
-    td:last-child {
-        border-right: 0px;
-    }
-
-    th.text-left {
-        text-align: left;
-    }
-
-    th.text-center {
-        text-align: center;
-    }
-
-    th.text-right {
-        text-align: right;
-    }
-
-    td.text-left {
-        text-align: left;
-    }
-
-    td.text-center {
-        text-align: center;
-    }
-
-    td.text-right {
-        text-align: right;
-    }
-}
-</style>
