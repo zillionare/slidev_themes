@@ -63,7 +63,7 @@
     <div class="poster">
         <div class="bg-img">
         </div>
-        <div class="abs left-50%">
+        <div class="abs left-50% top-21%">
             <svg xmlns="http://www.w3.org/2000/svg" width="650" height="650" viewBox="-25 -25 250 250" class="float">
                 <defs>
                     <linearGradient id="lgrad" x1="100%" y1="100%" x2="0%" y2="0%">
@@ -109,13 +109,13 @@
                     stroke="none" fill="url(#lgrad2)" />
             </svg>
         </div>
-        <div class="w-full h-300px mt-30px">
-            <div class="abs flex w-300px left-320px">
+        <div class="w-full h-300px flex justify-center items-center relative">
+            <div class="abs flex w-300px">
                 <!-- <div class="box bg-white left-50px"></div> -->
                 <div class="box bg-#ffd700"></div>
                 <div class="box bg-black"></div>
             </div>
-            <div class="abs flex mt-25px left-360px text-white w-300px text-3xl text-center">
+            <div class="abs flex text-white w-300px text-3xl text-center left-1/2 transform -translate-x-30">
                 匡
                 醍
                 好
@@ -126,19 +126,19 @@
 
         <div class="abs instructor" />
 
-        <div class="abs top-20% ml--70px text-center text-6xl  w-full text-shadow-[1px_4px_4px_rgba(0,0,0,0.5)]"
+        <div class="abs top-25% text-center text-8xl  w-full text-shadow-[1px_4px_4px_rgba(0,0,0,0.5)]"
             style="font-family: 'PangMenChuShuTi'">
             基本面策略构建
         </div>
 
-        <div class="abs top-28% ml--70px text-center text-3xl  w-full text-shadow-[1px_4px_4px_rgba(0,0,0,0.5)]"
+        <div class="abs top-38% text-center text-3xl  w-full text-shadow-[1px_4px_4px_rgba(0,0,0,0.5)]"
             style="font-family: 'PangMenChuShuTi', serif;">
             从入门到精通
         </div>
 
-        <div class="abs text-8xl  top-18% left-5% text-yellow-600">01</div>
+        <div class="abs text-8xl top-2% left-4% text-yellow-600">01</div>
 
-        <div class="abs text-1xl top-35% left--70px w-full flex flex-row justify-center space-x-8 opacity-50">
+        <div class="abs text-1xl top-60% left--70px w-full flex flex-row justify-center space-x-8 opacity-20">
             <!-- 左列 -->
             <div class="w-50% text-right space-y-4 pr-8 relative">
                 <div class="feature text-shadow">21节课 400+因子</div>
