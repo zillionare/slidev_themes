@@ -4,8 +4,14 @@
         <div class="light-cone diagonal-light left--15 top--50"></div> 对角光束
     </div>
     <div class="image-container">
-        <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/me-2.png">
-        <div class="title">{{ $slidev.configs.title }}</div>
+        <img src="https://images.jieyu.ai/images/hot/me-2.png">
+    </div>
+    <div class="seq" v-html="$slidev.configs.seq"></div>
+    <div class="title" v-html="$slidev.configs.title"></div>
+    <div class="about">
+        <p>Aaron老师 开源量化框架开发者</p>
+        <p>『Python量化高效编程实践指南』</p>
+        <p>匡醍量化创始人</p>
     </div>
 </template>
 
@@ -19,6 +25,68 @@
     background-image: url("https://images.unsplash.com/photo-1502675135487-e971002a6adb?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     filter: brightness(0.4);
     z-index: 1;
+}
+
+.seq {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 50%;
+    height: 60px;
+    color: white;
+    z-index: 2;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 0 30px 30px 0;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)), url("https://images.unsplash.com/photo-1502675135487-e971002a6adb?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    display: flex;
+    align-items: center;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+}
+
+.title {
+    position: absolute;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    height: auto;
+    top: 20%;
+    font-size: 12vw;
+    font-family: "PangMenTitle";
+    /* color: goldenrod; */
+    color: white;
+    /* -webkit-text-stroke: 2px goldenrod; */
+    text-shadow: 0 6px 4px white;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-10deg);
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+    text-align: center;
+}
+
+
+.about {
+    width: 100%;
+    height: auto;
+    padding: 40px;
+    position: absolute;
+    color: #fefbfc;
+    font-size: 36px;
+    bottom: 0;
+    left: 0%;
+    z-index: 4;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    p {
+        text-align: right;
+        opacity: 0.9
+    }
 }
 
 .image-container {
@@ -97,8 +165,7 @@
 
 /* 垂直光束的径向渐变背景 */
 .vertical-light::before {
-    background:
-        radial-gradient(ellipse 1600px 2400px at 50% 0%,
+    background: radial-gradient(ellipse 1600px 2400px at 50% 0%,
             rgba(255, 248, 220, 0.15) 0%,
             rgba(255, 248, 220, 0.08) 20%,
             rgba(255, 248, 220, 0.04) 40%,
@@ -146,8 +213,7 @@
 
 /* 垂直光束内层的径向渐变背景 */
 .vertical-light::after {
-    background:
-        radial-gradient(ellipse 800px 1600px at 50% 0%,
+    background: radial-gradient(ellipse 800px 1600px at 50% 0%,
             rgba(255, 250, 235, 0.25) 0%,
             rgba(255, 248, 220, 0.15) 15%,
             rgba(255, 245, 200, 0.08) 35%,
@@ -163,8 +229,7 @@
 
 /* 对角光束内层复用垂直光束的径向渐变背景 */
 .diagonal-light::after {
-    background:
-        radial-gradient(ellipse 800px 1600px at 50% 0%,
+    background: radial-gradient(ellipse 800px 1600px at 50% 0%,
             rgba(255, 250, 235, 0.25) 0%,
             rgba(255, 248, 220, 0.15) 15%,
             rgba(255, 245, 200, 0.08) 35%,
