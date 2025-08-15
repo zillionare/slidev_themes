@@ -1,0 +1,39 @@
+{
+  "name": "slidev-addon-array",
+  "version": "1.0.0",
+  "description": "A Slidev addon for displaying arrays with customizable layout and styling",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [
+    "slidev",
+    "addon",
+    "array",
+    "visualization",
+    "presentation"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/slidev-addon-array.git"
+  },
+  "engines": {
+    "slidev": ">=0.32.1"
+  },
+  "scripts": {
+    "dev": "slidev example.md",
+    "build": "slidev build example.md",
+    "export": "slidev export example.md",
+    "screenshot": "slidev export example.md --format png"
+  },
+  "peerDependencies": {
+    "@slidev/cli": ">=0.32.1",
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.1.0"
+  },
+  "dependencies": {
+    "slidev-addon-array": "^1.0.0"
+  }
+}
