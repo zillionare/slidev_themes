@@ -1,0 +1,43 @@
+{
+  "name": "slidev-addon-mouse-trail-pen",
+  "version": "2.0.0",
+  "description": "A beautiful mouse trail pen effect addon for Slidev presentations",
+  "main": "setup/main.ts",
+  "keywords": [
+    "slidev",
+    "addon",
+    "mouse-trail",
+    "pen",
+    "presentation",
+    "animation",
+    "ink"
+  ],
+  "author": "aaron <code@jieyu.ai>",
+  "license": "MIT",
+  "files": [
+    "setup"
+  ],
+  "peerDependencies": {
+    "@slidev/types": ">=0.40.0",
+    "vue": ">=3.0.0"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^0.48.0",
+    "@slidev/types": "^0.48.0",
+    "typescript": "^5.0.0",
+    "vue": "^3.3.0"
+  },
+  "scripts": {
+    "dev": "slidev example.md",
+    "build": "slidev build example.md",
+    "export": "slidev export example.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zillionare/slidev-addon-mouse-trail-pen"
+  },
+  "bugs": {
+    "url": "https://github.com/zillionare/slidev-addon-mouse-trail-pen/issues"
+  },
+  "homepage": "https://github.com/zillionare/slidev-addon-mouse-trail-pen#readme"
+}

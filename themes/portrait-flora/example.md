@@ -4,7 +4,14 @@ date: 2023-12-20
 lunar: 十一月初八
 title: 已实现跳跃波动率
 brand: 每天1分钟 轻松学量化
+addons:
+    - ../addons/slidev-addon-mouse-trail-pen
+mouseTrailPen:
+  preset: fire
+  lineWidth: 10
 ---
+
+<div data-mouse-trail-preset="green" style="display: none;"></div>
 
 With CSS grid layout, the grid itself within its container as well as grid items can be positioned with the following 6 properties: justify-items, align-items, justify-content, align-content, justify-self, and align-self. These properties are part of the CSS box alignment module and they define a standard way to position elements with either flexbox or CSS grid.
 
@@ -25,6 +32,9 @@ In this article, you will explore each of the CSS grid properties.
 layout: image-right
 image: https://source.unsplash.com/collection/94734566/1920x1080
 ---
+
+<div data-mouse-trail-preset="green" style="display: none;"></div>
+
 
 # Slide Title
 
