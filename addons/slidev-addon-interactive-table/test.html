@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Table Test</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-section {
+            margin-bottom: 3rem;
+        }
+        
+        .demo-section h2 {
+            color: #555;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* 复制组件的样式 */
+        .interactive-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-family: inherit;
+        }
+        
+        .interactive-table th,
+        .interactive-table td {
+            border: none;
+            padding: 8px 12px;
+            text-align: left;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .interactive-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        
+        .highlight-row {
+            background-color: #e3f2fd !important;
+        }
+        
+        .highlight-column {
+            background-color: #f3e5f5 !important;
+        }
+        
+        .highlight-persistent {
+            background-color: #fff3e0 !important;
+            border: 2px solid #ff9800 !important;
+            position: relative;
+        }
+        
+        .highlight-persistent::after {
+            content: '📌';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 10px;
+            opacity: 0.7;
+        }
+        
+        .interactive-table td:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .interactive-table th:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .usage-hint {
+            margin-top: 0.5rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .usage-hint small {
+            font-size: 0.8rem;
+        }
+        
+        .instructions {
+            background: #e8f5e8;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>🎯 Interactive Table 测试</h1>
+            
+            <div class="instructions">
+                <h3>📋 使用说明：</h3>
+                <ul>
+                    <li><strong>鼠标悬停</strong>：高亮整行</li>
+                    <li><strong>Shift + 鼠标悬停</strong>：高亮整列</li>
+                    <li><strong>Cmd/Ctrl + 点击</strong>：切换单元格持续高亮</li>
+                </ul>
+            </div>
+            
+            <div class="demo-section">
+                <h2>示例表格 1 - 员工信息</h2>
+                <interactive-table :data="employeeData" sep="|"></interactive-table>
+            </div>
+            
+            <div class="demo-section">
+                <h2>示例表格 2 - 产品信息</h2>
+                <interactive-table :data="productData" sep=","></interactive-table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, reactive, onMounted, onUnmounted } = Vue;
+        
+        // Interactive Table 组件
+        const InteractiveTable = {
+            props: {
+                data: {
+                    type: String,
+                    required: true
+                },
+                sep: {
+                    type: String,
+                    default: ','
+                },
+                theme: {
+                    default: 'interactive-table'
+                }
+            },
+            setup(props) {
+                const head = ref([])
+                const body = ref([])
+                const tableRef = ref(null)
+                
+                const state = reactive({
+                    hoveredRow: -1,
+                    hoveredCol: -1,
+                    isShiftPressed: false,
+                    persistentCells: new Set()
+                })
+                
+                const handleKeyDown = (e) => {
+                    if (e.key === 'Shift') {
+                        state.isShiftPressed = true
+                    }
+                }
+                
+                const handleKeyUp = (e) => {
+                    if (e.key === 'Shift') {
+                        state.isShiftPressed = false
+                        state.hoveredCol = -1
+                    }
+                }
+                
+                const handleCellMouseEnter = (rowIndex, colIndex) => {
+                    if (state.isShiftPressed) {
+                        state.hoveredCol = colIndex
+                        state.hoveredRow = -1
+                    } else {
+                        state.hoveredRow = rowIndex
+                        state.hoveredCol = -1
+                    }
+                }
+                
+                const handleCellMouseLeave = () => {
+                    if (!state.isShiftPressed) {
+                        state.hoveredRow = -1
+                    }
+                    state.hoveredCol = -1
+                }
+                
+                const handleCellClick = (e, rowIndex, colIndex) => {
+                    if (e.metaKey || e.ctrlKey) {
+                        e.preventDefault()
+                        const cellKey = `${rowIndex}-${colIndex}`
+                        
+                        if (state.persistentCells.has(cellKey)) {
+                            state.persistentCells.delete(cellKey)
+                        } else {
+                            state.persistentCells.add(cellKey)
+                        }
+                    }
+                }
+                
+                const isCellHighlighted = (rowIndex, colIndex) => {
+                    const cellKey = `${rowIndex}-${colIndex}`
+                    
+                    if (state.persistentCells.has(cellKey)) {
+                        return 'persistent'
+                    }
+                    
+                    if (state.hoveredRow === rowIndex && state.hoveredCol === -1) {
+                        return 'row'
+                    }
+                    
+                    if (state.hoveredCol === colIndex && state.hoveredRow === -1) {
+                        return 'column'
+                    }
+                    
+                    return ''
+                }
+                
+                const isHeaderHighlighted = (colIndex) => {
+                    if (state.hoveredCol === colIndex && state.hoveredRow === -1) {
+                        return 'column'
+                    }
+                    return ''
+                }
+                
+                onMounted(() => {
+                    const lines = props.data.split('\n').filter(line => line.trim())
+                    
+                    if (lines.length > 0) {
+                        head.value = lines[0].split(props.sep)
+                        body.value = lines.slice(1)
+                    }
+                    
+                    document.addEventListener('keydown', handleKeyDown)
+                    document.addEventListener('keyup', handleKeyUp)
+                })
+                
+                onUnmounted(() => {
+                    document.removeEventListener('keydown', handleKeyDown)
+                    document.removeEventListener('keyup', handleKeyUp)
+                })
+                
+                return {
+                    head,
+                    body,
+                    tableRef,
+                    state,
+                    handleCellMouseEnter,
+                    handleCellMouseLeave,
+                    handleCellClick,
+                    isCellHighlighted,
+                    isHeaderHighlighted
+                }
+            },
+            template: `
+                <div>
+                    <table ref="tableRef" :class="theme">
+                        <thead>
+                            <th 
+                                v-for="(item, colIndex) in head" 
+                                :key="colIndex"
+                                :class="{
+                                    'highlight-column': isHeaderHighlighted(colIndex) === 'column'
+                                }"
+                            >
+                                {{ item }}
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(row, rowIndex) in body" :key="rowIndex">
+                                <td 
+                                    v-for="(text, colIndex) in row.split(sep)" 
+                                    :key="colIndex"
+                                    :class="{
+                                        'highlight-row': isCellHighlighted(rowIndex, colIndex) === 'row',
+                                        'highlight-column': isCellHighlighted(rowIndex, colIndex) === 'column',
+                                        'highlight-persistent': isCellHighlighted(rowIndex, colIndex) === 'persistent'
+                                    }"
+                                    @mouseenter="handleCellMouseEnter(rowIndex, colIndex)"
+                                    @mouseleave="handleCellMouseLeave"
+                                    @click="handleCellClick($event, rowIndex, colIndex)"
+                                >
+                                    {{ text }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="usage-hint">
+                        <small>
+                            💡 悬停高亮行 | Shift+悬停高亮列 | Cmd/Ctrl+点击持续高亮单元格
+                        </small>
+                    </div>
+                </div>
+            `
+        }
+        
+        // 创建 Vue 应用
+        createApp({
+            components: {
+                InteractiveTable
+            },
+            setup() {
+                const employeeData = ref(`Name|Age|City|Occupation
+Alice|25|New York|Designer
+Bob|30|London|Developer
+Charlie|35|Tokyo|Manager
+Diana|28|Paris|Artist
+Eve|32|Berlin|Engineer`)
+                
+                const productData = ref(`产品,价格,库存,状态
+iPhone 15,999,50,有货
+MacBook Pro,1999,25,有货
+iPad Air,599,100,有货
+Apple Watch,399,75,缺货
+AirPods Pro,249,200,有货`)
+                
+                return {
+                    employeeData,
+                    productData
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

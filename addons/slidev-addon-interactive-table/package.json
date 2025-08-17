@@ -1,0 +1,35 @@
+{
+  "name": "slidev-addon-interactive-table",
+  "version": "1.0.0",
+  "description": "A Slidev addon for interactive tables with row/column highlighting and persistent cell selection",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [
+    "slidev",
+    "addon",
+    "table",
+    "interactive",
+    "highlight",
+    "presentation"
+  ],
+  "author": "Aaron Yang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/slidev-addon-interactive-table.git"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "slidev": ">=0.32.1"
+  },
+  "scripts": {
+    "dev": "slidev example.md",
+    "build": "slidev build example.md",
+    "export": "slidev export example.md",
+    "screenshot": "slidev export example.md --format png"
+  },
+  "peerDependencies": {
+    "@slidev/cli": ">=0.32.1",
+    "vue": "^3.0.0"
+  }
+}
