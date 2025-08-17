@@ -1,75 +1,50 @@
 <!--
-    see https://thebe.readthedocs.io/en/stable/start.html
-
-每一张slides都有自己的惟一的notebook，不同的slides之间，notebook不共享
-
-在代码区，按住cmd + 单击运行代码，否则，双击为放大、还原
-在输出区，双击切换放大或者还原
-
-在有多个组件时，请使用scale动画，以避免彼此干扰捕获鼠标
-
-color: 用以指定输出文本的颜色
-
-<NoteCell init class="w-50% h-full top-10% left-50%">
-```python
-init_result = 5
-print("hello world")
-```
-</NoteCell>
-
-<NoteCell class="w-50% h-full top-10% left-50%" hideOutput color="red"
-        :enter="{scale: 0}"
-        :click-1="{scale: 1}"
-        :click-2="{scale: 0}">
-
-```python
-import numpy as np
-np.random.seed(78)
-if 1:
-    print(np.random.rand(3))
-    print(init_result)
-    print("hello world")
-```
-
-</NoteCell>
-
-<NoteCell class="w-50% h-full top-10% left-50%"
-        :enter="{scale: 0}"
-        :click-2="{scale: 1}">
-
-```python
-print("the sceond call")
-```
-</NoteCell>
-
+    Interactive Jupyter Notebook Cell Component for Slidev
+    
+    Features:
+    - Execute Python code in Jupyter notebooks
+    - Toggle between code and output view
+    - Support for initialization cells
+    - Customizable layout and styling
+    - Presenter mode warnings
+    
+    Usage:
+    <NoteCell init class="w-50% h-full top-10% left-50%">
+    ```python
+    print("Hello World")
+    ```
+    </NoteCell>
 -->
 
 <script setup>
 import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { globals } from './utils'
-// import { useScriptTag } from '@vueuse/core'
+import { globals } from '../utils/globals.js'
 
-// useScriptTag(
-//     'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js',
-//     (el) => {
-//         console.log("requirejs is loaded")
-//     }
-// )
+// Safe access to Slidev globals with fallbacks
+const getPage = () => {
+    try {
+        return typeof $page !== 'undefined' && $page?.value !== undefined ? $page.value : 1;
+    } catch {
+        return 1;
+    }
+};
 
-// useScriptTag(
-//     'https://cdn.plot.ly/plotly-2.35.2.min.js',
-//     (el) => {
-//         console.log("plotly is loaded")
-//     }
-// )
+const getSlidevConfig = () => {
+    try {
+        return typeof $slidev !== 'undefined' && $slidev?.configs ? $slidev.configs : { slug: 'slidev-presentation' };
+    } catch {
+        return { slug: 'slidev-presentation' };
+    }
+};
 
-// useScriptTag(
-//     'https://unpkg.com/thebe@latest/lib/index.js',
-//     (el) => {
-//         console.log("thebe client is loaded", el)
-//     }
-// )
+const getRenderContext = () => {
+    try {
+        return typeof $renderContext !== 'undefined' && $renderContext?.value ? $renderContext.value : 'slide';
+    } catch {
+        return 'slide';
+    }
+};
 
 const props = defineProps({
     "init": {
@@ -86,7 +61,7 @@ const props = defineProps({
     },
     "token": {
         type: String,
-        default: "Qu@ntide2024"
+        default: ""
     },
     "path": {
         type: String,
@@ -97,6 +72,10 @@ const props = defineProps({
         default: false
     },
     "color": {
+        type: String,
+        default: "black"
+    },
+    "animation": {
         type: String,
         default: "pulse"
     },
@@ -132,9 +111,7 @@ const isCommandKeyPressed = ref(false);
 let isCodeHidden = false;
 const code = ref(null)
 const outputWrapper = ref(null);
-const codeStatus = {
-
-}
+const codeStatus = {}
 
 // 如果在presenter中点击运行代码，给出提示！以避免听众看不到实际运行。
 const warnPresenterMode = ref(null)
@@ -154,14 +131,14 @@ function uncheckCommandKey(event) {
 }
 
 const createNotebook = () => {
-    const nbid = `p${$page.value}`
+    const nbid = `p${getPage()}`
 
     if (globals.jupyter[nbid]) {
-        // console.log(`notebook ${nbid} already exists`)
         return
     }
 
-    const notebook_name = `${$slidev.configs.slug}-${nbid}.ipynb`
+    const slidevConfig = getSlidevConfig();
+    const notebook_name = `${slidevConfig.slug}-${nbid}.ipynb`
 
     const config = makeConfiguration({
         useBinder: false,
@@ -200,11 +177,7 @@ const toggleOutput = () => {
         code.value.classList.remove("hide")
         outputWrapper.value.classList.add('hide')
         isCodeHidden = false;
-        // outputWrapper.value.style.display = 'none'
-        // outputWrapper.value.style.height = 0
     } else {
-        // outputWrapper.value.style.display = 'block'
-        // outputWrapper.value.style.height = '500px'
         code.value.classList.add('hide')
         outputWrapper.value.classList.remove('hide')
         isCodeHidden = true;
@@ -218,27 +191,27 @@ const promptRunInSlide = () => {
         warnPresenterMode.value.style.transform = 'scale(0)'
     }, 3000)
 }
+
 const onRunCode = async (event) => {
     console.log('onRunCode', codeStatus, isCodeHidden)
-    // window.thebe.bootstrap()
+    
     if (code.value.id in codeStatus) {
         console.log("code already executed")
         return toggleOutput()
     }
 
-    if ($renderContext.value === 'presenter') {
+    if (getRenderContext() === 'presenter') {
         promptRunInSlide()
         return
     }
+    
     code.value.style.setProperty('--pseudo-before-content', "'running'")
     document.body.style.cursor = 'wait'
 
-    const nbid = `p${$page.value}`
+    const nbid = `p${getPage()}`
     const cellId = code.value.id
-    // console.log(`running cell ${cellId}`, code.value.textContent)
 
     const notebook = globals.jupyter[nbid].notebook
-
     const cell = notebook.getCellById(cellId)
     await executeCell(cell)
 
@@ -253,8 +226,7 @@ const onRunCode = async (event) => {
 }
 
 const executeCell = async (cell) => {
-    const nbid = `p${$page.value}`
-
+    const nbid = `p${getPage()}`
     const server = globals.jupyter[nbid].server
 
     if (globals.jupyter[nbid].session == null) {
@@ -266,8 +238,6 @@ const executeCell = async (cell) => {
             console.error('could not start thebe jupyter session')
             return
         }
-
-        // console.log(`started new session ${session.id}, notebook is ${nbid}`)
 
         globals.jupyter[nbid].session = session
     }
@@ -284,7 +254,7 @@ const executeCell = async (cell) => {
 }
 
 const initNotebook = async () => {
-    const nbid = `p${$page.value}`
+    const nbid = `p${getPage()}`
     const initCellId = `${nbid}-initial-cell`
 
     const jupyter = globals.jupyter[nbid]
@@ -298,8 +268,9 @@ const initNotebook = async () => {
         }
     }, 5000)
 }
+
 const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
-    const pageno = $page.value
+    const pageno = getPage()
     const nbid = `p${pageno}`
     const config = globals.jupyter[nbid].server.config
     const notebook = globals.jupyter[nbid].notebook
@@ -309,19 +280,7 @@ const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
 
     codeEl.id = cid
 
-    // 处理代码内容，去除首尾空白和空行
-    const rawCode = codeEl.textContent.trim()
-    const codeLines = rawCode.split('\n')
-    // 去除开头和结尾的空行
-    while (codeLines.length > 0 && codeLines[0].trim() === '') {
-        codeLines.shift()
-    }
-    while (codeLines.length > 0 && codeLines[codeLines.length - 1].trim() === '') {
-        codeLines.pop()
-    }
-    const cleanCode = codeLines.join('\n')
-    
-    const cell = new ThebeCodeCell(cid, nbid, cleanCode, config, metadata)
+    const cell = new ThebeCodeCell(cid, nbid, codeEl.textContent, config, metadata)
 
     outputWrapper.id = `${cid}-output`
     cell.attachToDOM(outputWrapper)
@@ -335,18 +294,16 @@ const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
     notebook.cells.push(cell)
 
     const total = notebook.numCells()
-    console.info(`created Cell: ${cid}, total cells: ${total}, code is: \n${cleanCode}`)
+    console.info(`created Cell: ${cid}, total cells: ${total}, code is: \n${codeEl.textContent}`)
 }
 
 onMounted(() => {
     if (!globals.jupyter) {
         setupThebeCore();
-
-        globals.jupyter = {
-        }
+        globals.jupyter = {}
     }
 
-    if ($renderContext.value === 'slide') {
+    if (getRenderContext() === 'slide') {
         createNotebook()
         createCodeCell(code.value, outputWrapper.value, props.init)
     }
@@ -380,7 +337,6 @@ onUnmounted(() => {
             </RenderWhen>
         </div>
     </div>
-
 </template>
 
 <style scoped>
@@ -395,7 +351,6 @@ onUnmounted(() => {
 }
 
 .thebe-code {
-    /* position: absolute; */
     width: 100%;
     height: 100%;
 }
@@ -404,10 +359,8 @@ onUnmounted(() => {
     flex-grow: 1;
     width: 100%;
     height: 100vh;
-    /* background-color: #fefefe; */
     font-size: 0.8rem;
     overflow: auto;
-    /* display: none; */
     padding-top: 15px;
     scrollbar-width: none;
     color: var(--output-text-color);
@@ -454,5 +407,9 @@ onUnmounted(() => {
 
 .horizontal-layout .output-wrapper {
     width: var(--output-width);
+}
+
+.hide {
+    display: none;
 }
 </style>

@@ -1,22 +1,24 @@
 {
-  "name": "slidev-addon-interactive-table",
-  "version": "1.1.0",
-  "description": "A Slidev addon for interactive tables with row/column highlighting and persistent cell selection",
+  "name": "slidev-addon-notecell",
+  "version": "1.0.1",
+  "description": "A Slidev addon for interactive Jupyter notebook cells with code execution capabilities",
   "main": "index.js",
   "type": "module",
   "keywords": [
     "slidev",
     "addon",
-    "table",
+    "jupyter",
+    "notebook",
+    "code",
+    "execution",
     "interactive",
-    "highlight",
-    "presentation"
+    "thebe"
   ],
   "author": "Aaron Yang",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/slidev-addon-interactive-table.git"
+    "url": "https://github.com/yourusername/slidev-addon-notecell.git"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -31,5 +33,8 @@
   "peerDependencies": {
     "@slidev/cli": ">=0.32.1",
     "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "thebe-core": "^0.5.0"
   }
 }

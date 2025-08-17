@@ -11,7 +11,7 @@ export default defineConfig({
         },
         proxy: {
             '/thebe': {
-                target: 'http://localhost:8080/course/fa/aaron/',
+                target: 'http://127.0.0.1:8080/course/fa/aaron/',
                 changeOrigin: true,
                 ws: true,
                 rewrite: (path) => path.replace(/^\/thebe/, '')
