@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Component Test</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .demo-section {
+            margin-bottom: 40px;
+        }
+        .demo-title {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .cards-flex {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>🎴 Card Component Demo</h1>
+            
+            <div class="demo-section">
+                <h2 class="demo-title">Basic Cards</h2>
+                <div class="cards-grid">
+                    <card 
+                        title="Landscape Card" 
+                        img="https://picsum.photos/400/300?random=1">
+                        This is a basic landscape card with rectangular frame. Perfect for showcasing content with images.
+                    </card>
+                    
+                    <card 
+                        title="Portrait Card" 
+                        img="https://picsum.photos/300/400?random=2"
+                        orientation="portrait">
+                        This card uses portrait orientation, ideal for vertical content and images.
+                    </card>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <h2 class="demo-title">Custom Sized Cards</h2>
+                <div class="cards-grid">
+                    <card 
+                        title="Large Landscape" 
+                        img="https://picsum.photos/400/240"
+                        orientation="landscape"
+                        :width="400"
+                        :height="240">
+                        Large landscape card (400x240).
+                    </card>
+                    
+                    <card 
+                        title="Small Portrait" 
+                        img="https://picsum.photos/240/400"
+                        orientation="portrait"
+                        :width="150"
+                        :height="250">
+                        Small portrait card (150x250).
+                    </card>
+                    
+                    <card 
+                        title="Custom Size" 
+                        img="https://picsum.photos/400/240"
+                        orientation="landscape"
+                        width="300px"
+                        height="180px">
+                        Custom sized card with string dimensions.
+                    </card>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <h2 class="demo-title">Frame Styles</h2>
+                <div class="cards-flex">
+                    <card 
+                        title="Circle Frame" 
+                        img="https://picsum.photos/400/300?random=3"
+                        frame="circle"
+                        style="max-width: 350px;">
+                        Circular frame perfect for profiles.
+                    </card>
+                    
+                    <card 
+                        title="Diamond Frame" 
+                        img="https://picsum.photos/400/300?random=4"
+                        frame="diamond"
+                        style="max-width: 350px;">
+                        Geometric diamond shape.
+                    </card>
+                    
+                    <card 
+                        title="Ellipse Frame" 
+                        img="https://picsum.photos/400/300?random=5"
+                        frame="ellipse"
+                        style="max-width: 350px;">
+                        Soft elliptical frame.
+                    </card>
+                    
+                    <card 
+                        title="Lens Frame" 
+                        img="https://picsum.photos/400/300?random=7"
+                        frame="lens"
+                        style="max-width: 350px;">
+                        This card features a lens-shaped image frame that adapts to container proportions.
+                    </card>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <h2 class="demo-title">Custom Styling</h2>
+                <div class="cards-grid">
+                    <card 
+                        title="Blue Theme" 
+                        img="https://picsum.photos/400/300?random=6"
+                        background-color="#e3f2fd"
+                        border-color="#2196f3"
+                        title-color="#1976d2"
+                        text-color="#424242"
+                        border-radius="20px">
+                        Custom blue theme with rounded corners.
+                    </card>
+                    
+                    <card 
+                        title="Gem Frame" 
+                        img="https://picsum.photos/400/300?random=7"
+                        frame="gem"
+                        background-color="#fff3cd"
+                        border-color="#ffc107"
+                        title-color="#856404">
+                        Unique gem-shaped frame that's different every time!
+                    </card>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        // Card Component Definition
+        const Card = {
+            props: {
+                title: {
+                    type: String,
+                    required: true
+                },
+                img: {
+                    type: String,
+                    required: true
+                },
+                orientation: {
+                    type: String,
+                    default: 'landscape',
+                    validator: (value) => ['landscape', 'portrait'].includes(value)
+                },
+                frame: {
+                    type: String,
+                    default: 'rectangle',
+                    validator: (value) => ['rectangle', 'circle', 'ellipse', 'diamond', 'gem'].includes(value)
+                },
+                backgroundColor: {
+                    type: String,
+                    default: '#ffffff'
+                },
+                borderColor: {
+                    type: String,
+                    default: '#e0e0e0'
+                },
+                titleColor: {
+                    type: String,
+                    default: '#333333'
+                },
+                textColor: {
+                    type: String,
+                    default: '#666666'
+                },
+                borderRadius: {
+                    type: String,
+                    default: '12px'
+                },
+                shadow: {
+                    type: Boolean,
+                    default: true
+                },
+                width: {
+                    type: [String, Number],
+                    default: null
+                }
+            },
+            computed: {
+                orientationClass() {
+                    return `card-${this.orientation}`;
+                },
+                containerStyle() {
+                     // Fixed design dimensions with aspect ratios
+                     const designDimensions = {
+                         landscape: { width: 600, height: 400 },
+                         portrait: { width: 400, height: 600 }
+                     };
+                     
+                     const design = designDimensions[this.orientation];
+                     let scale = 1;
+                     
+                     // Calculate scale based on user-specified width
+                     if (this.width) {
+                         const targetWidth = typeof this.width === 'string' ? parseInt(this.width) : this.width;
+                         scale = targetWidth / design.width;
+                     }
+                     
+                     return {
+                         backgroundColor: this.backgroundColor,
+                         borderRadius: this.borderRadius,
+                         boxShadow: this.shadow ? '0 4px 12px rgba(0, 0, 0, 0.15)' : 'none',
+                         width: `${design.width}px`,
+                         height: `${design.height}px`,
+                         transform: scale !== 1 ? `scale(${scale})` : 'none',
+                         transformOrigin: 'top left'
+                     };
+                 },
+                imageStyle() {
+                     // Fixed design dimensions with image taking 1/3 of the width/height
+                     const designDimensions = {
+                         landscape: { width: 600, height: 400 },
+                         portrait: { width: 400, height: 600 }
+                     };
+                     
+                     const design = designDimensions[this.orientation];
+                     
+                     if (this.orientation === 'landscape') {
+                         // Image takes 1/3 of width, full height
+                         return {
+                             width: `${design.width / 3}px`,
+                             height: `${design.height}px`
+                         };
+                     } else {
+                         // Portrait: Image takes full width, 1/3 of height
+                         return {
+                             width: `${design.width}px`,
+                             height: `${design.height / 3}px`
+                         };
+                     }
+                 },
+                imgClipStyle() {
+                    return {
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        clipPath: this.getClipPath(this.frame),
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
+                    };
+                },
+                titleStyle() {
+                    return {
+                        color: this.titleColor
+                    };
+                },
+                textStyle() {
+                    return {
+                        color: this.textColor
+                    };
+                }
+            },
+            methods: {
+                getClipPath(frame) {
+                    switch (frame) {
+                        case 'circle':
+                            return 'circle(50%)';
+                        case 'ellipse':
+                            return 'ellipse(50% 40%)';
+                        case 'diamond':
+                            return 'polygon(50% 15%, 85% 50%, 50% 85%, 15% 50%)';
+                        case 'gem':
+                            const randomPoints = [
+                                `${20 + Math.random() * 10}% ${10 + Math.random() * 10}%`,
+                                `${70 + Math.random() * 20}% ${5 + Math.random() * 15}%`,
+                                `${85 + Math.random() * 10}% ${40 + Math.random() * 20}%`,
+                                `${75 + Math.random() * 15}% ${80 + Math.random() * 15}%`,
+                                `${25 + Math.random() * 15}% ${85 + Math.random() * 10}%`,
+                                `${5 + Math.random() * 15}% ${45 + Math.random() * 20}%`
+                            ];
+                            return `polygon(${randomPoints.join(', ')})`;
+                        case 'rectangle':
+                        default:
+                            return 'none';
+                    }
+                }
+            },
+            template: `
+                <div class="card-container" :class="orientationClass" :style="containerStyle">
+                    <div class="card-image" :style="imageStyle">
+                        <img :src="img" :alt="title" :style="imgClipStyle" />
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title" :style="titleStyle">{{ title }}</h3>
+                        <div class="card-text" :style="textStyle">
+                            <slot></slot>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+        
+        createApp({
+            components: {
+                Card
+            }
+        }).mount('#app');
+    </script>
+    
+    <style>
+        .card-container {
+            display: flex;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        .card-landscape {
+            flex-direction: row;
+        }
+
+        .card-portrait {
+            flex-direction: column;
+        }
+        
+        .card-image {
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex: 1;
+        }
+        
+        .card-title {
+            margin: 0 0 12px 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        
+        .card-text {
+            font-size: 1em;
+            line-height: 1.6;
+            flex: 1;
+            overflow: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .card-landscape {
+                flex-direction: column;
+            }
+            
+            .card-landscape .card-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</body>
+</html>

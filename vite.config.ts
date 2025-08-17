@@ -1,13 +1,17 @@
 import MdItAdmon from 'markdown-it-admon';
 import { full as emoji } from 'markdown-it-emoji';
 import UnoCSS from 'unocss/vite';
-import { defineConfig } from 'vite';
+import { defineConfig } from '@slidev/cli';
 
 
 export default defineConfig({
     server: {
         fs: {
-            strict: false
+            strict: false,
+            allow: [
+                '..',
+                '../node_modules'
+            ]
         },
         proxy: {
             '/thebe': {
