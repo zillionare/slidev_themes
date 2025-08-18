@@ -91,6 +91,7 @@ print("This is an interactive code cell")
 Double-click the code cell to execute:
 
 <NoteCell class="w-full h-80">
+
 ```python
 print("Hello from Jupyter!")
 print("This is an interactive code cell")

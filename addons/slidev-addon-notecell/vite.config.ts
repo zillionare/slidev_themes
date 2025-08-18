@@ -19,8 +19,9 @@ export default defineConfig({
                 changeOrigin: true,
                 ws: true,
                 rewrite: (path) => {
-                    // Remove /thebe prefix but keep the rest of the path
-                    return path.replace(/^\/thebe/, '')
+                    // Forward /thebe/path to /course/fa/aaron/path
+                    // console.log('Proxying:', path, 'to', path.replace(/^\/thebe/, ''));
+                    return path.replace(/^\/thebe/, '');
                 }
             }
         }

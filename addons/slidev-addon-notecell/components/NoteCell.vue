@@ -17,9 +17,9 @@
 -->
 
 <script setup>
-import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
+import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core/dist/esm/index.js';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { globals } from '../utils/globals.js'
+import { globals } from '../utils/globals.js';
 
 // Safe access to Slidev globals with fallbacks
 const getPage = () => {
@@ -186,16 +186,18 @@ const toggleOutput = () => {
 
 const promptRunInSlide = () => {
     console.log('presenter mode: prompt to run in slide')
-    warnPresenterMode.value.style.transform = 'scale(1)'
-    setTimeout(() => {
-        warnPresenterMode.value.style.transform = 'scale(0)'
-    }, 3000)
+    if (warnPresenterMode.value) {
+        warnPresenterMode.value.style.transform = 'scale(1)'
+        setTimeout(() => {
+            warnPresenterMode.value.style.transform = 'scale(0)'
+        }, 3000)
+    }
 }
 
 const onRunCode = async (event) => {
     console.log('onRunCode', codeStatus, isCodeHidden)
     
-    if (code.value.id in codeStatus) {
+    if (code.value && code.value.id in codeStatus) {
         console.log("code already executed")
         return toggleOutput()
     }
@@ -205,24 +207,73 @@ const onRunCode = async (event) => {
         return
     }
     
-    code.value.style.setProperty('--pseudo-before-content', "'running'")
+    if (code.value) {
+        code.value.style.setProperty('--pseudo-before-content', "'running'")
+    }
     document.body.style.cursor = 'wait'
 
     const nbid = `p${getPage()}`
-    const cellId = code.value.id
+    const cellId = code.value ? code.value.id : null
 
-    const notebook = globals.jupyter[nbid].notebook
-    const cell = notebook.getCellById(cellId)
-    await executeCell(cell)
-
-    if (props.hideOutput) {
-        outputWrapper.value.classList.add("hide")
+    if (!cellId) {
+        console.error('Code element not available')
+        document.body.style.cursor = 'default'
+        return
     }
 
-    document.body.style.cursor = 'default'
-    code.value.style.setProperty('--pseudo-before-content', "'runnable'")
+    // Check if jupyter object exists for this page
+    if (!globals.jupyter || !globals.jupyter[nbid]) {
+        console.error(`Jupyter object for ${nbid} not initialized`)
+        document.body.style.cursor = 'default'
+        if (code.value) {
+            code.value.style.setProperty('--pseudo-before-content', "'error'")
+        }
+        return
+    }
 
-    codeStatus[code.value.id] = true
+    const jupyter = globals.jupyter[nbid]
+    
+    // Check if notebook exists
+    if (!jupyter.notebook) {
+        console.error(`Notebook for ${nbid} not initialized`)
+        document.body.style.cursor = 'default'
+        if (code.value) {
+            code.value.style.setProperty('--pseudo-before-content', "'error'")
+        }
+        return
+    }
+
+    const notebook = jupyter.notebook
+    const cell = notebook.getCellById(cellId)
+    
+    if (!cell) {
+        console.error(`Cell ${cellId} not found`)
+        document.body.style.cursor = 'default'
+        if (code.value) {
+            code.value.style.setProperty('--pseudo-before-content', "'error'")
+        }
+        return
+    }
+    
+    try {
+        await executeCell(cell)
+        
+        if (props.hideOutput && outputWrapper.value) {
+            outputWrapper.value.classList.add("hide")
+        }
+    } catch (error) {
+        console.error('Error executing cell:', error)
+        if (code.value) {
+            code.value.style.setProperty('--pseudo-before-content', "'error'")
+        }
+    } finally {
+        document.body.style.cursor = 'default'
+        if (code.value) {
+            code.value.style.setProperty('--pseudo-before-content', "'runnable'")
+        }
+
+        codeStatus[cellId] = true
+    }
 }
 
 const executeCell = async (cell) => {
@@ -257,9 +308,26 @@ const initNotebook = async () => {
     const nbid = `p${getPage()}`
     const initCellId = `${nbid}-initial-cell`
 
+    // Check if jupyter object exists
+    if (!globals.jupyter[nbid]) {
+        console.warn(`Jupyter object for ${nbid} not initialized`)
+        return
+    }
+
     const jupyter = globals.jupyter[nbid]
     const notebook = jupyter.notebook
+    
+    // Check if notebook and cell exist
+    if (!notebook) {
+        console.warn(`Notebook for ${nbid} not initialized`)
+        return
+    }
+    
     const cell = notebook.getCellById(initCellId)
+    if (!cell) {
+        console.warn(`Initial cell ${initCellId} not found`)
+        return
+    }
 
     await executeCell(cell)
     setTimeout(() => {
@@ -280,7 +348,11 @@ const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
 
     codeEl.id = cid
 
-    const cell = new ThebeCodeCell(cid, nbid, codeEl.textContent, config, metadata)
+    // Fix the Slidev-specific indentation issue by removing indentation from the first line only
+    let codeContent = codeEl.textContent
+    codeContent = codeContent.replace(/^\s+/, '')
+    
+    const cell = new ThebeCodeCell(cid, nbid, codeContent, config, metadata)
 
     outputWrapper.id = `${cid}-output`
     cell.attachToDOM(outputWrapper)
@@ -294,7 +366,7 @@ const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
     notebook.cells.push(cell)
 
     const total = notebook.numCells()
-    console.info(`created Cell: ${cid}, total cells: ${total}, code is: \n${codeEl.textContent}`)
+    console.info(`created Cell: ${cid}, total cells: ${total}, code is: \n${codeContent}`)
 }
 
 onMounted(() => {
