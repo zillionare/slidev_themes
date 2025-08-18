@@ -6,23 +6,42 @@
                 <!-- SVG clipPath cannot use image elements for clipping -->
             </defs>
         </svg>
-        
-        <div class="card-container" :class="orientationClass" :style="containerStyle">
-            <div class="card-image" :data-frame="frame" :style="imageStyle">
-                <img :src="img" :alt="title" :style="imgClipStyle" />
-            </div>
-            <div class="card-content">
-                <h3 class="card-title" :style="titleStyle">{{ title }}</h3>
-                <div class="card-text" :style="textStyle">
-                    <slot></slot>
+
+        <div class="card-container" :class="[orientationClass, modeClass]" :style="containerStyle">
+            <!-- Image mode (when img exists, or both img and icon exist) -->
+            <template v-if="img">
+                <div class="card-image" :data-frame="frame" :style="imageStyle">
+                    <img :src="img" :alt="title" :style="imgClipStyle" />
                 </div>
-            </div>
+                <div class="card-content">
+                    <h3 class="card-title" :style="titleStyle">{{ title }}</h3>
+                    <div class="card-text" :style="textStyle">
+                        <slot></slot>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Icon mode (when only icon exists) -->
+            <template v-else-if="icon">
+                <div class="card-icon-section" :style="iconSectionStyle">
+                    <div class="card-icon" :style="iconStyle">
+                        <Icon v-if="icon" :icon="iconComponent" :style="{ fontSize: iconSize, color: iconColor }" />
+                    </div>
+                    <h3 class="card-title" :style="titleStyle">{{ title }}</h3>
+                </div>
+                <div class="card-content" :style="iconContentStyle">
+                    <div class="card-text" :style="textStyle">
+                        <slot></slot>
+                    </div>
+                </div>
+            </template>
         </div>
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
+import { Icon } from '@iconify/vue'
 
 const props = defineProps({
     title: {
@@ -31,8 +50,21 @@ const props = defineProps({
     },
     img: {
         type: String,
-        required: true
+        required: false
     },
+    icon: {
+        type: String,
+        required: false
+    },
+    iconSize: {
+        type: String,
+        default: '96px'
+    },
+    iconColor: {
+        type: String,
+        default: '#666666'
+    },
+
     orientation: {
         type: String,
         default: 'landscape',
@@ -61,7 +93,7 @@ const props = defineProps({
     },
     borderRadius: {
         type: String,
-        default: '12px'
+        default: '5px'
     },
     shadow: {
         type: Boolean,
@@ -73,15 +105,72 @@ const props = defineProps({
     }
 })
 
+// Validate props - at least one of img or icon should be provided
+watchEffect(() => {
+    if (!props.img && !props.icon) {
+        console.warn('Card component: Either img or icon prop should be provided')
+    }
+})
+
 const orientationClass = computed(() => {
     return `card-${props.orientation}`
+})
+
+// Parse icon name and generate Iconify CSS classes
+const iconifyClasses = computed(() => {
+    if (!props.icon) return []
+
+    // Handle different icon libraries using Iconify format
+    if (props.icon.startsWith('mdi-')) {
+        return [`i-${props.icon}`, 'icon']
+    } else if (props.icon.startsWith('fa-')) {
+        return [`i-fa-${props.icon.replace('fa-', '')}`, 'icon']
+    } else if (props.icon.startsWith('fas-')) {
+        return [`i-fa-solid-${props.icon.replace('fas-', '')}`, 'icon']
+    } else if (props.icon.startsWith('far-')) {
+        return [`i-fa-regular-${props.icon.replace('far-', '')}`, 'icon']
+    } else if (props.icon.startsWith('fab-')) {
+        return [`i-fa-brands-${props.icon.replace('fab-', '')}`, 'icon']
+    } else {
+        // Default to mdi if no prefix is provided
+        return [`i-mdi-${props.icon}`, 'icon']
+    }
+})
+
+const modeClass = computed(() => {
+    // If img exists (regardless of icon), use image mode
+    // If only icon exists, use icon mode
+    return props.img ? 'card-image' : (props.icon ? 'card-icon' : 'card-image')
+})
+
+const iconComponent = computed(() => {
+    if (!props.icon) return null
+
+    // Convert icon name to Iconify format
+    // e.g., 'mdi-leaf' -> 'mdi:leaf', 'fa-code' -> 'fa:code'
+    const icon = props.icon
+
+    if (icon.startsWith('mdi-')) {
+        return `mdi:${icon.substring(4)}`
+    } else if (icon.startsWith('fa-')) {
+        return `fa:${icon.substring(3)}`
+    } else if (icon.startsWith('fas-')) {
+        return `fa-solid:${icon.substring(4)}`
+    } else if (icon.startsWith('far-')) {
+        return `fa-regular:${icon.substring(4)}`
+    } else if (icon.startsWith('fab-')) {
+        return `fa-brands:${icon.substring(4)}`
+    }
+
+    // Return as-is for other formats
+    return icon
 })
 
 const wrapperStyle = computed(() => {
     // Fixed design dimensions
     const designDimensions = {
-        landscape: { width: 600, height: 360 },
-        portrait: { width: 360, height: 600 }
+        landscape: { width: 400, height: 250 },
+        portrait: { width: 300, height: 500 }
     }
 
     const design = designDimensions[props.orientation]
@@ -103,8 +192,8 @@ const wrapperStyle = computed(() => {
 const containerStyle = computed(() => {
     // Fixed design dimensions
     const designDimensions = {
-        landscape: { width: 600, height: 360 },
-        portrait: { width: 360, height: 600 }
+        landscape: { width: 400, height: 250 },
+        portrait: { width: 300, height: 500 }
     }
 
     const design = designDimensions[props.orientation]
@@ -112,7 +201,7 @@ const containerStyle = computed(() => {
     return {
         backgroundColor: props.backgroundColor,
         borderRadius: props.borderRadius,
-        boxShadow: props.shadow ? '0 4px 12px rgba(0, 0, 0, 0.15)' : 'none',
+        boxShadow: props.shadow ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
         width: `${design.width}px`,
         height: `${design.height}px`
     }
@@ -121,8 +210,8 @@ const containerStyle = computed(() => {
 const imageStyle = computed(() => {
     // Fixed design dimensions with image taking 1/3 of the width/height
     const designDimensions = {
-        landscape: { width: 600, height: 360 },
-        portrait: { width: 360, height: 600 }
+        landscape: { width: 400, height: 250 },
+        portrait: { width: 300, height: 500 }
     }
 
     const design = designDimensions[props.orientation]
@@ -137,7 +226,8 @@ const imageStyle = computed(() => {
         // Portrait: Image takes full width, 1/3 of height
         return {
             width: `${design.width}px`,
-            height: `${design.height / 3}px`
+            height: `${design.height / 3}px`,
+            flexShrink: 0
         }
     }
 })
@@ -228,6 +318,83 @@ const textStyle = computed(() => {
         color: props.textColor
     }
 })
+
+// Icon mode styles
+const iconStyle = computed(() => {
+    return {
+        fontSize: props.iconSize,
+        color: props.iconColor,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: '12px'
+    }
+})
+
+const iconSectionStyle = computed(() => {
+    const designDimensions = {
+        landscape: { width: 400, height: 250 },
+        portrait: { width: 300, height: 500 }
+    }
+
+    const design = designDimensions[props.orientation]
+
+    if (props.orientation === 'landscape') {
+        // Icon/title section takes 1/3 of width, full height
+        return {
+            width: `${design.width / 3}px`,
+            height: `${design.height}px`,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+        }
+    } else {
+        // Portrait: Icon/title section takes full width, fixed height
+        return {
+            width: `${design.width}px`,
+            height: `${design.height / 3}px`,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem 20px 10px 20px',
+            flexShrink: 0
+        }
+    }
+})
+
+const iconContentStyle = computed(() => {
+    const designDimensions = {
+        landscape: { width: 400, height: 250 },
+        portrait: { width: 300, height: 500 }
+    }
+
+    const design = designDimensions[props.orientation]
+
+    if (props.orientation === 'landscape') {
+        // Content takes 2/3 of width, full height
+        return {
+            width: `${(design.width * 2) / 3}px`,
+            height: `${design.height}px`,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            padding: '20px'
+        }
+    } else {
+        // Portrait: Content takes full width, remaining height
+        return {
+            width: `${design.width}px`,
+            flex: '1',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            padding: '10px 20px 20px 20px'
+        }
+    }
+})
 </script>
 
 <style scoped>
@@ -243,7 +410,7 @@ const textStyle = computed(() => {
 
 .card-container:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
 .card-landscape {
@@ -265,6 +432,7 @@ const textStyle = computed(() => {
     flex-direction: column;
     justify-content: flex-start;
     flex: 1;
+    min-height: 0;
 }
 
 /* Landscape模式下，circle、ellipse、lens裁剪时的边距和对齐 */
@@ -286,11 +454,15 @@ const textStyle = computed(() => {
     margin-right: 16px;
 }
 
-/* Portrait模式下，圆形裁剪时的边距 */
+/* Portrait模式下，有frame的图片添加上边距 */
 .card-portrait .card-image[data-frame="circle"],
 .card-portrait .card-image[data-frame="ellipse"],
-.card-portrait .card-image[data-frame="lens"] {
-    margin-top: 16px;
+.card-portrait .card-image[data-frame="lens"],
+.card-portrait .card-image[data-frame="diamond"],
+.card-portrait .card-image[data-frame="teardrop"],
+.card-portrait .card-image[data-frame="mapleleaf"],
+.card-portrait .card-image[data-frame="gem"] {
+    margin-top: 1rem;
 }
 
 .card-portrait .card-image[data-frame="circle"]:last-child,
@@ -309,19 +481,62 @@ const textStyle = computed(() => {
 }
 
 .card-text {
-    font-size: 1em;
+    font-size: 0.8em;
+    opacity: 0.9;
     line-height: 1.6;
     flex: 1;
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
     text-align: center;
+    padding-top: 10px;
+    max-height: 100%;
 }
 
 /* Landscape模式下，card-title 增加上边距 */
 .card-landscape .card-title {
     margin-top: 16px;
+}
+
+/* Icon mode styles */
+.card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    transition: all 0.3s ease;
+}
+
+.card-icon-section {
+    flex-shrink: 0;
+}
+
+.card-icon-section .card-title {
+    text-align: center;
+    margin: 0;
+}
+
+/* Icon mode landscape - left align text content */
+.card-icon.card-landscape .card-text {
+    text-align: left;
+    justify-content: flex-start;
+}
+
+/* Icon mode layout adjustments */
+.card-icon.card-landscape {
+    flex-direction: row;
+}
+
+.card-icon.card-portrait {
+    flex-direction: column;
+}
+
+/* Icon hover effects */
+.card-container:hover .card-icon {
+    transform: scale(1.05);
 }
 
 /* 响应式设计 */
@@ -333,6 +548,23 @@ const textStyle = computed(() => {
     .card-landscape .card-image {
         width: 100%;
         height: 200px;
+    }
+
+    /* Icon mode responsive adjustments */
+    .card-icon.card-landscape {
+        flex-direction: column;
+    }
+
+    .card-icon.card-landscape .card-icon-section {
+        width: 100% !important;
+        height: auto !important;
+        padding: 20px;
+    }
+
+    .card-icon.card-landscape .card-content {
+        width: 100% !important;
+        height: auto !important;
+        flex: 1;
     }
 }
 </style>

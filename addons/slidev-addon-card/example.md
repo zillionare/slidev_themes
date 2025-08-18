@@ -9,6 +9,7 @@ components:
   Card: './components/Card.vue'
 ---
 
+
 # Card Addon Examples
 
 Demonstrating various card styles and configurations
@@ -150,6 +151,98 @@ Lorem ipsum Swimmer used a Quick Ball to catch Pikachu. Weezing is a Poison Gas 
 
 ---
 
+# Icon Cards - Material Design Icons
+
+<div class="grid grid-cols-2 gap-4">
+
+<Card
+  title="Material Design Icon"
+  icon="fa-leaf"
+  width="300">
+
+Using Material Design Icons with full icon name (mdi-leaf).
+
+</Card>
+
+<Card
+  title="portrait"
+  icon="fa-heart"
+  orientation="portrait"
+  width="250">
+
+Lorem ipsum The leader at Cyllage Gym specializes in Rock Pokémon. Boarder gave a Yache Berry to Pidgey. You can earn the Legend Badge at Opelucid Gym. You can find the Santalune Gym in Kalos. Team Skull Admin explored Route 36 in Johto.  You can earn the Legend Badge at Opelucid Gym. You can find the Santalune Gym in Kalos. Team Skull Admin explored Route 36 in Johto. 
+</Card>
+
+</div>
+
+---
+
+# Icon Cards - Font Awesome
+
+<div class="grid grid-cols-3 gap-4">
+
+<Card
+  title="Font Awesome Solid"
+  icon="fas-heart"
+  frame="diamond"
+  width="250">
+
+Font Awesome solid icons (fas-heart).
+
+</Card>
+
+<Card
+  title="Font Awesome Regular"
+  icon="far-heart"
+  frame="gem"
+  width="250">
+
+Font Awesome regular icons (far-heart).
+
+</Card>
+
+<Card
+  title="Font Awesome Brands"
+  icon="fab-github"
+  frame="lens"
+  width="250">
+
+Font Awesome brand icons (fab-github).
+
+</Card>
+
+</div>
+
+---
+
+# Mixed Icon Libraries
+
+<div class="grid grid-cols-2 gap-4">
+
+<Card
+  title="Code Example"
+  icon="fa-code"
+  iconColor="#007acc"
+  width="300">
+
+Using Font Awesome with fa- prefix for standard icons.
+
+</Card>
+
+<Card
+  title="Settings"
+  icon="mdi-cog"
+  iconColor="#666666"
+  width="300">
+
+Using Material Design Icons for settings.
+
+</Card>
+
+</div>
+
+---
+
 # Custom Styling
 
 <Card 
@@ -163,6 +256,26 @@ Lorem ipsum Swimmer used a Quick Ball to catch Pikachu. Weezing is a Poison Gas 
   :width="400"
   :height="240">
   This card has custom colors and styling with specific dimensions.
+</Card>
+
+---
+
+# Card as container
+
+<Card 
+  title="Card as Container" 
+  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  orientation="portrait"
+  frame="circle"
+  width="250"
+>
+
+<div class="">
+  <div class="text-grey bg-black">Aaron Yang</div>
+  <div class="">
+  Lorem ipsum Successor gave a Kebia Berry to Mr. Mime. Tamer spotted Omanyte in Galar.
+  </div>
+</div>
 </Card>
 
 ---

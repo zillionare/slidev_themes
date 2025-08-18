@@ -17,3 +17,24 @@ addons:
 
 这是一个卡片。Lorem ipsum Rising Star used a Repeat Ball to catch Kadabra. You can earn the Freeze Badge at Icirrus Gym. Battle Girl used a Dream Ball to catch Electabuzz. Nidorino was found in Lake Acuity. Galactic Grunt visited Pacifidlog Town in Hoenn. Rich Boy's favorite Pokémon is Pidgey.
 </Card>
+
+---
+
+<Grid layout="1x4" template="Card">
+
+- icon: fa fa-code
+  title: Music
+  details: Lorem ipsum You can find the Pastoria Gym in Sinnoh. Meowth was found in Route 44. Nidoran♀ is a Poison Pin Pokémon. 
+
+- icon: fa fa-music
+  title: Music
+  details: Lorem ipsum You can find the Pastoria Gym in Sinnoh. Meowth was found in Route 44. Nidoran♀ is a Poison Pin Pokémon.
+
+- icon: fa fa-code
+  title: Music
+  details: Lorem ipsum You can find the Pastoria Gym in Sinnoh. Meowth was found in Route 44. Nidoran♀ is a Poison Pin Pokémon.
+
+- icon: fa fa-music
+  title: Music
+  details: Lorem ipsum You can find the Pastoria Gym in Sinnoh. Meowth was found in Route 44. Nidoran♀ is a Poison Pin Pokémon.
+</Grid>

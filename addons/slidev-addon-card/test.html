@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card Component Test</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Material Design Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -135,6 +137,37 @@
                         frame="lens"
                         style="max-width: 350px;">
                         This card features a lens-shaped image frame that adapts to container proportions.
+                    </card>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <h2 class="demo-title">Icon Cards</h2>
+                <div class="cards-grid">
+                    <card 
+                        title="MDI Leaf Icon" 
+                        icon="mdi-leaf"
+                        frame="teardrop"
+                        style="max-width: 350px;">
+                        This card uses MDI leaf icon with teardrop frame.
+                    </card>
+                    
+                    <card 
+                        title="MDI Heart Icon" 
+                        icon="mdi-heart"
+                        orientation="portrait"
+                        icon-color="#e91e63"
+                        style="max-width: 250px;">
+                        Portrait card with colored heart icon.
+                    </card>
+                    
+                    <card 
+                        title="MDI Star Icon" 
+                        icon="mdi-star"
+                        icon-size="120px"
+                        icon-color="#ffc107"
+                        style="max-width: 350px;">
+                        Large star icon with custom size and color.
                     </card>
                 </div>
             </div>
