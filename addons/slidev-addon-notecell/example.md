@@ -2,7 +2,7 @@
 theme: default
 class: text-center
 highlighter: shiki
-lineNumbers: false
+lineNumbers: true
 info: |
   ## Slidev NoteCell Addon Demo
   
@@ -43,6 +43,10 @@ addons:
 
 start a jupyter server and try to access some notebooks. Remember the url to the notebook, for example: `http://localhost:8888/path/to/lab/tree/notebooks/example.ipynb`. We'll need the baseUrl (i.e., http://localhost:8888/path/to in this case) later.
 
+---
+
+# Configuration
+
 ### 3. configure vite.config.ts
 
 We can use global configure by configuring vite.config.ts as:
@@ -67,30 +71,53 @@ export default defineConfig({
 
 then all notecell will be proxied to your jupyterlab server
 
+---
+
+# Configuration
+
+### 4. convigure via NoteCell
+
 Or, we can configure each notecell without touch vite.config.ts:
 
 ````md
 
 <NoteCell baseUrl="http://localhost:8888/path/to">
 
-```python
+``python
 print("Hello from Jupyter!")
 print("This is an interactive code cell")
-```
+``
 </NoteCell>
 
 ````
 
-!!! warning
-    Remember add an empty line between the `<NoteCell>` tag and ```python code block.
-
+---
+layout: two-cols
 ---
 
 # Basic Usage
 
-Double-click the code cell to execute:
-
+````md
 <NoteCell class="w-full h-80">
+
+``python
+print("Hello from Jupyter!")
+print("This is an interactive code cell")
+
+# Simple calculation
+result = 2 + 2
+print(f"2 + 2 = {result}")
+``
+</NoteCell>
+````
+
+**Use three backticks to wrap your code, Not two!!!**
+
+::right::
+
+Double-click the "runnable" button to execute:
+
+<NoteCell class="w-full h-30">
 
 ```python
 print("Hello from Jupyter!")
@@ -101,6 +128,10 @@ result = 2 + 2
 print(f"2 + 2 = {result}")
 ```
 </NoteCell>
+
+The runnable button contains two status: runnable and running.
+
+When it's running, just wait.
 
 ---
 
@@ -129,27 +160,21 @@ plt.show()
 </NoteCell>
 
 ---
+layout: two-cols
+---
 
 # Initialization Cell
 
 Use `init` prop for setup code (runs automatically):
 
-<NoteCell class="w-full h-80">
-```python
-# This cell runs automatically when the slide loads
-import pandas as pd
-import numpy as np
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250819101732.png)
 
-# Create sample dataset
-data = {
-    'name': ['Alice', 'Bob', 'Charlie', 'Diana'],
-    'age': [25, 30, 35, 28],
-    'score': [85, 92, 78, 96]
-}
-df = pd.DataFrame(data)
-print("Dataset initialized!")
-```
-</NoteCell>
+::right::
+
+<br/>
+<br/>
+
+The rest (the code you want to demo/run):
 
 <NoteCell class="w-full h-80">
 ```python
@@ -160,6 +185,8 @@ print(f"\nAverage age: {df['age'].mean():.1f}")
 print(f"Average score: {df['score'].mean():.1f}")
 ```
 </NoteCell>
+
+Double click on the "runnable" button, there you go.
 
 ---
 

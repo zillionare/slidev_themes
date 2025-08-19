@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Updated thebe-core dependency from locked version 0.4.10 to ^0.4.10 to allow for latest compatible updates
+- Updated Slidev peer dependency requirement from >=0.32.1 to >=0.40.0 to match current Slidev versions
 
 ## [1.0.8] - 2024-08-18
 
