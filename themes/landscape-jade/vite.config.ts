@@ -3,7 +3,7 @@ import { full as emoji } from 'markdown-it-emoji';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
-console.log(`public dir is ${resolve(__dirname, '../../public')}`)
+console.log(`vite from landscape: ${resolve(__dirname, 'assets')}`)
 export default defineConfig({
     server: {
         fs: {
@@ -18,7 +18,7 @@ export default defineConfig({
             }
         }
     },
-    publicDir: resolve(__dirname, '../../public'),
+    publicDir: resolve(__dirname, 'public'),
     slidev: {
         vue: {
             /* vue options */
