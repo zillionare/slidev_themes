@@ -13,10 +13,19 @@ interface TrailConfig {
 
 // 默认配置
 const defaultConfig: TrailConfig = {
-    maxPoints: 50,
-    fadeDuration: 1000,
+    maxPoints: 300,
+    fadeDuration: 3000,
     lineWidth: 3,
-    colors: ['rgba(64, 164, 255, 0)', 'rgba(64, 164, 255, 0.8)', 'rgba(64, 164, 255, 1)'],
+    preset: 'rainbow', // 将默认预设改为 rainbow
+    colors: [
+        'rgba(255, 0, 0, 0)',
+        'rgba(255, 165, 0, 0.6)',
+        'rgba(255, 255, 0, 0.7)',
+        'rgba(0, 255, 0, 0.8)',
+        'rgba(0, 0, 255, 0.9)',
+        'rgba(75, 0, 130, 1)',
+        'rgba(238, 130, 238, 1)'
+    ],
     enabled: true
 }
 
@@ -53,7 +62,7 @@ const colorPresets = {
         'rgba(255, 255, 255, 0)',
         'rgba(128, 128, 128, 0.4)',
         'rgba(64, 64, 64, 0.7)',
-        'rgba(32, 32, 32, 0.9)',
+        'rgba(32, 32, 112, 0.9)',
         'rgba(0, 0, 0, 1)'
     ]
 }
@@ -121,6 +130,22 @@ export default defineAppSetup(({ app, router }) => {
     let ctx: CanvasRenderingContext2D | null = null
     let animationFrameId: number | null = null
     let config = getFrontmatterConfig()
+    let altKeyPressed = false // 添加 alt 键状态跟踪
+
+    // 监听 alt 键按下和释放
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.altKey) {
+            altKeyPressed = true
+        }
+    }
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+        if (!e.altKey) {
+            altKeyPressed = false
+            // 清除轨迹点
+            points = []
+        }
+    }
 
     const initCanvas = () => {
         canvas = document.createElement('canvas')
@@ -144,7 +169,8 @@ export default defineAppSetup(({ app, router }) => {
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-        if (!config.enabled) return
+        // 只有当 alt 键按下时才记录轨迹点
+        if (!config.enabled || !altKeyPressed) return
 
         points.push({
             x: e.clientX,
@@ -166,7 +192,11 @@ export default defineAppSetup(({ app, router }) => {
     }
 
     const drawTrail = () => {
-        if (!canvas || !ctx || !config.enabled) {
+        if (!canvas || !ctx || !config.enabled || !altKeyPressed) {
+            // 如果 alt 键未按下，清除画布
+            if (canvas && ctx && (!config.enabled || !altKeyPressed)) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+            }
             animationFrameId = requestAnimationFrame(drawTrail)
             return
         }
@@ -223,6 +253,8 @@ export default defineAppSetup(({ app, router }) => {
                 if (config.enabled !== false) {
                     initCanvas()
                     document.addEventListener('mousemove', handleMouseMove)
+                    document.addEventListener('keydown', handleKeyDown)
+                    document.addEventListener('keyup', handleKeyUp)
                     animationFrameId = requestAnimationFrame(drawTrail)
                 }
             }, 100)
