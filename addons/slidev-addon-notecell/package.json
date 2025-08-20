@@ -35,6 +35,6 @@
     "vue": "^3.0.0"
   },
   "dependencies": {
-    "thebe-core": "^0.4.10"
+    "thebe-core": "^0.5.0"
   }
 }

@@ -17,7 +17,7 @@
 -->
 
 <script setup>
-import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core/dist/esm/index.js';
+import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { globals } from '../utils/globals.js';
 
