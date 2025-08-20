@@ -151,31 +151,24 @@ onUnmounted(() => {
         <table ref="tableRef" :class="props.theme">
             <thead>
                 <th v-for="(item, colIndex) in head" :key="colIndex" :class="{
-                    'highlight-column': isHeaderHighlighted(colIndex) === 'column'
-                }">
+        'highlight-column': isHeaderHighlighted(colIndex) === 'column'
+    }">
                     {{ item }}
                 </th>
             </thead>
             <tbody>
                 <tr v-for="(row, rowIndex) in body" :key="rowIndex">
                     <td v-for="(text, colIndex) in row.split(props.sep)" :key="colIndex" :class="{
-                        'highlight-row': isCellHighlighted(rowIndex, colIndex) === 'row',
-                        'highlight-column': isCellHighlighted(rowIndex, colIndex) === 'column',
-                        'highlight-persistent': isCellHighlighted(rowIndex, colIndex) === 'persistent'
-                    }" @mouseenter="handleCellMouseEnter(rowIndex, colIndex)" @mouseleave="handleCellMouseLeave"
+        'highlight-row': isCellHighlighted(rowIndex, colIndex) === 'row',
+        'highlight-column': isCellHighlighted(rowIndex, colIndex) === 'column',
+        'highlight-persistent': isCellHighlighted(rowIndex, colIndex) === 'persistent'
+    }" @mouseenter="handleCellMouseEnter(rowIndex, colIndex)" @mouseleave="handleCellMouseLeave"
                         @click="handleCellClick($event, rowIndex, colIndex)">
                         {{ text }}
                     </td>
                 </tr>
             </tbody>
         </table>
-
-        <!-- 使用说明 -->
-        <div class="usage-hint">
-            <small>
-                💡 悬停高亮行 | Shift+悬停高亮列 | Cmd/Ctrl+点击持续高亮单元格
-            </small>
-        </div>
     </div>
 </template>
 
@@ -190,11 +183,11 @@ onUnmounted(() => {
 
 .interactive-table th,
 .interactive-table td {
-  border: none;
-  padding: 8px 12px;
-  text-align: left;
-  transition: background-color 0.2s ease;
-  cursor: pointer;
+    border: none;
+    padding: 8px 12px;
+    text-align: left;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
 }
 
 .interactive-table th {
@@ -256,10 +249,10 @@ onUnmounted(() => {
     }
 
     .interactive-table th,
-  .interactive-table td {
-    border: none;
-    color: #fff;
-  }
+    .interactive-table td {
+        border: none;
+        color: #fff;
+    }
 
     .highlight-row {
         background-color: #1a237e !important;
