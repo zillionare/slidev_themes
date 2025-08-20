@@ -1,66 +1,66 @@
 ---
-title: 简洁的文案 非凡的表达
+title: less is more
+subtitle: 简洁的文案 非凡的表达
+seq: 01
 lineNumbers: true
 drawings:
-  persist: false
-  syncAll: true
+    persist: false
+    syncAll: true
 addons:
-  - slidev-addon-card
-  - slidev-addon-notecell
-  - slidev-addon-array
-  - slidev-addon-interactive-table
-  - slidev-addon-mouse-trail-pen
+    - ./slidev_themes/addons/slidev-addon-mouse-trail-pen
+    - ./slidev_themes/addons/slidev-addon-array
+    - ./slidev_themes/addons/slidev-addon-interactive-table
+    - ./slidev_themes/addons/slidev-addon-card
+    - ./slidev_themes/addons/slidev-addon-notecell
 ---
 
 ---
-title: NoteCell
-layout: two-cols
+title: 什么是 Slidev
+src: pages/slidev/10.md
+---
+
+---
+title: 代码演示
+src: pages/slidev/13.md
+---
+
+---
+title: Slidev 入门
+layout: section
+---
+
+---
+title: 安装和快速开始
+src: pages/slidev/20.md
+---
+
+---
+title: slidev基本概念 - 主题
+src: pages/slidev/22.md
 ---
 
 
-如何运行 Python 代码并得到结果？
-
-````md
-<NoteCell>
-
-```python
-print("Hello from Jupyter!")
-print("This is an interactive code cell")
-# Simple calculation
-result = 2 + 2
-print(f"2 + 2 = {result}")
-```
-</NoteCell>
-````
-
-::right::
-
-<NoteCell class="w-full h-80">
-
-```python
-print("Hello from Jupyter!")
-print("This is an interactive code cell")
-# Simple calculation
-result = 2 + 2
-print(f"2 + 2 = {result}")
-```
-</NoteCell>
-
+---
+title: slidev 基本概念 - 页眉和页脚
+src: pages/slidev/24.md
 ---
 
-# Basic Usage
+---
+title: slidev 基本概念 - 分页和组织
+src: pages/slidev/26.md
+---
 
-Double-click the code cell to execute:
+---
+title: Slidev 基础语法
+layout: section
+---
 
-<NoteCell class="w-full h-80" baseUrl="http://127.0.0.1:8080/course/fa/aaron/">
+---
+title: 内置功能
+src: pages/slidev/30.md
+---
 
-```python
-print("Hello from Jupyter!")
-print("This is an interactive code cell")
-
-# Simple calculation
-result = 2 + 2
-print(f"2 + 2 = {result}")
-```
-</NoteCell>
-
+---
+title: 常见错误
+src: pages/slidev/32.md
+---
