@@ -35,18 +35,12 @@ src: pages/slidev/20.md
 ---
 
 ---
-title: slidev基本概念 - 主题
+title: slidev基本概念
 src: pages/slidev/22.md
 ---
 
-
 ---
-title: slidev 基本概念 - 页眉和页脚
-src: pages/slidev/24.md
----
-
----
-title: slidev 基本概念 - 分页和组织
+title: slidev 最佳实践
 src: pages/slidev/26.md
 ---
 
