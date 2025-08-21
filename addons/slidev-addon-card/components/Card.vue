@@ -487,7 +487,6 @@ const iconContentStyle = computed(() => {
     flex: 1;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     text-align: center;

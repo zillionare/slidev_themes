@@ -8,6 +8,7 @@
   
   Usage:
   <InteractiveTable sep='|'>
+  
   ```md
   Name|Age|City
   Alice|25|New York
