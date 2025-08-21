@@ -58,3 +58,18 @@ src: pages/slidev/30.md
 title: 常见错误
 src: pages/slidev/32.md
 ---
+
+---
+title: 进阶篇
+layout: section
+---
+
+---
+title:  html 和 css
+src: pages/slidev/40.md
+---
+
+---
+title: Slidev 动画
+src: pages/slidev/42.md
+---
