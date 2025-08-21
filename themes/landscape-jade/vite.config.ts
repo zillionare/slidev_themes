@@ -34,8 +34,8 @@ export default defineConfig({
                 /* custom markdown-it plugins */
                 // md.use(require('markdown-it-admon'));
                 // md.use(require('markdown-it-container'), 'takeaway');
-                md.use(emoji);
-                md.use(MdItAdmon);
+                // md.use(emoji);
+                // md.use(MdItAdmon);
             },
         },
     }

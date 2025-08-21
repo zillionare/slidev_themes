@@ -1,44 +1,17 @@
 {
-  "name": "@slidev/theme-seriph",
-  "version": "0.21.3",
-  "engines": {
-    "node": ">=14.0.0",
-    "slidev": ">=0.19.3"
-  },
-  "description": "Seriph theme for Slidev",
-  "keywords": [
-    "slidev-theme",
-    "slidev"
-  ],
-  "license": "MIT",
+  "name": "quantide",
+  "type": "module",
   "slidev": {
-    "colorSchema": "light",
-    "highlighter": "shiki",
     "defaults": {
       "width": 1280,
       "aspectRatio": "16/9"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/slidevjs/themes"
-  },
-  "funding": "https://github.com/sponsors/antfu",
-  "author": "antfu <anthonyfu117@hotmail.com>",
-  "homepage": "https://sli.dev",
-  "bugs": "https://github.com/slidevjs/themes/issues",
   "dependencies": {
-    "@iconify/vue": "^4.1.2",
-    "@slidev/cli": "latest",
+    "@slidev/cli": "^52.1.0",
     "@slidev/theme-default": "latest",
-    "@slidev/types": "^0.22.7",
     "animate.css": "^4.1.1",
-    "markdown-it-admon": "^1.0.1",
-    "markdown-it-container": "^4.0.0",
-    "markdown-it-emoji": "^3.0.0",
+    "vue": "^3.5.18",
     "yaml": "^2.4.2"
-  },
-  "devDependencies": {
-    "@shikijs/transformers": "^3.11.0"
   }
 }
