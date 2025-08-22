@@ -73,3 +73,34 @@ src: pages/slidev/40.md
 title: Slidev 动画
 src: pages/slidev/42.md
 ---
+
+
+---
+title: addons
+layout: section
+---
+
+---
+title: mouse trial
+src: pages/slidev/50.md
+---
+
+---
+title: array
+src: pages/slidev/52.md
+---
+
+---
+title: table
+src: pages/slidev/54.md
+---
+
+---
+title: Card
+src: pages/slidev/56.md
+---
+
+---
+title: 运行 Python
+src: pages/slidev/58.md
+---
