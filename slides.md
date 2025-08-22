@@ -12,6 +12,9 @@ addons:
     - ./slidev_themes/addons/slidev-addon-interactive-table
     - ./slidev_themes/addons/slidev-addon-card
     - ./slidev_themes/addons/slidev-addon-notecell
+    - slidev-addon-python-runner
+python:
+  installs: ["pandas"]
 ---
 
 ---
