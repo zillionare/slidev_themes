@@ -538,6 +538,18 @@ const iconContentStyle = computed(() => {
     transform: scale(1.05);
 }
 
+/* Left-align code and list items in card slots */
+:deep(.card-text pre),
+:deep(.card-text code) {
+    text-align: left;
+}
+
+:deep(.card-text ul),
+:deep(.card-text ol) {
+    text-align: left;
+    padding-left: 1.5em;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .card-landscape {
