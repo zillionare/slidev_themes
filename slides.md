@@ -14,6 +14,8 @@ addons:
   - ./slidev_themes/addons/slidev-addon-notecell
   - slidev-addon-python-runner
   - fancy-arrow
+mouseTrail:
+  color: ink
 python:
   installs: [ "pandas" ]
 ---

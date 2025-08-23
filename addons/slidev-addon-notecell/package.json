@@ -32,7 +32,8 @@
   },
   "peerDependencies": {
     "@slidev/cli": ">=0.40.0",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "thebe-core": "^0.5.0"
   },
   "dependencies": {
     "thebe-core": "^0.5.0"

@@ -67,13 +67,18 @@ const colorPresets = {
     ]
 }
 
-export default defineAppSetup(({ app, router }) => {
-    // 获取 frontmatter 配置，目前看 addon 无法直接读取 headmatter 中的数据
-    const getFrontmatterConfig = (): TrailConfig => {
-        const config = { ...defaultConfig }
+const get_config = () => {
+    if (typeof window !== 'undefined' && (window as any).__slidev__) {
+        const configs = (window as any).__slidev__.configs || {}
 
+        const config = { ...defaultConfig, ...configs }
         return config
     }
+}
+
+export default defineAppSetup(({ app, router }) => {
+    // 获取 frontmatter 配置
+    const getFrontmatterConfig = get_config()
 
     // 获取当前页面的 HTML 配置
     const getCurrentPageConfig = (baseConfig: TrailConfig): TrailConfig => {

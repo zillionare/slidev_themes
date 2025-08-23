@@ -25,5 +25,10 @@ export default defineConfig({
                 }
             }
         }
+    },
+    resolve: {
+        alias: {
+            'thebe-core': resolve(__dirname, 'node_modules/thebe-core/dist/esm/index.js')
+        }
     }
 })
