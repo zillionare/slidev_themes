@@ -9,6 +9,12 @@ interface TrailConfig {
     colors?: string[]
     preset?: string
     enabled?: boolean
+    triggerKey?: 'none' | 'alt' | 'ctrl' | 'shift' | 'meta' | string
+    // 爆炸动画配置
+    explosionEnabled?: boolean
+    explosionParticles?: number
+    explosionDuration?: number
+    explosionSize?: number
 }
 
 // 默认配置
@@ -26,7 +32,13 @@ const defaultConfig: TrailConfig = {
         'rgba(75, 0, 130, 1)',
         'rgba(238, 130, 238, 1)'
     ],
-    enabled: true
+    enabled: true,
+    triggerKey: 'alt', // 默认使用 alt 键触发
+    // 爆炸动画默认配置
+    explosionEnabled: true,
+    explosionParticles: 8,
+    explosionDuration: 800,
+    explosionSize: 20
 }
 
 // 预设颜色方案
@@ -172,27 +184,148 @@ export default defineAppSetup(({ app, router }) => {
         return config
     }
 
+    // 粒子接口定义
+    interface Particle {
+        x: number
+        y: number
+        vx: number
+        vy: number
+        life: number
+        maxLife: number
+        size: number
+        color: string
+    }
+
+    // 轨迹点接口定义
+    interface TrailPoint {
+        x: number
+        y: number
+        timestamp: number
+        exploding?: boolean
+        explosionStartTime?: number
+    }
+
     // 鼠标轨迹实现
-    let points: Array<{ x: number, y: number, timestamp: number }> = []
+    let points: Array<TrailPoint> = []
+    let particles: Array<Particle> = []
     let canvas: HTMLCanvasElement | null = null
     let ctx: CanvasRenderingContext2D | null = null
     let animationFrameId: number | null = null
     let config = frontmatterConfig
-    let altKeyPressed = false // 添加 alt 键状态跟踪
+    let triggerKeyPressed = false // 触发键状态跟踪
 
-    // 监听 alt 键按下和释放
+    // 检查触发键是否按下
+    const isTriggerKeyPressed = (e: KeyboardEvent): boolean => {
+        const triggerKey = config.triggerKey || 'alt'
+        
+        switch (triggerKey.toLowerCase()) {
+            case 'none':
+                return true // 如果设置为 none，则始终返回 true
+            case 'alt':
+                return e.altKey
+            case 'ctrl':
+                return e.ctrlKey
+            case 'shift':
+                return e.shiftKey
+            case 'meta':
+                return e.metaKey
+            default:
+                // 支持自定义键名
+                return e.key.toLowerCase() === triggerKey.toLowerCase()
+        }
+    }
+
+    // 监听键盘事件
     const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.altKey) {
-            altKeyPressed = true
+        if (isTriggerKeyPressed(e)) {
+            triggerKeyPressed = true
         }
     }
 
     const handleKeyUp = (e: KeyboardEvent) => {
-        if (!e.altKey) {
-            altKeyPressed = false
-            // 清除轨迹点
+        const wasPressed = triggerKeyPressed
+        triggerKeyPressed = isTriggerKeyPressed(e)
+        
+        // 如果触发键被释放，清除轨迹点和粒子效果
+        if (wasPressed && !triggerKeyPressed) {
             points = []
+            particles = []
         }
+    }
+
+    // 粒子系统实现
+    const createExplosion = (x: number, y: number) => {
+        if (!config.explosionEnabled) return
+        
+        const particleCount = config.explosionParticles || 8
+        const explosionSize = config.explosionSize || 20
+        const colors = config.colors || defaultConfig.colors!
+        
+        for (let i = 0; i < particleCount; i++) {
+            const angle = (Math.PI * 2 * i) / particleCount
+            const speed = Math.random() * 3 + 2
+            const size = Math.random() * 4 + 2
+            const colorIndex = Math.floor(Math.random() * colors.length)
+            
+            particles.push({
+                x: x,
+                y: y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                life: config.explosionDuration || 800,
+                maxLife: config.explosionDuration || 800,
+                size: size,
+                color: colors[colorIndex]
+            })
+        }
+    }
+
+    const updateParticles = () => {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const particle = particles[i]
+            
+            // 更新位置
+            particle.x += particle.vx
+            particle.y += particle.vy
+            
+            // 添加重力效果
+            particle.vy += 0.1
+            
+            // 减少生命值
+            particle.life -= 16 // 假设 60fps，每帧约 16ms
+            
+            // 移除死亡的粒子
+            if (particle.life <= 0) {
+                particles.splice(i, 1)
+            }
+        }
+    }
+
+    const drawParticles = () => {
+        if (!ctx) return
+        
+        particles.forEach(particle => {
+            const alpha = particle.life / particle.maxLife
+            const size = particle.size * alpha
+            
+            ctx!.save()
+            ctx!.globalAlpha = alpha
+            
+            // 解析颜色并应用透明度
+            const colorMatch = particle.color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)
+            if (colorMatch) {
+                const [, r, g, b] = colorMatch
+                ctx!.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`
+            } else {
+                ctx!.fillStyle = particle.color
+            }
+            
+            ctx!.beginPath()
+            ctx!.arc(particle.x, particle.y, size, 0, Math.PI * 2)
+            ctx!.fill()
+            
+            ctx!.restore()
+        })
     }
 
     const initCanvas = () => {
@@ -217,8 +350,9 @@ export default defineAppSetup(({ app, router }) => {
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-        // 只有当 alt 键按下时才记录轨迹点
-        if (!config.enabled || !altKeyPressed) return
+        // 检查是否应该记录轨迹点
+        const shouldTrack = config.enabled && (config.triggerKey === 'none' || triggerKeyPressed)
+        if (!shouldTrack) return
 
         points.push({
             x: e.clientX,
@@ -241,15 +375,31 @@ export default defineAppSetup(({ app, router }) => {
         
         if (JSON.stringify(newConfig) !== JSON.stringify(config)) {
             console.log('[MouseTrail] 配置发生变化，应用新配置')
+            const oldTriggerKey = config.triggerKey
             config = newConfig
+            
+            // 如果触发键配置发生变化，更新触发键状态
+            if (oldTriggerKey !== newConfig.triggerKey) {
+                console.log('[MouseTrail] 触发键配置变化:', oldTriggerKey, '->', newConfig.triggerKey)
+                if (newConfig.triggerKey === 'none') {
+                    triggerKeyPressed = true
+                    console.log('[MouseTrail] 切换到持续跟踪模式')
+                } else {
+                    triggerKeyPressed = false
+                    console.log('[MouseTrail] 切换到按键触发模式')
+                }
+            }
+            
             points = [] // 清除轨迹让新配置立即生效
+            particles = [] // 清除粒子效果
         }
     }
 
     const drawTrail = () => {
-        if (!canvas || !ctx || !config.enabled || !altKeyPressed) {
-            // 如果 alt 键未按下，清除画布
-            if (canvas && ctx && (!config.enabled || !altKeyPressed)) {
+        const shouldDraw = config.enabled && (config.triggerKey === 'none' || triggerKeyPressed)
+        if (!canvas || !ctx || !shouldDraw) {
+            // 如果不应该绘制，清除画布
+            if (canvas && ctx && (!config.enabled || (!shouldDraw && config.triggerKey !== 'none'))) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height)
             }
             animationFrameId = requestAnimationFrame(drawTrail)
@@ -261,7 +411,27 @@ export default defineAppSetup(({ app, router }) => {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
         const now = Date.now()
-        points = points.filter(point => now - point.timestamp < (config.fadeDuration || 1000))
+        const fadeDuration = config.fadeDuration || 1000
+        
+        // 检查即将过期的点，为它们创建爆炸效果
+        if (config.explosionEnabled) {
+            points.forEach(point => {
+                if (!point.exploding && now - point.timestamp >= fadeDuration) {
+                    point.exploding = true
+                    point.explosionStartTime = now
+                    createExplosion(point.x, point.y)
+                }
+            })
+        }
+        
+        // 过滤掉过期的点
+        points = points.filter(point => now - point.timestamp < fadeDuration)
+        
+        // 更新粒子系统
+        updateParticles()
+        
+        // 绘制粒子效果
+        drawParticles()
 
         if (points.length < 2) {
             animationFrameId = requestAnimationFrame(drawTrail)
@@ -307,13 +477,28 @@ export default defineAppSetup(({ app, router }) => {
             setTimeout(() => {
                 // 重新加载配置确保使用最新配置
                 const currentConfig = loadConfig()
+                config = currentConfig // 更新全局配置
                 console.log('[MouseTrail] 检查是否启用:', currentConfig.enabled)
+                console.log('[MouseTrail] 触发键设置:', currentConfig.triggerKey)
+                
                 if (currentConfig.enabled !== false) {
                     console.log('[MouseTrail] 初始化画布和事件监听器')
+                    
+                    // 如果触发键设置为 'none'，则初始状态为 true
+                    if (currentConfig.triggerKey === 'none') {
+                        triggerKeyPressed = true
+                        console.log('[MouseTrail] 触发键设置为 none，启用持续跟踪模式')
+                    }
+                    
                     initCanvas()
                     document.addEventListener('mousemove', handleMouseMove)
-                    document.addEventListener('keydown', handleKeyDown)
-                    document.addEventListener('keyup', handleKeyUp)
+                    
+                    // 只有在非 'none' 模式下才监听键盘事件
+                    if (currentConfig.triggerKey !== 'none') {
+                        document.addEventListener('keydown', handleKeyDown)
+                        document.addEventListener('keyup', handleKeyUp)
+                    }
+                    
                     animationFrameId = requestAnimationFrame(drawTrail)
                     console.log('[MouseTrail] 初始化完成')
                 } else {

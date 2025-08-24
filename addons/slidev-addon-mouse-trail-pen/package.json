@@ -1,6 +1,6 @@
 {
   "name": "slidev-addon-mouse-trail-pen",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A beautiful mouse trail pen effect addon for Slidev presentations",
   "main": "setup/main.ts",
   "keywords": [
