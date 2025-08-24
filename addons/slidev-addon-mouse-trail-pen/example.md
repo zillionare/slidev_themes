@@ -1,6 +1,5 @@
 ---
 theme: default
-background: '#0a0a0a'
 highlighter: shiki
 lineNumbers: false
 drawings:
@@ -10,15 +9,11 @@ title: Mouse Trail Pen Demo
 mdc: true
 mouseTrail:
   preset: rainbow
-  lineWidth: 3
+  lineWidth: 10
   maxPoints: 50
 ---
 
-# Mouse Trail Pen Demo
-
-<div data-mouse-trail-preset="ink" style="display: none;"></div>
-
-Move your mouse around to see the **blue pen trail** effect!
+Move your mouse around to see the ** pen trail** effect!
 
 ---
 

@@ -68,31 +68,60 @@ const colorPresets = {
 }
 
 const get_config = () => {
+    console.log('[MouseTrail] 开始获取配置...')
+    
     if (typeof window !== 'undefined' && (window as any).__slidev__) {
         const slidevData = (window as any).__slidev__
-        const frontmatter = slidevData.frontmatter || {}
+        console.log('[MouseTrail] Slidev 数据:', slidevData)
+        
+        // 优先使用 configs.mouseTrail
+        let mouseTrailConfig = {}
+        if (slidevData.configs && slidevData.configs.mouseTrail) {
+            mouseTrailConfig = slidevData.configs.mouseTrail
+            console.log('[MouseTrail] 从 configs.mouseTrail 获取配置:', mouseTrailConfig)
+        } else {
+            // 回退到 frontmatter
+            const frontmatter = slidevData.frontmatter || {}
+            console.log('[MouseTrail] Frontmatter 数据:', frontmatter)
+            mouseTrailConfig = frontmatter.mouseTrail || frontmatter.mouse_trail || {}
+            console.log('[MouseTrail] 从 frontmatter 获取配置:', mouseTrailConfig)
+        }
 
-        // 支持两种命名格式 mouseTrail 和 mouse_trail
-        const mouseTrailConfig = frontmatter.mouseTrail || frontmatter.mouse_trail || {}
-
-        // 合并默认配置和 frontmatter 配置
+        // 合并默认配置和获取的配置
         const config = { ...defaultConfig, ...mouseTrailConfig }
+        console.log('[MouseTrail] 合并后的配置:', config)
 
         // 如果配置了预设颜色，则使用预设的颜色
         if (config.preset && colorPresets[config.preset as keyof typeof colorPresets]) {
             config.colors = colorPresets[config.preset as keyof typeof colorPresets]
+            console.log('[MouseTrail] 使用预设颜色:', config.preset, config.colors)
         }
 
+        console.log('[MouseTrail] 最终配置:', config)
         return config
     }
 
+    console.log('[MouseTrail] 无法获取 Slidev 数据，使用默认配置')
     // 如果无法获取 SLIDEV 数据，则返回默认配置
     return defaultConfig
 }
 
 export default defineAppSetup(({ app, router }) => {
-    // 获取 frontmatter 配置
-    const getFrontmatterConfig = get_config()
+    console.log('[MouseTrail] 插件初始化开始')
+    
+    // 延迟获取配置，确保 Slidev 完全加载
+    let frontmatterConfig = defaultConfig
+    
+    const loadConfig = () => {
+        frontmatterConfig = get_config()
+        console.log('[MouseTrail] 配置加载完成:', frontmatterConfig)
+        return frontmatterConfig
+    }
+    
+    // 立即尝试获取配置
+    setTimeout(() => {
+        loadConfig()
+    }, 50)
 
     // 获取当前页面的 HTML 配置
     const getCurrentPageConfig = (baseConfig: TrailConfig): TrailConfig => {
@@ -148,7 +177,7 @@ export default defineAppSetup(({ app, router }) => {
     let canvas: HTMLCanvasElement | null = null
     let ctx: CanvasRenderingContext2D | null = null
     let animationFrameId: number | null = null
-    let config = getFrontmatterConfig
+    let config = frontmatterConfig
     let altKeyPressed = false // 添加 alt 键状态跟踪
 
     // 监听 alt 键按下和释放
@@ -203,8 +232,15 @@ export default defineAppSetup(({ app, router }) => {
     }
 
     const updateConfig = () => {
-        const newConfig = getCurrentPageConfig(getFrontmatterConfig)
+        console.log('[MouseTrail] 更新配置中...')
+        // 重新加载基础配置
+        const baseConfig = loadConfig()
+        const newConfig = getCurrentPageConfig(baseConfig)
+        console.log('[MouseTrail] 新配置:', newConfig)
+        console.log('[MouseTrail] 当前配置:', config)
+        
         if (JSON.stringify(newConfig) !== JSON.stringify(config)) {
+            console.log('[MouseTrail] 配置发生变化，应用新配置')
             config = newConfig
             points = [] // 清除轨迹让新配置立即生效
         }
@@ -267,16 +303,23 @@ export default defineAppSetup(({ app, router }) => {
     // 初始化
     if (typeof window !== 'undefined') {
         const initialize = () => {
+            console.log('[MouseTrail] 开始初始化画布和事件监听')
             setTimeout(() => {
-                config = getFrontmatterConfig()
-                if (config.enabled !== false) {
+                // 重新加载配置确保使用最新配置
+                const currentConfig = loadConfig()
+                console.log('[MouseTrail] 检查是否启用:', currentConfig.enabled)
+                if (currentConfig.enabled !== false) {
+                    console.log('[MouseTrail] 初始化画布和事件监听器')
                     initCanvas()
                     document.addEventListener('mousemove', handleMouseMove)
                     document.addEventListener('keydown', handleKeyDown)
                     document.addEventListener('keyup', handleKeyUp)
                     animationFrameId = requestAnimationFrame(drawTrail)
+                    console.log('[MouseTrail] 初始化完成')
+                } else {
+                    console.log('[MouseTrail] 插件已禁用')
                 }
-            }, 100)
+            }, 200)
         }
 
         if (document.readyState === 'loading') {
@@ -284,5 +327,15 @@ export default defineAppSetup(({ app, router }) => {
         } else {
             initialize()
         }
+    }
+
+    // 监听路由变化以更新配置
+    if (router) {
+        router.afterEach((to, from) => {
+            console.log('[MouseTrail] 路由变化:', from.path, '->', to.path)
+            setTimeout(() => {
+                updateConfig()
+            }, 100)
+        })
     }
 })
