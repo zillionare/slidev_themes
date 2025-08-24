@@ -68,8 +68,8 @@ const colorPresets = {
 }
 
 const get_config = () => {
-    if (typeof window !== 'undefined' && (window as any).__SLIDEV__) {
-        const slidevData = (window as any).__SLIDEV__
+    if (typeof window !== 'undefined' && (window as any).__slidev__) {
+        const slidevData = (window as any).__slidev__
         const frontmatter = slidevData.frontmatter || {}
 
         // 支持两种命名格式 mouseTrail 和 mouse_trail
@@ -92,7 +92,7 @@ const get_config = () => {
 
 export default defineAppSetup(({ app, router }) => {
     // 获取 frontmatter 配置
-    const frontmatterConfig = get_config()
+    const getFrontmatterConfig = get_config()
 
     // 获取当前页面的 HTML 配置
     const getCurrentPageConfig = (baseConfig: TrailConfig): TrailConfig => {
@@ -148,7 +148,7 @@ export default defineAppSetup(({ app, router }) => {
     let canvas: HTMLCanvasElement | null = null
     let ctx: CanvasRenderingContext2D | null = null
     let animationFrameId: number | null = null
-    let config = frontmatterConfig
+    let config = getFrontmatterConfig
     let altKeyPressed = false // 添加 alt 键状态跟踪
 
     // 监听 alt 键按下和释放
@@ -203,7 +203,7 @@ export default defineAppSetup(({ app, router }) => {
     }
 
     const updateConfig = () => {
-        const newConfig = getCurrentPageConfig(frontmatterConfig)
+        const newConfig = getCurrentPageConfig(getFrontmatterConfig)
         if (JSON.stringify(newConfig) !== JSON.stringify(config)) {
             config = newConfig
             points = [] // 清除轨迹让新配置立即生效
@@ -268,7 +268,7 @@ export default defineAppSetup(({ app, router }) => {
     if (typeof window !== 'undefined') {
         const initialize = () => {
             setTimeout(() => {
-                config = frontmatterConfig
+                config = getFrontmatterConfig()
                 if (config.enabled !== false) {
                     initCanvas()
                     document.addEventListener('mousemove', handleMouseMove)
