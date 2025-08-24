@@ -19,13 +19,8 @@
   ],
   "peerDependencies": {
     "@slidev/types": ">=0.40.0",
-    "vue": ">=3.0.0"
-  },
-  "devDependencies": {
     "@slidev/cli": "^0.48.0",
-    "@slidev/types": "^0.48.0",
-    "typescript": "^5.0.0",
-    "vue": "^3.3.0"
+    "vue": ">=3.0.0"
   },
   "scripts": {
     "dev": "slidev example.md",

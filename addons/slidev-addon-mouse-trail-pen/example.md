@@ -8,8 +8,8 @@ drawings:
 transition: slide-left
 title: Mouse Trail Pen Demo
 mdc: true
-mouseTrailPen:
-  preset: blue
+mouseTrail:
+  preset: rainbow
   lineWidth: 3
   maxPoints: 50
 ---

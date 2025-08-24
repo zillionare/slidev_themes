@@ -68,17 +68,31 @@ const colorPresets = {
 }
 
 const get_config = () => {
-    if (typeof window !== 'undefined' && (window as any).__slidev__) {
-        const configs = (window as any).__slidev__.configs || {}
+    if (typeof window !== 'undefined' && (window as any).__SLIDEV__) {
+        const slidevData = (window as any).__SLIDEV__
+        const frontmatter = slidevData.frontmatter || {}
 
-        const config = { ...defaultConfig, ...configs }
+        // 支持两种命名格式 mouseTrail 和 mouse_trail
+        const mouseTrailConfig = frontmatter.mouseTrail || frontmatter.mouse_trail || {}
+
+        // 合并默认配置和 frontmatter 配置
+        const config = { ...defaultConfig, ...mouseTrailConfig }
+
+        // 如果配置了预设颜色，则使用预设的颜色
+        if (config.preset && colorPresets[config.preset as keyof typeof colorPresets]) {
+            config.colors = colorPresets[config.preset as keyof typeof colorPresets]
+        }
+
         return config
     }
+
+    // 如果无法获取 SLIDEV 数据，则返回默认配置
+    return defaultConfig
 }
 
 export default defineAppSetup(({ app, router }) => {
     // 获取 frontmatter 配置
-    const getFrontmatterConfig = get_config()
+    const frontmatterConfig = get_config()
 
     // 获取当前页面的 HTML 配置
     const getCurrentPageConfig = (baseConfig: TrailConfig): TrailConfig => {
@@ -134,7 +148,7 @@ export default defineAppSetup(({ app, router }) => {
     let canvas: HTMLCanvasElement | null = null
     let ctx: CanvasRenderingContext2D | null = null
     let animationFrameId: number | null = null
-    let config = getFrontmatterConfig()
+    let config = frontmatterConfig
     let altKeyPressed = false // 添加 alt 键状态跟踪
 
     // 监听 alt 键按下和释放
@@ -189,7 +203,7 @@ export default defineAppSetup(({ app, router }) => {
     }
 
     const updateConfig = () => {
-        const newConfig = getCurrentPageConfig(getFrontmatterConfig())
+        const newConfig = getCurrentPageConfig(frontmatterConfig)
         if (JSON.stringify(newConfig) !== JSON.stringify(config)) {
             config = newConfig
             points = [] // 清除轨迹让新配置立即生效
@@ -254,7 +268,7 @@ export default defineAppSetup(({ app, router }) => {
     if (typeof window !== 'undefined') {
         const initialize = () => {
             setTimeout(() => {
-                config = getFrontmatterConfig()
+                config = frontmatterConfig
                 if (config.enabled !== false) {
                     initCanvas()
                     document.addEventListener('mousemove', handleMouseMove)
