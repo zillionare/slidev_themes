@@ -30,6 +30,8 @@ const toastMessage = ref('')
 const toastVisible = ref(false)
 const toastTimer = ref(null)
 const toastHovered = ref(false)
+const cellStatus = ref({}) // Track status for each cell
+const lastErrorMessage = ref('') // Store last error message
 
 // 如果在presenter中点击运行代码，给出提示！以避免听众看不到实际运行。
 const warnPresenterMode = ref(null)
@@ -67,7 +69,7 @@ const props = defineProps({
 
 })
 
-const isInitCell = computed(() => {
+const initCellStyle = computed(() => {
     return {
         'display': props.init ? 'none' : 'block'
     }
@@ -84,6 +86,18 @@ const editorOff = computed(() => {
         display: editorOnOff.value ? 'none' : 'block'
     }
 })
+
+const codeClass = computed(() => {
+    const classes = []
+    if (code.value && code.value.id && cellStatus.value[code.value.id]) {
+        classes.push(`status-${cellStatus.value[code.value.id]}`)
+    } else if (code.value && code.value.id) {
+        // Default to ready status
+        classes.push('status-ready')
+    }
+    return classes
+})
+
 // Safe access to Slidev globals with fallbacks
 const getPage = () => {
     try {
@@ -120,12 +134,25 @@ const setStatus = (cellId, status, msg)=>{
      *   msg: str, message to display in the status bar
      */
 
+     // Initialize status object for this cell if not exists
+     if (cellId && !cellStatus.value[cellId]) {
+         cellStatus.value[cellId] = 'ready'
+     }
+     
+     // Update cell status
+     if (cellId && status) {
+         cellStatus.value[cellId] = status
+     }
+
      if (status === 'executed') {
         codeStatus[cellId] = true
      }
 
      if (status === 'error'){
         console.error(msg)
+        if (cellId) {
+            lastErrorMessage.value = msg
+        }
      }
      
      // Show toast message
@@ -151,6 +178,37 @@ const showToast = (message) => {
             toastVisible.value = false
         }
     }, 3000)
+}
+
+const handleStatusClick = (cellId) => {
+    const status = cellStatus.value[cellId]
+    
+    if (status === 'error') {
+        // Show last error message
+        if (lastErrorMessage.value) {
+            showToast(lastErrorMessage.value)
+        }
+    } else if (status === 'executed') {
+        // Show result in output
+        toggleOutput()
+    } else if (status === 'ready') {
+        // Run the cell
+        onRunCode()
+    }
+}
+
+const handleCodeClick = (event) => {
+    // Only handle clicks on the status indicator (top right corner)
+    if (code.value && code.value.id) {
+        const rect = event.target.getBoundingClientRect()
+        const clickX = event.clientX - rect.left
+        const clickY = event.clientY - rect.top
+        
+        // Check if click is in the top right corner where the status indicator is
+        if (clickX > rect.width - 30 && clickY < 30) {
+            handleStatusClick(code.value.id)
+        }
+    }
 }
 
 const formatCode = (code) => {
@@ -425,14 +483,25 @@ onMounted(() => {
     if (getRenderContext() === 'slide') {
         createNotebook()
         createCodeCell(code.value, inlineOutput.value, props.init)
+        
+        // Initialize cell status
+        if (code.value && code.value.id) {
+            cellStatus.value[code.value.id] = 'ready'
+        }
     }
 })
 </script>
 
 <template>
     <div :class="$attrs.class" v-motion>
-        <div class="wrapper-all" :class="{ 'horizontal-layout': layout === 'horizontal' }" :style="isInitCell">
-            <div ref="code" class="thebe-code" :style="editorOff">
+        <div class="wrapper-all" :class="{ 'horizontal-layout': layout === 'horizontal' }" :style="initCellStyle">
+            <div 
+                ref="code" 
+                class="thebe-code" 
+                :class="codeClass"
+                :style="editorOff"
+                @click="handleCodeClick"
+            >
                 <slot></slot>
             </div>
             <div :style="editorOn">
@@ -497,8 +566,6 @@ onMounted(() => {
 }
 
 .thebe-code:before {
-    content: var(--pseudo-before-content, 'runnable');
-    background-color: rgba(240, 180, 50);
     padding: 0rem 0.5rem;
     text-align: center;
     border-radius: 10px;
@@ -553,5 +620,49 @@ onMounted(() => {
     z-index: 10000;
     max-width: 400px;
     word-wrap: break-word;
+}
+
+/* Status indicator styles */
+.thebe-code.status-ready:before {
+    content: "▶";
+    color: green;
+    cursor: pointer;
+}
+
+.thebe-code.status-running:before {
+    content: "◐";
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.thebe-code.status-error:before {
+    content: "!";
+    color: white;
+    padding: 0rem 0.5rem;
+    text-align: center;
+    border-radius: 10px;
+    height: 1.3rem;
+    font-size: 0.9rem;
+    z-index: 10;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+
+.thebe-code.status-executed:before {
+    content: "✓";
+    padding: 0rem 0.5rem;
+    text-align: center;
+    border-radius: 10px;
+    height: 1.3rem;
+    font-size: 0.9rem;
+    z-index: 10;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
 }
 </style>
