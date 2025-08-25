@@ -67,9 +67,9 @@ const props = defineProps({
 
 })
 
-const isHiddenCell = computed(() => {
+const isInitCell = computed(() => {
     return {
-        'opacity': props.init ? 0 : 1
+        'display': props.init ? 'none' : 'block'
     }
 })
 
@@ -254,22 +254,37 @@ const onRunCode = async (event) => {
     }
 }
 
-const executeCell = async () => {
+const executeCell = async (cell) => {
     const nbid = `p${getPage()}`
     const server = globals.jupyter[nbid].server
 
-    const cellId = code.value ? code.value.id : null
+    /* if the cell is init cell, then it's possible be called by other cells
+     * in such case, we'll need the cell param passed in; otherwise, use null
+     * to to indicate current cell
+    */
+    const cellId = cell ? cell.id : (code.value ? code.value.id : null)
+
+    // If cell wasn't passed as parameter, get it from notebook
+    if (!cell) {
+        cell = notebook.getCellById(cellId)
+    }
+    
+    if (!cell) {
+        let msg = `Cell ${cellId} not found`
+        setStatus(cellId, 'error', msg)
+        return
+    }
 
     if (!cellId) {
-        msg = 'Code element not available'
+        let msg = 'Code element not available'
         setStatus(null, 'error', msg)
         return
     }
 
     // Check if jupyter object exists for this page
     if (!globals.jupyter || !globals.jupyter[nbid]) {
-        msg = `Jupyter object for ${nbid} not initialized`
-        setStatus('error', msg)
+        let msg = `Jupyter object for ${nbid} not initialized`
+        setStatus(cellId, 'error', msg)
         return
     }
 
@@ -277,37 +292,44 @@ const executeCell = async () => {
     
     // Check if notebook exists
     if (!jupyter.notebook) {
-        msg = `Notebook for ${nbid} not initialized`
-        setStatus('error', msg)
+        let msg = `Notebook for ${nbid} not initialized`
+        setStatus(cellId, 'error', msg)
         return
     }
 
     const notebook = jupyter.notebook
-    const cell = notebook.getCellById(cellId)
-    
-    if (!cell) {
-        let msg = `Cell ${cellId} not found`
-        setStatus('error', msg)
-        return
-    }
 
-    setStatus(codeEl, 'running')
+    setStatus(cellId, 'running')
     if (globals.jupyter[nbid].session == null) {
-        await server.connectToJupyterServer();
-        const rendermime = makeRenderMimeRegistry(server.config.mathjax);
-        let session = await server.startNewSession(rendermime);
+        try {
+            await server.connectToJupyterServer();
+            const rendermime = makeRenderMimeRegistry(server.config.mathjax);
+            let session = await server.startNewSession(rendermime);
 
-        if (session == null) {
-            console.error('could not start thebe jupyter session')
+            if (session == null) {
+                let errorMsg = 'Could not start thebe jupyter session'
+                setStatus(cellId, 'error', errorMsg)
+                return
+            }
+
+            globals.jupyter[nbid].session = session
+        } catch (error) {
+            let errorMsg = `Failed to connect to Jupyter server: ${error.message || error}`
+            setStatus(cellId, 'error', errorMsg)
             return
         }
-
-        globals.jupyter[nbid].session = session
     }
 
     cell.session = globals.jupyter[nbid].session
     console.log(`executing ${cell.id}:\n${cell.source}`)
-    await cell.execute()
+    
+    try {
+        await cell.execute()
+    } catch (error) {
+        let errorMsg = `Failed to execute cell: ${error.message || error}`
+        setStatus(cellId, 'error', errorMsg)
+        return
+    }
 
     // 如果设置了图片缩放，则对图片进行缩放
     const imgElements = inlineOutput.value.querySelectorAll('img');
@@ -409,7 +431,7 @@ onMounted(() => {
 
 <template>
     <div :class="$attrs.class" v-motion>
-        <div class="wrapper-all" :class="{ 'horizontal-layout': layout === 'horizontal' }" :style="isHiddenCell">
+        <div class="wrapper-all" :class="{ 'horizontal-layout': layout === 'horizontal' }" :style="isInitCell">
             <div ref="code" class="thebe-code" :style="editorOff">
                 <slot></slot>
             </div>
