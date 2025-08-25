@@ -2,7 +2,7 @@
 theme: default
 title: notecell
 addons:
-  - /Users/aaron/workspace/slidev_themes/addons/slidev-addon-notecell
+  - /Users/aaronyang/workspace/slidev_themes/addons/slidev-addon-notecell
 clicks: 3
 ---
 
@@ -10,20 +10,28 @@ clicks: 3
 
 
 ```python
-print("Hello World")
+import pandas as pd
+
+df = pd.DataFrame({
+    "Name": "Aaron",
+    "score": [100] * 5
+})
 ```
 </NoteCell>
 
-<NoteCell class="abs" baseUrl="http://192.168.66.65:8080/course/fa/aaron/">
+<NoteCell class="abs" baseUrl="http://192.168.66.65:8080/course/fa/aaron/" 
+          :output='{
+              "css": {
+                "font-size": "0.8em",
+                "color": "red",
+                "img": {
+                    "width": "10%",
+                    "transform": "rotateZ(45deg)"
+                }
+              }
+            }'>
 
 ```python{all|1|2-4}{lines: true}
-print("Hello World")
-print(f"2 + 2 = {2 + 2}")
-
-print("Hello World")
-print(f"2 + 2 = {2 + 2}")
-
-print("Hello World")
-print(f"2 + 2 = {2 + 2}")
+df.plot(kind="bar")
 ```
 </NoteCell>

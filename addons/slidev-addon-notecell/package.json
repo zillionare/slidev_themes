@@ -32,11 +32,12 @@
   },
   "peerDependencies": {
     "@slidev/cli": ">=0.40.0",
-    "vue": "^3.0.0",
-    "thebe-core": "^0.5.0",
-    "monaco-editor": "^0.33.0"
+    "vue": "^3.0.0"
   },
   "dependencies": {
-    "thebe-core": "^0.5.0"
+    "thebe-core": "^0.5.0",
+    "monaco-editor": ">=0.30.0 <1.0.0",
+    "@iconify-json/mdi": "^1.2.1",
+    "@iconify/vue": "^5.0.0"
   }
 }
