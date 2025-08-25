@@ -302,10 +302,6 @@ const onRunCode = async (event) => {
     
     try {
         await executeCell()
-        
-        if (props.hideOutput && inlineOutput.value) {
-            inlineOutput.value.classList.add("hide")
-        }
     } catch (error) {
         let msg = (`Error executing cell: ${error}`)
         setStatus('error', msg)
