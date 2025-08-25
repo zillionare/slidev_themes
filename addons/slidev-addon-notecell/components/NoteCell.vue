@@ -18,9 +18,72 @@
 
 <script setup>
 import { ThebeCodeCell, ThebeNotebook, ThebeServer, makeConfiguration, makeRenderMimeRegistry, setupThebeCore, shortId } from 'thebe-core';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+ import { computed, onMounted, ref } from 'vue';
+import MonacoEditor from './MonacoEditor.vue';
 import { globals } from '../utils/globals.js';
+let isCodeHidden = false;
+const code = ref(null)
+const inlineOutput = ref(null);
+const codeStatus = {}
+const editorOnOff = ref(false)
+const toastMessage = ref('')
+const toastVisible = ref(false)
+const toastTimer = ref(null)
+const toastHovered = ref(false)
 
+// 如果在presenter中点击运行代码，给出提示！以避免听众看不到实际运行。
+const warnPresenterMode = ref(null)
+
+const props = defineProps({
+    "init": {
+        type: Boolean,
+        default: false
+    },
+    "baseUrl": {
+        type: String,
+        default: "/thebe/"
+    },
+    "token": {
+        type: String,
+        default: ""
+    },
+    "path": {
+        type: String,
+        default: "/tmp/"
+    },
+    "output": {
+        type: Object,
+        default: () => ({
+            "color": "black",
+            "inline": true, // render output inline, else in a standalone panel (dialog)
+            "position": "bottom", // 'top', 'bottom', 'left', 'right' when inline is true
+            "css": JSON.stringify({
+                "font-size": "1.2em",
+                "line-height": "1.5em",
+                "font-family": "monospace"
+            })
+        })
+    }
+
+})
+
+const isHiddenCell = computed(() => {
+    return {
+        'opacity': props.init ? 0 : 1
+    }
+})
+
+const editorOn = computed(() => {
+    return {
+       display: editorOnOff.value ? 'block' : 'none'
+    }
+})
+
+const editorOff = computed(() => {
+    return {
+        display: editorOnOff.value ? 'none' : 'block'
+    }
+})
 // Safe access to Slidev globals with fallbacks
 const getPage = () => {
     try {
@@ -46,88 +109,60 @@ const getRenderContext = () => {
     }
 };
 
-const props = defineProps({
-    "init": {
-        type: Boolean,
-        default: false
-    },
-    "maxOutput": {
-        type: Boolean,
-        default: false
-    },
-    "baseUrl": {
-        type: String,
-        default: "/thebe/"
-    },
-    "token": {
-        type: String,
-        default: ""
-    },
-    "path": {
-        type: String,
-        default: "/tmp/"
-    },
-    "hideOutput": { // 是否立即显示输出，还是需要双击两次显示
-        type: Boolean,
-        default: false
-    },
-    "color": {
-        type: String,
-        default: "black"
-    },
-    "animation": {
-        type: String,
-        default: "pulse"
-    },
-    "layout": {
-        type: String,
-        default: "vertical"
-    },
-    "outputMt": {
-        type: String,
-        default: "-3.2rem"
-    },
-    "outputMl": {
-        type: String,
-        default: "0"
-    },
-    "outputWidth": {
-        type: String,
-        default: "50%"
-    },
-    "scaleImg": {
-        type: String,
-        default: "100%"
-    },
-})
+const setStatus = (cellId, status, msg)=>{
+    /**
+     * 设置运行状态。运行状态包括: ready, running, executed, error
+     * 运行状态会通过 play icon 来显示
+     * 
+     * Args:
+     *   cellId: str, id of the cell
+     *   status: str, one of 'ready', 'running', 'executed', 'error'
+     *   msg: str, message to display in the status bar
+     */
 
-const codeStyle = computed(() => {
-    return {
-        'opacity': props.init ? 0 : 1
-    }
-})
+     if (status === 'executed') {
+        codeStatus[cellId] = true
+     }
 
-const isCommandKeyPressed = ref(false);
-let isCodeHidden = false;
-const code = ref(null)
-const outputWrapper = ref(null);
-const codeStatus = {}
-
-// 如果在presenter中点击运行代码，给出提示！以避免听众看不到实际运行。
-const warnPresenterMode = ref(null)
-
-// 监听 keydown 事件
-function checkCommandKey(event) {
-    if (event.key === 'Meta') {
-        isCommandKeyPressed.value = true;
-    }
+     if (status === 'error'){
+        console.error(msg)
+     }
+     
+     // Show toast message
+     if (msg) {
+         showToast(msg)
+     }
 }
 
-// 监听 keyup 事件
-function uncheckCommandKey(event) {
-    if (event.key === 'Meta') {
-        isCommandKeyPressed.value = false;
+const showToast = (message) => {
+    // Clear any existing timer
+    if (toastTimer.value) {
+        clearTimeout(toastTimer.value)
     }
+    
+    // Set new message and show toast
+    toastMessage.value = message
+    toastVisible.value = true
+    toastHovered.value = false
+    
+    // Hide toast after 3 seconds if not hovered
+    toastTimer.value = setTimeout(() => {
+        if (!toastHovered.value) {
+            toastVisible.value = false
+        }
+    }, 3000)
+}
+
+const formatCode = (code) => {
+    /**
+     * Fix the Slidev-specific indentation issue by removing indentation from the first line only
+     */
+    const lines = code.split('\n')
+    if (lines.length > 1) {
+        lines[0] = lines[0].trim()
+        return lines.join('\n')
+    }
+    return code
 }
 
 const createNotebook = () => {
@@ -175,11 +210,11 @@ const createNotebook = () => {
 const toggleOutput = () => {
     if (isCodeHidden) {//show code
         code.value.classList.remove("hide")
-        outputWrapper.value.classList.add('hide')
+        inlineOutput.value.classList.add('hide')
         isCodeHidden = false;
     } else {
         code.value.classList.add('hide')
-        outputWrapper.value.classList.remove('hide')
+        inlineOutput.value.classList.remove('hide')
         isCodeHidden = true;
     }
 };
@@ -207,27 +242,34 @@ const onRunCode = async (event) => {
         return
     }
     
-    if (code.value) {
-        code.value.style.setProperty('--pseudo-before-content', "'running'")
+    try {
+        await executeCell()
+        
+        if (props.hideOutput && inlineOutput.value) {
+            inlineOutput.value.classList.add("hide")
+        }
+    } catch (error) {
+        let msg = (`Error executing cell: ${error}`)
+        setStatus('error', msg)
     }
-    document.body.style.cursor = 'wait'
+}
 
+const executeCell = async () => {
     const nbid = `p${getPage()}`
+    const server = globals.jupyter[nbid].server
+
     const cellId = code.value ? code.value.id : null
 
     if (!cellId) {
-        console.error('Code element not available')
-        document.body.style.cursor = 'default'
+        msg = 'Code element not available'
+        setStatus(null, 'error', msg)
         return
     }
 
     // Check if jupyter object exists for this page
     if (!globals.jupyter || !globals.jupyter[nbid]) {
-        console.error(`Jupyter object for ${nbid} not initialized`)
-        document.body.style.cursor = 'default'
-        if (code.value) {
-            code.value.style.setProperty('--pseudo-before-content', "'error'")
-        }
+        msg = `Jupyter object for ${nbid} not initialized`
+        setStatus('error', msg)
         return
     }
 
@@ -235,11 +277,8 @@ const onRunCode = async (event) => {
     
     // Check if notebook exists
     if (!jupyter.notebook) {
-        console.error(`Notebook for ${nbid} not initialized`)
-        document.body.style.cursor = 'default'
-        if (code.value) {
-            code.value.style.setProperty('--pseudo-before-content', "'error'")
-        }
+        msg = `Notebook for ${nbid} not initialized`
+        setStatus('error', msg)
         return
     }
 
@@ -247,39 +286,12 @@ const onRunCode = async (event) => {
     const cell = notebook.getCellById(cellId)
     
     if (!cell) {
-        console.error(`Cell ${cellId} not found`)
-        document.body.style.cursor = 'default'
-        if (code.value) {
-            code.value.style.setProperty('--pseudo-before-content', "'error'")
-        }
+        let msg = `Cell ${cellId} not found`
+        setStatus('error', msg)
         return
     }
-    
-    try {
-        await executeCell(cell)
-        
-        if (props.hideOutput && outputWrapper.value) {
-            outputWrapper.value.classList.add("hide")
-        }
-    } catch (error) {
-        console.error('Error executing cell:', error)
-        if (code.value) {
-            code.value.style.setProperty('--pseudo-before-content', "'error'")
-        }
-    } finally {
-        document.body.style.cursor = 'default'
-        if (code.value) {
-            code.value.style.setProperty('--pseudo-before-content', "'runnable'")
-        }
 
-        codeStatus[cellId] = true
-    }
-}
-
-const executeCell = async (cell) => {
-    const nbid = `p${getPage()}`
-    const server = globals.jupyter[nbid].server
-
+    setStatus(codeEl, 'running')
     if (globals.jupyter[nbid].session == null) {
         await server.connectToJupyterServer();
         const rendermime = makeRenderMimeRegistry(server.config.mathjax);
@@ -298,10 +310,12 @@ const executeCell = async (cell) => {
     await cell.execute()
 
     // 如果设置了图片缩放，则对图片进行缩放
-    const imgElements = outputWrapper.value.querySelectorAll('img');
+    const imgElements = inlineOutput.value.querySelectorAll('img');
     imgElements.forEach(img => {
         img.style.transform = `scale(${props.scaleImg})`;
     });
+
+    setStatus(cellId, 'executed')
 }
 
 const initNotebook = async () => {
@@ -331,13 +345,17 @@ const initNotebook = async () => {
 
     await executeCell(cell)
     setTimeout(() => {
-        if (outputWrapper.value) {
-            outputWrapper.value.style.opacity = 0
+        if (inlineOutput.value) {
+            inlineOutput.value.style.opacity = 0
         }
     }, 5000)
 }
 
 const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
+    /**
+     * Create a new code cell bound to this component
+     * Each code cell (in web page domain) is associated with a notebook cell (in notebook domain) and a output element.
+     */
     const pageno = getPage()
     const nbid = `p${pageno}`
     const config = globals.jupyter[nbid].server.config
@@ -346,16 +364,22 @@ const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
     const metadata = {}
     const cid = isInitCell ? `${nbid}-initial-cell` : `${nbid}-${shortId()}`
 
+    // Check for duplicate init cell
+    if (isInitCell && notebook.getCellById(`${nbid}-initial-cell`)) {
+        const errorMsg = `Slide ${pageno} already has an init NoteCell. Only one init NoteCell is allowed per slide.`
+        setStatus(cid, 'error', errorMsg)
+        return
+    }
+
     codeEl.id = cid
 
-    // Fix the Slidev-specific indentation issue by removing indentation from the first line only
-    let codeContent = codeEl.textContent
-    codeContent = codeContent.replace(/^\s+/, '')
+    let codeContent = formatCode(codeEl.textContent)
     
     const cell = new ThebeCodeCell(cid, nbid, codeContent, config, metadata)
 
     outputWrapper.id = `${cid}-output`
     cell.attachToDOM(outputWrapper)
+    // TODO: createResultElement and bind with cell
 
     if (isInitCell) {
         setTimeout(() => {
@@ -363,6 +387,7 @@ const createCodeCell = async (codeEl, outputWrapper, isInitCell) => {
         }, 500)
     }
 
+    //TODO: add setInterval/callback, to change status once initCell is executed
     notebook.cells.push(cell)
 
     const total = notebook.numCells()
@@ -377,37 +402,46 @@ onMounted(() => {
 
     if (getRenderContext() === 'slide') {
         createNotebook()
-        createCodeCell(code.value, outputWrapper.value, props.init)
+        createCodeCell(code.value, inlineOutput.value, props.init)
     }
-
-    document.body.addEventListener('keydown', checkCommandKey)
-    document.body.addEventListener('keyup', uncheckCommandKey)
-    code.value.style.setProperty('--pseudo-before-content', "'runnable'");
 })
-
-onUnmounted(() => {
-    document.body.removeEventListener('keydown', checkCommandKey)
-    document.body.removeEventListener('keyup', uncheckCommandKey)
-})
-
 </script>
 
 <template>
     <div :class="$attrs.class" v-motion>
-        <div class="wrapper-all" :class="{ 'horizontal-layout': layout === 'horizontal' }" @dblclick="onRunCode">
-            <div ref="code" :style="codeStyle" class="thebe-code">
+        <div class="wrapper-all" :class="{ 'horizontal-layout': layout === 'horizontal' }" :style="isHiddenCell">
+            <div ref="code" class="thebe-code" :style="editorOff">
                 <slot></slot>
             </div>
-            <div ref="outputWrapper" class="output-wrapper" :style="{
-        '--output-text-color': props.color,
-        '--margin-top': props.outputMt,
-        '--margin-left': props.outputMl,
-        '--output-width': props.outputWidth
-    }" />
+            <div :style="editorOn">
+                <MonacoEditor 
+                    ref="monacoEditor" 
+                    v-model="editorContent"
+                    language="python"
+                    :options="{minimap: {enabled: false}}"
+                    />
+            </div>
+            <div ref="inlineOutput" class="output-wrapper" > <!-- render result inline --></div>
+            <teleport to="body">
+                <!-- render result in a dialog-->
+            </teleport>
+        </div>
+        <teleport to="body">
             <RenderWhen context="presenter">
                 <div ref="warnPresenterMode" class="warnPresnterMode">请在演示模式下运行！</div>
             </RenderWhen>
-        </div>
+        </teleport>
+        <teleport to="body">
+            <!-- toast message-->
+            <div 
+                v-if="toastVisible"
+                class="notecell-toast"
+                @mouseenter="toastHovered = true"
+                @mouseleave="toastHovered = false"
+            >
+                {{ toastMessage }}
+            </div>
+        </teleport>
     </div>
 </template>
 
@@ -483,5 +517,19 @@ onUnmounted(() => {
 
 .hide {
     display: none;
+}
+
+.notecell-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+    max-width: 400px;
+    word-wrap: break-word;
 }
 </style>
