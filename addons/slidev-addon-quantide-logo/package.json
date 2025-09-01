@@ -1,24 +1,23 @@
 {
-  "name": "slidev-addon-notecell",
-  "version": "1.0.9",
-  "description": "A Slidev addon for interactive Jupyter notebook cells with code execution capabilities",
+  "name": "slidev-addon-quantide-logo",
+  "version": "1.0.0",
+  "description": "A Slidev addon providing CutMe mask functionality with keyboard shortcuts for presentations",
   "main": "index.js",
   "type": "module",
   "keywords": [
     "slidev",
     "addon",
-    "jupyter",
-    "notebook",
-    "code",
-    "execution",
-    "interactive",
-    "thebe"
+    "cutme",
+    "mask",
+    "keyboard",
+    "shortcuts",
+    "presentation"
   ],
   "author": "Aaron Yang",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/slidev-addon-notecell.git"
+    "url": "https://github.com/yourusername/slidev-addon-quantide-logo.git"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -32,10 +31,10 @@
   },
   "peerDependencies": {
     "@slidev/cli": ">=0.40.0",
-    "vue": "^3.0.0",
-    "thebe-core": "^0.5.0"
+    "vue": "^3.0.0"
   },
   "dependencies": {
-    "thebe-core": "^0.5.0"
+    "@iconify-json/mdi": "^1.2.1",
+    "@iconify/vue": "^5.0.0"
   }
 }

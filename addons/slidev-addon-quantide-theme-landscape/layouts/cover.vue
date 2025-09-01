@@ -1,0 +1,91 @@
+<script setup lang="ts">
+import { computed, onMounted } from 'vue'
+</script>
+
+<style scoped>
+/*layer-2 the content layer*/
+
+.title-wrapper {
+  @apply absolute top-30% flex flex-col items-center justify-center w-full;
+}
+
+.title {
+  width: 100%;
+  font-size: 6vw;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3rem;
+}
+
+.subtitle {
+  font-size: @apply text-2xl;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #303030;
+}
+
+.seq {
+  position: fixed;
+  top: 0;
+  text-align: left;
+  left: 0;
+  border-left: 5px solid rgba(0, 0, 0, 0.2);
+  border-right: 5px solid rgba(0, 0, 0, 0.2);
+  background-color: aliceblue;
+  padding: 5px 20px 5px 10px;
+  border-radius: 0 20px 0 20px;
+}
+
+.gallery {
+  position: absolute;
+  height: 200px;
+  left: 0%;
+  bottom: -10%;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  animation: slideRight 5s forwards;
+
+  div {
+    width: 120px;
+    height: 100%;
+    background-size: cover;
+    margin: 0 10px;
+    background-position: center;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+</style>
+
+<template>
+  <div class="slidev-layout cover">
+    <div class="seq">{{ $slidev.configs.seq }}</div>
+    <div class="title-wrapper">
+      <div class="title">
+        <AutoFitText>{{ $slidev.configs.title }}</AutoFitText>
+      </div>
+      <div class="subtitle">
+        {{ $slidev.configs.subtitle }}
+      </div>
+    </div>
+
+    <div class="gallery">
+      <div v-for="(src, i) in $slidev.configs.galleryImages" :key="i" :style="{ backgroundImage: `url(${src})` }"></div>
+    </div>
+  </div>
+</template>

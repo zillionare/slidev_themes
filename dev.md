@@ -1,37 +1,21 @@
 ---
 theme: default
-title: notecell
+title: quantide-logo
+layout: section
 addons:
-  - /Users/aaronyang/workspace/slidev_themes/addons/slidev-addon-notecell
+  - /Users/aaronyang/workspace/slidev_themes/addons/slidev-addon-quantide-theme-landscape
 clicks: 3
 ---
 
-<NoteCell init baseUrl="http://192.168.66.65:8080/course/fa/aaron/">
+# first page
+
+<clicks>
+
+## 1
+## 2
+## 3
+</clicks>
 
 
-```python
-import pandas as pd
-
-df = pd.DataFrame({
-    "Name": "Aaron",
-    "score": [100] * 5
-})
-```
-</NoteCell>
-
-<NoteCell class="abs" baseUrl="http://192.168.66.65:8080/course/fa/aaron/" 
-          :output='{
-              "css": {
-                "font-size": "0.8em",
-                "color": "red",
-                "img": {
-                    "width": "10%",
-                    "transform": "rotateZ(45deg)"
-                }
-              }
-            }'>
-
-```python{all|1|2-4}{lines: true}
-df.plot(kind="bar")
-```
-</NoteCell>
+---
+# second page

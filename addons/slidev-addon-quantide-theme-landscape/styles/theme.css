@@ -1,0 +1,112 @@
+.slidev-layout {
+  ol {
+    padding: 0;
+    margin-left: 4vw;
+    text-align: left;
+  }
+
+  img {
+    width: calc(100%);
+    margin: 0 auto;
+    display: block;
+  }
+
+  img[alt="25%"] {
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  img[alt="33%"] {
+    width: 33%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  img[alt="50%"] {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  img[alt="66%"] {
+    width: 66%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  img[alt="75%"] {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  img[alt="100%"] {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  img[alt="R50"] {
+    position: relative;
+    float: right;
+    width: 45%;
+    margin: 0 2vw;
+  }
+
+  img[alt="R33"] {
+    position: relative;
+    float: right;
+    width: 30%;
+    margin: 0 2vw;
+  }
+
+  img[alt="L50"] {
+    position: relative;
+    float: right;
+    width: 45%;
+    margin: 0 2vw;
+  }
+
+  img[alt="L33"] {
+    position: relative;
+    float: right;
+    width: 30%;
+    margin: 0 2vw;
+  }
+
+  .z-table {
+    width: auto;
+    border-collapse: collapse;
+    border: none;
+    margin: 20px 0;
+
+    thead {
+      background-color: #000;
+      color: white;
+      border: none;
+      border-bottom: none;
+      border-right: none;
+    }
+
+    td {
+      padding: 12px 15px;
+      border: none;
+      min-width: 100px;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f8f8f8;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+  }
+}
