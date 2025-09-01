@@ -1,2 +1,2 @@
-import './layouts.css'
+import './pallet.css'
 import './theme.css'

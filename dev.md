@@ -1,21 +1,20 @@
 ---
 theme: default
 title: quantide-logo
-layout: section
+layout: landscape-cover
 addons:
-  - /Users/aaronyang/workspace/slidev_themes/addons/slidev-addon-quantide-theme-landscape
-clicks: 3
+  - /Users/aaron/workspace/slidev_themes/addons/slidev-addon-quantide-layout
 ---
 
-# first page
-
-<clicks>
-
-## 1
-## 2
-## 3
-</clicks>
-
+# landscape cover
 
 ---
-# second page
+layout: landscape-section
+title: "landscape section"
+---
+
+---
+layout: landscape-two-cols
+---
+
+# landscape two cols

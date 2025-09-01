@@ -1,0 +1,74 @@
+/* Color palette definitions */
+.palette-academic {
+  --primary: #2563eb;    /* 深蓝色 */
+  --secondary: #7c3aed;  /* 紫色 */
+  --accent: #0d9488;     /* 青色 */
+  --success: #16a34a;    /* 绿色 */
+  --tertiary: #ea580c;   /* 橙色 */
+  --info: #0284c7;       /* 蓝色 */
+  --warning: #ca8a04;    /* 黄色 */
+  --error: #dc2626;      /* 红色 */
+}
+
+.palette-business {
+  --primary: #1e40af;    /* 深蓝色（专业、可靠） */
+  --secondary: #0f766e;  /* 深青色（稳重、信任） */
+  --accent: #c2410c;     /* 深橙色（活力、热情） */
+  --success: #15803d;    /* 深绿色（成功、增长） */
+  --tertiary: #9333ea;   /* 紫色（创意、智慧） */
+  --info: #0369a1;       /* 蓝色（专业、科技） */
+  --warning: #a16207;    /* 黄色（注意、重要） */
+  --error: #b91c1c;      /* 红色（错误、危险） */
+}
+
+/* 应用颜色变量到元素 */
+.palette-academic h1,
+.palette-academic h2,
+.palette-academic h3,
+.palette-academic h4 {
+  color: var(--primary);
+}
+
+.palette-academic .btn {
+  background-color: var(--primary);
+  color: white;
+}
+
+.palette-academic .highlight {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.palette-business h1,
+.palette-business h2,
+.palette-business h3,
+.palette-business h4 {
+  color: var(--primary);
+}
+
+.palette-business .btn {
+  background-color: var(--primary);
+  color: white;
+}
+
+.palette-business .highlight {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* 状态颜色类 */
+.success {
+  color: var(--success);
+}
+
+.info {
+  color: var(--info);
+}
+
+.warning {
+  color: var(--warning);
+}
+
+.error {
+  color: var(--error);
+}
