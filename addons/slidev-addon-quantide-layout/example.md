@@ -1,30 +1,25 @@
 ---
-theme: quantide-theme-landscape
+theme: default
+transition: slide-left
+title: Slidev Addon Quantide Layout Example
 addons:
-  - slidev-addon-quantide-theme-landscape
-
-title: 'Quantide Landscape Theme'
-subtitle: 'A beautiful theme for Slidev presentations'
-seq: '01'
-
-galleryImages:
-  - 'https://images.jieyu.ai/images/hot/posts/img_0020.jpg'
-  - 'https://images.jieyu.ai/images/hot/posts/img_0017.jpg'
-  - 'https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg'
-  - 'https://images.jieyu.ai/images/hot/posts/img_0016.jpg'
-  - 'https://images.jieyu.ai/images/hot/course/course-screenshot.png'
-  - 'https://images.jieyu.ai/images/hot/cheese-course-roadmap.png'
-  - 'https://images.jieyu.ai/images/hot/posts/img_0019.jpg'
-  - 'https://images.jieyu.ai/images/hot/mybook/girl-hold-book-face.jpg'
-  - 'https://images.jieyu.ai/images/hot/posts/img_0014.jpg'
+  - ./slidev-addon-quantide-layout
+htmlAttrs:
+  class: silk
 ---
 
-# Page 1
+# h1 
 
-This is a demo of the Quantide Landscape Theme for Slidev.
 
----
+h1 title (or .heading-1) will use brand primary color.
 
-# Page 2
+The whole slide will use brand background color (--bg-primary)
 
-Try different layouts provided by this theme.
+## h2 title
+
+h2 title (or .heading-2) will use brand secondary color.
+
+### h3 title
+#### h4 title
+
+h3 ~ h6 , p will use primary text color (--text-primary). And this is <span class="highlight">highlight color for accent</span>

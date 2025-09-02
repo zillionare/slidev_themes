@@ -21,6 +21,18 @@
   --error: #b91c1c;      /* 红色（错误、危险） */
 }
 
+/* daisyUI valentine 主题配色 */
+.palette-valentine {
+  --primary: #e96d7b;    /* 粉红色 */
+  --secondary: #a991d4;  /* 紫色 */
+  --accent: #fda4af;     /* 浅粉红色 */
+  --success: #8dcc93;    /* 浅绿色 */
+  --tertiary: #eea8a9;   /* 浅粉红色 */
+  --info: #8cbfd9;       /* 浅蓝色 */
+  --warning: #f0c183;    /* 浅橙色 */
+  --error: #e96d7b;      /* 粉红色 */
+}
+
 /* 应用颜色变量到元素 */
 .palette-academic h1,
 .palette-academic h2,
@@ -52,6 +64,23 @@
 }
 
 .palette-business .highlight {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.palette-valentine h1,
+.palette-valentine h2,
+.palette-valentine h3,
+.palette-valentine h4 {
+  color: var(--primary);
+}
+
+.palette-valentine .btn {
+  background-color: var(--primary);
+  color: white;
+}
+
+.palette-valentine .highlight {
   color: var(--accent);
   font-weight: bold;
 }
