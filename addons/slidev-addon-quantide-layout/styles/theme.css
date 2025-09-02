@@ -1,5 +1,3 @@
-@import "./palette.css";
-
 .slidev-layout {
   background-color: var(--bg-primary);
   color: var(--text-primary);
