@@ -6,7 +6,21 @@ import { handleBackground } from '@slidev/client/layoutHelper.ts'
 const coverImg = computed(() => {    
     const background = $slidev.configs.background
     console.log("background is", background)
-    return handleBackground(background)
+    const style = handleBackground(background)
+    
+    // 获取 background-y 配置值
+    const backgroundY = $slidev.configs['background-y']
+    
+    // 如果提供了 background-y，则调整背景图片位置
+    if (backgroundY) {
+        return {
+            ...style,
+            backgroundPosition: `center ${backgroundY}`,
+            backgroundPositionY: backgroundY
+        }
+    }
+    
+    return style
 })
 
 // 计算 lecture-name 的背景样式
@@ -75,6 +89,10 @@ const now = computed(() => {
     return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`
 })
 
+const showFooter = computed(() => {
+    return $slidev.configs.author || (userDate.value && userDate.value.toLowerCase() !== 'none')
+})
+
 // 更新时间的定时器（仅在需要显示实时时间时）
 let intervalId
 onMounted(() => {
@@ -102,19 +120,28 @@ onUnmounted(() => {
 <style scoped>
 /*layer-2 the content layer*/
 .title {
-    @apply text-6xl;
+    @apply text-8xl;
     width: 90%;
-    color: white;
+    color: var(--primary);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     flex: 0 0 auto; /* 不伸缩，保持内容大小 */
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000,
+        -4px -4px 0 rgba(0, 0, 0, 0.5),
+        4px -4px 0 rgba(0, 0, 0, 0.5),
+        -4px 4px 0 rgba(0, 0, 0, 0.5),
+        4px 4px 0 rgba(0, 0, 0, 0.5);
 }
 
 .subtitle {
-    @apply text-xl;
-    color: #e0e0e0;
+    @apply text-5xl;
+    color: var(--secondary);
     width: 90%;
     text-align: center;
     mix-blend-mode: lighten;
@@ -122,6 +149,11 @@ onUnmounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
 }
 
 .cover-image {
@@ -130,11 +162,9 @@ onUnmounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
 }
 
 .title-wrapper {
-    background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 30%;
     display: flex;
@@ -144,21 +174,25 @@ onUnmounted(() => {
     align-items: center;
     padding: 1em 0;
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 
 .footer {
+    @apply: text-2xl;
     position: absolute;
     bottom: 20px;
     right: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    color: white;
-    font-size: 1rem;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+    color: var(--text-on-primary);
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
 }
 
 .author {
@@ -184,9 +218,9 @@ onUnmounted(() => {
             </div>
             <div class="subtitle">{{ $slidev.configs.subtitle }}</div>
         </div>
-        
+        <slot/>
         <!-- 右下角的 footer 区域 -->
-        <div class="footer">
+        <div v-if="showFooter" class="footer">
             <div class="author">{{ $slidev.configs.author }}</div>
             <div class="date">
                 <span ref="timeElement">{{ now }}</span>
