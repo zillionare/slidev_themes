@@ -4,8 +4,6 @@ transition: slide-left
 title: Slidev Addon Palette Example
 addons:
   - ./slidev-addon-palette
-htmlAttrs:
-  class: silk
 ---
 
 # h1 title
