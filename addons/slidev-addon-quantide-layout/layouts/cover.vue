@@ -1,3 +1,6 @@
+<!--
+default cover page, allow more customization, by using slot
+-->
 <script setup lang="ts">
 import { computed } from 'vue'
 import { handleBackground } from '../layoutHelper'
@@ -5,7 +8,7 @@ import { handleBackground } from '../layoutHelper'
 const props = defineProps({
   background: {
     // random image from a curated Unsplash collection by Anthony
-    default: 'https://images.unsplash.com/photo-1753357278471-f56646db80e2?q=80&w=1934',
+    default: 'https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/background/lab-mint.jpg',
   },
 })
 

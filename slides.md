@@ -1,12 +1,13 @@
 ---
-title: Slidev 从入门到精通
+title: Slidev 入门到精通
 subtitle: 简洁的文案 非凡的表达
-seq: 1
 lineNumbers: true
 drawings:
   persist: false
   syncAll: true
 addons:
+  - ./slidev_themes/addons/slidev-addon-palette
+  - ./slidev_themes/addons/slidev-addon-quantide-layout
   - ./slidev_themes/addons/slidev-addon-mouse-trail-pen
   - ./slidev_themes/addons/slidev-addon-array
   - ./slidev_themes/addons/slidev-addon-interactive-table
@@ -18,6 +19,15 @@ mouseTrail:
   color: ink
 python:
   installs: [ "pandas" ]
+aspectRatio: 16/9
+lecture: slidev 天天学
+layout: cover
+# background: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/
+# background: https://images.jieyu.ai/images/hot/me-3.png
+total: 60
+date: now
+htmlAttrs:
+  class: mint
 ---
 
 <!--

@@ -1,4 +1,6 @@
 <!--
+landscape layout
+
 available options:
 
 title: the title of the presentation,
@@ -116,7 +118,7 @@ onUnmounted(() => {
 .title {
     @apply text-6xl;
     width: 90%;
-    color: white;
+    color: var(--primary);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,7 +128,7 @@ onUnmounted(() => {
 
 .subtitle {
     @apply text-xl;
-    color: #e0e0e0;
+    color: var(--secondary);
     width: 90%;
     text-align: center;
     mix-blend-mode: lighten;
@@ -145,7 +147,7 @@ onUnmounted(() => {
 }
 
 .title-wrapper {
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: color-mix(in srgb, var(--bg-primary) 70%, transparent); */
     width: 100%;
     height: 30%;
     display: flex;
@@ -167,7 +169,7 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    color: white;
+    color: var(--text-primary);
     font-size: 1rem;
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
 }

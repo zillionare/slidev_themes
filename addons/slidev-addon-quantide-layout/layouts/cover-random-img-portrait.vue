@@ -1,56 +1,48 @@
-<!--
-This is a portraint layout
-
-title: the title of the presentation,
-author: the author, appears at right bottom
-subtitle: the subtitle, appears below title
-date: appears at right bottom. 'none' to hide, now to show current time
-background: the background image,
-lecture: the name of the lecture, installment of the lecture
-
--->
-
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { handleBackground } from '@slidev/client/layoutHelper.ts'
 
 // 计算封面背景样式
 const coverImg = computed(() => {    
-    const background = $slidev.configs.background
-    console.log("background is", background)
-    const style = handleBackground(background)
-    
-    // 获取 background-y 配置值
-    const backgroundY = $slidev.configs['background-y']
-    
-    // 如果提供了 background-y，则调整背景图片位置
-    if (backgroundY) {
-        return {
-            ...style,
-            backgroundPosition: `center ${backgroundY}`,
-            backgroundPositionY: backgroundY
+    let imgset = $slidev.configs.background
+    if (imgset.endsWith(".jpg")){
+        return handleBackground(imgset)
+    }else{
+        if (~ imgset.endsWith("/")){
+            imgset += "/"
         }
     }
+
+
+    const total = $slidev.configs.total || 10
+
+    const randint = Math.floor(Math.random() * total) + 1
+    const background = imgset + randint + ".jpg"
+    console.log("background is", background)
     
-    return style
+    return handleBackground(background)
 })
 
 // 计算 lecture-name 的背景样式
 const lectureNameStyle = computed(() => {
+    // 使用 handleBackground 函数计算背景样式
+    const background = $slidev.configs.background
+    const style = handleBackground(background, true)
     return {
-        backgroundColor: 'var(--primary)',
+        ...style,
         boxShadow: '0 2px 3px rgba(0, 0, 0, 0.5)',
         borderRadius: '9999px',
         textAlign: 'left',
         paddingLeft: '2rem',
         paddingRight: '2rem',
         paddingTop: '0.5rem',
-        paddingBottom: '0.55rem',
+        paddingBottom: '0.5rem',
         minWidth: '10rem',
         color: 'white',
         position: 'absolute',
         top: '20px',
-        left: '1%'
+        left: '1%',
+        "font-size": '2rem'
     }
 })
 
@@ -128,55 +120,10 @@ onUnmounted(() => {
 
 <style scoped>
 /*layer-2 the content layer*/
-.title {
-    @apply text-8xl;
-    width: 90%;
-    color: var(--text-on-primary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex: 0 0 auto; /* 不伸缩，保持内容大小 */
-    text-shadow: 
-        -1px -1px 0 #000,  
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000,
-        -2px -2px 0 rgba(0, 0, 0, 0.5),
-        2px -2px 0 rgba(0, 0, 0, 0.5),
-        -2px 2px 0 rgba(0, 0, 0, 0.5),
-        2px 2px 0 rgba(0, 0, 0, 0.5);
-}
-
-.subtitle {
-    @apply text-5xl;
-    color: var(--secondary);
-    width: 90%;
-    text-align: center;
-    mix-blend-mode: lighten;
-    flex: 1 1 auto; /* 占据剩余空间 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-shadow: 
-        -1px -1px 0 #000,  
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000;
-}
-
-.cover-image {
-    position: absolute;
-    top: 0%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
 .title-wrapper {
     /* background-color: color-mix(in srgb, var(--bg-primary) 100%, transparent); */
     width: 100%;
-    height: 30%;
+    height: 50%;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -184,9 +131,36 @@ onUnmounted(() => {
     align-items: center;
     padding: 1em 0;
     position: absolute;
-    top: 60%;
     left: 50%;
+    top:0;
     transform: translateX(-50%);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    @apply text-8xl;
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subtitle {
+    @apply text-4xl;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover-image {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 50%;
 }
 
 .footer {
@@ -211,6 +185,10 @@ onUnmounted(() => {
 
 .date {
     position: relative;
+}
+
+.cover {
+    background-color: var(--primary);
 }
 
 </style>
