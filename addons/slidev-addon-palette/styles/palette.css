@@ -13,40 +13,44 @@
 /* Cupcake 主题 */
 .cupcake {
   /* 品牌色应用 */
-  --primary: #e879f9;      /* 紫色 */
-  --secondary: #a5b4fc;    /* 淡紫色 */
-  --accent: #fb7185;       /* 粉红色 */
-  
+  --primary: oklch(85% 0.138 181.071);
+  --secondary: oklch(89% 0.061 343.231);
+  --accent: oklch(90% 0.076 70.697);
+  --success: oklch(69% 0.17 162.48);
+  --warning: oklch(79% 0.184 86.047);
+  --error: oklch(64% 0.246 16.439);
+  --info: oklch(68% 0.169 237.323);
+  --bg-primary: oklch(97.788% 0.004 56.375);
+  --bg-secondary: oklch(93.982% 0.007 61.449);
+  --bg-tertiary: oklch(91.586% 0.006 53.44);
+  --text-primary: oklch(23.574% 0.066 313.189);
+  --neutral: oklch(27% 0.006 286.033);
+  --text-on-dark: oklch(92% 0.004 286.32);
+
   /* 文本颜色 */
-  --text-primary: #1e293b;       /* 主要内容文本 */
-  --text-secondary: #64748b;     /* 次要说明文本 */
-  --text-tertiary: #94a3b8;      /* 辅助信息文本 */
-  --text-on-dark: #f8fafc;       /* 深色背景上的文本 */
-  --text-on-primary: #f8fafc;    /* 主色背景上的文本 */
-  --text-on-secondary: #f8fafc;  /* 次色背景上的文本 */
-  --text-on-accent: #f8fafc;     /* 强调色背景上的文本 */
-  
+  --text-primary: oklch(23.574% 0.066 313.189);
+  --text-on-dark: oklch(92% 0.004 286.32);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(43% 0.078 188.216);
+  --text-on-secondary: oklch(45% 0.187 3.815);
+  --text-on-accent: oklch(47% 0.157 37.304);
+
   /* 标题颜色 */
-  --heading-primary: #0f172a;    /* 主标题 */
-  --heading-secondary: #1e293b;  /* 次级标题 */
-  --heading-accent: var(--primary); /* 带品牌色的标题 */
-  
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
   /* 背景颜色 */
-  --bg-primary: #fdf2f8;         /* 主要背景 */
-  --bg-secondary: #fafafa;       /* 卡片/区块背景 */
-  --bg-tertiary: #f5f3f7;        /* 次要区块背景 */
-  --bg-accent: #fce7f3;          /* 品牌色背景 */
-  
+  --bg-primary: oklch(97.788% 0.004 56.375);
+  --bg-secondary: oklch(93.982% 0.007 61.449);
+  --bg-tertiary: oklch(91.586% 0.006 53.44);
+  --bg-accent: oklch(27% 0.006 286.033);
+
   /* 边框与分割线 */
-  --border-primary: #e2e8f0;     /* 主要边框 */
-  --border-secondary: #f1f5f9;   /* 次要边框 */
-  
-  /* 功能色 */
-  --success: #16a34a;            /* 成功色 */
-  --warning: #ca8a04;            /* 警告色 */
-  --error: #dc2626;              /* 错误色 */
-  --info: #0284c7;               /* 信息色 */
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -58,38 +62,45 @@
 
 /* 商业调色板 */
 .business {
-  --primary: #1e40af;      /* 深蓝色（专业、可靠） */
-  --secondary: #0f766e;    /* 深青色（稳重、信任） */
-  --accent: #c2410c;       /* 深橙色（活力、热情） */
-  --success: #15803d;      /* 成功色 */
-  --warning: #ca8a04;      /* 警告色 */
-  --error: #b91c1c;        /* 错误色 */
-  --info: #0369a1;         /* 信息色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(41.703% 0.099 251.473);
+  --secondary: oklch(64.092% 0.027 229.389);
+  --accent: oklch(67.271% 0.167 35.791);
+  --success: oklch(70.226% 0.094 156.596);
+  --warning: oklch(77.482% 0.115 81.519);
+  --error: oklch(51.61% 0.146 29.674);
+  --info: oklch(62.616% 0.143 240.033);
+  --bg-primary: oklch(24.353% 0 0);
+  --bg-secondary: oklch(22.648% 0 0);
+  --bg-tertiary: oklch(20.944% 0 0);
+  --text-primary: oklch(84.87% 0 0);
+  --neutral: oklch(27.441% 0.013 253.041);
+  --text-on-dark: oklch(85.488% 0.002 253.041);
+
   /* 文本颜色 */
-  --text-primary: #1f2937;
-  --text-secondary: #4b5563;
-  --text-tertiary: #9ca3af;
-  --text-on-dark: #f9fafb;
-  --text-on-primary: #f9fafb;
-  --text-on-secondary: #f9fafb;
-  --text-on-accent: #f9fafb;
-  
+  --text-primary: oklch(84.87% 0 0);
+  --text-on-dark: oklch(85.488% 0.002 253.041);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(88.34% 0.019 251.473);
+  --text-on-secondary: oklch(12.818% 0.005 229.389);
+  --text-on-accent: oklch(13.454% 0.033 35.791);
+
   /* 标题颜色 */
-  --heading-primary: #111827;
-  --heading-secondary: #1f2937;
-  --heading-accent: var(--primary);
-  
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
   /* 背景颜色 */
-  --bg-primary: #f3f4f6;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #e5e7eb;
-  --bg-accent: #dbeafe;
-  
+  --bg-primary: oklch(24.353% 0 0);
+  --bg-secondary: oklch(22.648% 0 0);
+  --bg-tertiary: oklch(20.944% 0 0);
+  --bg-accent: oklch(27.441% 0.013 253.041);
+
   /* 边框与分割线 */
-  --border-primary: #d1d5db;
-  --border-secondary: #e5e7eb;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -188,38 +199,45 @@
 
 /* Valentine 调色板 */
 .valentine {
-  --primary: #e96d7b;    /* 粉红色 */
-  --secondary: #a991d4;  /* 紫色 */
-  --accent: #fda4af;     /* 浅粉红色 */
-  --success: #8dcc93;    /* 浅绿色 */
-  --warning: #f0c183;    /* 浅橙色 */
-  --error: #e96d7b;      /* 粉红色 */
-  --info: #8cbfd9;       /* 浅蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(65% 0.241 354.308);
+  --secondary: oklch(62% 0.265 303.9);
+  --accent: oklch(82% 0.111 230.318);
+  --success: oklch(84% 0.143 164.978);
+  --warning: oklch(75% 0.183 55.934);
+  --error: oklch(63% 0.237 25.331);
+  --info: oklch(86% 0.127 207.078);
+  --bg-primary: oklch(97% 0.014 343.198);
+  --bg-secondary: oklch(94% 0.028 342.258);
+  --bg-tertiary: oklch(89% 0.061 343.231);
+  --text-primary: oklch(52% 0.223 3.958);
+  --neutral: oklch(40% 0.153 2.432);
+  --text-on-dark: oklch(89% 0.061 343.231);
+
   /* 文本颜色 */
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-tertiary: #94a3b8;
-  --text-on-dark: #f8fafc;
-  --text-on-primary: #f8fafc;
-  --text-on-secondary: #f8fafc;
-  --text-on-accent: #1e293b;
-  
+  --text-primary: oklch(52% 0.223 3.958);
+  --text-on-dark: oklch(89% 0.061 343.231);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(100% 0 0);
+  --text-on-secondary: oklch(97% 0.014 308.299);
+  --text-on-accent: oklch(39% 0.09 240.876);
+
   /* 标题颜色 */
-  --heading-primary: #0f172a;
-  --heading-secondary: #1e293b;
-  --heading-accent: var(--primary);
-  
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
   /* 背景颜色 */
-  --bg-primary: #fdf2f8;
-  --bg-secondary: #fafafa;
-  --bg-tertiary: #f5f3f7;
-  --bg-accent: #fce7f3;
-  
+  --bg-primary: oklch(97% 0.014 343.198);
+  --bg-secondary: oklch(94% 0.028 342.258);
+  --bg-tertiary: oklch(89% 0.061 343.231);
+  --bg-accent: oklch(40% 0.153 2.432);
+
   /* 边框与分割线 */
-  --border-primary: #e2e8f0;
-  --border-secondary: #f1f5f9;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -231,38 +249,45 @@
 
 /* Bumblebee 调色板 (基于 DaisyUI) */
 .bumblebee {
-  --primary: #e0a800;    /* 金黄色 */
-  --secondary: #f9d71c;  /* 柠檬黄 */
-  --accent: #433e00;     /* 深黄色 */
-  --success: #a5d64c;    /* 黄绿色 */
-  --warning: #ff9900;    /* 橙色 */
-  --error: #ff3860;      /* 红色 */
-  --info: #3273dc;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(85% 0.199 91.936);
+  --secondary: oklch(75% 0.183 55.934);
+  --accent: oklch(0% 0 0);
+  --success: oklch(76% 0.177 163.223);
+  --warning: oklch(82% 0.189 84.429);
+  --error: oklch(70% 0.191 22.216);
+  --info: oklch(74% 0.16 232.661);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(97% 0 0);
+  --bg-tertiary: oklch(92% 0 0);
+  --text-primary: oklch(20% 0 0);
+  --neutral: oklch(37% 0.01 67.558);
+  --text-on-dark: oklch(92% 0.003 48.717);
+
   /* 文本颜色 */
-  --text-primary: #212121;
-  --text-secondary: #424242;
-  --text-tertiary: #757575;
-  --text-on-dark: #fff;
-  --text-on-primary: #fff;
-  --text-on-secondary: #212121;
-  --text-on-accent: #fff;
-  
+  --text-primary: oklch(20% 0 0);
+  --text-on-dark: oklch(92% 0.003 48.717);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(42% 0.095 57.708);
+  --text-on-secondary: oklch(40% 0.123 38.172);
+  --text-on-accent: oklch(100% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #000;
-  --heading-secondary: #212121;
-  --heading-accent: var(--primary);
-  
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
   /* 背景颜色 */
-  --bg-primary: #fff9c4;
-  --bg-secondary: #ffeb3b;
-  --bg-tertiary: #ffc107;
-  --bg-accent: #ffecb3;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(97% 0 0);
+  --bg-tertiary: oklch(92% 0 0);
+  --bg-accent: oklch(37% 0.01 67.558);
+
   /* 边框与分割线 */
-  --border-primary: #ffd54f;
-  --border-secondary: #ffe082;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -274,38 +299,45 @@
 
 /* Emerald 调色板 (基于 DaisyUI) */
 .emerald {
-  --primary: #059669;    /* 翠绿色 */
-  --secondary: #047857;  /* 深翠绿色 */
-  --accent: #065f46;     /* 深绿色 */
-  --success: #10b981;    /* 绿色 */
-  --warning: #fbbf24;    /* 黄色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(76.662% 0.135 153.45);
+  --secondary: oklch(61.302% 0.202 261.294);
+  --accent: oklch(72.772% 0.149 33.2);
+  --success: oklch(64.8% 0.15 160);
+  --warning: oklch(84.71% 0.199 83.87);
+  --error: oklch(71.76% 0.221 22.18);
+  --info: oklch(72.06% 0.191 231.6);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(93% 0 0);
+  --bg-tertiary: oklch(86% 0 0);
+  --text-primary: oklch(35.519% 0.032 262.988);
+  --neutral: oklch(35.519% 0.032 262.988);
+  --text-on-dark: oklch(98.462% 0.001 247.838);
+
   /* 文本颜色 */
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-tertiary: #64748b;
-  --text-on-dark: #f1f5f9;
-  --text-on-primary: #f1f5f9;
-  --text-on-secondary: #f1f5f9;
-  --text-on-accent: #f1f5f9;
-  
+  --text-primary: oklch(35.519% 0.032 262.988);
+  --text-on-dark: oklch(98.462% 0.001 247.838);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(33.387% 0.04 162.24);
+  --text-on-secondary: oklch(100% 0 0);
+  --text-on-accent: oklch(0% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #020617;
-  --heading-secondary: #0f172a;
-  --heading-accent: var(--primary);
-  
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
   /* 背景颜色 */
-  --bg-primary: #ecfdf5;
-  --bg-secondary: #d1fae5;
-  --bg-tertiary: #a7f3d0;
-  --bg-accent: #6ee7b7;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(93% 0 0);
+  --bg-tertiary: oklch(86% 0 0);
+  --bg-accent: oklch(35.519% 0.032 262.988);
+
   /* 边框与分割线 */
-  --border-primary: #6ee7b7;
-  --border-secondary: #34d399;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -317,38 +349,45 @@
 
 /* Corporate 调色板 (基于 DaisyUI) */
 .corporate {
-  --primary: #4b5563;    /* 灰蓝色 */
-  --secondary: #9ca3af;  /* 浅灰蓝色 */
-  --accent: #6b7280;     /* 中灰蓝色 */
-  --success: #10b981;    /* 绿色 */
-  --warning: #f59e0b;    /* 琥珀色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(58% 0.158 241.966);
+  --secondary: oklch(55% 0.046 257.417);
+  --accent: oklch(60% 0.118 184.704);
+  --success: oklch(62% 0.194 149.214);
+  --warning: oklch(85% 0.199 91.936);
+  --error: oklch(70% 0.191 22.216);
+  --info: oklch(60% 0.126 221.723);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(93% 0 0);
+  --bg-tertiary: oklch(86% 0 0);
+  --text-primary: oklch(22.389% 0.031 278.072);
+  --neutral: oklch(0% 0 0);
+  --text-on-dark: oklch(100% 0 0);
+
   /* 文本颜色 */
-  --text-primary: #111827;
-  --text-secondary: #374151;
-  --text-tertiary: #6b7280;
-  --text-on-dark: #f9fafb;
-  --text-on-primary: #f9fafb;
-  --text-on-secondary: #111827;
-  --text-on-accent: #f9fafb;
-  
+  --text-primary: oklch(22.389% 0.031 278.072);
+  --text-on-dark: oklch(100% 0 0);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(100% 0 0);
+  --text-on-secondary: oklch(100% 0 0);
+  --text-on-accent: oklch(100% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #030712;
-  --heading-secondary: #111827;
-  --heading-accent: var(--primary);
-  
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
   /* 背景颜色 */
-  --bg-primary: #f9fafb;
-  --bg-secondary: #f3f4f6;
-  --bg-tertiary: #e5e7eb;
-  --bg-accent: #d1d5db;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(93% 0 0);
+  --bg-tertiary: oklch(86% 0 0);
+  --bg-accent: oklch(0% 0 0);
+
   /* 边框与分割线 */
-  --border-primary: #d1d5db;
-  --border-secondary: #9ca3af;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -404,38 +443,45 @@
 
 /* Halloween 调色板 (基于 DaisyUI) */
 .halloween {
-  --primary: #f97316;    /* 橙色 */
-  --secondary: #ef4444;  /* 红色 */
-  --accent: #7e22ce;     /* 紫色 */
-  --success: #22c55e;    /* 绿色 */
-  --warning: #eab308;    /* 黄色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(77.48% 0.204 60.62);
+  --secondary: oklch(45.98% 0.248 305.03);
+  --accent: oklch(64.8% 0.223 136.073);
+  --success: oklch(62.705% 0.169 149.213);
+  --warning: oklch(66.584% 0.157 58.318);
+  --error: oklch(65.72% 0.199 27.33);
+  --info: oklch(54.615% 0.215 262.88);
+  --bg-primary: oklch(21% 0.006 56.043);
+  --bg-secondary: oklch(14% 0.004 49.25);
+  --bg-tertiary: oklch(0% 0 0);
+  --text-primary: oklch(84.955% 0 0);
+  --neutral: oklch(24.371% 0.046 65.681);
+  --text-on-dark: oklch(84.874% 0.009 65.681);
+
   /* 文本颜色 */
-  --text-primary: #1a1a1a;
-  --text-secondary: #404040;
-  --text-tertiary: #737373;
-  --text-on-dark: #f5f5f5;
-  --text-on-primary: #f5f5f5;
-  --text-on-secondary: #f5f5f5;
-  --text-on-accent: #f5f5f5;
-  
+  --text-primary: oklch(84.955% 0 0);
+  --text-on-dark: oklch(84.874% 0.009 65.681);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(19.693% 0.004 196.779);
+  --text-on-secondary: oklch(89.196% 0.049 305.03);
+  --text-on-accent: oklch(0% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #0a0a0a;
-  --heading-secondary: #1a1a1a;
-  --heading-accent: var(--primary);
-  
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
   /* 背景颜色 */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #2a2a2a;
-  --bg-accent: #f97316;
-  
+  --bg-primary: oklch(21% 0.006 56.043);
+  --bg-secondary: oklch(14% 0.004 49.25);
+  --bg-tertiary: oklch(0% 0 0);
+  --bg-accent: oklch(24.371% 0.046 65.681);
+
   /* 边框与分割线 */
-  --border-primary: #404040;
-  --border-secondary: #737373;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -447,38 +493,45 @@
 
 /* Garden 调色板 (基于 DaisyUI) */
 .garden {
-  --primary: #22c55e;    /* 绿色 */
-  --secondary: #16a34a;  /* 深绿色 */
-  --accent: #84cc16;     /* 酸橙绿 */
-  --success: #10b981;    /* 浅绿色 */
-  --warning: #eab308;    /* 黄色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(62.45% 0.278 3.836);
+  --secondary: oklch(48.495% 0.11 355.095);
+  --accent: oklch(56.273% 0.054 154.39);
+  --success: oklch(64.8% 0.15 160);
+  --warning: oklch(84.71% 0.199 83.87);
+  --error: oklch(71.76% 0.221 22.18);
+  --info: oklch(72.06% 0.191 231.6);
+  --bg-primary: oklch(92.951% 0.002 17.197);
+  --bg-secondary: oklch(86.445% 0.002 17.197);
+  --bg-tertiary: oklch(79.938% 0.001 17.197);
+  --text-primary: oklch(16.961% 0.001 17.32);
+  --neutral: oklch(24.155% 0.049 89.07);
+  --text-on-dark: oklch(92.951% 0.002 17.197);
+
   /* 文本颜色 */
-  --text-primary: #052e16;
-  --text-secondary: #166534;
-  --text-tertiary: #15803d;
-  --text-on-dark: #f0fdf4;
-  --text-on-primary: #f0fdf4;
-  --text-on-secondary: #f0fdf4;
-  --text-on-accent: #052e16;
-  
+  --text-primary: oklch(16.961% 0.001 17.32);
+  --text-on-dark: oklch(92.951% 0.002 17.197);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(100% 0 0);
+  --text-on-secondary: oklch(89.699% 0.022 355.095);
+  --text-on-accent: oklch(100% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #052e16;
-  --heading-secondary: #166534;
-  --heading-accent: var(--primary);
-  
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
   /* 背景颜色 */
-  --bg-primary: #f0fdf4;
-  --bg-secondary: #dcfce7;
-  --bg-tertiary: #bbf7d0;
-  --bg-accent: #86efac;
-  
+  --bg-primary: oklch(92.951% 0.002 17.197);
+  --bg-secondary: oklch(86.445% 0.002 17.197);
+  --bg-tertiary: oklch(79.938% 0.001 17.197);
+  --bg-accent: oklch(24.195% 0.049 89.07);
+
   /* 边框与分割线 */
-  --border-primary: #86efac;
-  --border-secondary: #4ade80;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -490,38 +543,45 @@
 
 /* Forest 调色板 (基于 DaisyUI) */
 .forest {
-  --primary: #166534;    /* 深绿色 */
-  --secondary: #14532d;  /* 更深绿色 */
-  --accent: #3f6212;     /* 橄榄绿 */
-  --success: #15803d;    /* 绿色 */
-  --warning: #ca8a04;    /* 琥珀色 */
-  --error: #dc2626;      /* 红色 */
-  --info: #2563eb;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(68.628% 0.185 148.958);
+  --secondary: oklch(69.776% 0.135 168.327);
+  --accent: oklch(70.628% 0.119 185.713);
+  --success: oklch(64.8% 0.15 160);
+  --warning: oklch(84.71% 0.199 83.87);
+  --error: oklch(71.76% 0.221 22.18);
+  --info: oklch(72.06% 0.191 231.6);
+  --bg-primary: oklch(20.84% 0.008 17.911);
+  --bg-secondary: oklch(18.522% 0.007 17.911);
+  --bg-tertiary: oklch(16.203% 0.007 17.911);
+  --text-primary: oklch(83.768% 0.001 17.911);
+  --neutral: oklch(30.698% 0.039 171.364);
+  --text-on-dark: oklch(86.139% 0.007 171.364);
+
   /* 文本颜色 */
-  --text-primary: #f0fdf4;
-  --text-secondary: #dcfce7;
-  --text-tertiary: #bbf7d0;
-  --text-on-dark: #052e16;
-  --text-on-primary: #f0fdf4;
-  --text-on-secondary: #f0fdf4;
-  --text-on-accent: #f0fdf4;
-  
+  --text-primary: oklch(83.768% 0.001 17.911);
+  --text-on-dark: oklch(86.139% 0.007 171.364);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(0% 0 0);
+  --text-on-secondary: oklch(13.955% 0.027 168.327);
+  --text-on-accent: oklch(14.125% 0.023 185.713);
+
   /* 标题颜色 */
-  --heading-primary: #ffffff;
-  --heading-secondary: #f0fdf4;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #052e16;
-  --bg-secondary: #14532d;
-  --bg-tertiary: #166534;
-  --bg-accent: #3f6212;
-  
+  --bg-primary: oklch(20.84% 0.008 17.911);
+  --bg-secondary: oklch(18.522% 0.007 17.911);
+  --bg-tertiary: oklch(16.203% 0.007 17.911);
+  --bg-accent: oklch(30.698% 0.039 171.364);
+
   /* 边框与分割线 */
-  --border-primary: #4ade80;
-  --border-secondary: #86efac;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -533,38 +593,45 @@
 
 /* Aqua 调色板 (基于 DaisyUI) */
 .aqua {
-  --primary: #0891b2;    /* 深青色 */
-  --secondary: #06b6d4;  /* 青色 */
-  --accent: #00d4ff;     /* 亮青色 */
-  --success: #00ff9d;    /* 浅绿色 */
-  --warning: #fffb00;    /* 黄色 */
-  --error: #ff003c;      /* 红色 */
-  --info: #00b8ff;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(85.661% 0.144 198.645);
+  --secondary: oklch(60.682% 0.108 309.782);
+  --accent: oklch(93.426% 0.102 94.555);
+  --success: oklch(62.705% 0.169 149.213);
+  --warning: oklch(66.584% 0.157 58.318);
+  --error: oklch(73.95% 0.19 27.33);
+  --info: oklch(54.615% 0.215 262.88);
+  --bg-primary: oklch(37% 0.146 265.522);
+  --bg-secondary: oklch(28% 0.091 267.935);
+  --bg-tertiary: oklch(22% 0.091 267.935);
+  --text-primary: oklch(90% 0.058 230.902);
+  --neutral: oklch(27% 0.146 265.522);
+  --text-on-dark: oklch(80% 0.146 265.522);
+
   /* 文本颜色 */
-  --text-primary: #083344;
-  --text-secondary: #0e7490;
-  --text-tertiary: #155e75;
-  --text-on-dark: #f0f9ff;
-  --text-on-primary: #f0f9ff;
-  --text-on-secondary: #083344;
-  --text-on-accent: #083344;
-  
+  --text-primary: oklch(90% 0.058 230.902);
+  --text-on-dark: oklch(80% 0.146 265.522);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(40.124% 0.068 197.603);
+  --text-on-secondary: oklch(96% 0.016 293.756);
+  --text-on-accent: oklch(18.685% 0.02 94.555);
+
   /* 标题颜色 */
-  --heading-primary: #083344;
-  --heading-secondary: #0e7490;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #f0f9ff;
-  --bg-secondary: #e0f2fe;
-  --bg-tertiary: #bae6fd;
-  --bg-accent: #7dd3fc;
-  
+  --bg-primary: oklch(37% 0.146 265.522);
+  --bg-secondary: oklch(28% 0.091 267.935);
+  --bg-tertiary: oklch(22% 0.091 267.935);
+  --bg-accent: oklch(27% 0.146 265.522);
+
   /* 边框与分割线 */
-  --border-primary: #7dd3fc;
-  --border-secondary: #38bdf8;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -576,37 +643,45 @@
 
 /* Lofi 调色板 (基于 DaisyUI) */
 .lofi {
-  --primary: #000000;    /* 黑色 */
-  --secondary: #1a1a1a;  /* 深灰色 */
-  --accent: #2a2a2a;     /* 灰色 */
-  --success: #22c55e;    /* 绿色 */
-  --warning: #eab308;    /* 黄色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
-  --text-primary: #000000;
-  --text-secondary: #404040;
-  --text-tertiary: #737373;
-  --text-on-dark: #f5f5f5;
-  --text-on-primary: #f5f5f5;
-  --text-on-secondary: #f5f5f5;
-  --text-on-accent: #f5f5f5;
-  
+  /* 品牌色应用 */
+  --primary: oklch(15.906% 0 0);
+  --secondary: oklch(21.455% 0.001 17.278);
+  --accent: oklch(26.861% 0 0);
+  --success: oklch(90.13% 0.153 164.14);
+  --warning: oklch(88.37% 0.135 79.94);
+  --error: oklch(78.66% 0.15 28.47);
+  --info: oklch(79.54% 0.103 205.9);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(97% 0 0);
+  --bg-tertiary: oklch(94% 0 0);
+  --text-primary: oklch(0% 0 0);
+  --neutral: oklch(0% 0 0);
+  --text-on-dark: oklch(100% 0 0);
+
+  /* 文本颜色 */
+  --text-primary: oklch(0% 0 0);
+  --text-on-dark: oklch(100% 0 0);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(100% 0 0);
+  --text-on-secondary: oklch(100% 0 0);
+  --text-on-accent: oklch(100% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #000000;
-  --heading-secondary: #1a1a1a;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #fcfcfc;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #e5e5e5;
-  --bg-accent: #d4d4d4;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(97% 0 0);
+  --bg-tertiary: oklch(94% 0 0);
+  --bg-accent: oklch(0% 0 0);
+
   /* 边框与分割线 */
-  --border-primary: #d4d4d4;
-  --border-secondary: #a3a3a3;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -618,38 +693,45 @@
 
 /* Pastel 调色板 (基于 DaisyUI) */
 .pastel {
-  --primary: #d1c8ff;    /* 紫色 */
-  --secondary: #c2f0ff;  /* 蓝色 */
-  --accent: #c1f0d9;     /* 绿色 */
-  --success: #bef264;    /* 黄绿色 */
-  --warning: #fde68a;    /* 浅黄色 */
-  --error: #fca5a5;      /* 浅红色 */
-  --info: #93c5fd;       /* 浅蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(90% 0.063 306.703);
+  --secondary: oklch(89% 0.058 10.001);
+  --accent: oklch(90% 0.093 164.15);
+  --success: oklch(87% 0.15 154.449);
+  --warning: oklch(83% 0.128 66.29);
+  --error: oklch(80% 0.114 19.571);
+  --info: oklch(86% 0.127 207.078);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(98.462% 0.001 247.838);
+  --bg-tertiary: oklch(92.462% 0.001 247.838);
+  --text-primary: oklch(20% 0 0);
+  --neutral: oklch(55% 0.046 257.417);
+  --text-on-dark: oklch(92% 0.013 255.508);
+
   /* 文本颜色 */
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --text-tertiary: #999999;
-  --text-on-dark: #ffffff;
-  --text-on-primary: #333333;
-  --text-on-secondary: #333333;
-  --text-on-accent: #333333;
-  
+  --text-primary: oklch(20% 0 0);
+  --text-on-dark: oklch(92% 0.013 255.508);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(49% 0.265 301.924);
+  --text-on-secondary: oklch(51% 0.222 16.935);
+  --text-on-accent: oklch(50% 0.118 165.612);
+
   /* 标题颜色 */
-  --heading-primary: #000000;
-  --heading-secondary: #333333;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f8f8;
-  --bg-tertiary: #eeeeee;
-  --bg-accent: #e0e0e0;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(98.462% 0.001 247.838);
+  --bg-tertiary: oklch(92.462% 0.001 247.838);
+  --bg-accent: oklch(95% 0.046 257.417);
+
   /* 边框与分割线 */
-  --border-primary: #e0e0e0;
-  --border-secondary: #cccccc;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -661,38 +743,45 @@
 
 /* Fantasy 调色板 (基于 DaisyUI) */
 .fantasy {
-  --primary: #6d28d9;    /* 紫色 */
-  --secondary: #7c3aed;  /* 深紫色 */
-  --accent: #8b5cf6;     /* 浅紫色 */
-  --success: #10b981;    /* 绿色 */
-  --warning: #f59e0b;    /* 琥珀色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(37.45% 0.189 325.02);
+  --secondary: oklch(53.92% 0.162 241.36);
+  --accent: oklch(75.98% 0.204 56.72);
+  --success: oklch(64.8% 0.15 160);
+  --warning: oklch(84.71% 0.199 83.87);
+  --error: oklch(71.76% 0.221 22.18);
+  --info: oklch(72.06% 0.191 231.6);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(93% 0 0);
+  --bg-tertiary: oklch(86% 0 0);
+  --text-primary: oklch(27.807% 0.029 256.847);
+  --neutral: oklch(27.807% 0.029 256.847);
+  --text-on-dark: oklch(85.561% 0.005 256.847);
+
   /* 文本颜色 */
-  --text-primary: #1e1b4b;
-  --text-secondary: #312e81;
-  --text-tertiary: #4338ca;
-  --text-on-dark: #eef2ff;
-  --text-on-primary: #eef2ff;
-  --text-on-secondary: #eef2ff;
-  --text-on-accent: #1e1b4b;
-  
+  --text-primary: oklch(27.807% 0.029 256.847);
+  --text-on-dark: oklch(85.561% 0.005 256.847);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(87.49% 0.037 325.02);
+  --text-on-secondary: oklch(90.784% 0.032 241.36);
+  --text-on-accent: oklch(15.196% 0.04 56.72);
+
   /* 标题颜色 */
-  --heading-primary: #1e1b4b;
-  --heading-secondary: #312e81;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #eef2ff;
-  --bg-secondary: #ddd6fe;
-  --bg-tertiary: #c4b5fd;
-  --bg-accent: #a78bfa;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(93% 0 0);
+  --bg-tertiary: oklch(86% 0 0);
+  --bg-accent: oklch(27.807% 0.029 256.847);
+
   /* 边框与分割线 */
-  --border-primary: #a78bfa;
-  --border-secondary: #8b5cf6;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -704,38 +793,45 @@
 
 /* Wireframe 调色板 (基于 DaisyUI) */
 .wireframe {
-  --primary: #b8b8b8;    /* 灰色 */
-  --secondary: #d3d3d3;  /* 浅灰色 */
-  --accent: #e0e0e0;     /* 更浅灰色 */
-  --success: #a3a3a3;    /* 中灰色 */
-  --warning: #d4d4d4;    /* 浅灰色 */
-  --error: #737373;      /* 深灰色 */
-  --info: #e5e5e5;       /* 很浅灰色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(87% 0 0);
+  --secondary: oklch(87% 0 0);
+  --accent: oklch(87% 0 0);
+  --success: oklch(43% 0.095 166.913);
+  --warning: oklch(47% 0.137 46.201);
+  --error: oklch(44% 0.177 26.899);
+  --info: oklch(44% 0.11 240.79);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(97% 0 0);
+  --bg-tertiary: oklch(94% 0 0);
+  --text-primary: oklch(20% 0 0);
+  --neutral: oklch(87% 0 0);
+  --text-on-dark: oklch(26% 0 0);
+
   /* 文本颜色 */
-  --text-primary: #000000;
-  --text-secondary: #404040;
-  --text-tertiary: #737373;
-  --text-on-dark: #ffffff;
-  --text-on-primary: #000000;
-  --text-on-secondary: #000000;
-  --text-on-accent: #000000;
-  
+  --text-primary: oklch(20% 0 0);
+  --text-on-dark: oklch(26% 0 0);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(26% 0 0);
+  --text-on-secondary: oklch(26% 0 0);
+  --text-on-accent: oklch(26% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #000000;
-  --heading-secondary: #404040;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #e5e5e5;
-  --bg-accent: #d4d4d4;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(97% 0 0);
+  --bg-tertiary: oklch(94% 0 0);
+  --bg-accent: oklch(87% 0 0);
+
   /* 边框与分割线 */
-  --border-primary: #d4d4d4;
-  --border-secondary: #a3a3a3;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -747,38 +843,45 @@
 
 /* Black 调色板 (基于 DaisyUI) */
 .black {
-  --primary: #ffffff;    /* 白色 */
-  --secondary: #e5e5e5;  /* 浅灰色 */
-  --accent: #d4d4d4;     /* 灰色 */
-  --success: #22c55e;    /* 绿色 */
-  --warning: #eab308;    /* 黄色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(35% 0 0);
+  --secondary: oklch(35% 0 0);
+  --accent: oklch(35% 0 0);
+  --success: oklch(51.975% 0.176 142.495);
+  --warning: oklch(96.798% 0.211 109.769);
+  --error: oklch(62.795% 0.257 29.233);
+  --info: oklch(45.201% 0.313 264.052);
+  --bg-primary: oklch(0% 0 0);
+  --bg-secondary: oklch(19% 0 0);
+  --bg-tertiary: oklch(22% 0 0);
+  --text-primary: oklch(87.609% 0 0);
+  --neutral: oklch(35% 0 0);
+  --text-on-dark: oklch(100% 0 0);
+
   /* 文本颜色 */
-  --text-primary: #ffffff;
-  --text-secondary: #d4d4d4;
-  --text-tertiary: #a3a3a3;
-  --text-on-dark: #000000;
-  --text-on-primary: #000000;
-  --text-on-secondary: #000000;
-  --text-on-accent: #000000;
-  
+  --text-primary: oklch(87.609% 0 0);
+  --text-on-dark: oklch(100% 0 0);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(100% 0 0);
+  --text-on-secondary: oklch(100% 0 0);
+  --text-on-accent: oklch(100% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #ffffff;
-  --heading-secondary: #e5e5e5;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #000000;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #2a2a2a;
-  --bg-accent: #404040;
-  
+  --bg-primary: oklch(0% 0 0);
+  --bg-secondary: oklch(19% 0 0);
+  --bg-tertiary: oklch(22% 0 0);
+  --bg-accent: oklch(35% 0 0);
+
   /* 边框与分割线 */
-  --border-primary: #404040;
-  --border-secondary: #737373;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -790,38 +893,45 @@
 
 /* Luxury 调色板 (基于 DaisyUI) */
 .luxury {
-  --primary: #d4af37;    /* 金色 */
-  --secondary: #b8860b;  /* 深金色 */
-  --accent: #daa520;     /* 金黄色 */
-  --success: #22c55e;    /* 绿色 */
-  --warning: #f59e0b;    /* 琥珀色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(100% 0 0);
+  --secondary: oklch(27.581% 0.064 261.069);
+  --accent: oklch(36.674% 0.051 338.825);
+  --success: oklch(78.119% 0.192 132.154);
+  --warning: oklch(86.127% 0.136 102.891);
+  --error: oklch(71.753% 0.176 22.568);
+  --info: oklch(79.061% 0.121 237.133);
+  --bg-primary: oklch(14.076% 0.004 285.822);
+  --bg-secondary: oklch(20.219% 0.004 308.229);
+  --bg-tertiary: oklch(23.219% 0.004 308.229);
+  --text-primary: oklch(75.687% 0.123 76.89);
+  --neutral: oklch(24.27% 0.057 59.825);
+  --text-on-dark: oklch(93.203% 0.089 90.861);
+
   /* 文本颜色 */
-  --text-primary: #f0f0f0;
-  --text-secondary: #d3d3d3;
-  --text-tertiary: #a9a9a9;
-  --text-on-dark: #000000;
-  --text-on-primary: #000000;
-  --text-on-secondary: #f0f0f0;
-  --text-on-accent: #000000;
-  
+  --text-primary: oklch(75.687% 0.123 76.89);
+  --text-on-dark: oklch(93.203% 0.089 90.861);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(20% 0 0);
+  --text-on-secondary: oklch(85.516% 0.012 261.069);
+  --text-on-accent: oklch(87.334% 0.01 338.825);
+
   /* 标题颜色 */
-  --heading-primary: #ffffff;
-  --heading-secondary: #f0f0f0;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #2a2a2a;
-  --bg-accent: #3a3a3a;
-  
+  --bg-primary: oklch(14.076% 0.004 285.822);
+  --bg-secondary: oklch(20.219% 0.004 308.229);
+  --bg-tertiary: oklch(23.219% 0.004 308.229);
+  --bg-accent: oklch(24.27% 0.057 59.825);
+
   /* 边框与分割线 */
-  --border-primary: #3a3a3a;
-  --border-secondary: #5a5a5a;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -833,38 +943,45 @@
 
 /* Dracula 调色板 (基于 DaisyUI) */
 .dracula {
-  --primary: #bd93f9;    /* 紫色 */
-  --secondary: #ff79c6;  /* 粉色 */
-  --accent: #8be9fd;     /* 青色 */
-  --success: #50fa7b;    /* 绿色 */
-  --warning: #f1fa8c;    /* 黄色 */
-  --error: #ff5555;      /* 红色 */
-  --info: #6272a4;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(75.461% 0.183 346.812);
+  --secondary: oklch(74.202% 0.148 301.883);
+  --accent: oklch(83.392% 0.124 66.558);
+  --success: oklch(87.099% 0.219 148.024);
+  --warning: oklch(95.533% 0.134 112.757);
+  --error: oklch(68.22% 0.206 24.43);
+  --info: oklch(88.263% 0.093 212.846);
+  --bg-primary: oklch(28.822% 0.022 277.508);
+  --bg-secondary: oklch(26.805% 0.02 277.508);
+  --bg-tertiary: oklch(24.787% 0.019 277.508);
+  --text-primary: oklch(97.747% 0.007 106.545);
+  --neutral: oklch(39.445% 0.032 275.524);
+  --text-on-dark: oklch(87.889% 0.006 275.524);
+
   /* 文本颜色 */
-  --text-primary: #f8f8f2;
-  --text-secondary: #d4d4d4;
-  --text-tertiary: #b8b8b8;
-  --text-on-dark: #282a36;
-  --text-on-primary: #282a36;
-  --text-on-secondary: #282a36;
-  --text-on-accent: #282a36;
-  
+  --text-primary: oklch(97.747% 0.007 106.545);
+  --text-on-dark: oklch(87.889% 0.006 275.524);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(15.092% 0.036 346.812);
+  --text-on-secondary: oklch(14.84% 0.029 301.883);
+  --text-on-accent: oklch(16.678% 0.024 66.558);
+
   /* 标题颜色 */
-  --heading-primary: #ffffff;
-  --heading-secondary: #f8f8f2;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #282a36;
-  --bg-secondary: #44475a;
-  --bg-tertiary: #6272a4;
-  --bg-accent: #bd93f9;
-  
+  --bg-primary: oklch(28.822% 0.022 277.508);
+  --bg-secondary: oklch(26.805% 0.02 277.508);
+  --bg-tertiary: oklch(24.787% 0.019 277.508);
+  --bg-accent: oklch(39.445% 0.032 275.524);
+
   /* 边框与分割线 */
-  --border-primary: #6272a4;
-  --border-secondary: #bd93f9;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -876,38 +993,45 @@
 
 /* CMYK 调色板 (基于 DaisyUI) */
 .cmyk {
-  --primary: #00a0e2;    /* 青色 */
-  --secondary: #ff0090;  /* 品红色 */
-  --accent: #ffed00;     /* 黄色 */
-  --success: #00ff00;    /* 绿色 */
-  --warning: #ff8c00;    /* 橙色 */
-  --error: #ff0000;      /* 红色 */
-  --info: #0000ff;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(71.772% 0.133 239.443);
+  --secondary: oklch(64.476% 0.202 359.339);
+  --accent: oklch(94.228% 0.189 105.306);
+  --success: oklch(46.949% 0.162 321.406);
+  --warning: oklch(71.236% 0.159 52.023);
+  --error: oklch(62.013% 0.208 28.717);
+  --info: oklch(68.475% 0.094 217.284);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(95% 0 0);
+  --bg-tertiary: oklch(90% 0 0);
+  --text-primary: oklch(20% 0 0);
+  --neutral: oklch(21.778% 0 0);
+  --text-on-dark: oklch(84.355% 0 0);
+
   /* 文本颜色 */
-  --text-primary: #000000;
-  --text-secondary: #404040;
-  --text-tertiary: #737373;
-  --text-on-dark: #ffffff;
-  --text-on-primary: #ffffff;
-  --text-on-secondary: #ffffff;
-  --text-on-accent: #000000;
-  
+  --text-primary: oklch(20% 0 0);
+  --text-on-dark: oklch(84.355% 0 0);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(14.354% 0.026 239.443);
+  --text-on-secondary: oklch(12.895% 0.04 359.339);
+  --text-on-accent: oklch(18.845% 0.037 105.306);
+
   /* 标题颜色 */
-  --heading-primary: #000000;
-  --heading-secondary: #404040;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #e5e5e5;
-  --bg-accent: #d4d4d4;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(95% 0 0);
+  --bg-tertiary: oklch(90% 0 0);
+  --bg-accent: oklch(21.778% 0 0);
+
   /* 边框与分割线 */
-  --border-primary: #d4d4d4;
-  --border-secondary: #a3a3a3;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -919,38 +1043,45 @@
 
 /* Autumn 调色板 (基于 DaisyUI) */
 .autumn {
-  --primary: #92400e;    /* 深橙色 */
-  --secondary: #d97706;  /* 橙色 */
-  --accent: #f59e0b;     /* 浅橙色 */
-  --success: #16a34a;    /* 绿色 */
-  --warning: #ca8a04;    /* 琥珀色 */
-  --error: #dc2626;      /* 红色 */
-  --info: #2563eb;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(40.723% 0.161 17.53);
+  --secondary: oklch(61.676% 0.169 23.865);
+  --accent: oklch(73.425% 0.094 60.729);
+  --success: oklch(60.995% 0.08 174.616);
+  --warning: oklch(70.081% 0.164 56.844);
+  --error: oklch(53.07% 0.241 24.16);
+  --info: oklch(69.224% 0.097 207.284);
+  --bg-primary: oklch(95.814% 0 0);
+  --bg-secondary: oklch(89.107% 0 0);
+  --bg-tertiary: oklch(82.4% 0 0);
+  --text-primary: oklch(19.162% 0 0);
+  --neutral: oklch(54.367% 0.037 51.902);
+  --text-on-dark: oklch(90.873% 0.007 51.902);
+
   /* 文本颜色 */
-  --text-primary: #451a03;
-  --text-secondary: #7c2d12;
-  --text-tertiary: #9a3412;
-  --text-on-dark: #ffedd5;
-  --text-on-primary: #ffedd5;
-  --text-on-secondary: #451a03;
-  --text-on-accent: #451a03;
-  
+  --text-primary: oklch(19.162% 0 0);
+  --text-on-dark: oklch(90.873% 0.007 51.902);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(88.144% 0.032 17.53);
+  --text-on-secondary: oklch(12.335% 0.033 23.865);
+  --text-on-accent: oklch(14.685% 0.018 60.729);
+
   /* 标题颜色 */
-  --heading-primary: #451a03;
-  --heading-secondary: #7c2d12;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #ffedd5;
-  --bg-secondary: #fed7aa;
-  --bg-tertiary: #fdba74;
-  --bg-accent: #fb923c;
-  
+  --bg-primary: oklch(95.814% 0 0);
+  --bg-secondary: oklch(89.107% 0 0);
+  --bg-tertiary: oklch(82.4% 0 0);
+  --bg-accent: oklch(54.367% 0.037 51.902);
+
   /* 边框与分割线 */
-  --border-primary: #fb923c;
-  --border-secondary: #f97316;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1005,38 +1136,45 @@
 
 /* Acid 调色板 (基于 DaisyUI) */
 .acid {
-  --primary: #ff00ff;    /* 品红色 */
-  --secondary: #00ffff;  /* 青色 */
-  --accent: #00ff00;     /* 绿色 */
-  --success: #ffff00;    /* 黄色 */
-  --warning: #ff8000;    /* 橙色 */
-  --error: #ff0000;      /* 红色 */
-  --info: #0000ff;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(71.9% 0.357 330.759);
+  --secondary: oklch(73.37% 0.224 48.25);
+  --accent: oklch(92.78% 0.264 122.962);
+  --success: oklch(85.72% 0.266 158.53);
+  --warning: oklch(91.01% 0.212 100.5);
+  --error: oklch(64.84% 0.293 29.349);
+  --info: oklch(60.72% 0.227 252.05);
+  --bg-primary: oklch(98% 0 0);
+  --bg-secondary: oklch(95% 0 0);
+  --bg-tertiary: oklch(91% 0 0);
+  --text-primary: oklch(0% 0 0);
+  --neutral: oklch(21.31% 0.128 278.68);
+  --text-on-dark: oklch(84.262% 0.025 278.68);
+
   /* 文本颜色 */
-  --text-primary: #000000;
-  --text-secondary: #404040;
-  --text-tertiary: #737373;
-  --text-on-dark: #ffffff;
-  --text-on-primary: #ffffff;
-  --text-on-secondary: #000000;
-  --text-on-accent: #000000;
-  
+  --text-primary: oklch(0% 0 0);
+  --text-on-dark: oklch(84.262% 0.025 278.68);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(14.38% 0.071 330.759);
+  --text-on-secondary: oklch(14.674% 0.044 48.25);
+  --text-on-accent: oklch(18.556% 0.052 122.962);
+
   /* 标题颜色 */
-  --heading-primary: #000000;
-  --heading-secondary: #404040;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #e5e5e5;
-  --bg-accent: #d4d4d4;
-  
+  --bg-primary: oklch(98% 0 0);
+  --bg-secondary: oklch(95% 0 0);
+  --bg-tertiary: oklch(91% 0 0);
+  --bg-accent: oklch(21.31% 0.128 278.68);
+
   /* 边框与分割线 */
-  --border-primary: #d4d4d4;
-  --border-secondary: #a3a3a3;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1048,38 +1186,45 @@
 
 /* Lemonade 调色板 (基于 DaisyUI) */
 .lemonade {
-  --primary: #ffed4c;    /* 黄色 */
-  --secondary: #fde047;  /* 浅黄色 */
-  --accent: #facc15;     /* 琥珀色 */
-  --success: #22c55e;    /* 绿色 */
-  --warning: #f59e0b;    /* 琥珀色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(58.92% 0.199 134.6);
+  --secondary: oklch(77.75% 0.196 111.09);
+  --accent: oklch(85.39% 0.201 100.73);
+  --success: oklch(86.19% 0.047 157.85);
+  --warning: oklch(86.19% 0.047 102.15);
+  --error: oklch(86.19% 0.047 25.85);
+  --info: oklch(86.19% 0.047 224.14);
+  --bg-primary: oklch(98.71% 0.02 123.72);
+  --bg-secondary: oklch(91.8% 0.018 123.72);
+  --bg-tertiary: oklch(84.89% 0.017 123.72);
+  --text-primary: oklch(19.742% 0.004 123.72);
+  --neutral: oklch(30.98% 0.075 108.6);
+  --text-on-dark: oklch(86.196% 0.015 108.6);
+
   /* 文本颜色 */
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --text-tertiary: #999999;
-  --text-on-dark: #ffffff;
-  --text-on-primary: #333333;
-  --text-on-secondary: #333333;
-  --text-on-accent: #333333;
-  
+  --text-primary: oklch(19.742% 0.004 123.72);
+  --text-on-dark: oklch(86.196% 0.015 108.6);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(11.784% 0.039 134.6);
+  --text-on-secondary: oklch(15.55% 0.039 111.09);
+  --text-on-accent: oklch(17.078% 0.04 100.73);
+
   /* 标题颜色 */
-  --heading-primary: #000000;
-  --heading-secondary: #333333;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f8f8;
-  --bg-tertiary: #eeeeee;
-  --bg-accent: #e0e0e0;
-  
+  --bg-primary: oklch(98.71% 0.02 123.72);
+  --bg-secondary: oklch(91.8% 0.018 123.72);
+  --bg-tertiary: oklch(84.89% 0.017 123.72);
+  --bg-accent: oklch(30.98% 0.075 108.6);
+
   /* 边框与分割线 */
-  --border-primary: #e0e0e0;
-  --border-secondary: #cccccc;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1091,38 +1236,45 @@
 
 /* Night 调色板 (基于 DaisyUI) */
 .night {
-  --primary: #38bdf8;    /* 蓝色 */
-  --secondary: #0ea5e9;  /* 深蓝色 */
-  --accent: #0284c7;     /* 更深蓝色 */
-  --success: #22c55e;    /* 绿色 */
-  --warning: #f59e0b;    /* 琥珀色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(75.351% 0.138 232.661);
+  --secondary: oklch(68.011% 0.158 276.934);
+  --accent: oklch(72.36% 0.176 350.048);
+  --success: oklch(78.452% 0.132 181.911);
+  --warning: oklch(83.242% 0.139 82.95);
+  --error: oklch(71.785% 0.17 13.118);
+  --info: oklch(68.455% 0.148 237.251);
+  --bg-primary: oklch(20.768% 0.039 265.754);
+  --bg-secondary: oklch(19.314% 0.037 265.754);
+  --bg-tertiary: oklch(17.86% 0.034 265.754);
+  --text-primary: oklch(84.153% 0.007 265.754);
+  --neutral: oklch(27.949% 0.036 260.03);
+  --text-on-dark: oklch(85.589% 0.007 260.03);
+
   /* 文本颜色 */
-  --text-primary: #e0f2fe;
-  --text-secondary: #bae6fd;
-  --text-tertiary: #7dd3fc;
-  --text-on-dark: #0c4a6e;
-  --text-on-primary: #0c4a6e;
-  --text-on-secondary: #e0f2fe;
-  --text-on-accent: #e0f2fe;
-  
+  --text-primary: oklch(84.153% 0.007 265.754);
+  --text-on-dark: oklch(85.589% 0.007 260.03);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(15.07% 0.027 232.661);
+  --text-on-secondary: oklch(13.602% 0.031 276.934);
+  --text-on-accent: oklch(14.472% 0.035 350.048);
+
   /* 标题颜色 */
-  --heading-primary: #0c4a6e;
-  --heading-secondary: #075985;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #0c4a6e;
-  --bg-secondary: #075985;
-  --bg-tertiary: #0369a1;
-  --bg-accent: #0284c7;
-  
+  --bg-primary: oklch(20.768% 0.039 265.754);
+  --bg-secondary: oklch(19.314% 0.037 265.754);
+  --bg-tertiary: oklch(17.86% 0.034 265.754);
+  --bg-accent: oklch(27.949% 0.036 260.03);
+
   /* 边框与分割线 */
-  --border-primary: #0284c7;
-  --border-secondary: #0ea5e9;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1134,38 +1286,45 @@
 
 /* Coffee 调色板 (基于 DaisyUI) */
 .coffee {
-  --primary: #7f5539;    /* 棕色 */
-  --secondary: #a3663c;  /* 浅棕色 */
-  --accent: #b45309;     /* 深橙色 */
-  --success: #15803d;    /* 绿色 */
-  --warning: #ca8a04;    /* 琥珀色 */
-  --error: #b91c1c;      /* 红色 */
-  --info: #0369a1;       /* 深蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(71.996% 0.123 62.756);
+  --secondary: oklch(34.465% 0.029 199.194);
+  --accent: oklch(42.621% 0.074 224.389);
+  --success: oklch(74.722% 0.072 131.116);
+  --warning: oklch(88.15% 0.14 87.722);
+  --error: oklch(77.318% 0.128 31.871);
+  --info: oklch(79.49% 0.063 184.558);
+  --bg-primary: oklch(24% 0.023 329.708);
+  --bg-secondary: oklch(21% 0.021 329.708);
+  --bg-tertiary: oklch(16% 0.019 329.708);
+  --text-primary: oklch(72.354% 0.092 79.129);
+  --neutral: oklch(16.51% 0.015 326.261);
+  --text-on-dark: oklch(83.302% 0.003 326.261);
+
   /* 文本颜色 */
-  --text-primary: #291304;
-  --text-secondary: #572204;
-  --text-tertiary: #7c3d12;
-  --text-on-dark: #f5f1ee;
-  --text-on-primary: #f5f1ee;
-  --text-on-secondary: #291304;
-  --text-on-accent: #f5f1ee;
-  
+  --text-primary: oklch(72.354% 0.092 79.129);
+  --text-on-dark: oklch(83.302% 0.003 326.261);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(14.399% 0.024 62.756);
+  --text-on-secondary: oklch(86.893% 0.005 199.194);
+  --text-on-accent: oklch(88.524% 0.014 224.389);
+
   /* 标题颜色 */
-  --heading-primary: #291304;
-  --heading-secondary: #572204;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #f5f1ee;
-  --bg-secondary: #e8d5c4;
-  --bg-tertiary: #d1bfa3;
-  --bg-accent: #b45309;
-  
+  --bg-primary: oklch(24% 0.023 329.708);
+  --bg-secondary: oklch(21% 0.021 329.708);
+  --bg-tertiary: oklch(16% 0.019 329.708);
+  --bg-accent: oklch(16.51% 0.015 326.261);
+
   /* 边框与分割线 */
-  --border-primary: #b45309;
-  --border-secondary: #a3663c;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1177,38 +1336,45 @@
 
 /* Winter 调色板 (基于 DaisyUI) */
 .winter {
-  --primary: #0ea5e9;    /* 蓝色 */
-  --secondary: #38bdf8;  /* 浅蓝色 */
-  --accent: #7dd3fc;     /* 更浅蓝色 */
-  --success: #22c55e;    /* 绿色 */
-  --warning: #f59e0b;    /* 琥珀色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(56.86% 0.255 257.57);
+  --secondary: oklch(42.551% 0.161 282.339);
+  --accent: oklch(59.939% 0.191 335.171);
+  --success: oklch(80.494% 0.077 197.823);
+  --warning: oklch(89.172% 0.045 71.47);
+  --error: oklch(73.092% 0.11 20.076);
+  --info: oklch(88.127% 0.085 214.515);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(97.466% 0.011 259.822);
+  --bg-tertiary: oklch(93.268% 0.016 262.751);
+  --text-primary: oklch(41.886% 0.053 255.824);
+  --neutral: oklch(19.616% 0.063 257.651);
+  --text-on-dark: oklch(83.923% 0.012 257.651);
+
   /* 文本颜色 */
-  --text-primary: #082f49;
-  --text-secondary: #0c4a6e;
-  --text-tertiary: #0369a1;
-  --text-on-dark: #f0f9ff;
-  --text-on-primary: #f0f9ff;
-  --text-on-secondary: #082f49;
-  --text-on-accent: #082f49;
-  
+  --text-primary: oklch(41.886% 0.053 255.824);
+  --text-on-dark: oklch(83.923% 0.012 257.651);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(91.372% 0.051 257.57);
+  --text-on-secondary: oklch(88.51% 0.032 282.339);
+  --text-on-accent: oklch(11.988% 0.038 335.171);
+
   /* 标题颜色 */
-  --heading-primary: #082f49;
-  --heading-secondary: #0c4a6e;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #f0f9ff;
-  --bg-secondary: #e0f2fe;
-  --bg-tertiary: #bae6fd;
-  --bg-accent: #7dd3fc;
-  
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(97.466% 0.011 259.822);
+  --bg-tertiary: oklch(93.268% 0.016 262.751);
+  --bg-accent: oklch(19.616% 0.063 257.651);
+
   /* 边框与分割线 */
-  --border-primary: #7dd3fc;
-  --border-secondary: #38bdf8;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1220,38 +1386,45 @@
 
 /* Dim 调色板 (基于 DaisyUI) */
 .dim {
-  --primary: #7d7aff;    /* 紫色 */
-  --secondary: #a0a0ff;  /* 浅紫色 */
-  --accent: #c0c0ff;     /* 更浅紫色 */
-  --success: #7dff7d;    /* 绿色 */
-  --warning: #ffff7d;    /* 黄色 */
-  --error: #ff7d7d;      /* 红色 */
-  --info: #7dc0ff;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(86.133% 0.141 139.549);
+  --secondary: oklch(73.375% 0.165 35.353);
+  --accent: oklch(74.229% 0.133 311.379);
+  --success: oklch(86.171% 0.142 166.534);
+  --warning: oklch(86.163% 0.142 94.818);
+  --error: oklch(82.418% 0.099 33.756);
+  --info: oklch(86.078% 0.142 206.182);
+  --bg-primary: oklch(30.857% 0.023 264.149);
+  --bg-secondary: oklch(28.036% 0.019 264.182);
+  --bg-tertiary: oklch(26.346% 0.018 262.177);
+  --text-primary: oklch(82.901% 0.031 222.959);
+  --neutral: oklch(24.731% 0.02 264.094);
+  --text-on-dark: oklch(82.901% 0.031 222.959);
+
   /* 文本颜色 */
-  --text-primary: #202040;
-  --text-secondary: #404080;
-  --text-tertiary: #6060a0;
-  --text-on-dark: #f0f0ff;
-  --text-on-primary: #f0f0ff;
-  --text-on-secondary: #202040;
-  --text-on-accent: #202040;
-  
+  --text-primary: oklch(82.901% 0.031 222.959);
+  --text-on-dark: oklch(82.901% 0.031 222.959);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(17.226% 0.028 139.549);
+  --text-on-secondary: oklch(14.675% 0.033 35.353);
+  --text-on-accent: oklch(14.845% 0.026 311.379);
+
   /* 标题颜色 */
-  --heading-primary: #202040;
-  --heading-secondary: #404080;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #f0f0ff;
-  --bg-secondary: #e0e0ff;
-  --bg-tertiary: #d0d0ff;
-  --bg-accent: #c0c0ff;
-  
+  --bg-primary: oklch(30.857% 0.023 264.149);
+  --bg-secondary: oklch(28.036% 0.019 264.182);
+  --bg-tertiary: oklch(26.346% 0.018 262.177);
+  --bg-accent: oklch(24.731% 0.02 264.094);
+
   /* 边框与分割线 */
-  --border-primary: #c0c0ff;
-  --border-secondary: #a0a0ff;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1263,38 +1436,45 @@
 
 /* Nord 调色板 (基于 DaisyUI) */
 .nord {
-  --primary: #5e81ac;    /* 蓝色 */
-  --secondary: #81a1c1;  /* 浅蓝色 */
-  --accent: #88c0d0;     /* 青色 */
-  --success: #a3be8c;    /* 绿色 */
-  --warning: #ebcb8b;    /* 黄色 */
-  --error: #bf616a;      /* 红色 */
-  --info: #b48ead;       /* 紫色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(59.435% 0.077 254.027);
+  --secondary: oklch(69.651% 0.059 248.687);
+  --accent: oklch(77.464% 0.062 217.469);
+  --success: oklch(76.827% 0.074 131.063);
+  --warning: oklch(85.486% 0.089 84.093);
+  --error: oklch(60.61% 0.12 15.341);
+  --info: oklch(69.207% 0.062 332.664);
+  --bg-primary: oklch(95.127% 0.007 260.731);
+  --bg-secondary: oklch(93.299% 0.01 261.788);
+  --bg-tertiary: oklch(89.925% 0.016 262.749);
+  --text-primary: oklch(32.437% 0.022 264.182);
+  --neutral: oklch(45.229% 0.035 264.131);
+  --text-on-dark: oklch(89.925% 0.016 262.749);
+
   /* 文本颜色 */
-  --text-primary: #2e3440;
-  --text-secondary: #3b4252;
-  --text-tertiary: #434c5e;
-  --text-on-dark: #eceff4;
-  --text-on-primary: #eceff4;
-  --text-on-secondary: #2e3440;
-  --text-on-accent: #2e3440;
-  
+  --text-primary: oklch(32.437% 0.022 264.182);
+  --text-on-dark: oklch(89.925% 0.016 262.749);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(11.887% 0.015 254.027);
+  --text-on-secondary: oklch(13.93% 0.011 248.687);
+  --text-on-accent: oklch(15.492% 0.012 217.469);
+
   /* 标题颜色 */
-  --heading-primary: #2e3440;
-  --heading-secondary: #3b4252;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #eceff4;
-  --bg-secondary: #e5e9f0;
-  --bg-tertiary: #d8dee9;
-  --bg-accent: #88c0d0;
-  
+  --bg-primary: oklch(95.127% 0.007 260.731);
+  --bg-secondary: oklch(93.299% 0.01 261.788);
+  --bg-tertiary: oklch(89.925% 0.016 262.749);
+  --bg-accent: oklch(45.229% 0.035 264.131);
+
   /* 边框与分割线 */
-  --border-primary: #88c0d0;
-  --border-secondary: #81a1c1;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1306,38 +1486,45 @@
 
 /* Sunset 调色板 (基于 DaisyUI) */
 .sunset {
-  --primary: #ea580c;    /* 橙色 */
-  --secondary: #f97316;  /* 浅橙色 */
-  --accent: #fb923c;     /* 更浅橙色 */
-  --success: #22c55e;    /* 绿色 */
-  --warning: #eab308;    /* 黄色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(74.703% 0.158 39.947);
+  --secondary: oklch(72.537% 0.177 2.72);
+  --accent: oklch(71.294% 0.166 299.844);
+  --success: oklch(85.56% 0.085 144.778);
+  --warning: oklch(85.569% 0.084 74.427);
+  --error: oklch(85.511% 0.078 16.886);
+  --info: oklch(85.559% 0.085 206.015);
+  --bg-primary: oklch(22% 0.019 237.69);
+  --bg-secondary: oklch(20% 0.019 237.69);
+  --bg-tertiary: oklch(18% 0.019 237.69);
+  --text-primary: oklch(77.383% 0.043 245.096);
+  --neutral: oklch(26% 0.019 237.69);
+  --text-on-dark: oklch(70% 0.019 237.69);
+
   /* 文本颜色 */
-  --text-primary: #431407;
-  --text-secondary: #7c2d12;
-  --text-tertiary: #9a3412;
-  --text-on-dark: #fff7ed;
-  --text-on-primary: #fff7ed;
-  --text-on-secondary: #431407;
-  --text-on-accent: #431407;
-  
+  --text-primary: oklch(77.383% 0.043 245.096);
+  --text-on-dark: oklch(70% 0.019 237.69);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(14.94% 0.031 39.947);
+  --text-on-secondary: oklch(14.507% 0.035 2.72);
+  --text-on-accent: oklch(14.258% 0.033 299.844);
+
   /* 标题颜色 */
-  --heading-primary: #431407;
-  --heading-secondary: #7c2d12;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #fff7ed;
-  --bg-secondary: #ffedd5;
-  --bg-tertiary: #fed7aa;
-  --bg-accent: #fdba74;
-  
+  --bg-primary: oklch(22% 0.019 237.69);
+  --bg-secondary: oklch(20% 0.019 237.69);
+  --bg-tertiary: oklch(18% 0.019 237.69);
+  --bg-accent: oklch(26% 0.019 237.69);
+
   /* 边框与分割线 */
-  --border-primary: #fdba74;
-  --border-secondary: #fb923c;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1349,38 +1536,45 @@
 
 /* Caramellatte 调色板 (基于 DaisyUI) */
 .caramellatte {
-  --primary: #d4a76a;    /* 卡拉米色 */
-  --secondary: #e5c07b;  /* 浅卡拉米色 */
-  --accent: #f0d6a8;     /* 更浅卡拉米色 */
-  --success: #8bba8f;    /* 绿色 */
-  --warning: #e5c07b;    /* 琥珀色 */
-  --error: #e06c75;      /* 红色 */
-  --info: #61afef;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(0% 0 0);
+  --secondary: oklch(22.45% 0.075 37.85);
+  --accent: oklch(46.44% 0.111 37.85);
+  --success: oklch(43% 0.095 166.913);
+  --warning: oklch(82% 0.189 84.429);
+  --error: oklch(70% 0.191 22.216);
+  --info: oklch(42% 0.199 265.638);
+  --bg-primary: oklch(98% 0.016 73.684);
+  --bg-secondary: oklch(95% 0.038 75.164);
+  --bg-tertiary: oklch(90% 0.076 70.697);
+  --text-primary: oklch(40% 0.123 38.172);
+  --neutral: oklch(55% 0.195 38.402);
+  --text-on-dark: oklch(98% 0.016 73.684);
+
   /* 文本颜色 */
-  --text-primary: #3e2723;
-  --text-secondary: #5d4037;
-  --text-tertiary: #795548;
-  --text-on-dark: #fffbf5;
-  --text-on-primary: #fffbf5;
-  --text-on-secondary: #3e2723;
-  --text-on-accent: #3e2723;
-  
+  --text-primary: oklch(40% 0.123 38.172);
+  --text-on-dark: oklch(98% 0.016 73.684);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(100% 0 0);
+  --text-on-secondary: oklch(90% 0.076 70.697);
+  --text-on-accent: oklch(90% 0.076 70.697);
+
   /* 标题颜色 */
-  --heading-primary: #3e2723;
-  --heading-secondary: #5d4037;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #fffbf5;
-  --bg-secondary: #fff6e9;
-  --bg-tertiary: #f5e9d2;
-  --bg-accent: #f0d6a8;
-  
+  --bg-primary: oklch(98% 0.016 73.684);
+  --bg-secondary: oklch(95% 0.038 75.164);
+  --bg-tertiary: oklch(90% 0.076 70.697);
+  --bg-accent: oklch(95% 0.195 38.402);
+
   /* 边框与分割线 */
-  --border-primary: #f0d6a8;
-  --border-secondary: #e5c07b;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
@@ -1392,38 +1586,45 @@
 
 /* Abyss 调色板 (基于 DaisyUI) */
 .abyss {
-  --primary: #4c30ff;    /* 深蓝色 */
-  --secondary: #6366f1;  /* 蓝色 */
-  --accent: #818cf8;     /* 浅蓝色 */
-  --success: #10b981;    /* 绿色 */
-  --warning: #f59e0b;    /* 琥珀色 */
-  --error: #ef4444;      /* 红色 */
-  --info: #3b82f6;       /* 蓝色 */
-  
+  /* 品牌色应用 */
+  --primary: oklch(92% 0.2653 125);
+  --secondary: oklch(83.27% 0.0764 298.3);
+  --accent: oklch(43% 0 0);
+  --success: oklch(79% 0.209 151.711);
+  --warning: oklch(84.8% 0.1962 84.62);
+  --error: oklch(65% 0.1985 24.22);
+  --info: oklch(74% 0.16 232.661);
+  --bg-primary: oklch(20% 0.08 209);
+  --bg-secondary: oklch(15% 0.08 209);
+  --bg-tertiary: oklch(10% 0.08 209);
+  --text-primary: oklch(90% 0.076 70.697);
+  --neutral: oklch(30% 0.08 209);
+  --text-on-dark: oklch(90% 0.076 70.697);
+
   /* 文本颜色 */
-  --text-primary: #030014;
-  --text-secondary: #1e1b4b;
-  --text-tertiary: #312e81;
-  --text-on-dark: #eef2ff;
-  --text-on-primary: #eef2ff;
-  --text-on-secondary: #eef2ff;
-  --text-on-accent: #030014;
-  
+  --text-primary: oklch(90% 0.076 70.697);
+  --text-on-dark: oklch(90% 0.076 70.697);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(50% 0.2653 125);
+  --text-on-secondary: oklch(43.27% 0.0764 298.3);
+  --text-on-accent: oklch(98% 0 0);
+
   /* 标题颜色 */
-  --heading-primary: #030014;
-  --heading-secondary: #1e1b4b;
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
   --heading-accent: var(--accent);
-  
+
   /* 背景颜色 */
-  --bg-primary: #030014;
-  --bg-secondary: #1e1b4b;
-  --bg-tertiary: #312e81;
-  --bg-accent: #4c30ff;
-  
+  --bg-primary: oklch(20% 0.08 209);
+  --bg-secondary: oklch(15% 0.08 209);
+  --bg-tertiary: oklch(10% 0.08 209);
+  --bg-accent: oklch(30% 0.08 209);
+
   /* 边框与分割线 */
-  --border-primary: #4c30ff;
-  --border-secondary: #6366f1;
-  
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
   /* 按钮颜色 */
   --btn-primary-bg: var(--primary);
   --btn-primary-text: var(--text-on-primary);
