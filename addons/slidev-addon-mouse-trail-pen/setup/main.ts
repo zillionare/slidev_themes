@@ -80,53 +80,53 @@ const colorPresets = {
 }
 
 const get_config = () => {
-    console.log('[MouseTrail] 开始获取配置...')
+    console.debug('[MouseTrail] 开始获取配置...')
     
     if (typeof window !== 'undefined' && (window as any).__slidev__) {
         const slidevData = (window as any).__slidev__
-        console.log('[MouseTrail] Slidev 数据:', slidevData)
+        console.debug('[MouseTrail] Slidev 数据:', slidevData)
         
         // 优先使用 configs.mouseTrail
         let mouseTrailConfig = {}
         if (slidevData.configs && slidevData.configs.mouseTrail) {
             mouseTrailConfig = slidevData.configs.mouseTrail
-            console.log('[MouseTrail] 从 configs.mouseTrail 获取配置:', mouseTrailConfig)
+            console.debug('[MouseTrail] 从 configs.mouseTrail 获取配置:', mouseTrailConfig)
         } else {
             // 回退到 frontmatter
             const frontmatter = slidevData.frontmatter || {}
-            console.log('[MouseTrail] Frontmatter 数据:', frontmatter)
+            console.debug('[MouseTrail] Frontmatter 数据:', frontmatter)
             mouseTrailConfig = frontmatter.mouseTrail || frontmatter.mouse_trail || {}
-            console.log('[MouseTrail] 从 frontmatter 获取配置:', mouseTrailConfig)
+            console.debug('[MouseTrail] 从 frontmatter 获取配置:', mouseTrailConfig)
         }
 
         // 合并默认配置和获取的配置
         const config = { ...defaultConfig, ...mouseTrailConfig }
-        console.log('[MouseTrail] 合并后的配置:', config)
+        console.debug('[MouseTrail] 合并后的配置:', config)
 
         // 如果配置了预设颜色，则使用预设的颜色
         if (config.preset && colorPresets[config.preset as keyof typeof colorPresets]) {
             config.colors = colorPresets[config.preset as keyof typeof colorPresets]
-            console.log('[MouseTrail] 使用预设颜色:', config.preset, config.colors)
+            console.debug('[MouseTrail] 使用预设颜色:', config.preset, config.colors)
         }
 
-        console.log('[MouseTrail] 最终配置:', config)
+        console.debug('[MouseTrail] 最终配置:', config)
         return config
     }
 
-    console.log('[MouseTrail] 无法获取 Slidev 数据，使用默认配置')
+    console.debug('[MouseTrail] 无法获取 Slidev 数据，使用默认配置')
     // 如果无法获取 SLIDEV 数据，则返回默认配置
     return defaultConfig
 }
 
 export default defineAppSetup(({ app, router }) => {
-    console.log('[MouseTrail] 插件初始化开始')
+    console.debug('[MouseTrail] 插件初始化开始')
     
     // 延迟获取配置，确保 Slidev 完全加载
     let frontmatterConfig = defaultConfig
     
     const loadConfig = () => {
         frontmatterConfig = get_config()
-        console.log('[MouseTrail] 配置加载完成:', frontmatterConfig)
+        console.debug('[MouseTrail] 配置加载完成:', frontmatterConfig)
         return frontmatterConfig
     }
     
@@ -366,27 +366,27 @@ export default defineAppSetup(({ app, router }) => {
     }
 
     const updateConfig = () => {
-        console.log('[MouseTrail] 更新配置中...')
+        console.debug('[MouseTrail] 更新配置中...')
         // 重新加载基础配置
         const baseConfig = loadConfig()
         const newConfig = getCurrentPageConfig(baseConfig)
-        console.log('[MouseTrail] 新配置:', newConfig)
-        console.log('[MouseTrail] 当前配置:', config)
+        console.debug('[MouseTrail] 新配置:', newConfig)
+        console.debug('[MouseTrail] 当前配置:', config)
         
         if (JSON.stringify(newConfig) !== JSON.stringify(config)) {
-            console.log('[MouseTrail] 配置发生变化，应用新配置')
+            console.debug('[MouseTrail] 配置发生变化，应用新配置')
             const oldTriggerKey = config.triggerKey
             config = newConfig
             
             // 如果触发键配置发生变化，更新触发键状态
             if (oldTriggerKey !== newConfig.triggerKey) {
-                console.log('[MouseTrail] 触发键配置变化:', oldTriggerKey, '->', newConfig.triggerKey)
+                console.debug('[MouseTrail] 触发键配置变化:', oldTriggerKey, '->', newConfig.triggerKey)
                 if (newConfig.triggerKey === 'none') {
                     triggerKeyPressed = true
-                    console.log('[MouseTrail] 切换到持续跟踪模式')
+                    console.debug('[MouseTrail] 切换到持续跟踪模式')
                 } else {
                     triggerKeyPressed = false
-                    console.log('[MouseTrail] 切换到按键触发模式')
+                    console.debug('[MouseTrail] 切换到按键触发模式')
                 }
             }
             
@@ -473,21 +473,21 @@ export default defineAppSetup(({ app, router }) => {
     // 初始化
     if (typeof window !== 'undefined') {
         const initialize = () => {
-            console.log('[MouseTrail] 开始初始化画布和事件监听')
+            console.debug('[MouseTrail] 开始初始化画布和事件监听')
             setTimeout(() => {
                 // 重新加载配置确保使用最新配置
                 const currentConfig = loadConfig()
                 config = currentConfig // 更新全局配置
-                console.log('[MouseTrail] 检查是否启用:', currentConfig.enabled)
-                console.log('[MouseTrail] 触发键设置:', currentConfig.triggerKey)
+                console.debug('[MouseTrail] 检查是否启用:', currentConfig.enabled)
+                console.debug('[MouseTrail] 触发键设置:', currentConfig.triggerKey)
                 
                 if (currentConfig.enabled !== false) {
-                    console.log('[MouseTrail] 初始化画布和事件监听器')
+                    console.debug('[MouseTrail] 初始化画布和事件监听器')
                     
                     // 如果触发键设置为 'none'，则初始状态为 true
                     if (currentConfig.triggerKey === 'none') {
                         triggerKeyPressed = true
-                        console.log('[MouseTrail] 触发键设置为 none，启用持续跟踪模式')
+                        console.debug('[MouseTrail] 触发键设置为 none，启用持续跟踪模式')
                     }
                     
                     initCanvas()
@@ -500,9 +500,9 @@ export default defineAppSetup(({ app, router }) => {
                     }
                     
                     animationFrameId = requestAnimationFrame(drawTrail)
-                    console.log('[MouseTrail] 初始化完成')
+                    console.debug('[MouseTrail] 初始化完成')
                 } else {
-                    console.log('[MouseTrail] 插件已禁用')
+                    console.debug('[MouseTrail] 插件已禁用')
                 }
             }, 200)
         }
@@ -517,7 +517,7 @@ export default defineAppSetup(({ app, router }) => {
     // 监听路由变化以更新配置
     if (router) {
         router.afterEach((to, from) => {
-            console.log('[MouseTrail] 路由变化:', from.path, '->', to.path)
+            console.debug('[MouseTrail] 路由变化:', from.path, '->', to.path)
             setTimeout(() => {
                 updateConfig()
             }, 100)
