@@ -1,3 +1,15 @@
+<!--
+available options:
+
+title: the title of the presentation,
+author: the author, appears at right bottom
+subtitle: the subtitle, appears below title
+date: appears at right bottom. 'none' to hide, now to show current time
+background: the background image,
+lecture: the name of the lecture, installment of the lecture
+-->
+
+
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { handleBackground } from '@slidev/client/layoutHelper.ts'
@@ -130,7 +142,6 @@ onUnmounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
 }
 
 .title-wrapper {
