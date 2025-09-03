@@ -888,6 +888,105 @@
   --btn-secondary-bg: var(--secondary);
   --btn-secondary-text: var(--text-on-secondary);
   --btn-accent-bg: var(--accent);
+}
+
+/* Winter 调色板 (基于 DaisyUI) */
+.winter {
+  /* 品牌色应用 */
+  --primary: oklch(64.84% 0.126 252.37);
+  --secondary: oklch(75.46% 0.136 257.57);
+  --accent: oklch(83.68% 0.124 262.88);
+  --success: oklch(84.27% 0.146 157.9);
+  --warning: oklch(91.04% 0.152 100.59);
+  --error: oklch(73.09% 0.128 29.23);
+  --info: oklch(81.27% 0.124 252.37);
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(98.46% 0.004 243.93);
+  --bg-tertiary: oklch(92.46% 0.004 243.93);
+  --text-primary: oklch(18% 0 0);
+  --neutral: oklch(12% 0.02 243.93);
+  --text-on-dark: oklch(98% 0.02 243.93);
+
+  /* 文本颜色 */
+  --text-primary: oklch(18% 0 0);
+  --text-on-dark: oklch(98% 0.02 243.93);
+  --text-secondary: oklch(30% 0 0);
+  --text-tertiary: oklch(40% 0 0);
+  --text-on-primary: oklch(98% 0 0);
+  --text-on-secondary: oklch(98% 0 0);
+  --text-on-accent: oklch(20% 0 0);
+
+  /* 标题颜色 */
+  --heading-primary: oklch(0% 0 0);
+  --heading-secondary: oklch(10% 0 0);
+  --heading-accent: var(--accent);
+
+  /* 背景颜色 */
+  --bg-primary: oklch(100% 0 0);
+  --bg-secondary: oklch(98.46% 0.004 243.93);
+  --bg-tertiary: oklch(92.46% 0.004 243.93);
+  --bg-accent: oklch(95% 0.004 243.93);
+
+  /* 边框与分割线 */
+  --border-primary: oklch(90% 0.005 0);
+  --border-secondary: oklch(85% 0.005 0);
+
+  /* 按钮颜色 */
+  --btn-primary-bg: var(--primary);
+  --btn-primary-text: var(--text-on-primary);
+  --btn-secondary-bg: var(--secondary);
+  --btn-secondary-text: var(--text-on-secondary);
+  --btn-accent-bg: var(--accent);
+  --btn-accent-text: var(--text-on-accent);
+}
+
+/* Mint 调色板 (自定义) */
+.mint {
+  /* 品牌色应用 - 基于 #C8E5D5, #679F83, #D8E8E0 */
+  --primary: oklch(85% 0.05 150);    /* #C8E5D5 的近似 OKLCH 值 - 主色 */
+  --secondary: oklch(90% 0.04 155);  /* #D8E8E0 的近似 OKLCH 值 - 次要色 */
+  --accent: oklch(60% 0.08 160);     /* #679F83 的近似 OKLCH 值 - 强调色 */
+  --success: oklch(80% 0.1 140);     /* 协调的成功色 */
+  --warning: oklch(85% 0.1 80);      /* 协调的警告色 */
+  --error: oklch(75% 0.12 30);       /* 协调的错误色 */
+  --info: oklch(70% 0.09 220);       /* 协调的信息色 */
+  --bg-primary: oklch(98% 0.01 150); /* 浅薄荷色背景 */
+  --bg-secondary: oklch(95% 0.015 150); /* 稍深的薄荷色背景 */
+  --bg-tertiary: oklch(92% 0.02 150); /* 更深的薄荷色背景 */
+  --text-primary: oklch(20% 0.03 150); /* 深薄荷色文本 */
+  --neutral: oklch(30% 0.04 150);    /* 中性薄荷色 */
+  --text-on-dark: oklch(95% 0.02 150); /* 深色背景上的文本 */
+
+  /* 文本颜色 */
+  --text-primary: oklch(20% 0.03 150); /* 深薄荷色文本 */
+  --text-secondary: oklch(40% 0.025 150); /* 中等薄荷色文本 */
+  --text-tertiary: oklch(60% 0.02 150); /* 浅薄荷色文本 */
+  --text-on-dark: oklch(95% 0.02 150); /* 深色背景上的文本 */
+  --text-on-primary: oklch(20% 0.03 150); /* 主色背景上的文本 */
+  --text-on-secondary: oklch(20% 0.03 150); /* 次要色背景上的文本 */
+  --text-on-accent: oklch(95% 0.02 150); /* 强调色背景上的文本 */
+
+  /* 标题颜色 */
+  --heading-primary: oklch(10% 0.04 150); /* 主标题 */
+  --heading-secondary: oklch(25% 0.035 150); /* 次级标题 */
+  --heading-accent: var(--accent); /* 带品牌色的标题 */
+
+  /* 背景颜色 */
+  --bg-primary: oklch(98% 0.01 150); /* 浅薄荷色背景 */
+  --bg-secondary: oklch(95% 0.015 150); /* 稍深的薄荷色背景 */
+  --bg-tertiary: oklch(92% 0.02 150); /* 更深的薄荷色背景 */
+  --bg-accent: oklch(88% 0.025 150); /* 强调色背景 */
+
+  /* 边框与分割线 */
+  --border-primary: oklch(85% 0.015 150); /* 主要边框 */
+  --border-secondary: oklch(90% 0.01 150); /* 次要边框 */
+
+  /* 按钮颜色 */
+  --btn-primary-bg: var(--primary);
+  --btn-primary-text: var(--text-on-primary);
+  --btn-secondary-bg: var(--secondary);
+  --btn-secondary-text: var(--text-on-secondary);
+  --btn-accent-bg: var(--accent);
   --btn-accent-text: var(--text-on-accent);
 }
 
