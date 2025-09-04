@@ -25,7 +25,7 @@
             <template v-else-if="icon">
                 <div class="card-icon-section" :style="iconSectionStyle">
                     <div class="card-icon" :style="iconStyle">
-                        <Icon v-if="icon" :icon="iconComponent" :style="{ fontSize: iconSize, color: iconColor }" />
+                        <Icon v-if="icon" :icon="iconComponent" :style="{ fontSize: scaledIconSize, color: iconColor }" />
                     </div>
                     <h3 class="card-title" :style="titleStyle">{{ title }}</h3>
                 </div>
@@ -175,16 +175,20 @@ const wrapperStyle = computed(() => {
 
     const design = designDimensions[props.orientation]
     let scale = 1
+    let actualWidth = design.width
+    let actualHeight = design.height
 
     // Calculate scale based on user-specified width
     if (props.width) {
         const targetWidth = typeof props.width === 'string' ? parseInt(props.width) : props.width
         scale = targetWidth / design.width
+        actualWidth = targetWidth
+        actualHeight = design.height * scale
     }
 
     return {
-        transform: scale !== 1 ? `scale(${scale})` : 'none',
-        transformOrigin: 'top left',
+        width: `${actualWidth}px`,
+        height: `${actualHeight}px`,
         display: 'inline-block'
     }
 })
@@ -197,13 +201,23 @@ const containerStyle = computed(() => {
     }
 
     const design = designDimensions[props.orientation]
+    let actualWidth = design.width
+    let actualHeight = design.height
+
+    // Calculate actual dimensions based on user-specified width
+    if (props.width) {
+        const targetWidth = typeof props.width === 'string' ? parseInt(props.width) : props.width
+        const scale = targetWidth / design.width
+        actualWidth = targetWidth
+        actualHeight = design.height * scale
+    }
 
     return {
         backgroundColor: props.backgroundColor,
         borderRadius: props.borderRadius,
         boxShadow: props.shadow ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
-        width: `${design.width}px`,
-        height: `${design.height}px`
+        width: `${actualWidth}px`,
+        height: `${actualHeight}px`
     }
 })
 
@@ -215,18 +229,28 @@ const imageStyle = computed(() => {
     }
 
     const design = designDimensions[props.orientation]
+    let actualWidth = design.width
+    let actualHeight = design.height
+
+    // Calculate actual dimensions based on user-specified width
+    if (props.width) {
+        const targetWidth = typeof props.width === 'string' ? parseInt(props.width) : props.width
+        const scale = targetWidth / design.width
+        actualWidth = targetWidth
+        actualHeight = design.height * scale
+    }
 
     if (props.orientation === 'landscape') {
         // Image takes 1/3 of width, full height
         return {
-            width: `${design.width / 3}px`,
-            height: `${design.height}px`
+            width: `${actualWidth / 3}px`,
+            height: `${actualHeight}px`
         }
     } else {
         // Portrait: Image takes full width, 1/3 of height
         return {
-            width: `${design.width}px`,
-            height: `${design.height / 3}px`,
+            width: `${actualWidth}px`,
+            height: `${actualHeight / 3}px`,
             flexShrink: 0
         }
     }
@@ -308,21 +332,81 @@ const imgClipStyle = computed(() => {
 })
 
 const titleStyle = computed(() => {
+    // Calculate scaled font size based on card width
+    const designDimensions = {
+        landscape: { width: 400, height: 250 },
+        portrait: { width: 300, height: 500 }
+    }
+
+    const design = designDimensions[props.orientation]
+    let scale = 1
+
+    // Calculate scale based on user-specified width
+    if (props.width) {
+        const targetWidth = typeof props.width === 'string' ? parseInt(props.width) : props.width
+        scale = targetWidth / design.width
+    }
+
+    // Base font size is 1.5em, scale it proportionally
+    const scaledFontSize = `${1.5 * scale}em`
+
     return {
-        color: props.titleColor
+        color: props.titleColor,
+        fontSize: scaledFontSize
     }
 })
 
 const textStyle = computed(() => {
-    return {
-        color: props.textColor
+    // Calculate scaled font size based on card width
+    const designDimensions = {
+        landscape: { width: 400, height: 250 },
+        portrait: { width: 300, height: 500 }
     }
+
+    const design = designDimensions[props.orientation]
+    let scale = 1
+
+    // Calculate scale based on user-specified width
+    if (props.width) {
+        const targetWidth = typeof props.width === 'string' ? parseInt(props.width) : props.width
+        scale = targetWidth / design.width
+    }
+
+    // Base font size is 0.8em, scale it proportionally
+    const scaledFontSize = `${0.8 * scale}em`
+
+    return {
+        color: props.textColor,
+        fontSize: scaledFontSize
+    }
+})
+
+// Scaled icon size for template use
+const scaledIconSize = computed(() => {
+    // Calculate scaled icon size based on card width
+    const designDimensions = {
+        landscape: { width: 400, height: 250 },
+        portrait: { width: 300, height: 500 }
+    }
+
+    const design = designDimensions[props.orientation]
+    let scale = 1
+
+    // Calculate scale based on user-specified width
+    if (props.width) {
+        const targetWidth = typeof props.width === 'string' ? parseInt(props.width) : props.width
+        scale = targetWidth / design.width
+    }
+
+    // Scale the icon size proportionally
+    const baseIconSize = typeof props.iconSize === 'string' ? parseInt(props.iconSize) : props.iconSize
+    return `${baseIconSize * scale}px`
 })
 
 // Icon mode styles
 const iconStyle = computed(() => {
     return {
-        fontSize: props.iconSize,
+        fontSize: scaledIconSize.value,
         color: props.iconColor,
         display: 'flex',
         alignItems: 'center',
@@ -338,12 +422,22 @@ const iconSectionStyle = computed(() => {
     }
 
     const design = designDimensions[props.orientation]
+    let actualWidth = design.width
+    let actualHeight = design.height
+
+    // Calculate actual dimensions based on user-specified width
+    if (props.width) {
+        const targetWidth = typeof props.width === 'string' ? parseInt(props.width) : props.width
+        const scale = targetWidth / design.width
+        actualWidth = targetWidth
+        actualHeight = design.height * scale
+    }
 
     if (props.orientation === 'landscape') {
         // Icon/title section takes 1/3 of width, full height
         return {
-            width: `${design.width / 3}px`,
-            height: `${design.height}px`,
+            width: `${actualWidth / 3}px`,
+            height: `${actualHeight}px`,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -353,13 +447,13 @@ const iconSectionStyle = computed(() => {
     } else {
         // Portrait: Icon/title section takes full width, fixed height
         return {
-            width: `${design.width}px`,
-            height: `${design.height / 3}px`,
+            width: `${actualWidth}px`,
+            height: `${actualHeight / 3}px`,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '1rem 20px 10px 20px',
+            padding: '2rem 20px 10px 20px', // 增加上边距从1rem到2rem
             flexShrink: 0
         }
     }
@@ -372,12 +466,22 @@ const iconContentStyle = computed(() => {
     }
 
     const design = designDimensions[props.orientation]
+    let actualWidth = design.width
+    let actualHeight = design.height
+
+    // Calculate actual dimensions based on user-specified width
+    if (props.width) {
+        const targetWidth = typeof props.width === 'string' ? parseInt(props.width) : props.width
+        const scale = targetWidth / design.width
+        actualWidth = targetWidth
+        actualHeight = design.height * scale
+    }
 
     if (props.orientation === 'landscape') {
         // Content takes 2/3 of width, full height
         return {
-            width: `${(design.width * 2) / 3}px`,
-            height: `${design.height}px`,
+            width: `${(actualWidth * 2) / 3}px`,
+            height: `${actualHeight}px`,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -386,11 +490,11 @@ const iconContentStyle = computed(() => {
     } else {
         // Portrait: Content takes full width, remaining height
         return {
-            width: `${design.width}px`,
+            width: `${actualWidth}px`,
             flex: '1',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             padding: '10px 20px 20px 20px'
         }
     }
@@ -473,15 +577,13 @@ const iconContentStyle = computed(() => {
 }
 
 .card-title {
-    margin: 0 0 12px 0;
-    font-size: 1.5em;
+    margin: 0 0 20px 0;
     font-weight: bold;
     line-height: 1.3;
     text-align: center;
 }
 
 .card-text {
-    font-size: 0.8em;
     opacity: 0.9;
     line-height: 1.6;
     flex: 1;
