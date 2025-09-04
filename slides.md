@@ -21,9 +21,10 @@ python:
   installs: [ "pandas" ]
 aspectRatio: 16/9
 lecture: slidev 天天学
-layout: cover
+layout: cover-lecture
 # background: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/
 # background: https://images.jieyu.ai/images/hot/me-3.png
+background: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/background/lab-mint.jpg
 total: 60
 date: now
 htmlAttrs:
@@ -43,6 +44,17 @@ slidev 就是这样的工具。它的名字来源于 slide for developers。slid
 
 现在，我们就进入正题。
 -->
+
+---
+title: Card Layout
+layout: cards
+---
+
+## this is a card
+  - icon: fa-leaf
+  - orientation: portrait
+  - content: 布局实现了基本的响应式设计，在小屏幕设备上会自动调整间距和元素大小，确保在各种设备上都有良好的显示效果。
+
 
 ---
 title: 什么是 Slidev

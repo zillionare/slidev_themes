@@ -27,22 +27,7 @@ const coverImg = computed(() => {
 const lectureNameStyle = computed(() => {
     // 使用 handleBackground 函数计算背景样式
     const background = $slidev.configs.background
-    const style = handleBackground(background, true)
-    return {
-        ...style,
-        boxShadow: '0 2px 3px rgba(0, 0, 0, 0.5)',
-        borderRadius: '9999px',
-        textAlign: 'left',
-        paddingLeft: '0.75rem',
-        paddingRight: '0.75rem',
-        paddingTop: '0.25rem',
-        paddingBottom: '0.25rem',
-        minWidth: '10rem',
-        color: 'white',
-        position: 'absolute',
-        top: '20px',
-        left: '1%'
-    }
+    return handleBackground(background, false)
 })
 
 // 用户提供的日期配置
@@ -115,6 +100,18 @@ onUnmounted(() => {
 
 <style scoped>
 /*layer-2 the content layer*/
+.lecture-name {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 9999px;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    min-width: 10rem;
+    color: var(--primary);
+    position: absolute;
+    top: 20px;
+    left: 1%;
+    height: 2.2rem;
+}
 .title {
     @apply text-6xl;
     width: 90%;
