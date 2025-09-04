@@ -6,7 +6,14 @@
     </div>
     <!-- this is title -->
     <div class="title">{{ $frontmatter.title }}</div>
-    <div class="cards-container">
+    <div
+      class="cards-container"
+      :style="{
+        marginTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
+          ? (typeof $frontmatter.top === 'number' ? `${$frontmatter.top}px` : String($frontmatter.top))
+          : '2.5rem'
+      }"
+    >
       <Card
         v-for="(card, index) in parsedCards"
         :key="index"
@@ -143,7 +150,7 @@ onMounted(() => {
   width: 100%;
   box-sizing: border-box;
   overflow-x: auto;
-  margin-top: 2.5rem;
+  margin-top: 0;
 }
 
 .cards-container .card {
