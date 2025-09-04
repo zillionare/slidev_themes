@@ -20,7 +20,7 @@ title: 卡片布局
 - icon: fa-leaf
 - orientation: portrait
 - content: 卡片正文内容
-- width: 150px
+- width:200px
 
 
 ## 卡片2
@@ -28,21 +28,21 @@ title: 卡片布局
 - icon: fa-leaf
 - orientation: portrait
 - content: 卡片正文内容
-- width: 150px
+- width:200px
 
 ## 卡片3
 
 - icon: fa-leaf
 - orientation: portrait
 - content: 卡片正文内容
-- width: 150px
+- width:200px
 
 ## 卡片4
 
 - icon: fa-leaf
 - orientation: portrait
 - content: 卡片正文内容
-- width: 150px
+- width:200px
 
 ---
 title: test
