@@ -6,7 +6,45 @@
     </div>
     <!-- this is title -->
     <div class="title">{{ $frontmatter.title }}</div>
+    <!-- gridspec grid mode -->
     <div
+      v-if="getGridGroups($frontmatter.gridspec)"
+      class="cards-grid"
+      :style="{
+        marginTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
+          ? (typeof $frontmatter.top === 'number' ? `${$frontmatter.top}px` : String($frontmatter.top))
+          : '2.5rem',
+        display: 'grid',
+        gridTemplateColumns: getGridTemplateColumns($frontmatter.gridspec),
+        justifyContent: 'space-evenly'
+      }"
+    >
+      <div class="cards-col" :class="{ 'cards-col-split': col.length > 1 }" v-for="(col, cidx) in getGridGroups($frontmatter.gridspec)" :key="cidx">
+        <Card
+          v-for="(card, index) in col"
+          v-show="shouldShowCard(card.originalIndex, $clicks)"
+          :key="index + '-' + cidx"
+          :title="card.title"
+          :icon="card.icon"
+          :img="card.img"
+          :orientation="card.orientation || 'landscape'"
+          :frame="card.frame || 'rectangle'"
+          :backgroundColor="card.backgroundColor"
+          :borderColor="card.borderColor"
+          :titleColor="card.titleColor"
+          :textColor="card.textColor"
+          :borderRadius="card.borderRadius"
+          :shadow="card.shadow !== false"
+          :width="card.width"
+          :iconSize="card.iconSize"
+          :iconColor="card.iconColor"
+        >
+          {{ card.content }}
+        </Card>
+      </div>
+    </div>
+    <div
+      v-else
       class="cards-container"
       :style="{
         marginTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
@@ -16,6 +54,7 @@
     >
       <Card
         v-for="(card, index) in parsedCards"
+        v-show="shouldShowCard(index, $clicks)"
         :key="index"
         :title="card.title"
         :icon="card.icon"
@@ -45,6 +84,19 @@ import { computed, ref, onMounted } from 'vue'
 // In Slidev, we need to parse the slot content
 const slotContent = ref('')
 const slotRef = ref(null)
+// computed property to determine visible card count based on clicks
+const visibleCardCount = computed(() => {
+  // If frontmatter has clicks defined, use click-based progressive reveal
+  if (typeof $frontmatter.clicks === 'number') {
+    // Use Slidev's native reactive $clicks variable
+    // clicks=0 shows 1st card, clicks=1 shows 2nd card, etc.
+    const visibleCards = Math.max(1, Math.min(parsedCards.value.length, $clicks + 1))
+    console.log(`Progressive reveal: clicks=${$clicks}, showing ${visibleCards}/${parsedCards.value.length} cards`)
+    return visibleCards
+  }
+  // Default behavior: show all cards (no progressive reveal)
+  return parsedCards.value.length
+})
 
 // Parse the slot content to extract card configurations
 const parsedCards = computed(() => {
@@ -114,6 +166,57 @@ onMounted(() => {
     slotContent.value = slotRef.value.innerHTML || slotRef.value.textContent || ''
   }
 })
+
+// Helper function to determine if a card should be shown
+function shouldShowCard(cardIndex, click) {
+  // If no clicks control (frontmatter.clicks not defined), show all cards
+  if (typeof $frontmatter.clicks !== 'number') {
+    return true
+  }
+  
+  // For click-based progressive reveal
+  if (click === undefined || click === 'undefined') {
+    return cardIndex === 0
+  }
+
+  return cardIndex <= click
+}
+
+// Group cards by gridspec pattern like "ADBCC"
+// Each character position corresponds to a card, same characters go to same column
+function getGridGroups(spec) {
+  if (!spec || !Array.isArray(parsedCards.value) || parsedCards.value.length === 0) return null
+  const raw = String(spec).replace(/\s+/g, '')
+  if (!raw) return null
+  const chars = raw.split('')
+  if (chars.length !== parsedCards.value.length) return null
+  
+  // Map each position to its column based on unique characters
+  const uniqueChars = [...new Set(chars)]
+  const columns = uniqueChars.map(() => [])
+  
+  chars.forEach((ch, idx) => {
+    const key = String(ch).toUpperCase()
+    const columnIndex = uniqueChars.findIndex(c => c.toUpperCase() === key)
+    // Preserve original index for reveal ordering
+    const cardWithIndex = { ...parsedCards.value[idx], originalIndex: idx }
+    columns[columnIndex].push(cardWithIndex)
+  })
+  
+  return columns
+}
+
+function getGridTemplateColumns(spec) {
+  const groups = getGridGroups(spec)
+  if (!groups) return 'repeat(1, minmax(0, 1fr))'
+  // Weight columns with more cards slightly wider (e.g., 1.5fr), others 1fr
+  // Show like N standalone columns, spaced evenly regardless of widths
+  return `repeat(${groups.length}, max-content)`
+}
+
+
+
+
 </script>
 
 <style scoped>
@@ -152,6 +255,29 @@ onMounted(() => {
   overflow-x: auto;
   margin-top: 0;
 }
+
+.cards-grid {
+  width: 100%;
+  box-sizing: border-box;
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+  align-items: stretch;
+}
+
+.cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  height: 100%;
+}
+
+.cards-col-split {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+
 
 .cards-container .card {
   flex: 0 0 auto;
