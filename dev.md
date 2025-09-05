@@ -12,88 +12,151 @@ htmlAttrs:
 
 ---
 layout: barrel
-title: 桶形布局测试
-top: -100
-clicks: 5
+title: Three.js 桶形布局测试
+clicks: 4
 ---
 
-## 卡片1
+## Barrel Card 1
 
-- icon: fa-leaf
+- icon: fa-rocket
 - orientation: portrait
-- content: 卡片正文内容
-- width:200px
+- content: Three.js barrel mode card
+- width: 300px
 
-## 卡片2
+## Barrel Card 2
 
-- icon: fa-leaf
+- icon: fa-star
 - orientation: portrait
-- content: 卡片正文内容
-- width:200px
+- content: Three.js barrel mode card
+- width: 300px
 
+## Barrel Card 3
 
-## 卡片3
-
-- icon: fa-leaf
+- icon: fa-heart
 - orientation: portrait
-- content: 卡片正文内容
-- width:200px
+- content: Three.js barrel mode card
+- width: 300px
 
-## 卡片4
+## Barrel Card 4
 
-- icon: fa-leaf
+- icon: fa-diamond
 - orientation: portrait
-- content: 卡片正文内容
-- width:200px
+- content: Three.js barrel mode card
+- width: 300px
 
-## 卡片5
+## Barrel Card 5
 
-- icon: fa-leaf
+- icon: fa-crown
 - orientation: portrait
-- content: 卡片正文内容
-- width:200px
+- content: Three.js barrel mode card
+- width: 300px
 
 ---
 layout: cards
-title: 网格卡片布局
+title: 点击渐现卡片测试
 top: 100
-gridspec: ADBCC
+clicks: 4
 ---
 
 ## 卡片1
 
 - icon: fa-code
-- orientation: landscape
+- orientation: portrait
 - content: 网格模式卡片内容
-- width:300px
+- width: 200px
 
 ## 卡片2
 
 - icon: fa-star
-- orientation: landscape
+- orientation: portrait
 - content: 网格模式卡片内容
-- width:300px
+- width: 200px
 
 ## 卡片3
 
 - icon: fa-heart
-- orientation: landscape
+- orientation: portrait
 - content: 网格模式卡片内容
-- width:300px
+- width: 200px
 
 ## 卡片4
 
 - icon: fa-cloud
-- orientation: landscape
+- orientation: portrait
 - content: 网格模式卡片内容
-- width:300px
+- width: 200px
 
-## 卡片5
 
-- icon: fa-sun
+---
+layout: cards
+title: 网格+点击渐现测试
+top: 100
+gridspec: ABCCD
+clicks: 5
+---
+
+## Grid Card 1
+
+- icon: fa-database
+- orientation: portrait
+- content: Grid mode with clicks
+- width: 180px
+
+## Grid Card 2
+
+- icon: fa-network-wired
+- orientation: portrait  
+- content: Grid mode with clicks
+- width: 180px
+
+## Grid Card 3
+
+- icon: fa-server
 - orientation: landscape
-- content: 网格模式卡片内容
-- width:300px
+- content: Grid mode with clicks
+- width: 220px
+
+## Grid Card 4
+
+- icon: fa-laptop
+- orientation: landscape
+- content: Grid mode with clicks
+- width: 220px
+
+## Grid Card 5
+
+- icon: fa-mobile
+- orientation: portrait
+- content: Grid mode with clicks
+- width: 180px
+
+---
+layout: cards
+title: 普通卡片布局（无点击）
+top: 100
+---
+
+## 普通卡片1
+
+- icon: fa-apple
+- orientation: landscape
+- content: 没有点击控制的卡片
+- width: 250px
+
+## 普通卡片2
+
+- icon: fa-coffee
+- orientation: landscape
+- content: 没有点击控制的卡片
+- width: 250px
+
+## 普通卡片3
+
+- icon: fa-book
+- orientation: landscape
+- content: 没有点击控制的卡片
+- width: 250px
+
 
 ---
 
