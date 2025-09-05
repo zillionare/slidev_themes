@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 图片圆柱体 - Vue.js 和 Three.js</title>
+    <style>
+        /* 确保页面和容器铺满整个视口 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            background-color: #f0f0f0;
+        }
+        #app {
+            height: 100%;
+            width: 100%;
+        }
+        #three-container {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Vue 应用的挂载点 -->
+    <div id="app">
+        <div ref="threeContainer" id="three-container"></div>
+    </div>
+
+    <!-- 
+      使用 Import Maps 来管理 ES 模块的导入，
+      这样我们就可以在不使用构建工具的情况下直接从 CDN 加载 Vue 和 Three.js。
+    -->
+    <script type="importmap">
+    {
+        "imports": {
+            "vue": "https://unpkg.com/vue@3.4.27/dist/vue.esm-browser.js",
+            "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import { createApp, ref, onMounted, onBeforeUnmount } from 'vue';
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        const App = {
+            setup() {
+                // 创建一个 ref 来引用 DOM 容器
+                const threeContainer = ref(null);
+
+                let scene, camera, renderer, cylinder, controls;
+                let animationFrameId;
+
+                // 初始化 Three.js 场景的函数
+                const initThree = () => {
+                    // 1. 创建场景
+                    scene = new THREE.Scene();
+                    scene.background = new THREE.Color(0x111111); // 深色背景
+
+                    // 2. 创建相机
+                    const container = threeContainer.value;
+                    const aspect = container.clientWidth / container.clientHeight;
+                    camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
+                    camera.position.set(0, 0, 5); // 将相机向后移动一点
+
+                    // 3. 创建渲染器
+                    renderer = new THREE.WebGLRenderer({ antialias: true });
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                    renderer.setPixelRatio(window.devicePixelRatio);
+                    container.appendChild(renderer.domElement);
+
+                    // 4. 创建一个平滑的圆柱几何体
+                    // CylinderGeometry 参数: topRadius, bottomRadius, height, radialSegments
+                    // 我们使用 64 个分段来确保圆柱体看起来是平滑的
+                    const geometry = new THREE.CylinderGeometry(2, 2, 3, 64);
+
+                    // 5. 异步加载所有图片，然后将它们拼接成一个单独的纹理
+                    const textureLoader = new THREE.TextureLoader();
+                    const imageUrls = [
+                        'https://picsum.photos/id/237/400/300',
+                        'https://picsum.photos/id/238/400/300',
+                        'https://picsum.photos/id/239/400/300',
+                        'https://picsum.photos/id/240/400/300',
+                        'https://picsum.photos/id/241/400/300',
+                    ];
+
+                    // 先创建一个占位符，以防图片加载缓慢
+                    const placeholderMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc, wireframe: true });
+                    cylinder = new THREE.Mesh(geometry, placeholderMaterial);
+                    scene.add(cylinder);
+
+                    const promises = imageUrls.map(url => textureLoader.loadAsync(url));
+
+                    Promise.all(promises).then(textures => {
+                        // 创建一个 canvas 用于在内存中拼接图片
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+
+                        // 假设所有图片尺寸相同
+                        const imageWidth = textures[0].image.width;
+                        const imageHeight = textures[0].image.height;
+                        
+                        canvas.width = imageWidth * textures.length;
+                        canvas.height = imageHeight;
+
+                        // 将图片一张张并排绘制到 canvas 上
+                        textures.forEach((texture, index) => {
+                            // 绘制完成后，释放原始 GPU 纹理内存以优化性能
+                            texture.dispose();
+                            ctx.drawImage(texture.image, index * imageWidth, 0, imageWidth, imageHeight);
+                        });
+
+                        // 从拼接好的 canvas 创建最终的纹理
+                        const stitchedTexture = new THREE.CanvasTexture(canvas);
+                        stitchedTexture.colorSpace = THREE.SRGBColorSpace;
+                        stitchedTexture.needsUpdate = true; // 必须设置，否则纹理不会更新
+
+                        // 创建侧面和顶/底部的材质
+                        const sideMaterial = new THREE.MeshBasicMaterial({ map: stitchedTexture });
+                        const capMaterial = new THREE.MeshBasicMaterial({ color: 0x555555 });
+
+                        // 更新圆柱体的材质。Three.js 圆柱体材质数组顺序为 [侧面, 顶部, 底部]
+                        cylinder.material = [sideMaterial, capMaterial, capMaterial];
+
+                    }).catch(err => {
+                        console.error('加载纹理时出错:', err);
+                        // 如果加载失败，可以保持显示占位符
+                    });
+
+
+                    // 8. 添加轨道控制器，允许用户交互
+                    controls = new OrbitControls(camera, renderer.domElement);
+                    controls.enableDamping = true; // 开启阻尼效果，使旋转更平滑
+                    controls.dampingFactor = 0.05;
+                    controls.autoRotate = true; // 让它自动旋转
+                    controls.autoRotateSpeed = 1.0;
+
+                    // 9. 监听窗口大小变化事件
+                    window.addEventListener('resize', onWindowResize);
+                };
+
+                // 动画循环函数
+                const animate = () => {
+                    animationFrameId = requestAnimationFrame(animate);
+                    controls.update(); // 更新控制器（处理自动旋转和阻尼）
+                    renderer.render(scene, camera);
+                };
+
+                // 处理窗口大小变化的函数
+                const onWindowResize = () => {
+                    if (camera && renderer && threeContainer.value) {
+                        const width = threeContainer.value.clientWidth;
+                        const height = threeContainer.value.clientHeight;
+
+                        camera.aspect = width / height;
+                        camera.updateProjectionMatrix();
+
+                        renderer.setSize(width, height);
+                    }
+                };
+
+                // Vue 组件挂载后，初始化 Three.js 场景并开始动画
+                onMounted(() => {
+                    initThree();
+                    animate();
+                });
+
+                // Vue 组件卸载前，进行清理操作以防止内存泄漏
+                onBeforeUnmount(() => {
+                    cancelAnimationFrame(animationFrameId);
+                    window.removeEventListener('resize', onWindowResize);
+                    if (renderer) {
+                        renderer.dispose();
+                    }
+                    // 其他清理...
+                });
+
+                return {
+                    threeContainer,
+                };
+            }
+        };
+
+        createApp(App).mount('#app');
+    </script>
+</body>
+</html>
+
