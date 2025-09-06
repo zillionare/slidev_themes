@@ -9,9 +9,8 @@ htmlAttrs:
 
 layout: barrel
 gendre:  circle
-diameter: 600
 margin: 200
-width: 300
+size: 600
 clicks: 5
 background: https://picsum.photos/1920/1080?nature
 ---
