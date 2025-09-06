@@ -8,15 +8,12 @@ htmlAttrs:
   class: mint
 
 layout: barrel
-title: Three.js 桶形布局测试
-clicks: 4
-cardWidth: 300
-margin: 100
-top: -100
-# 背景样式演示：可以是颜色、渐变或图片
-# background: #667eea                           # 纯颜色
-# background: linear-gradient(45deg, #667eea 0%, #764ba2 100%)  # CSS渐变
-background: https://picsum.photos/1920/1080?nature             # 背景图片
+gendre:  circle
+diameter: 600
+margin: 200
+width: 300
+clicks: 5
+background: https://picsum.photos/1920/1080?nature
 ---
 
 ## Barrel Card 1
