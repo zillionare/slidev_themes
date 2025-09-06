@@ -32,7 +32,7 @@
     
     <!-- Three.js container - 3D圆柱体容器 -->
     <div class="barrel-container">
-      <div ref="threeContainer" class="three-container"></div>
+      <div ref="threeContainer" class="three-container" :style="threeStyle"></div>
     </div>
   </div>
 </template>
@@ -69,6 +69,13 @@ let mouseY = 0
 let targetRotationY = 0
 let currentRotationY = 0
 
+const threeStyle = computed(()=>{
+  if ($frontmatter.top !== 'undefined') {
+    return {
+      top: `${$frontmatter.top}`.endsWith("px") ? $frontmatter.top : `${$frontmatter.top}px`
+    }
+  }
+})
 // 解析slot内容提取卡片配置（与cards.vue保持一致）
 const parsedCards = computed(() => {
   if (!slotContent.value) {
@@ -302,12 +309,11 @@ const createCardTextures = async () => {
       
       // 使用html2canvas对Card组件进行截图
       const canvas = await html2canvas(cardElement, {
-        // width: cardWidth,
-        // height: cardHeight,
-        scale: 2,  // 2x DPI提高清晰度
+        width: cardWidth,
+        height: cardHeight,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: null  // 透明背景
+        // backgroundColor: null  // 透明背景，保持原始渲染
       })
       
       cardTextures.push(canvas)
@@ -324,7 +330,7 @@ const createCardTextures = async () => {
 const createCylinderWithCards = async () => {
   try {
     // 获取配置
-    const diameter = $frontmatter.diameter || 600
+    const diameter = $frontmatter.size || 600
     const gendre = $frontmatter.gendre || 'circle'
     
     // 1. 生成卡片截图纹理
@@ -465,10 +471,10 @@ onBeforeUnmount(() => {
 
 .three-container {
   width: 90vw;
-  height: 70vh;
+  height: 60vh;
   max-width: 1200px;
   max-height: 600px;
-  position: relative;
+  position: absolute;
   background: transparent;
 }
 
