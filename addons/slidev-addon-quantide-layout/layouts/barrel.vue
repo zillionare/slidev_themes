@@ -4,7 +4,8 @@
     <div ref="cardsContainer" class="cards-container">
       <Card
         v-for="(card, index) in parsedCards"
-        :key="index"
+        :key="`card-${index}-${card.title}`"
+        ref="cardRefs"
         :title="card.title"
         :icon="card.icon"
         :img="card.img"
@@ -47,6 +48,7 @@ import { handleBackground } from '../layoutHelper'
 const threeContainer = ref(null)
 const slotRef = ref(null)
 const cardsContainer = ref(null)
+const cardRefs = ref([])
 const slotContent = ref('')
 
 // 背景样式处理
@@ -133,201 +135,69 @@ const parsedCards = computed(() => {
   return cards
 })
 
-// 按照.ai/tasks/01.md的要求，使用html2canvas对真实的Card组件进行截图
-const createCardTexture = async () => {
-  const cards = parsedCards.value
-  if (cards.length === 0) {
-    console.error('❌ 没有解析到卡片数据')
-    return null
-  }
-  
-  console.log(`🎨 开始对 ${cards.length} 个Card组件进行截图...`)
-  
-  // 获取frontmatter配置
-  const margin = $frontmatter.margin || 200
-  const cardWidth = $frontmatter.width || 300
-  const cardHeight = cardWidth * (5/3)  // 按照要求，高度是宽度的5/3倍
-  
-  console.log(`📏 卡片尺寸: ${cardWidth} x ${cardHeight} (5:3比例)`)
-  
-  // 等待Card组件渲染完成
-  await new Promise(resolve => setTimeout(resolve, 500))
-  
-  const cardImages = []
-  
-  // 从隐藏的cards-container中获取所有Card组件
-  const cardElements = cardsContainer.value?.querySelectorAll('.card-wrapper, .card-container') || []
-  
-  if (cardElements.length === 0) {
-    console.error('❌ 在cards-container中未找到Card组件')
-    return null
-  }
-  
-  console.log(`✅ 在cards-container中找到 ${cardElements.length} 个Card组件`)
-  console.log(`📋 解析到 ${cards.length} 个卡片数据`)
-  console.log(`🔄 将处理 ${Math.min(cardElements.length, cards.length)} 个卡片`)
-  
-  // 对每个Card组件进行截图
-  for (let i = 0; i < Math.min(cardElements.length, cards.length); i++) {
-    const cardElement = cardElements[i]
-    const card = cards[i]
-    
-    if (!card) {
-      console.warn(`⚠️ 卡片数据 ${i + 1} 不存在，跳过`)
-      continue
-    }
-    
-    try {
-      console.log(`📷 正在截图卡片 ${i + 1}: "${card.title}"...`)
-      
-      // 临时显示元素以确保截图成功
-      const originalVisibility = cardElement.style.visibility
-      const originalPosition = cardElement.style.position
-      const originalLeft = cardElement.style.left
-      const originalTop = cardElement.style.top
-      const originalZIndex = cardElement.style.zIndex
-      
-      // 设置为可见但仍然在屏幕外
-      cardElement.style.visibility = 'visible'
-      cardElement.style.position = 'absolute'
-      cardElement.style.left = '-9999px'
-      cardElement.style.top = '-9999px'
-      cardElement.style.zIndex = '9999'
-      
-      // 等待样式应用
-      await new Promise(resolve => setTimeout(resolve, 100))
-      
-      // 使用html2canvas对Card组件进行截图
-      const canvas = await html2canvas(cardElement, {
-        width: cardWidth,
-        height: cardHeight,
-        scale: 2,  // 2x DPI提高清晰度
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: null  // 透明背景
-      })
-      
-      // 恢复原始样式
-      cardElement.style.visibility = originalVisibility
-      cardElement.style.position = originalPosition
-      cardElement.style.left = originalLeft
-      cardElement.style.top = originalTop
-      cardElement.style.zIndex = originalZIndex
-      
-      cardImages.push(canvas)
-      
-      // 为了调试，将截图下载到本地
-      const link = document.createElement('a')
-      link.download = `barrel-card-${i + 1}-${card.title.replace(/\s+/g, '-')}.png`
-      link.href = canvas.toDataURL('image/png', 1.0)
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      
-      console.log(`✅ 卡片 ${i + 1} "${card.title}" 截图完成并已下载`)
-      
-    } catch (error) {
-      console.error(`❌ 卡片 ${i + 1} 截图失败:`, error)
-      // 直接失败，不创建备用
-      const fallbackCanvas = document.createElement('canvas')
-      fallbackCanvas.width = cardWidth * 2
-      fallbackCanvas.height = cardHeight * 2
-      const ctx = fallbackCanvas.getContext('2d')
-      ctx.fillStyle = '#ff0000'
-      ctx.fillRect(0, 0, fallbackCanvas.width, fallbackCanvas.height)
-      ctx.fillStyle = '#ffffff'
-      ctx.font = 'bold 24px Arial'
-      ctx.textAlign = 'center'
-      ctx.fillText('截图失败', fallbackCanvas.width / 2, fallbackCanvas.height / 2)
-      cardImages.push(fallbackCanvas)
-    }
-  }
+// Three.js核心函数（移植自test-refactored.html）
 
-  if (cardImages.length === 0) {
-    console.error('❌ 没有成功截图任何卡片')
-    return null
-  }
+// 1. 初始化Three.js场景
+const initThree = (container) => {
+  // 创建场景
+  scene = new THREE.Scene()
+  // 透明背景以显示DOM背景
   
-  // 根据frontmatter.gendre决定创建圆柱体(circle)还是多面体(polygon) 
-  const gendre = $frontmatter.gendre || 'circle'
-  
-  if (gendre === 'circle') {
-    return createCircleTexture(cardImages, cardWidth, cardHeight, margin)
-  } else if (gendre === 'polygon') {
-    return createPolygonTexture(cardImages, cardWidth, cardHeight)
-  } else {
-    console.warn(`⚠️ 未知的gendre: ${gendre}，默认使用circle`)
-    return createCircleTexture(cardImages, cardWidth, cardHeight, margin)
-  }
-}
+  // 创建相机
+  const aspect = container.clientWidth / container.clientHeight
+  camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
+  camera.position.set(0, 0, 500) // 根据直径调整相机距离
 
-// 创建circle风格的圆柱体纹理
-const createCircleTexture = (cardImages, cardWidth, cardHeight, margin) => {
-  console.log('🔵 创建circle风格圆柱体纹理...')
-  
-  // 按照01.md: 以 n * (cardWidth + margin) 为周长生成圆柱体
-  const totalWidth = cardImages.length * (cardWidth * 2 + margin * 2)
-  const totalHeight = cardHeight * 2
-  
-  const stitchCanvas = document.createElement('canvas')
-  stitchCanvas.width = totalWidth
-  stitchCanvas.height = totalHeight
-  const stitchCtx = stitchCanvas.getContext('2d')
-  
-  console.log(`📐 拼接Canvas尺寸: ${totalWidth} x ${totalHeight}`)
-  
-  // 拼接所有卡片，每个卡片之间插入透明区域
-  cardImages.forEach((cardCanvas, index) => {
-    const x = index * (cardWidth * 2 + margin * 2)
-    stitchCtx.drawImage(cardCanvas, x, 0)
-    console.log(`✅ 卡片 ${index + 1} 已拼接到位置 ${x}`)
+  // 创建透明渲染器
+  renderer = new THREE.WebGLRenderer({ 
+    antialias: true,
+    alpha: true,
+    preserveDrawingBuffer: true
   })
+  renderer.setClearColor(0x000000, 0) // 透明背景
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  renderer.setSize(container.clientWidth, container.clientHeight)
+  renderer.outputColorSpace = THREE.SRGBColorSpace
   
-  // 保存诊断截图
-  const link = document.createElement('a')
-  link.download = `barrel-circle-texture-${Date.now()}.png`
-  link.href = stitchCanvas.toDataURL('image/png', 1.0)
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  console.log('📷 Circle纹理诊断截图已保存')
+  container.appendChild(renderer.domElement)
+
+  // 添加鼠标交互
+  container.addEventListener('mousedown', onMouseDown)
+  window.addEventListener('mousemove', onMouseMove)
+  window.addEventListener('mouseup', onMouseUp)
   
-  // 创建纹理
-  const texture = new THREE.CanvasTexture(stitchCanvas)
-  texture.colorSpace = THREE.SRGBColorSpace
-  texture.needsUpdate = true
-  texture.premultiplyAlpha = false
-  texture.format = THREE.RGBAFormat
-  texture.magFilter = THREE.LinearFilter
-  texture.minFilter = THREE.LinearFilter
-  texture.generateMipmaps = false
-  
-  console.log('🎨 Circle圆柱体纹理创建完成')
-  return texture
+  // 监听窗口大小变化
+  window.addEventListener('resize', onWindowResize)
+
+  // 开始动画循环
+  animate()
 }
 
-// 创建polygon风格的多面体纹理（暂时使用简化实现）
-const createPolygonTexture = (cardImages, cardWidth, cardHeight) => {
-  console.log('🔶 创建polygon风格多面体纹理...')
-  // 暂时使用与circle相同的实现，后续可扩展
-  return createCircleTexture(cardImages, cardWidth, cardHeight, 0)
+// 2. 创建几何体的函数
+const createGeometry = (type, radius, height, imageCount) => {
+  let geometry
+  let segments
+  
+  if (type === 'circle') {
+    // 圆柱体：使用较多段数获得平滑效果
+    segments = 64
+    geometry = new THREE.CylinderGeometry(radius, radius, height, segments)
+  } else if (type === 'polygon') {
+    // 正n边形：段数等于图片数量，形成多面体
+    segments = imageCount
+    geometry = new THREE.CylinderGeometry(radius, radius, height, segments)
+  } else {
+    // 默认为圆柱体
+    segments = 64
+    geometry = new THREE.CylinderGeometry(radius, radius, height, segments)
+  }
+  
+  return geometry
 }
 
-// 创建带卡片的圆柱体
-const createCylinderWithCards = () => {
-  console.log('🎨 开始创建卡片圆柱体...')
-  
-  // 获取配置
-  const diameter = $frontmatter.diameter || 600
-  const gendre = $frontmatter.gendre || 'circle'
-  
-  // 创建几何体
-  const radius = diameter / 2
-  const geometry = gendre === 'circle' 
-    ? new THREE.CylinderGeometry(radius, radius, 300, 64, 1)  // 圆柱体
-    : new THREE.CylinderGeometry(radius, radius, 300, parsedCards.value.length, 1)  // 多面体
-  
-  // 先创建占位符圆柱体
+// 3. 贴图函数
+const applyTexture = (geometry, textures) => {
+  // 先创建占位符
   const placeholderMaterial = new THREE.MeshBasicMaterial({ 
     color: 0xcccccc, 
     wireframe: true,
@@ -336,92 +206,157 @@ const createCylinderWithCards = () => {
   })
   cylinder = new THREE.Mesh(geometry, placeholderMaterial)
   scene.add(cylinder)
+
+  try {
+    // 创建拼接canvas
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+
+    // 从 Canvas 元素获取尺寸
+    const imageWidth = textures[0].width
+    const imageHeight = textures[0].height
+    
+    canvas.width = imageWidth * textures.length
+    canvas.height = imageHeight
+
+    // 将图片并排绘制到canvas上
+    textures.forEach((texture, index) => {
+      ctx.drawImage(texture, index * imageWidth, 0, imageWidth, imageHeight)
+    })
+
+    // 从拼接好的canvas创建最终纹理
+    const stitchedTexture = new THREE.CanvasTexture(canvas)
+    stitchedTexture.colorSpace = THREE.SRGBColorSpace
+    stitchedTexture.needsUpdate = true
+    stitchedTexture.premultiplyAlpha = false
+    stitchedTexture.format = THREE.RGBAFormat
+    stitchedTexture.magFilter = THREE.LinearFilter
+    stitchedTexture.minFilter = THREE.LinearFilter
+    stitchedTexture.generateMipmaps = false
+
+    // 创建材质
+    const sideMaterial = new THREE.MeshBasicMaterial({ 
+      map: stitchedTexture,
+      transparent: true,
+      alphaTest: 0.1,
+      side: THREE.DoubleSide
+    })
+    const capMaterial = new THREE.MeshBasicMaterial({ 
+      color: 0x555555,
+      transparent: true,
+      opacity: 0.8
+    })
+
+    // 更新几何体材质 [侧面, 顶部, 底部]
+    cylinder.material = [sideMaterial, capMaterial, capMaterial]
+
+    return cylinder
+
+  } catch (error) {
+    console.error('❌ 纹理应用失败:', error)
+    return cylinder // 返回占位符
+  }
+}
+
+// 生成卡片截图的纹理数组
+const createCardTextures = async () => {
+  const cards = parsedCards.value
+  if (cards.length === 0) {
+    console.error('❌ 没有解析到卡片数据')
+    return []
+  }
   
-  console.log(`✅ ${gendre}风格占位符已添加，直径: ${diameter}px`)
+  // 获取frontmatter配置
+  const cardWidth = $frontmatter.width || 300
+  const cardHeight = cardWidth * (5/3)  // 按照要求，高度是宽度的5/3倍
   
-  // 使用卡片数据创建纹理
-  createCardTexture().then(texture => {
-    if (texture) {
-      console.log('🎯 卡片纹理创建成功')
+  // 等待Card组件渲染完成
+  await new Promise(resolve => setTimeout(resolve, 500))
+  
+  const cardTextures = []
+  
+  // 使用组件引用直接访问 Card 组件
+  const cardComponents = cardRefs.value
+  
+  if (!cardComponents || cardComponents.length === 0) {
+    console.error('❌ 未找到Card组件引用')
+    return []
+  }
+  
+  // 对每个Card组件进行截图
+  for (let i = 0; i < Math.min(cardComponents.length, cards.length); i++) {
+    const cardComponent = cardComponents[i]
+    const card = cards[i]
+    
+    if (!card || !cardComponent) continue
+    
+    try {
+      // 获取Card组件的DOM元素
+      const cardElement = cardComponent.$el
+      if (!cardElement) {
+        console.error(`❌ 卡片 ${i + 1} DOM元素不存在`)
+        continue
+      }
+      // 等待样式应用
+      await new Promise(resolve => setTimeout(resolve, 100))
       
-      // 创建材质
-      const sideMaterial = new THREE.MeshBasicMaterial({ 
-        map: texture,
-        transparent: true,
-        alphaTest: 0.1,
-        side: THREE.DoubleSide
+      // 使用html2canvas对Card组件进行截图
+      const canvas = await html2canvas(cardElement, {
+        // width: cardWidth,
+        // height: cardHeight,
+        scale: 2,  // 2x DPI提高清晰度
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null  // 透明背景
       })
-      const capMaterial = new THREE.MeshBasicMaterial({ 
-        color: 0x555555,
-        transparent: true,
-        opacity: 0.8
-      })
       
-      // 更新圆柱体的材质
-      cylinder.material = [sideMaterial, capMaterial, capMaterial]
+      cardTextures.push(canvas)
       
-      console.log('✅ Card组件纹理已应用到圆柱体')
-      
-    } else {
-      console.log('❌ 卡片纹理创建失败，保持占位符')
+    } catch (error) {
+      console.error(`❌ 卡片 ${i + 1} 截图失败:`, error)
     }
-  }).catch(err => {
-    console.error('❌ 卡片纹理创建错误:', err)
-  })
+  }
+
+  return cardTextures
+}
+
+// 创建带卡片的圆柱体
+const createCylinderWithCards = async () => {
+  try {
+    // 获取配置
+    const diameter = $frontmatter.diameter || 600
+    const gendre = $frontmatter.gendre || 'circle'
+    
+    // 1. 生成卡片截图纹理
+    const cardTextures = await createCardTextures()
+    if (cardTextures.length === 0) {
+      console.error('❌ 无法获取卡片纹理')
+      return
+    }
+    
+    // 2. 创建几何体
+    const radius = diameter / 2
+    const geometry = createGeometry(gendre, radius, 300, cardTextures.length)
+    
+    // 3. 应用纹理
+    applyTexture(geometry, cardTextures)
+  } catch (error) {
+    console.error('❌ 创建圆柱体失败:', error)
+  }
 }
 
 // 初始化Three.js场景
-const initThree = () => {
-  console.log('🚀 开始初始化Three.js场景...')
-  
+const initThreeScene = async () => {
   if (!threeContainer.value) {
     console.error('❌ Three.js容器不存在')
     return
   }
 
-  // 1. 创建场景
-  scene = new THREE.Scene()
-  // 不设置背景色，保持透明以显示DOM背景
-
-  // 2. 创建相机
-  const container = threeContainer.value
-  const aspect = container.clientWidth / container.clientHeight
-  camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
-  camera.position.set(0, 0, 500) // 根据直径调整相机距离
-
-  // 3. 创建渲染器（设置为透明背景）
-  renderer = new THREE.WebGLRenderer({ 
-    antialias: true,
-    alpha: true,
-    preserveDrawingBuffer: true
-  })
-  renderer.setClearColor(0x000000, 0) // 设置清除颜色为透明
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  renderer.setSize(container.clientWidth, container.clientHeight)
-  renderer.outputColorSpace = THREE.SRGBColorSpace
+  // 初始化Three.js核心组件
+  initThree(threeContainer.value)
   
-  console.log(`📺 渲染器设置: ${container.clientWidth}x${container.clientHeight}`)
-  container.appendChild(renderer.domElement)
-
-  console.log('✅ Three.js基础设置完成')
-
   // 创建卡片圆柱体
-  createCylinderWithCards()
-
-  // 监听窗口大小变化事件
-  window.addEventListener('resize', onWindowResize)
-  
-  // 添加鼠标交互事件
-  container.addEventListener('mousedown', onMouseDown)
-  window.addEventListener('mousemove', onMouseMove)
-  window.addEventListener('mouseup', onMouseUp)
-  
-  console.log('🖱️ 鼠标交互已启用，可拖动旋转圆柱体')
-
-  // 开始动画循环
-  animate()
-  
-  console.log('🎉 Three.js初始化完成')
+  await createCylinderWithCards()
 }
 
 // 动画循环函数
@@ -471,25 +406,19 @@ const onWindowResize = () => {
 }
 
 // Vue 组件挂载后，初始化 Three.js 场景
-onMounted(() => {
-  console.log('🔧 Vue组件已挂载，准备初始化Three.js...')
-  
+onMounted(async () => {
   // 首先解析slot内容
   if (slotRef.value) {
     slotContent.value = slotRef.value.innerHTML || slotRef.value.textContent || ''
-    console.log('📝 Slot内容已获取')
   }
   
   // 等待一下确保DOM完全准备好
-  setTimeout(() => {
-    initThree()
-  }, 100)
+  await new Promise(resolve => setTimeout(resolve, 100))
+  initThreeScene()
 })
 
 // Vue 组件卸载前，进行清理操作
 onBeforeUnmount(() => {
-  console.log('🧹 开始清理Three.js资源...')
-  
   cancelAnimationFrame(animationFrameId)
   window.removeEventListener('resize', onWindowResize)
   
@@ -503,8 +432,6 @@ onBeforeUnmount(() => {
   if (renderer) {
     renderer.dispose()
   }
-  
-  console.log('✅ Three.js资源清理完成')
 })
 </script>
 
@@ -557,7 +484,6 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  /* 使用位置隐藏而不是 visibility: hidden，以确保html2canvas能正常工作 */
   position: absolute;
   left: -9999px;
   top: -9999px;
