@@ -40,7 +40,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import * as THREE from 'three'
-import html2canvas from 'html2canvas'
+import {snapdom} from '@zumer/snapdom'
 import { handleBackground } from '../layoutHelper'
 // Card 组件已通过 slidev-addon-card 全局注册，无需手动导入
 
@@ -50,6 +50,7 @@ const slotRef = ref(null)
 const cardsContainer = ref(null)
 const cardRefs = ref([])
 const slotContent = ref('')
+const diameter = $frontmatter.size || 600
 
 // 背景样式处理
 const backgroundStyle = computed(() => {
@@ -134,6 +135,9 @@ const parsedCards = computed(() => {
         config.content = content
       }
       
+
+      config.width = $frontmatter.cardWidth || 600
+
       cards.push(config)
       console.log(`✅ 解析到卡片 ${index + 1}: ${title}`)
     })
@@ -145,15 +149,17 @@ const parsedCards = computed(() => {
 // Three.js核心函数（移植自test-refactored.html）
 
 // 1. 初始化Three.js场景
-const initThree = (container) => {
+const initThree = (container, cameraZ = 400) => {
   // 创建场景
   scene = new THREE.Scene()
-  // 透明背景以显示DOM背景
   
   // 创建相机
   const aspect = container.clientWidth / container.clientHeight
   camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
-  camera.position.set(0, 0, 500) // 根据直径调整相机距离
+  
+  // 仰拍角度：相机位置在下方，向上看圆柱体
+  camera.position.set(0, 60, cameraZ)
+  camera.lookAt(0, 50, 0)
 
   // 创建透明渲染器
   renderer = new THREE.WebGLRenderer({ 
@@ -273,9 +279,6 @@ const createCardTextures = async () => {
     return []
   }
   
-  // 获取frontmatter配置
-  const cardWidth = $frontmatter.width || 300
-  const cardHeight = cardWidth * (5/3)  // 按照要求，高度是宽度的5/3倍
   
   // 等待Card组件渲染完成
   await new Promise(resolve => setTimeout(resolve, 500))
@@ -299,23 +302,17 @@ const createCardTextures = async () => {
     
     try {
       // 获取Card组件的DOM元素
-      const cardElement = cardComponent.$el
-      if (!cardElement) {
+      const el = cardComponent.$el
+      if (!el) {
         console.error(`❌ 卡片 ${i + 1} DOM元素不存在`)
         continue
       }
       // 等待样式应用
       await new Promise(resolve => setTimeout(resolve, 100))
       
-      // 使用html2canvas对Card组件进行截图
-      const canvas = await html2canvas(cardElement, {
-        width: cardWidth,
-        height: cardHeight,
-        useCORS: true,
-        allowTaint: true,
-        // backgroundColor: null  // 透明背景，保持原始渲染
-      })
-      
+      // 使用 snaptodom 进行截图
+      const canvas = await snapdom.toCanvas(el, {embedFonts: true});
+
       cardTextures.push(canvas)
       
     } catch (error) {
@@ -329,8 +326,6 @@ const createCardTextures = async () => {
 // 创建带卡片的圆柱体
 const createCylinderWithCards = async () => {
   try {
-    // 获取配置
-    const diameter = $frontmatter.size || 600
     const gendre = $frontmatter.gendre || 'circle'
     
     // 1. 生成卡片截图纹理
@@ -342,7 +337,7 @@ const createCylinderWithCards = async () => {
     
     // 2. 创建几何体
     const radius = diameter / 2
-    const geometry = createGeometry(gendre, radius, 300, cardTextures.length)
+    const geometry = createGeometry(gendre, radius, radius * 5/3, cardTextures.length)
     
     // 3. 应用纹理
     applyTexture(geometry, cardTextures)
@@ -359,7 +354,7 @@ const initThreeScene = async () => {
   }
 
   // 初始化Three.js核心组件
-  initThree(threeContainer.value)
+  initThree(threeContainer.value, diameter)
   
   // 创建卡片圆柱体
   await createCylinderWithCards()
@@ -475,6 +470,7 @@ onBeforeUnmount(() => {
   max-width: 1200px;
   max-height: 600px;
   position: absolute;
+  top: 0;
   background: transparent;
 }
 
