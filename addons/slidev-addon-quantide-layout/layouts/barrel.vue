@@ -1,103 +1,108 @@
 <template>
-  <div class="slidev-layout barrel-layout">
-    <!-- Hidden div to capture slot content -->
+  <div class="slidev-layout barrel-layout" :style="backgroundStyle">
+    <!-- Hidden cards-container for screenshot - 隐藏的卡片容器用于截图 -->
+    <div ref="cardsContainer" class="cards-container">
+      <Card
+        v-for="(card, index) in parsedCards"
+        :key="`card-${index}-${card.title}`"
+        ref="cardRefs"
+        :title="card.title"
+        :icon="card.icon"
+        :img="card.img"
+        :orientation="card.orientation || 'portrait'"
+        :frame="card.frame || 'rectangle'"
+        :backgroundColor="card.backgroundColor"
+        :borderColor="card.borderColor"
+        :titleColor="card.titleColor"
+        :textColor="card.textColor"
+        :borderRadius="card.borderRadius"
+        :shadow="card.shadow !== false"
+        :width="$frontmatter.width || 300"
+        :iconSize="card.iconSize"
+        :iconColor="card.iconColor"
+      >
+        {{ card.content }}
+      </Card>
+    </div>
+    
+    <!-- Hidden div to capture slot content - 隐藏的slot内容捕获 -->
     <div ref="slotRef" style="display: none;">
       <slot />
     </div>
-    <!-- Title -->
-    <div class="title">{{ $frontmatter.title }}</div>
-    <!-- Three.js barrel container -->
-    <div
-      class="barrel-container"
-      :style="{
-        marginTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
-          ? (typeof $frontmatter.top === 'number' ? `${$frontmatter.top}px` : String($frontmatter.top))
-          : '2.5rem'
-      }"
-    >
-      <!-- Three.js canvas will be mounted here -->
-      <div ref="threeContainer" class="three-container"></div>
-      <!-- Card overlays positioned over Three.js scene -->
-      <div class="card-overlays">
-        <div
-          v-for="(card, index) in parsedCards"
-          :key="'card-' + index"
-          class="card-overlay"
-          :class="{ 'card-active': index === activeCardIndex }"
-          :style="getCardOverlayStyle(index)"
-          :ref="el => setCardRef(el, index)"
-        >
-          <Card
-            :title="card.title"
-            :icon="card.icon"
-            :img="card.img"
-            :orientation="card.orientation || 'landscape'"
-            :frame="card.frame || 'rectangle'"
-            :backgroundColor="card.backgroundColor"
-            :borderColor="card.borderColor"
-            :titleColor="card.titleColor"
-            :textColor="card.textColor"
-            :borderRadius="card.borderRadius"
-            :shadow="card.shadow !== false"
-            :width="card.width || '300px'"
-            :iconSize="card.iconSize"
-            :iconColor="card.iconColor"
-          >
-            {{ card.content }}
-          </Card>
-        </div>
-      </div>
+    
+    <!-- Three.js container - 3D圆柱体容器 -->
+    <div class="barrel-container">
+      <div ref="threeContainer" class="three-container" :style="threeStyle"></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import * as THREE from 'three'
+import {snapdom} from '@zumer/snapdom'
+import { handleBackground } from '../layoutHelper'
+// Card 组件已通过 slidev-addon-card 全局注册，无需手动导入
 
-// In Slidev, we need to parse the slot content
-const slotContent = ref('')
-const slotRef = ref(null)
+// Refs
 const threeContainer = ref(null)
+const slotRef = ref(null)
+const cardsContainer = ref(null)
 const cardRefs = ref([])
+const slotContent = ref('')
+const diameter = $frontmatter.size || 600
 
-// Three.js scene objects
-let scene, camera, renderer, cylinderMesh
-let animationId = null
-const cardPositions = ref([])
-const cardRotationAngles = ref([])
-
-const activeCardIndex = computed(() => {
-  // Use Slidev's native $clicks variable for reveal mechanism (same as cards.vue)
-  const clicks = typeof $clicks !== 'undefined' ? $clicks : 0
-  const index = Math.max(0, Math.min(parsedCards.value.length - 1, clicks))
-  return index
+// 背景样式处理
+const backgroundStyle = computed(() => {
+  const background = $frontmatter.background
+  if (!background) return {}
+  
+  console.log(`🌈 设置背景: ${background}`)
+  return handleBackground(background)
 })
 
-// Parse the slot content to extract card configurations
+// Three.js objects
+let scene, camera, renderer, cylinder
+let animationFrameId
+let isMouseDown = false
+let mouseX = 0
+let mouseY = 0
+let targetRotationY = 0
+let currentRotationY = 0
+
+const threeStyle = computed(()=>{
+  if ($frontmatter.top !== 'undefined') {
+    return {
+      top: `${$frontmatter.top}`.endsWith("px") ? $frontmatter.top : `${$frontmatter.top}px`
+    }
+  }
+})
+// 解析slot内容提取卡片配置（与cards.vue保持一致）
 const parsedCards = computed(() => {
   if (!slotContent.value) {
     return []
   }
   
+  console.log('📋 开始解析卡片内容...')
+  
   const content = slotContent.value
   const cards = []
   
-  // Split content by h2 elements or ## headers
+  // 按h2元素或##标题分割内容
   const sections = content.split(/<h2[^>]*>|^## /m).filter(section => section.trim())
   
   sections.forEach((section, index) => {
-      // Extract title from h2 tag or plain text
+      // 从 h2 标签或纯文本中提取标题
       let title = ''
       let configText = section
       
-      // Handle h2 tag content
+      // 处理 h2 标签内容
       const h2Match = section.match(/^([^<]+)<\/h2>/)
       if (h2Match) {
         title = h2Match[1].trim()
         configText = section.replace(/^[^<]+<\/h2>/, '')
       } else {
-        // Handle plain text title
+        // 处理纯文本标题
         const lines = section.split('\n')
         title = lines[0].trim()
         configText = lines.slice(1).join('\n')
@@ -107,11 +112,11 @@ const parsedCards = computed(() => {
         return
       }
       
-      // Parse YAML-like configuration from list items
+      // 从列表项目中解析YAML格式的配置
       const config = { title }
       let content = ''
       
-      // Look for list items in HTML format "<li>key: value</li>"
+      // 查找 HTML 格式的列表项目 "<li>key: value</li>"
       const listItems = configText.match(/<li>([^<]+)<\/li>/g) || []
 
       listItems.forEach(item => {
@@ -130,393 +135,359 @@ const parsedCards = computed(() => {
         config.content = content
       }
       
+
+      config.width = $frontmatter.cardWidth || 600
+
       cards.push(config)
+      console.log(`✅ 解析到卡片 ${index + 1}: ${title}`)
     })
   
+  console.log(`📊 总共解析到 ${cards.length} 张卡片`)
   return cards
 })
 
-// Set card ref
-function setCardRef(el, index) {
-  if (el) {
-    cardRefs.value[index] = el
+// Three.js核心函数（移植自test-refactored.html）
+
+// 1. 初始化Three.js场景
+const initThree = (container, cameraZ = 400) => {
+  // 创建场景
+  scene = new THREE.Scene()
+  
+  // 创建相机
+  const aspect = container.clientWidth / container.clientHeight
+  camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
+  
+  // 仰拍角度：相机位置在下方，向上看圆柱体
+  camera.position.set(0, 60, cameraZ)
+  camera.lookAt(0, 50, 0)
+
+  // 创建透明渲染器
+  renderer = new THREE.WebGLRenderer({ 
+    antialias: true,
+    alpha: true,
+    preserveDrawingBuffer: true
+  })
+  renderer.setClearColor(0x000000, 0) // 透明背景
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  renderer.setSize(container.clientWidth, container.clientHeight)
+  renderer.outputColorSpace = THREE.SRGBColorSpace
+  
+  container.appendChild(renderer.domElement)
+
+  // 添加鼠标交互
+  container.addEventListener('mousedown', onMouseDown)
+  window.addEventListener('mousemove', onMouseMove)
+  window.addEventListener('mouseup', onMouseUp)
+  
+  // 监听窗口大小变化
+  window.addEventListener('resize', onWindowResize)
+
+  // 开始动画循环
+  animate()
+}
+
+// 2. 创建几何体的函数
+const createGeometry = (type, radius, height, imageCount) => {
+  let geometry
+  let segments
+  
+  if (type === 'circle') {
+    // 圆柱体：使用较多段数获得平滑效果
+    segments = 64
+    geometry = new THREE.CylinderGeometry(radius, radius, height, segments)
+  } else if (type === 'polygon') {
+    // 正n边形：段数等于图片数量，形成多面体
+    segments = imageCount
+    geometry = new THREE.CylinderGeometry(radius, radius, height, segments)
+  } else {
+    // 默认为圆柱体
+    segments = 64
+    geometry = new THREE.CylinderGeometry(radius, radius, height, segments)
+  }
+  
+  return geometry
+}
+
+// 3. 贴图函数
+const applyTexture = (geometry, textures) => {
+  // 先创建占位符
+  const placeholderMaterial = new THREE.MeshBasicMaterial({ 
+    color: 0xcccccc, 
+    wireframe: true,
+    transparent: true,
+    opacity: 0.3
+  })
+  cylinder = new THREE.Mesh(geometry, placeholderMaterial)
+  scene.add(cylinder)
+
+  try {
+    // 创建拼接canvas
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+
+    // 从 Canvas 元素获取尺寸
+    const imageWidth = textures[0].width
+    const imageHeight = textures[0].height
+    
+    canvas.width = imageWidth * textures.length
+    canvas.height = imageHeight
+
+    // 将图片并排绘制到canvas上
+    textures.forEach((texture, index) => {
+      ctx.drawImage(texture, index * imageWidth, 0, imageWidth, imageHeight)
+    })
+
+    // 从拼接好的canvas创建最终纹理
+    const stitchedTexture = new THREE.CanvasTexture(canvas)
+    stitchedTexture.colorSpace = THREE.SRGBColorSpace
+    stitchedTexture.needsUpdate = true
+    stitchedTexture.premultiplyAlpha = false
+    stitchedTexture.format = THREE.RGBAFormat
+    stitchedTexture.magFilter = THREE.LinearFilter
+    stitchedTexture.minFilter = THREE.LinearFilter
+    stitchedTexture.generateMipmaps = false
+
+    // 创建材质
+    const sideMaterial = new THREE.MeshBasicMaterial({ 
+      map: stitchedTexture,
+      transparent: true,
+      alphaTest: 0.1,
+      side: THREE.DoubleSide
+    })
+    const capMaterial = new THREE.MeshBasicMaterial({ 
+      color: 0x555555,
+      transparent: true,
+      opacity: 0.8
+    })
+
+    // 更新几何体材质 [侧面, 顶部, 底部]
+    cylinder.material = [sideMaterial, capMaterial, capMaterial]
+
+    return cylinder
+
+  } catch (error) {
+    console.error('❌ 纹理应用失败:', error)
+    return cylinder // 返回占位符
   }
 }
 
-// Add light source for better 3D effect
-function addLights() {
-  // Ambient light for base illumination
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
-  scene.add(ambientLight)
+// 生成卡片截图的纹理数组
+const createCardTextures = async () => {
+  const cards = parsedCards.value
+  if (cards.length === 0) {
+    console.error('❌ 没有解析到卡片数据')
+    return []
+  }
   
-  // Directional light for shadows and depth
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
-  directionalLight.position.set(1, 1, 1)
-  scene.add(directionalLight)
   
-  // Point light for additional highlights
-  const pointLight = new THREE.PointLight(0xffffff, 0.6)
-  pointLight.position.set(0, 0, 500)
-  scene.add(pointLight)
+  // 等待Card组件渲染完成
+  await new Promise(resolve => setTimeout(resolve, 500))
+  
+  const cardTextures = []
+  
+  // 使用组件引用直接访问 Card 组件
+  const cardComponents = cardRefs.value
+  
+  if (!cardComponents || cardComponents.length === 0) {
+    console.error('❌ 未找到Card组件引用')
+    return []
+  }
+  
+  // 对每个Card组件进行截图
+  for (let i = 0; i < Math.min(cardComponents.length, cards.length); i++) {
+    const cardComponent = cardComponents[i]
+    const card = cards[i]
+    
+    if (!card || !cardComponent) continue
+    
+    try {
+      // 获取Card组件的DOM元素
+      const el = cardComponent.$el
+      if (!el) {
+        console.error(`❌ 卡片 ${i + 1} DOM元素不存在`)
+        continue
+      }
+      // 等待样式应用
+      await new Promise(resolve => setTimeout(resolve, 100))
+      
+      // 使用 snaptodom 进行截图
+      const canvas = await snapdom.toCanvas(el, {embedFonts: true});
+
+      cardTextures.push(canvas)
+      
+    } catch (error) {
+      console.error(`❌ 卡片 ${i + 1} 截图失败:`, error)
+    }
+  }
+
+  return cardTextures
 }
 
-// Initialize Three.js scene
-function initThree() {
+// 创建带卡片的圆柱体
+const createCylinderWithCards = async () => {
+  try {
+    const gendre = $frontmatter.gendre || 'circle'
+    
+    // 1. 生成卡片截图纹理
+    const cardTextures = await createCardTextures()
+    if (cardTextures.length === 0) {
+      console.error('❌ 无法获取卡片纹理')
+      return
+    }
+    
+    // 2. 创建几何体
+    const radius = diameter / 2
+    const geometry = createGeometry(gendre, radius, radius * 5/3, cardTextures.length)
+    
+    // 3. 应用纹理
+    applyTexture(geometry, cardTextures)
+  } catch (error) {
+    console.error('❌ 创建圆柱体失败:', error)
+  }
+}
+
+// 初始化Three.js场景
+const initThreeScene = async () => {
   if (!threeContainer.value) {
-    console.warn('Three container not available')
+    console.error('❌ Three.js容器不存在')
     return
   }
+
+  // 初始化Three.js核心组件
+  initThree(threeContainer.value, diameter)
   
-  // Clear previous scene if exists
-  if (renderer) {
-    threeContainer.value.removeChild(renderer.domElement)
-  }
-  
-  // Scene setup with perspective
-  scene = new THREE.Scene()
-  scene.background = new THREE.Color(0xf0f0f0)
-  
-  // Camera setup
-  const containerRect = threeContainer.value.getBoundingClientRect()
-  const width = containerRect.width || 800
-  const height = containerRect.height || 600
-  
-  camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-  camera.position.set(0, 0, 500)
-  
-  // Renderer setup
-  renderer = new THREE.WebGLRenderer({ antialias: true })
-  renderer.setSize(width, height)
-  renderer.setClearColor(0xf8f8f8, 1)
-  threeContainer.value.appendChild(renderer.domElement)
-  
-  // Ensure canvas is visible
-  renderer.domElement.style.display = 'block'
-  renderer.domElement.style.width = '100%'
-  renderer.domElement.style.height = '100%'
-  
-  // Add lights for 3D effect
-  addLights()
-  
-  // Create cylinder
-  createCylinder()
-  
-  // Calculate card positions on cylinder surface
-  calculateCardPositions()
-  
-  // Start render loop
-  animate()
-  
-  // Initial render
-  renderer.render(scene, camera)
+  // 创建卡片圆柱体
+  await createCylinderWithCards()
 }
 
-// Create cylinder
-function createCylinder() {
-  const total = parsedCards.value.length
-  if (total === 0) return
+// 动画循环函数
+const animate = () => {
+  animationFrameId = requestAnimationFrame(animate)
   
-  // Remove previous cylinder if exists
-  if (cylinderMesh) {
-    scene.remove(cylinderMesh)
+  // 平滑的鼠标控制旋转
+  if (cylinder) {
+    currentRotationY += (targetRotationY - currentRotationY) * 0.05
+    cylinder.rotation.y = currentRotationY
   }
-  
-  // Create a cylinder with proper dimensions
-  const radius = 200
-  const height = 100
-  const radialSegments = Math.max(8, total)
-  
-  const geometry = new THREE.CylinderGeometry(radius, radius, height, radialSegments, 1, true)
-  
-  // Use MeshPhongMaterial instead of MeshBasicMaterial for better 3D effect
-  const material = new THREE.MeshPhongMaterial({ 
-    color: 0x4a90e2,
-    wireframe: false,
-    transparent: true,
-    opacity: 0.7,
-    shininess: 30
-  })
-  
-  cylinderMesh = new THREE.Mesh(geometry, material)
-  scene.add(cylinderMesh)
-}
-
-// Calculate positions for cards on cylinder surface
-function calculateCardPositions() {
-  const total = parsedCards.value.length
-  if (total === 0) return
-  
-  cardPositions.value = []
-  cardRotationAngles.value = []
-  
-  const radius = 220 // Slightly larger than cylinder radius
-  
-  for (let i = 0; i < total; i++) {
-    const angle = (i / total) * Math.PI * 2
-    cardRotationAngles.value.push(angle)
-    
-    // Calculate 3D position
-    const x = Math.cos(angle) * radius
-    const z = Math.sin(angle) * radius
-    const y = 0
-    
-    cardPositions.value.push({
-      angle,
-      world: { x, y, z }
-    })
-  }
-}
-
-// Animation loop
-function animate() {
-  if (!renderer || !scene || !camera) return
-  
-  animationId = requestAnimationFrame(animate)
-  
-  // Rotate cylinder slowly
-  if (cylinderMesh) {
-    cylinderMesh.rotation.y += 0.01
-  }
-  
-  // Update card positions based on cylinder rotation
-  updateCardScreenPositions()
   
   renderer.render(scene, camera)
 }
 
-// Update card screen positions based on current cylinder rotation
-function updateCardScreenPositions() {
-  if (!camera || !threeContainer.value || !cylinderMesh) return
-  
-  const containerWidth = threeContainer.value.clientWidth
-  const containerHeight = threeContainer.value.clientHeight
-  
-  cardPositions.value.forEach((pos, index) => {
-    // Apply current rotation to world position
-    const rotatedAngle = pos.angle + cylinderMesh.rotation.y
-    const radius = 220
-    const x = Math.cos(rotatedAngle) * radius
-    const z = Math.sin(rotatedAngle) * radius
-    
-    // Project to screen coordinates
-    const vector = new THREE.Vector3(x, 0, z)
-    vector.project(camera)
-    
-    // Convert from normalized device coordinates to screen coordinates
-    const screenX = (vector.x * 0.5 + 0.5) * containerWidth
-    const screenY = (-vector.y * 0.5 + 0.5) * containerHeight
-    
-    // Update the position in our reactive array
-    if (!pos.screen) {
-      pos.screen = {}
-    }
-    pos.screen.x = screenX
-    pos.screen.y = screenY
-    
-    // Update the actual DOM element position if it exists
-    if (cardRefs.value[index]) {
-      cardRefs.value[index].style.left = `${screenX}px`
-      cardRefs.value[index].style.top = `${screenY}px`
-      
-      // Calculate z-depth for layering
-      const normalizedAngle = ((rotatedAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)
-      const frontDistance = Math.abs(normalizedAngle - Math.PI)
-      const zIndex = Math.round((1 - frontDistance / Math.PI) * 100)
-      
-      // Update z-index and scale based on position
-      const isActive = index === activeCardIndex.value
-      cardRefs.value[index].style.zIndex = isActive ? 200 : zIndex
-      cardRefs.value[index].style.opacity = isActive ? '1' : '0.7'
-      cardRefs.value[index].style.transform = `translate(-50%, -50%) scale(${isActive ? 1.1 : 0.9})`
-    }
-  })
+// 鼠标事件处理
+const onMouseDown = (event) => {
+  isMouseDown = true
+  mouseX = event.clientX
+  mouseY = event.clientY
 }
 
-// Get card overlay positioning style
-function getCardOverlayStyle(index) {
-  return {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-    opacity: index === activeCardIndex.value ? 1 : 0.7,
-    zIndex: index === activeCardIndex.value ? 200 : 50,
-    transition: 'opacity 0.3s ease, transform 0.3s ease',
-    pointerEvents: index === activeCardIndex.value ? 'auto' : 'none'
+const onMouseMove = (event) => {
+  if (!isMouseDown) return
+  
+  const deltaX = event.clientX - mouseX
+  targetRotationY += deltaX * 0.01
+  mouseX = event.clientX
+  mouseY = event.clientY
+}
+
+const onMouseUp = () => {
+  isMouseDown = false
+}
+
+// 处理窗口大小变化
+const onWindowResize = () => {
+  if (camera && renderer && threeContainer.value) {
+    const width = threeContainer.value.clientWidth
+    const height = threeContainer.value.clientHeight
+
+    camera.aspect = width / height
+    camera.updateProjectionMatrix()
+
+    renderer.setSize(width, height)
   }
 }
 
-// Handle window resize
-function handleResize() {
-  if (!renderer || !camera || !threeContainer.value) return
-  
-  const containerRect = threeContainer.value.getBoundingClientRect()
-  camera.aspect = containerRect.width / containerRect.height
-  camera.updateProjectionMatrix()
-  renderer.setSize(containerRect.width, containerRect.height)
-  
-  // Recalculate card positions
-  updateCardScreenPositions()
-}
-
-// Extract content from the default slot
+// Vue 组件挂载后，初始化 Three.js 场景
 onMounted(async () => {
+  // 首先解析slot内容
   if (slotRef.value) {
     slotContent.value = slotRef.value.innerHTML || slotRef.value.textContent || ''
   }
   
-  // Wait for next tick to ensure DOM is ready
-  await nextTick()
-  
-  // Wait a bit more to ensure the container has dimensions
-  setTimeout(() => {
-    initThree()
-  }, 100)
-  
-  // Add resize listener
-  window.addEventListener('resize', handleResize)
+  // 等待一下确保DOM完全准备好
+  await new Promise(resolve => setTimeout(resolve, 100))
+  initThreeScene()
 })
 
-// Watch parsedCards to ensure they're loaded
-watch(parsedCards, (newCards) => {
-  if (newCards.length > 0) {
-    // Reinitialize Three.js when cards are loaded
-    nextTick(() => {
-      setTimeout(() => {
-        if (threeContainer.value) {
-          createCylinder()
-          calculateCardPositions()
-        }
-      }, 100)
-    })
-  }
-}, { immediate: true })
-
-// Cleanup
+// Vue 组件卸载前，进行清理操作
 onBeforeUnmount(() => {
-  if (animationId) {
-    cancelAnimationFrame(animationId)
+  cancelAnimationFrame(animationFrameId)
+  window.removeEventListener('resize', onWindowResize)
+  
+  // 清理鼠标事件监听器
+  if (threeContainer.value) {
+    threeContainer.value.removeEventListener('mousedown', onMouseDown)
   }
+  window.removeEventListener('mousemove', onMouseMove)
+  window.removeEventListener('mouseup', onMouseUp)
   
   if (renderer) {
     renderer.dispose()
   }
-  
-  window.removeEventListener('resize', handleResize)
 })
 </script>
 
 <style scoped>
-.title {
-    position: fixed;
-    top: 2px;
-    height: 2.2rem;
-    text-align: left;
-    left: 0;
-    background-color: var(--primary);
-    padding: 0.3rem 1.5rem 0.3rem 1.5rem;
-    border-radius: 0 2rem 0 2rem;
-}
-
 .slidev-layout.barrel-layout {
   height: 100vh;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
   overflow: hidden;
-  padding: 0;
 }
 
 .barrel-container {
   width: 100%;
-  height: 70vh;
-  min-height: 400px;
-  position: relative;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+}
+
+/* 在 barrel 布局中去除卡片的 box-shadow */
+.barrel-layout .card,
+.barrel-layout .slidev-card {
+  box-shadow: none !important;
 }
 
 .three-container {
-  width: 100%;
-  height: 100%;
-  min-width: 800px;
-  min-height: 400px;
+  width: 90vw;
+  height: 60vh;
+  max-width: 1200px;
+  max-height: 600px;
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 1;
+  background: transparent;
 }
 
 .three-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
   display: block;
-  width: 100%;
-  height: 100%;
 }
 
-.card-overlays {
+/* 隐藏的卡片容器样式 - 使用位置隐藏而非 visibility */
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.card-overlay {
-  position: absolute;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  will-change: transform, opacity, z-index;
-}
-
-.card-overlay.card-active {
-  pointer-events: auto;
-  z-index: 100 !important;
-}
-
-/* Card hover effects for active card */
-.card-overlay.card-active :deep(.card-container) {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
-}
-
-.card-overlay.card-active :deep(.card-container):hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .barrel-container {
-    height: 60vh;
-  }
-  
-  .card-overlay {
-    transform: translate(-50%, -50%) scale(0.8) !important;
-  }
-  
-  .card-overlay.card-active {
-    transform: translate(-50%, -50%) scale(0.9) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .barrel-container {
-    height: 50vh;
-  }
-  
-  .card-overlay {
-    transform: translate(-50%, -50%) scale(0.6) !important;
-  }
-  
-  .card-overlay.card-active {
-    transform: translate(-50%, -50%) scale(0.7) !important;
-  }
+  left: -9999px;
+  top: -9999px;
 }
 </style>

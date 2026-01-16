@@ -8,10 +8,11 @@ htmlAttrs:
   class: mint
 
 layout: barrel
-title: Three.js 桶形布局测试
-clicks: 4
-cardWidth: 300
-margin: 15
+gendre:  circle
+margin: 200
+size: 600
+clicks: 5
+background: https://picsum.photos/1920/1080?nature
 ---
 
 ## Barrel Card 1
