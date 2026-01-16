@@ -13,7 +13,7 @@ curdir=`pwd`
 cd ~/workspace/slidev_themes
 echo "进入目录：`pwd`"
 if [ $cmd == "serve" ]; then
-  npx slidev $curdir/$file -t $theme --remote --log info
+  npx slidev $file -t $theme --remote --log info
 elif [ $cmd == "pdf" ]; then
   mkdir -p /tmp/fa
   rm -rf /tmp/fa/*

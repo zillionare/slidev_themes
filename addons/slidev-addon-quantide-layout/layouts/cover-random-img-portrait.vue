@@ -4,8 +4,8 @@ import { handleBackground } from '@slidev/client/layoutHelper.ts'
 
 // 计算封面背景样式
 const coverImg = computed(() => {    
-    let imgset = $slidev.configs.background
-    if (imgset.endsWith(".jpg")){
+    let imgset = $slidev.configs.img
+    if (imgset.endsWith(".jpg") || imgset.endsWith(".png") || imgset.endsWith(".jpeg") || imgset.endsWith(".gif") || imgset.endsWith(".webp") || imgset.endsWith(".svg")){
         return handleBackground(imgset)
     }else{
         if (~ imgset.endsWith("/")){
@@ -25,24 +25,17 @@ const coverImg = computed(() => {
 
 // 计算 lecture-name 的背景样式
 const lectureNameStyle = computed(() => {
-    // 使用 handleBackground 函数计算背景样式
-    const background = $slidev.configs.background
-    const style = handleBackground(background, true)
     return {
-        ...style,
-        boxShadow: '0 2px 3px rgba(0, 0, 0, 0.5)',
-        borderRadius: '9999px',
         textAlign: 'left',
-        paddingLeft: '2rem',
-        paddingRight: '2rem',
-        paddingTop: '0.5rem',
-        paddingBottom: '0.5rem',
-        minWidth: '10rem',
-        color: 'white',
+        color: '#333',
         position: 'absolute',
-        top: '20px',
-        left: '1%',
-        "font-size": '2rem'
+        top: '30px',
+        left: '30px',
+        "font-size": '1.2rem',
+        "font-weight": "bold",
+        display: "flex",
+        alignItems: "center",
+        gap: "0.5rem",
     }
 })
 
@@ -121,38 +114,41 @@ onUnmounted(() => {
 <style scoped>
 /*layer-2 the content layer*/
 .title-wrapper {
-    /* background-color: color-mix(in srgb, var(--bg-primary) 100%, transparent); */
+    background-color: white;
     width: 100%;
     height: 50%;
     display: flex;
     flex-flow: column;
     justify-content: center;
-    align-self: center;
     align-items: center;
-    padding: 1em 0;
+    padding: 2rem 4rem;
     position: absolute;
-    left: 50%;
-    top:0;
-    transform: translateX(-50%);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    left: 0;
+    top: 0;
 }
 
 .title {
-    @apply text-8xl;
-    height: 70%;
+    @apply text-6xl font-bold;
+    color: #000;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.2;
 }
 
 .subtitle {
-    @apply text-4xl;
-    height: 10%;
-    width: 100%;
+    @apply text-2xl;
+    width: 80%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    border-left: 5px solid #333;
+    padding-left: 1.5rem;
+    color: #555;
+    line-height: 1.5;
 }
 
 .cover-image {
@@ -161,34 +157,34 @@ onUnmounted(() => {
     left: 0;
     width: 100%;
     height: 50%;
+    background-size: cover;
+    background-position: center;
 }
 
 .footer {
-    @apply: text-2xl;
+    @apply text-sm;
     position: absolute;
     bottom: 20px;
     right: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    color: var(--primary);
-    text-shadow: 
-        -1px -1px 0 #000,  
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
 .author {
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .date {
     position: relative;
+    opacity: 0.9;
 }
 
 .cover {
-    background-color: var(--primary);
+    background-color: white;
 }
 
 </style>
@@ -204,9 +200,8 @@ onUnmounted(() => {
             <div class="title">
                 {{ $slidev.configs.title }}
             </div>
-            <div class="subtitle">{{ $slidev.configs.subtitle }}</div>
+            <div class="subtitle">{{ $slidev.configs.excerpt }}</div>
         </div>
-        <slot/>
         <!-- 右下角的 footer 区域 -->
         <div v-if="showFooter" class="footer">
             <div class="author">{{ $slidev.configs.author }}</div>

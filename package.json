@@ -3,7 +3,7 @@
   "type": "module",
   "slidev": {
     "defaults": {
-      "width": 1280,
+      "width": 1000,
       "aspectRatio": "16/9"
     }
   },
@@ -12,6 +12,8 @@
     "@slidev/cli": "^52.1.0",
     "@slidev/theme-default": "latest",
     "animate.css": "^4.1.1",
+    "markdown-it": "^14.1.0",
+    "markdown-it-admon": "^1.0.1",
     "slidev-addon-fancy-arrow": "^0.13.1",
     "slidev-addon-notecell": "link:../../Library/pnpm/global/5/node_modules/addons/slidev-addon-notecell",
     "slidev-addon-python-runner": "^0.1.3",
