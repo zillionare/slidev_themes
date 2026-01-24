@@ -181,6 +181,7 @@ onUnmounted(() => {
 .date {
     position: relative;
     opacity: 0.9;
+    font-size: 1rem;
 }
 
 .cover {
@@ -197,8 +198,7 @@ onUnmounted(() => {
         <div v-if="$slidev.configs.lecture" class="lecture-name" :style="lectureNameStyle">{{ $slidev.configs.lecture }}</div>
         
         <div class="title-wrapper">
-            <div class="title">
-                {{ $slidev.configs.title }}
+            <div class="title" v-html="$slidev.configs.title">
             </div>
             <div class="subtitle">{{ $slidev.configs.excerpt }}</div>
         </div>
@@ -206,7 +206,7 @@ onUnmounted(() => {
         <div v-if="showFooter" class="footer">
             <div class="author">{{ $slidev.configs.author }}</div>
             <div class="date">
-                <span ref="timeElement">{{ now }}</span>
+                <span ref="timeElement">Photo by: {{ $slidev.configs.img_copyright }}</span>
             </div>
         </div>
     </div>
