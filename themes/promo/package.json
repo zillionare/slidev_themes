@@ -15,8 +15,8 @@
     "colorSchema": "light",
     "highlighter": "shiki",
     "defaults": {
-        "aspectRatio": "6/4",
-        "canvasWidth": 840
+      "aspectRatio": "6/4",
+      "canvasWidth": 840
     }
   },
   "repository": {
@@ -30,6 +30,7 @@
   "dependencies": {
     "@slidev/types": "^0.22.7",
     "codemirror-theme-vars": "^0.1.1",
+    "markdown-it-emoji": "^3.0.0",
     "prism-theme-vars": "^0.2.2",
     "theme-vitesse": "^0.1.12"
   }

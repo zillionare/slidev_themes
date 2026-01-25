@@ -5,9 +5,15 @@ import { computed } from 'vue'
 const title = computed(() => $frontmatter.title || '限时特惠商品')
 const subtitle = computed(() => $frontmatter.subtitle || '')
 const price = computed(() => $frontmatter.price || '¥99')
-const description = computed(() => $frontmatter.description || '高品质商品，限时优惠，机会难得！')
+const description = computed(() => {
+    if (!$frontmatter.description) return ''
+    return $frontmatter.description
+        .split('|')
+        .map(item => `<li>${item.trim()}</li>`)
+        .join('')
+})
 const qrcode = computed(() => $frontmatter.qrcode || 'https://images.jieyu.ai/images/hot/quantfans.png')
-const bgImage = computed(() => $frontmatter.bgImg || 'https://images.jieyu.ai/images/hot/gallery/4x3/blog.jpg')
+const bgImage = computed(() => $frontmatter.bgImg || 'https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/blog.jpg')
 const imageSource = computed(() => $frontmatter.imageSource || '')
 </script>
 
@@ -102,7 +108,8 @@ const imageSource = computed(() => $frontmatter.imageSource || '')
 /* 标题区域 */
 .title-section {
     position: absolute;
-    top: 400px;
+    top: 300px;
+    width: 100%;
     text-align: center;
     margin-top: 40px;
     margin-bottom: 40px;
@@ -111,7 +118,7 @@ const imageSource = computed(() => $frontmatter.imageSource || '')
 .main-title {
     font-size: 96px;
     font-weight: 900;
-    color: #2c3e50;
+    color: #0A8B7B;
     text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
     letter-spacing: 2px;
     font-family: 'PangMenChuShuTi', sans-serif;
@@ -154,22 +161,29 @@ const imageSource = computed(() => $frontmatter.imageSource || '')
 /* 描述区域 */
 .description-section {
     text-align: center;
-    margin: 30px 0;
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
 }
 
 .description-text {
-    font-size: 24px;
-    color: #444444;
+    font-size: 36px;
+    color: #20B2AA;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
     line-height: 1.6;
-    max-width: 80%;
+    width: 80%;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.9);
-    padding: 25px 35px;
+    padding: 20px 40px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.95);
-    /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
+    text-align: left;
+    list-style-type: disc;
+    display: inline-block;
+    font-family: 'AlimamaFangYuanTiVF-Thin', sans-serif;
 }
 
 /* 底部区域 */
@@ -181,7 +195,7 @@ const imageSource = computed(() => $frontmatter.imageSource || '')
 }
 
 .qr-section {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     background: rgba(255, 255, 255, 0.95);
@@ -262,11 +276,8 @@ const imageSource = computed(() => $frontmatter.imageSource || '')
                 <p v-if="subtitle" class="subtitle">{{ subtitle }}</p>
             </div>
 
-            <!-- 价格区域 -->
-            <div class="price-section">
-                <div class="price-container">
-                    <div class="price-text">{{ price }}</div>
-                </div>
+            <div class="description-section">
+                <ul class="description-text" v-html="description"></ul>
             </div>
 
             <!-- 底部区域 -->
@@ -275,10 +286,6 @@ const imageSource = computed(() => $frontmatter.imageSource || '')
                 <div class="qr-section">
                     <div class="qr-title">客服微信</div>
                     <img :src="qrcode" alt="客服微信" class="qr-image" />
-                </div>
-
-                <div class="description-section">
-                    <p class="description-text">{{ description }}</p>
                 </div>
 
                 <!-- 装饰性文字 -->
