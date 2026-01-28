@@ -3,7 +3,7 @@
     /* --slidev-theme-secondary: #E60000; */
     --slidev-theme-secondary: #606060;
     --slidev-background-color: #fcfcfc;
-    font-family: ZhuqueFangsong, sans-serif !important;
+    /* font-family: ZhuqueFangsong, sans-serif !important; */
 
     .abs {
         position: absolute;

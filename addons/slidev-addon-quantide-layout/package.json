@@ -1,7 +1,7 @@
 {
-  "name": "slidev-addon-quantide-theme-landscape",
+  "name": "slidev-addon-quantide-layout",
   "version": "0.1.0",
-  "description": "Quantide landscape theme for Slidev",
+  "description": "Quantide layout addon for Slidev",
   "keywords": [
     "slidev-addon",
     "slidev-theme",

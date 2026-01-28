@@ -1,0 +1,192 @@
+/* 庞门正道标题体 */
+@font-face {
+    font-family: 'PangMenTitle';
+    src: url('./fonts/庞门正道标题体免费版_mianfeiziti.com.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 庞门正道粗书体 */
+@font-face {
+    font-family: 'PangMenChuShuTi';
+    src: url('./fonts/庞门正道粗书体_mianfeiziti.com.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 演示夏行 */
+@font-face {
+    font-family: 'YanShiXiaXing';
+    src: url('./fonts/演示夏行.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 演示春风 */
+@font-face {
+    font-family: 'YanShiChunFeng';
+    src: url('./fonts/演示春风-Regular.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 演示秋鸿 */
+@font-face {
+    font-family: 'YanShiQiuHong';
+    src: url('./fonts/演示秋鸿-Regular.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 阿里巴巴普惠体系列 */
+@font-face {
+    font-family: 'AlibabaPuHuiTi-Black';
+    src: url('./fonts/AlibabaPuHuiTi-3-115-Black.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AlibabaPuHuiTi-Thin';
+    src: url('./fonts/AlibabaPuHuiTi-3-35-Thin.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AlibabaPuHuiTi-RegularL3';
+    src: url('./fonts/AlibabaPuHuiTi-3-55-RegularL3.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AlibabaPuHuiTi-Bold';
+    src: url('./fonts/AlibabaPuHuiTi-3-85-Bold.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 青柳隶书 */
+@font-face {
+    font-family: 'QingLiuLiShu';
+    src: url('./fonts/青柳隶书_mianfeiziti.com.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 鸿雷板书简体 */
+@font-face {
+    font-family: 'HongLeiBanShuJianTi';
+    src: url('./fonts/鸿雷板书简体-正式版.otf') format('opentype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 鸿雷行书简体 */
+@font-face {
+    font-family: 'HongLeiXingShuJianTi';
+    src: url('./fonts/鸿雷行书简体.otf') format('opentype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 辰余落雁细 */
+@font-face {
+    font-family: 'ChenYuLuoYanXi';
+    src: url('./fonts/辰余落雁细-等宽.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 文泉驿微米黑 */
+@font-face {
+    font-family: 'WenQuanWeiMiHei';
+    src: url('./fonts/WenQuanWeiMiHei.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 文泉驿正黑 */
+@font-face {
+    font-family: 'WenQuanYiZenHei';
+    src: url('./fonts/WenQuanYiZenHei.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 文泉驿正黑等宽 */
+@font-face {
+    font-family: 'WenQuanYiZenHeiMono';
+    src: url('./fonts/WenQuanYiZenHeiMono.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ZhuqueFangsong-Regular */
+@font-face {
+    font-family: 'ZhuqueFangsong';
+    src: url('./fonts/ZhuqueFangsong-Regular.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* OPPOSans 系列 */
+@font-face {
+    font-family: 'OPPOSans-Bold';
+    src: url('./fonts/OPPOSans-Bold.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'OPPOSans-Medium';
+    src: url('./fonts/OPPOSans-Medium.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'OPPOSans-Regular';
+    src: url('./fonts/OPPOSans-Regular.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 文泉驿微米黑-轻 */
+@font-face {
+    font-family: 'wqy-microhei-lite';
+    src: url('./fonts/WenQuanYiMicroHeiLight.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 文泉驿微米黑等宽-轻 */
+@font-face {
+    font-family: 'wqy-microhei-mono-lite';
+    src: url('./fonts/WenQuanYiMicroHeiMonoLight.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}

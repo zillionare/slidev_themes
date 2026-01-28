@@ -12,7 +12,7 @@
 }
 
 .slidev-layout {
-    font-family: "ZhuqueFangsong";
+    font-family: inherit;
     font-size: 40px;
     @apply h-full text-left text-$slidev-theme-primary;
     box-sizing: border-box;

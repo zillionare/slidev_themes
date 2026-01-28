@@ -11,7 +11,7 @@
 }
 
 .slidev-layout {
-    font-family: "ZhuqueFangsong";
+    font-family: inherit;
     text-justify: inter-character;
     @apply h-full text-left text-$slidev-theme-primary;
 
