@@ -54,6 +54,32 @@ layout: default
 - <span style="font-family: 'ZhuqueFangsong';">朱雀仿宋：文艺范的列表项</span>
 
 ---
+layout: default
+font: "阿里巴巴普惠体-Regular"
+h1: "青柳隶书"
+---
+
+# 这一页演示了层级字体控制
+
+通过以下 Frontmatter 配置：
+- `font: "阿里巴巴普惠体-Regular"` (作用于正文)
+- `h1: "青柳隶书"` (仅作用于一级标题)
+
+正文部分依然使用普惠体，但上面的标题应该已经变成了隶书。
+
+---
+layout: center
+headingFont: "庞门正道标题体"
+---
+
+# 这一页演示了 headingFont
+
+通过 `headingFont: "庞门正道标题体"`，本页所有的标题（h1-h6）都会应用该字体，而不需要逐个指定。
+
+## 我也是标题 (h2)
+### 我也是标题 (h3)
+
+---
 layout: center
 font: "朱雀仿宋"
 ---
@@ -80,12 +106,15 @@ console.log(message)
 
 ---
 layout: cover
+fontTitle: "庞门正道标题体"
 font: "鸿雷板书简体"
 ---
 
-# 封面页：鸿雷板书简体
+# 封面页：自定义标题字体
 
-这一页演示了如何切换到手写风格的字体。
+这一页演示了如何通过 `fontTitle` 专门为封面标题指定字体。
+- `fontTitle`: 庞门正道标题体
+- `font`: 鸿雷板书简体 (作用于其他文字)
 
 ---
 layout: default
@@ -108,11 +137,16 @@ layout: default
 1. **全局设置**：在文档顶部的 frontmatter 中设置 `font`。
 2. **单页设置**：在分页符 `---` 下方的 frontmatter 中设置 `font`。
 3. **字体映射**：在 `setup/fonts.ts` 中定义了常用字体的映射关系。
-4. **自定义 CSS**：你可以直接在元素上使用 `font-family`，所有字体都已加载。
+4. **自定义 CSS/Layout**：你可以直接在元素上使用 `font-family`，或者使用自动注入的 CSS 变量。
+   - `--slidev-font-h1` 到 `--slidev-font-h6`：对应 frontmatter 中定义的各级标题字体。
+   - `--slidev-theme-font-family`：对应全局指定的 `font`。
 
-例如：
-<p style="font-family: 'ChenYuLuoYanXi'">这段文字使用了：辰余落雁细</p>
-<p style="font-family: 'ZhuqueFangsong'">这段文字使用了：朱雀仿宋</p>
+例如在 Layout 中使用：
+```css
+.custom-title {
+  font-family: var(--slidev-font-h1);
+}
+```
 
 ---
 

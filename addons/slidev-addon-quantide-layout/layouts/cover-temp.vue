@@ -114,26 +114,42 @@ onUnmounted(() => {
 }
 .title {
     @apply text-6xl;
-    width: 90%;
-    color: var(--primary);
+    width: 100%;
+    color: #f0f0f0;
     font-family: var(--font-title);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
     text-align: center;
-    flex: 0 0 auto; /* 不伸缩，保持内容大小 */
+    font-size: 7vw;
+    top: 45%;
+    left: 0;
+    flex: 0 0 auto;
+    text-shadow: 0 0 3px rgba(246，218，152, 0.7);
+}
+
+.logo-wrapper {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5em;
+}
+
+.logo {
+    height: 2vw;
+    width: auto;
+    border-radius: 4px;
 }
 
 .subtitle {
     @apply text-xl;
-    color: var(--secondary);
-    width: 90%;
-    text-align: center;
+    color: gold;
     mix-blend-mode: lighten;
-    flex: 1 1 auto; /* 占据剩余空间 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 2vw;
+    position: static;
+    width: auto;
 }
 
 .cover-image {
@@ -142,22 +158,6 @@ onUnmounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-.title-wrapper {
-    /* background-color: color-mix(in srgb, var(--bg-primary) 70%, transparent); */
-    width: 100%;
-    height: 30%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-self: center;
-    align-items: center;
-    padding: 1em 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .footer {
@@ -189,19 +189,18 @@ onUnmounted(() => {
         <!-- 条件显示 lecture-name -->
         <div v-if="$slidev.configs.lecture" class="lecture-name" :style="lectureNameStyle">{{ $slidev.configs.lecture }}</div>
         
-        <div class="title-wrapper">
-            <div class="title">
-                {{ $slidev.configs.title }}
-            </div>
+        <div class="title">
+            {{ $slidev.configs.title }}
+        </div>
+        <div class="logo-wrapper">
+            <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg" alt="logo" class="logo">
             <div class="subtitle">{{ $slidev.configs.subtitle }}</div>
         </div>
         
         <!-- 右下角的 footer 区域 -->
         <div class="footer">
             <div class="author">{{ $slidev.configs.author }}</div>
-            <div class="date">
-                <span ref="timeElement">{{ now }}</span>
-            </div>
+
         </div>
     </div>
 </template>
