@@ -1,7 +1,7 @@
 /* 庞门正道标题体 */
 @font-face {
     font-family: 'PangMenTitle';
-    src: url('./fonts/庞门正道标题体免费版_mianfeiziti.com.ttf') format('truetype');
+    src: url('./fonts/PangMenTitle.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -10,7 +10,7 @@
 /* 庞门正道粗书体 */
 @font-face {
     font-family: 'PangMenChuShuTi';
-    src: url('./fonts/庞门正道粗书体_mianfeiziti.com.ttf') format('truetype');
+    src: url('./fonts/PangMenChuShuTi.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -19,7 +19,7 @@
 /* 演示夏行 */
 @font-face {
     font-family: 'YanShiXiaXing';
-    src: url('./fonts/演示夏行.ttf') format('truetype');
+    src: url('./fonts/YanShiXiaXing.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -28,7 +28,7 @@
 /* 演示春风 */
 @font-face {
     font-family: 'YanShiChunFeng';
-    src: url('./fonts/演示春风-Regular.ttf') format('truetype');
+    src: url('./fonts/YanShiChunFeng.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -37,7 +37,7 @@
 /* 演示秋鸿 */
 @font-face {
     font-family: 'YanShiQiuHong';
-    src: url('./fonts/演示秋鸿-Regular.ttf') format('truetype');
+    src: url('./fonts/YanShiQiuHong.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -79,7 +79,7 @@
 /* 青柳隶书 */
 @font-face {
     font-family: 'QingLiuLiShu';
-    src: url('./fonts/青柳隶书_mianfeiziti.com.ttf') format('truetype');
+    src: url('./fonts/QingLiuLiShu.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -88,7 +88,7 @@
 /* 鸿雷板书简体 */
 @font-face {
     font-family: 'HongLeiBanShuJianTi';
-    src: url('./fonts/鸿雷板书简体-正式版.otf') format('opentype');
+    src: url('./fonts/HongLeiBanShuJianTi.otf') format('opentype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -97,7 +97,7 @@
 /* 鸿雷行书简体 */
 @font-face {
     font-family: 'HongLeiXingShuJianTi';
-    src: url('./fonts/鸿雷行书简体.otf') format('opentype');
+    src: url('./fonts/HongLeiXingShuJianTi.otf') format('opentype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -106,7 +106,7 @@
 /* 辰余落雁细 */
 @font-face {
     font-family: 'ChenYuLuoYanXi';
-    src: url('./fonts/辰余落雁细-等宽.ttf') format('truetype');
+    src: url('./fonts/ChenYuLuoYanXi.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;

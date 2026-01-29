@@ -2,7 +2,6 @@
 export const fontMapping: Record<string, string> = {
     // 庞门正道
     '庞门正道标题体': 'PangMenTitle',
-    '庞门正道标题体免费版': 'PangMenTitle',
     '庞门正道粗书体': 'PangMenChuShuTi',
 
     // 演示系列
@@ -18,8 +17,8 @@ export const fontMapping: Record<string, string> = {
 
     // 其他
     '青柳隶书': 'QingLiuLiShu',
-    '鸿雷板书简体': 'HongLeiBanShuJianTi',
-    '鸿雷行书简体': 'HongLeiXingShuJianTi',
+    '鸿雷板书': 'HongLeiBanShuJianTi',
+    '鸿雷行书': 'HongLeiXingShuJianTi',
     '辰余落雁细': 'ChenYuLuoYanXi',
     '文泉驿微米黑': 'WenQuanWeiMiHei',
     '文泉驿正黑': 'WenQuanYiZenHei',
