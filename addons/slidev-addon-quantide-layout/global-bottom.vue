@@ -13,7 +13,7 @@
 </style>
 
 <template>
-    <div v-if="($slidev.nav.currentPage !== $slidev.nav.total) & ($slidev.nav.currentPage !== 1)" class="footer">
+    <div v-if="($slidev.nav.currentPage !== $slidev.nav.total) & ($slidev.nav.currentPage !== 1) & ($slidev.configs.showFooter)" class="footer">
         <!-- middle pages -->
         <div>
             {{ $slidev.nav.currentPage }}/{{ $slidev.nav.total }} ﹫匡醍量化
