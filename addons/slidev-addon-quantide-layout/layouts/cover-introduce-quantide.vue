@@ -115,15 +115,32 @@ onUnmounted(() => {
 .title {
     @apply text-6xl;
     width: 100%;
+    /* 基础颜色回退 */
     color: #f0f0f0;
     font-family: var(--font-title);
     position: absolute;
     text-align: center;
     font-size: 7vw;
-    top: 45%;
-    left: 0;
+    top: 50%;
     flex: 0 0 auto;
-    text-shadow: 0 0 3px rgba(246，218，152, 0.7);
+    
+    /* 纹理背景设置 */
+    background-image: url('https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/golden-mountain-texture.jpg');
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* 动态效果：纹理缓慢移动 */
+    animation: textureMove 20s linear infinite;
+    /* 增强立体感 */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+@keyframes textureMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .logo-wrapper {
