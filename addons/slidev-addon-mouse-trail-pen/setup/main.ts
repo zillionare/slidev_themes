@@ -80,56 +80,56 @@ const colorPresets = {
 }
 
 const get_config = () => {
-    console.debug('[MouseTrail] 开始获取配置...')
-    
+    // console.debug('[MouseTrail] 开始获取配置...')
+
     if (typeof window !== 'undefined' && (window as any).__slidev__) {
         const slidevData = (window as any).__slidev__
-        console.debug('[MouseTrail] Slidev 数据:', slidevData)
-        
+        // console.debug('[MouseTrail] Slidev 数据:', slidevData)
+
         // 优先使用 configs.mouseTrail
         let mouseTrailConfig = {}
         if (slidevData.configs && slidevData.configs.mouseTrail) {
             mouseTrailConfig = slidevData.configs.mouseTrail
-            console.debug('[MouseTrail] 从 configs.mouseTrail 获取配置:', mouseTrailConfig)
+            // console.debug('[MouseTrail] 从 configs.mouseTrail 获取配置:', mouseTrailConfig)
         } else {
             // 回退到 frontmatter
             const frontmatter = slidevData.frontmatter || {}
-            console.debug('[MouseTrail] Frontmatter 数据:', frontmatter)
+            // console.debug('[MouseTrail] Frontmatter 数据:', frontmatter)
             mouseTrailConfig = frontmatter.mouseTrail || frontmatter.mouse_trail || {}
-            console.debug('[MouseTrail] 从 frontmatter 获取配置:', mouseTrailConfig)
+            // console.debug('[MouseTrail] 从 frontmatter 获取配置:', mouseTrailConfig)
         }
 
         // 合并默认配置和获取的配置
         const config = { ...defaultConfig, ...mouseTrailConfig }
-        console.debug('[MouseTrail] 合并后的配置:', config)
+        // console.debug('[MouseTrail] 合并后的配置:', config)
 
         // 如果配置了预设颜色，则使用预设的颜色
         if (config.preset && colorPresets[config.preset as keyof typeof colorPresets]) {
             config.colors = colorPresets[config.preset as keyof typeof colorPresets]
-            console.debug('[MouseTrail] 使用预设颜色:', config.preset, config.colors)
+            // console.debug('[MouseTrail] 使用预设颜色:', config.preset, config.colors)
         }
 
-        console.debug('[MouseTrail] 最终配置:', config)
+        // console.debug('[MouseTrail] 最终配置:', config)
         return config
     }
 
-    console.debug('[MouseTrail] 无法获取 Slidev 数据，使用默认配置')
+    // console.debug('[MouseTrail] 无法获取 Slidev 数据，使用默认配置')
     // 如果无法获取 SLIDEV 数据，则返回默认配置
     return defaultConfig
 }
 
 export default defineAppSetup(({ app, router }) => {
-    console.debug('[MouseTrail] 插件初始化开始')
-    
+    // console.debug('[MouseTrail] 插件初始化开始')
+
     // 延迟获取配置，确保 Slidev 完全加载
     let frontmatterConfig = defaultConfig
-    
+
     const loadConfig = () => {
         frontmatterConfig = get_config()
-        console.debug('[MouseTrail] 配置加载完成:', frontmatterConfig)
+        // console.debug('[MouseTrail] 配置加载完成:', frontmatterConfig)
         return frontmatterConfig
     }
-    
+
     // 立即尝试获取配置
     setTimeout(() => {
         loadConfig()
@@ -217,7 +217,7 @@ export default defineAppSetup(({ app, router }) => {
     // 检查触发键是否按下
     const isTriggerKeyPressed = (e: KeyboardEvent): boolean => {
         const triggerKey = config.triggerKey || 'alt'
-        
+
         switch (triggerKey.toLowerCase()) {
             case 'none':
                 return true // 如果设置为 none，则始终返回 true
@@ -245,7 +245,7 @@ export default defineAppSetup(({ app, router }) => {
     const handleKeyUp = (e: KeyboardEvent) => {
         const wasPressed = triggerKeyPressed
         triggerKeyPressed = isTriggerKeyPressed(e)
-        
+
         // 如果触发键被释放，清除轨迹点和粒子效果
         if (wasPressed && !triggerKeyPressed) {
             points = []
@@ -256,17 +256,17 @@ export default defineAppSetup(({ app, router }) => {
     // 粒子系统实现
     const createExplosion = (x: number, y: number) => {
         if (!config.explosionEnabled) return
-        
+
         const particleCount = config.explosionParticles || 8
         const explosionSize = config.explosionSize || 20
         const colors = config.colors || defaultConfig.colors!
-        
+
         for (let i = 0; i < particleCount; i++) {
             const angle = (Math.PI * 2 * i) / particleCount
             const speed = Math.random() * 3 + 2
             const size = Math.random() * 4 + 2
             const colorIndex = Math.floor(Math.random() * colors.length)
-            
+
             particles.push({
                 x: x,
                 y: y,
@@ -283,17 +283,17 @@ export default defineAppSetup(({ app, router }) => {
     const updateParticles = () => {
         for (let i = particles.length - 1; i >= 0; i--) {
             const particle = particles[i]
-            
+
             // 更新位置
             particle.x += particle.vx
             particle.y += particle.vy
-            
+
             // 添加重力效果
             particle.vy += 0.1
-            
+
             // 减少生命值
             particle.life -= 16 // 假设 60fps，每帧约 16ms
-            
+
             // 移除死亡的粒子
             if (particle.life <= 0) {
                 particles.splice(i, 1)
@@ -303,14 +303,14 @@ export default defineAppSetup(({ app, router }) => {
 
     const drawParticles = () => {
         if (!ctx) return
-        
+
         particles.forEach(particle => {
             const alpha = particle.life / particle.maxLife
             const size = particle.size * alpha
-            
+
             ctx!.save()
             ctx!.globalAlpha = alpha
-            
+
             // 解析颜色并应用透明度
             const colorMatch = particle.color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)
             if (colorMatch) {
@@ -319,11 +319,11 @@ export default defineAppSetup(({ app, router }) => {
             } else {
                 ctx!.fillStyle = particle.color
             }
-            
+
             ctx!.beginPath()
             ctx!.arc(particle.x, particle.y, size, 0, Math.PI * 2)
             ctx!.fill()
-            
+
             ctx!.restore()
         })
     }
@@ -366,30 +366,30 @@ export default defineAppSetup(({ app, router }) => {
     }
 
     const updateConfig = () => {
-        console.debug('[MouseTrail] 更新配置中...')
+        // console.debug('[MouseTrail] 更新配置中...')
         // 重新加载基础配置
         const baseConfig = loadConfig()
         const newConfig = getCurrentPageConfig(baseConfig)
-        console.debug('[MouseTrail] 新配置:', newConfig)
-        console.debug('[MouseTrail] 当前配置:', config)
-        
+        // console.debug('[MouseTrail] 新配置:', newConfig)
+        // console.debug('[MouseTrail] 当前配置:', config)
+
         if (JSON.stringify(newConfig) !== JSON.stringify(config)) {
-            console.debug('[MouseTrail] 配置发生变化，应用新配置')
+            // console.debug('[MouseTrail] 配置发生变化，应用新配置')
             const oldTriggerKey = config.triggerKey
             config = newConfig
-            
+
             // 如果触发键配置发生变化，更新触发键状态
             if (oldTriggerKey !== newConfig.triggerKey) {
-                console.debug('[MouseTrail] 触发键配置变化:', oldTriggerKey, '->', newConfig.triggerKey)
+                // console.debug('[MouseTrail] 触发键配置变化:', oldTriggerKey, '->', newConfig.triggerKey)
                 if (newConfig.triggerKey === 'none') {
                     triggerKeyPressed = true
-                    console.debug('[MouseTrail] 切换到持续跟踪模式')
+                    // console.debug('[MouseTrail] 切换到持续跟踪模式')
                 } else {
                     triggerKeyPressed = false
-                    console.debug('[MouseTrail] 切换到按键触发模式')
+                    // console.debug('[MouseTrail] 切换到按键触发模式')
                 }
             }
-            
+
             points = [] // 清除轨迹让新配置立即生效
             particles = [] // 清除粒子效果
         }
@@ -412,7 +412,7 @@ export default defineAppSetup(({ app, router }) => {
 
         const now = Date.now()
         const fadeDuration = config.fadeDuration || 1000
-        
+
         // 检查即将过期的点，为它们创建爆炸效果
         if (config.explosionEnabled) {
             points.forEach(point => {
@@ -423,13 +423,13 @@ export default defineAppSetup(({ app, router }) => {
                 }
             })
         }
-        
+
         // 过滤掉过期的点
         points = points.filter(point => now - point.timestamp < fadeDuration)
-        
+
         // 更新粒子系统
         updateParticles()
-        
+
         // 绘制粒子效果
         drawParticles()
 
@@ -473,36 +473,36 @@ export default defineAppSetup(({ app, router }) => {
     // 初始化
     if (typeof window !== 'undefined') {
         const initialize = () => {
-            console.debug('[MouseTrail] 开始初始化画布和事件监听')
+            // console.debug('[MouseTrail] 开始初始化画布和事件监听')
             setTimeout(() => {
                 // 重新加载配置确保使用最新配置
                 const currentConfig = loadConfig()
                 config = currentConfig // 更新全局配置
-                console.debug('[MouseTrail] 检查是否启用:', currentConfig.enabled)
-                console.debug('[MouseTrail] 触发键设置:', currentConfig.triggerKey)
-                
+                // console.debug('[MouseTrail] 检查是否启用:', currentConfig.enabled)
+                // console.debug('[MouseTrail] 触发键设置:', currentConfig.triggerKey)
+
                 if (currentConfig.enabled !== false) {
-                    console.debug('[MouseTrail] 初始化画布和事件监听器')
-                    
+                    // console.debug('[MouseTrail] 初始化画布和事件监听器')
+
                     // 如果触发键设置为 'none'，则初始状态为 true
                     if (currentConfig.triggerKey === 'none') {
                         triggerKeyPressed = true
-                        console.debug('[MouseTrail] 触发键设置为 none，启用持续跟踪模式')
+                        // console.debug('[MouseTrail] 触发键设置为 none，启用持续跟踪模式')
                     }
-                    
+
                     initCanvas()
                     document.addEventListener('mousemove', handleMouseMove)
-                    
+
                     // 只有在非 'none' 模式下才监听键盘事件
                     if (currentConfig.triggerKey !== 'none') {
                         document.addEventListener('keydown', handleKeyDown)
                         document.addEventListener('keyup', handleKeyUp)
                     }
-                    
+
                     animationFrameId = requestAnimationFrame(drawTrail)
-                    console.debug('[MouseTrail] 初始化完成')
+                    // console.debug('[MouseTrail] 初始化完成')
                 } else {
-                    console.debug('[MouseTrail] 插件已禁用')
+                    // console.debug('[MouseTrail] 插件已禁用')
                 }
             }, 200)
         }
@@ -517,7 +517,7 @@ export default defineAppSetup(({ app, router }) => {
     // 监听路由变化以更新配置
     if (router) {
         router.afterEach((to, from) => {
-            console.debug('[MouseTrail] 路由变化:', from.path, '->', to.path)
+            // console.debug('[MouseTrail] 路由变化:', from.path, '->', to.path)
             setTimeout(() => {
                 updateConfig()
             }, 100)
