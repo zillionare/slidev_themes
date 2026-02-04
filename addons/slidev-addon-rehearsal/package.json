@@ -1,0 +1,10 @@
+{
+  "name": "slidev-addon-rehearsal",
+  "version": "0.0.1",
+  "description": "A rehearsal recorder for Slidev to capture click timings.",
+  "author": "Quantide",
+  "license": "MIT",
+  "slidev": {
+    "addon": true
+  }
+}

@@ -112,8 +112,9 @@ onUnmounted(() => {
     left: 1%;
     height: 2.2rem;
 }
+
 .title {
-    @apply text-6xl;
+    @apply text-8xl;
     width: 100%;
     /* 基础颜色回退 */
     color: white;

@@ -53,6 +53,9 @@ importers:
       slidev-addon-quantide-layout:
         specifier: workspace:*
         version: link:addons/slidev-addon-quantide-layout
+      slidev-addon-rehearsal:
+        specifier: workspace:*
+        version: link:addons/slidev-addon-rehearsal
       thebe-core:
         specifier: ^0.5.0
         version: 0.5.0(@jest/transform@29.7.0)(@jest/types@29.6.3)(@types/node@24.3.0)(@types/react@18.3.24)(babel-jest@29.7.0(@babel/core@7.28.3))(crypto@1.0.1)(jest-util@29.7.0)(react@18.3.1)(thebe-lite@0.5.0(react@18.3.1))(typescript@5.9.2)
@@ -185,6 +188,8 @@ importers:
       vue:
         specifier: ^3.0.0
         version: 3.5.20(typescript@5.9.2)
+
+  addons/slidev-addon-rehearsal: {}
 
 packages:
 

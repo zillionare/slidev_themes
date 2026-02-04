@@ -1,9 +1,15 @@
 
 <template>
+  <!-- 自动播放倒计时进度条 -->
+  <div 
+    v-if="currentCountdown.total > 0" 
+    class="fixed bottom-0 left-0 h-1 bg-blue-500/50 z-[99999] transition-all duration-100 ease-linear"
+    :style="{ width: `${currentCountdown.progress}%` }"
+  ></div>
 </template>
 
 <script setup lang="ts">
-import { computed, watchEffect, onBeforeUnmount, watch, ref } from 'vue'
+import { computed, watchEffect, onBeforeUnmount, watch, ref, onMounted } from 'vue'
 import { getFontFamily } from './setup/fonts'
 import './styles/font.css'
 
@@ -103,13 +109,105 @@ watchEffect(() => {
 
 // 自动播放逻辑
 const timers = ref<any[]>([])
+const currentCountdown = ref({ progress: 0, total: 0 })
+let countdownInterval: any = null
 
 const clearTimers = () => {
   timers.value.forEach(t => clearTimeout(t))
   timers.value = []
+  if (countdownInterval) {
+    clearInterval(countdownInterval)
+    countdownInterval = null
+  }
+  currentCountdown.value = { progress: 0, total: 0 }
 }
 
-// 核心播放逻辑：基于 data-duration 动态提取
+const startCountdown = (durationSeconds: number, onComplete: () => void) => {
+  if (durationSeconds <= 0) {
+    onComplete()
+    return
+  }
+
+  const totalMs = durationSeconds * 1000
+  const start = Date.now()
+  currentCountdown.value = { progress: 0, total: durationSeconds }
+
+  countdownInterval = setInterval(() => {
+    const elapsed = Date.now() - start
+    const progress = Math.min((elapsed / totalMs) * 100, 100)
+    currentCountdown.value.progress = progress
+
+    if (elapsed >= totalMs) {
+      clearInterval(countdownInterval)
+      countdownInterval = null
+      onComplete()
+    }
+  }, 50) // 50ms 更新一次进度条，保证流畅
+}
+
+const runAutoPlay = (page: number, clicks: number) => {
+  const frontmatter = getFrontmatter()
+  const autoPlay = frontmatter.autoPlay
+
+  if (Array.isArray(autoPlay)) {
+    // 检查自动播放是否被手动禁用 (通过彩排面板中的开关)
+    if (typeof window !== 'undefined' && (window as any).__slidev_autoplay_disabled) {
+      console.log(`[AutoPlay] 自动播放当前处于手动模式 (MANUAL)，已暂停。`)
+      return
+    }
+
+    // 延迟等待 Slidev 完成 DOM 状态更新
+    const t = setTimeout(() => {
+      if ($slidev.nav.currentPage !== page || $slidev.nav.clicks !== clicks) return
+      
+      // 情况 1：刚进入页面 (clicks === 0)
+      if (clicks === 0) {
+        const firstDuration = autoPlay[0]
+        if (typeof firstDuration === 'number' && firstDuration > 0) {
+          console.log(`[AutoPlay] 第 ${page} 页: 首页进入，检测到首个时长 ${firstDuration}s，开始计时跳转 (进入 Click 1)`)
+          startCountdown(firstDuration, () => {
+            if ($slidev.nav.currentPage === page && $slidev.nav.clicks === 0) {
+              $slidev.nav.next()
+            }
+          })
+        } else {
+          // 如果数组第一个值不是有效时长，则立即跳转 (保持原逻辑兼容)
+          console.log(`[AutoPlay] 第 ${page} 页: 首页进入，未发现有效首个时长，立即发起跳转`)
+          $slidev.nav.next()
+        }
+        return
+      }
+
+      // 情况 2：在某个 click 步骤中 (newClicks > 0)
+      // autoPlay[newClicks] 对应当前 Click 完成后的等待时间
+      const duration = autoPlay[clicks]
+      
+      if (typeof duration === 'number' && duration >= 0) {
+        if (duration === 0) {
+          console.log(`[AutoPlay] 第 ${page} 页, 当前步数 ${clicks}: 时长为 0，微延迟后执行跳转`)
+          const jumpTimer = setTimeout(() => {
+            if ($slidev.nav.currentPage === page && $slidev.nav.clicks === clicks) {
+              $slidev.nav.next()
+            }
+          }, 100) // 给 100ms 缓冲，防止瞬间连跳
+          timers.value.push(jumpTimer)
+        } else {
+          console.log(`[AutoPlay] 第 ${page} 页, 当前步数 ${clicks}: 数组配置时长 ${duration}s，将在 ${duration}s 后跳转`)
+          startCountdown(duration, () => {
+            if ($slidev.nav.currentPage === page && $slidev.nav.clicks === clicks) {
+              $slidev.nav.next()
+            }
+          })
+        }
+      } else {
+        console.log(`[AutoPlay] 第 ${page} 页, 当前步数 ${clicks}: 数组中未找到对应的有效时长配置，自动播放停止。`)
+      }
+    }, 150)
+    timers.value.push(t)
+  }
+}
+
+// 核心播放逻辑
 watch(() => [$slidev.nav.currentPage, $slidev.nav.clicks], ([newPage, newClicks], oldVal) => {
   const oldPage = oldVal ? oldVal[0] : undefined
   const oldClicks = oldVal ? oldVal[1] : undefined
@@ -123,69 +221,22 @@ watch(() => [$slidev.nav.currentPage, $slidev.nav.clicks], ([newPage, newClicks]
     console.log(`[AutoPlay] 自动播放初始化成功 - 第 ${newPage} 页`)
   }
   
-  const frontmatter = getFrontmatter()
-  if (frontmatter.autoPlay === true) {
-    // 延迟等待 Slidev 完成 DOM 状态更新
-    const t = setTimeout(() => {
-      if ($slidev.nav.currentPage !== newPage || $slidev.nav.clicks !== newClicks) return
-      
-      // 情况 1：刚进入页面 (clicks === 0)
-      if (newClicks === 0) {
-        // 检查页面中是否存在任何以 data-duration 开头的属性
-        const hasDurationConfig = Array.from(document.querySelectorAll('*')).some(el => 
-          el.getAttributeNames().some(name => name.startsWith('data-duration'))
-        )
-        
-        if (hasDurationConfig) {
-          console.log(`[AutoPlay] 第 ${newPage} 页: 检测到动画时长配置，立即发起第一次跳转 (进入 Click 1)`)
-          $slidev.nav.next()
-          return
-        }
-      }
-
-      // 情况 2：在某个 click 步骤中 (newClicks > 0)
-      const attrName = `data-duration-${newClicks}`
-      
-      // 查找当前步数对应的时长属性
-      const elements = document.querySelectorAll(`[${attrName}]`)
-      
-      let maxDuration = 0
-      elements.forEach(el => {
-        const d = parseFloat(el.getAttribute(attrName) || '0')
-        if (d > maxDuration) maxDuration = d
-      })
-
-      // 兜底逻辑：如果没找到 data-duration-n，尝试查找通用的 data-duration（针对当前激活的元素）
-      if (maxDuration === 0) {
-        const legacyElements = document.querySelectorAll(`.slidev-vclick-current[data-duration], [data-click="${newClicks}"][data-duration]`)
-        legacyElements.forEach(el => {
-          const d = parseFloat((el as HTMLElement).dataset.duration || '0')
-          if (d > maxDuration) maxDuration = d
-        })
-      }
-
-      if (maxDuration > 0) {
-        console.log(`[AutoPlay] 第 ${newPage} 页, 当前步数 ${newClicks}: 保持 ${maxDuration}s 后跳转到下一步`)
-        const jumpTimer = setTimeout(() => {
-          if ($slidev.nav.currentPage === newPage && $slidev.nav.clicks === newClicks) {
-            $slidev.nav.next()
-          }
-        }, maxDuration * 1000)
-        timers.value.push(jumpTimer)
-      } else {
-        // 诊断日志：如果页面上有其他的 data-duration-n 但不匹配当前 clicks
-        const allDurationAttrs = Array.from(document.querySelectorAll('*'))
-          .flatMap(el => el.getAttributeNames())
-          .filter(name => name.startsWith('data-duration-'))
-        
-        if (allDurationAttrs.length > 0) {
-          console.log(`[AutoPlay] 第 ${newPage} 页, 当前步数 ${newClicks}: 未找到匹配的 ${attrName}。`)
-        }
-      }
-    }, 150)
-    timers.value.push(t)
-  }
+  runAutoPlay(newPage, newClicks)
 }, { immediate: true })
+
+onMounted(() => {
+  window.addEventListener('slidev-autoplay-toggle', (e: any) => {
+    const { disabled } = e.detail
+    if (disabled) {
+      clearTimers()
+      console.log(`[AutoPlay] 切换至手动模式，已清除所有计时器。`)
+    } else {
+      console.log(`[AutoPlay] 切换至自动模式，尝试恢复播放...`)
+      clearTimers()
+      runAutoPlay($slidev.nav.currentPage, $slidev.nav.clicks)
+    }
+  })
+})
 
 onBeforeUnmount(() => {
   clearTimers()
