@@ -1,6 +1,6 @@
-# slidev-addon-quantide-theme-landscape
+# slidev-addon-quantide-layout
 
-Quantide Landscape Theme for Slidev, based on the landscape-jade theme.
+A Slidev addon focused on rich layouts (especially cover layouts) and customizable fonts.
 
 ## Install
 
@@ -8,9 +8,8 @@ Add the following frontmatter to your `slides.md`:
 
 ```yaml
 ---
-theme: quantide-theme-landscape
 addons:
-  - slidev-addon-quantide-theme-landscape
+  - slidev-addon-quantide-layout
 ---
 ```
 
@@ -18,27 +17,49 @@ addons:
 
 This addon provides the following layouts:
 
-- `cover` - A cover page with gallery images
-- `cover-douyin` - A cover page styled for Douyin
-- `cover-wechat` - A cover page styled for WeChat
+- `barrel`
+- `cards`
+- `center`
+- `cover`
+- `cover-figure`
+- `cover-introduce-quantide`
+- `cover-lecture`
+- `cover-random-img-portrait`
 - `default` - The default layout
-- `end` - An ending page
-- `fact` - A fact presentation layout
-- `iframe` - An iframe embed layout
-- `image-left` - Content with image on the left
-- `image-right` - Content with image on the right
-- `intro` - An introduction page
-- `prelude` - A prelude page
-- `quote` - A quote presentation layout
-- `section` - A section header page
-- `statement` - A statement layout
-- `thanks` - A thank you page
-- `toc` - A table of contents page
-- `two-cols` - A two-column layout
+- `end`
+- `fact`
+- `iframe`
+- `image-left`
+- `image-right`
+- `intro`
+- `landscape-section`
+- `landscape-two-cols`
+- `prelude`
+- `quantide-cover`
+- `quote`
+- `statement`
+- `thanks`
+- `toc`
+- `two-cols`
+- `two-cols-header`
+
+## Font Customization
+
+Set fonts by frontmatter:
+
+```yaml
+---
+font: "青柳隶书"
+fontTitle: "庞门正道标题体"
+h1: "朱雀仿宋"
+---
+```
+
+Fonts are loaded from CDN via `styles/font.css` (no local font files required in the published package).
 
 ## Configuration
 
-The cover layout uses the following configurations from your frontmatter:
+Cover layouts commonly use the following frontmatter fields:
 
 ```yaml
 ---
