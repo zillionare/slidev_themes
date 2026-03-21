@@ -1,9 +1,15 @@
 {
-  "name": "slidev-addon-colors",
+  "name": "slidev-addon-palette",
   "version": "1.0.0",
   "description": "A Slidev addon for custom color palettes",
   "main": "index.js",
   "type": "module",
+  "files": [
+    "index.js",
+    "styles",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "slidev",
     "addon",
@@ -11,13 +17,10 @@
     "palette",
     "presentation"
   ],
-  "author": "Your Name",
+  "author": "Quantide",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/slidev-addon-colors.git"
-  },
   "engines": {
+    "node": ">=18.0.0",
     "slidev": ">=0.32.1"
   },
   "scripts": {
