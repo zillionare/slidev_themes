@@ -7,7 +7,7 @@ drawings:
   syncAll: true
 addons:
   - ./slidev_themes/addons/slidev-addon-palette
-  - ./slidev_themes/addons/slidev-addon-quantide-layout
+  - quantide-layout
   - ./slidev_themes/addons/slidev-addon-mouse-trail-pen
   - ./slidev_themes/addons/slidev-addon-array
   - ./slidev_themes/addons/slidev-addon-interactive-table

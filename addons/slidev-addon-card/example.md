@@ -20,7 +20,7 @@ Demonstrating various card styles and configurations
 
 <Card :width="400"
   title="Beautiful Landscape" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg">
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg">
   
 This is a basic landscape card with a rectangular frame. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
@@ -32,7 +32,7 @@ This is a basic landscape card with a rectangular frame. Lorem ipsum dolor sit a
 
 <Card width="250"
   title="Portrait Style" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   orientation="portrait">
   
 This card uses portrait orientation, perfect for vertical images and content. The layout automatically adjusts to show the image on top.
@@ -45,7 +45,7 @@ This card uses portrait orientation, perfect for vertical images and content. Th
 
 <Card width="400"
   title="Circular Image" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   frame="circle">
   
 This card features a circular image frame, great for profile pictures or artistic presentations.
@@ -58,7 +58,7 @@ This card features a circular image frame, great for profile pictures or artisti
 
 <Card :width="250"
   title="Circular Image" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   orientation="portrait"
   frame="circle">
   
@@ -71,7 +71,7 @@ This card features a circular image frame, great for profile pictures or artisti
 
 <Card 
   title="Diamond Shape" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   frame="diamond"
   backgroundColor="#f8f9fa"
   borderColor="#6c757d">
@@ -86,7 +86,7 @@ A diamond-shaped frame adds geometric interest to your presentations. Custom col
 
 <Card 
   title="Elliptical Design" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   frame="ellipse"
   titleColor="#007bff"
   textColor="#495057">
@@ -101,7 +101,7 @@ Elliptical frames provide a softer alternative to circles, with customizable tit
 
 <Card 
   title="Lens Effect" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   frame="lens"
   titleColor="#6f42c1"
   textColor="#6c757d">
@@ -116,7 +116,7 @@ The lens frame creates an adaptive oval shape that follows the container's propo
 
 <Card 
   title="Unique Gem Shape" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   frame="gem"
   backgroundColor="#fff3cd"
   borderColor="#ffc107">
@@ -131,7 +131,7 @@ The gem frame creates a unique, irregular shape that's different every time. Per
 
 <Card 
   title="mapleleaf Shape"
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   frame="mapleleaf">
 
 Lorem ipsum Swimmer used a Quick Ball to catch Pikachu. Weezing is a Poison Gas Pokémon. Team Aqua Grunt used a Dream Ball to catch Wartortle. Bulbasaur evolved into Ivysaur. Baker gave a Yache Berry to Seel. 
@@ -143,7 +143,7 @@ Lorem ipsum Swimmer used a Quick Ball to catch Pikachu. Weezing is a Poison Gas 
 
 <Card 
   title="teardrop Shape"
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   frame="teardrop">
 
 Lorem ipsum Swimmer used a Quick Ball to catch Pikachu. Weezing is a Poison Gas Pokémon. Team Aqua Grunt used a Dream Ball to catch Wartortle. Bulbasaur evolved into Ivysaur. Baker gave a Yache Berry to Seel. 
@@ -247,7 +247,7 @@ Using Material Design Icons for settings.
 
 <Card 
   title="Styled Card" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   backgroundColor="#f0f8ff"
   borderColor="#4169e1"
   titleColor="#191970"
@@ -264,7 +264,7 @@ Using Material Design Icons for settings.
 
 <Card 
   title="Card as Container" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
   orientation="portrait"
   frame="circle"
   width="250"
@@ -284,7 +284,7 @@ Using Material Design Icons for settings.
 
 <Card 
   title="Custom Size" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" 
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg" 
   width="500"
   backgroundColor="#f0f8ff"
   titleColor="#2c3e50"
@@ -299,21 +299,21 @@ Using Material Design Icons for settings.
 <div class="grid grid-cols-3 gap-4">
   <Card 
     title="Small" 
-    img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" 
+    img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg" 
     width="300">
     Small card (300px width)
   </Card>
   
   <Card 
     title="Medium" 
-    img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" 
+    img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg" 
     width="450">
     Medium card (450px width)
   </Card>
   
   <Card 
     title="Large" 
-    img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" 
+    img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg" 
     width="600">
     Large card (600px width)
   </Card>
@@ -326,7 +326,7 @@ Using Material Design Icons for settings.
 <div class="grid grid-cols-3 gap-4">
   <Card 
     title="Small Portrait" 
-    img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" 
+    img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg" 
     orientation="portrait"
     width="200">
     Small portrait (200px width)
@@ -334,7 +334,7 @@ Using Material Design Icons for settings.
   
   <Card 
     title="Medium Portrait" 
-    img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" 
+    img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg" 
     orientation="portrait"
     width="300">
     Medium portrait (300px width)
@@ -342,7 +342,7 @@ Using Material Design Icons for settings.
   
   <Card 
     title="Large Portrait" 
-    img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" 
+    img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg" 
     orientation="portrait"
     width="400">
     Large portrait (400px width)
@@ -357,7 +357,7 @@ Using Material Design Icons for settings.
 
 <Card 
   title="Card 1" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg?random=8"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg?random=8"
   frame="circle"
   style="flex: 1; min-width: 250px;">
   
@@ -367,7 +367,7 @@ First card in a multi-card layout.
 
 <Card 
   title="Card 2" 
-  img="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg?random=9"
+  img="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg?random=9"
   frame="diamond"
   style="flex: 1; min-width: 250px;">
   
