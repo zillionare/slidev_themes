@@ -129,6 +129,7 @@ onUnmounted(() => {
 
 .title {
     @apply text-6xl font-bold;
+    font-family: var(--font-title, var(--slidev-theme-font-family));
     color: #000;
     width: 100%;
     display: flex;
