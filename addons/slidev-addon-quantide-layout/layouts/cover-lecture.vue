@@ -116,7 +116,7 @@ onUnmounted(() => {
     @apply text-6xl;
     width: 90%;
     color: var(--primary);
-    font-family: var(--font-title);
+    font-family: var(--slidev-font-h1, var(--slidev-theme-font-family));
     display: flex;
     justify-content: center;
     align-items: center;

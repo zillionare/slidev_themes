@@ -45,13 +45,22 @@ This addon provides the following layouts:
 
 ## Font Customization
 
-Set fonts by frontmatter:
+You can granularly control fonts using flat properties in your headermatter (for global settings) or frontmatter (for single-page overrides):
 
 ```yaml
 ---
-font: "青柳隶书"
-fontTitle: "庞门正道标题体"
-h1: "朱雀仿宋"
+font: "阿里巴巴普惠体-Regular" # Default font for the body/text
+fontTitle: "青柳隶书"            # Default font for headings (h2-h6), also acts as fallback for h1
+fontH1: "庞门正道粗书体"          # Specific font for h1 headings
+fontCoverTitle: "heiti"         # Highest priority font for titles in `cover` layouts
+---
+```
+
+You can also override fonts on specific pages. For example, to change only the text font on a single slide without affecting its headings:
+
+```yaml
+---
+font: "微软雅黑"
 ---
 ```
 

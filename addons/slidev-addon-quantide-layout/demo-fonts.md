@@ -2,13 +2,14 @@
 title: Slidev 字体功能演示
 info: |
   演示自定义字体加载、字体映射以及通过 frontmatter 切换字体的功能。
-  需求实现说明：
-  1. 支持全局和单页 frontmatter 指定字体 (font: "字体名")
-  2. 自动加载 styles/fonts 下的所有字体
-  3. 提供简洁的字体映射 (如 "庞门正道标题体")
 
-font: "青柳隶书"
-codeFont: "青柳隶书"
+# 方案一：扁平化属性命名 (推荐)
+font: "阿里巴巴普惠体-Regular" # 全局默认正文字体
+fontTitle: "青柳隶书"            # 全局标题字体 (h2-h6, 并且作为 h1 的后备)
+fontH1: "庞门正道粗书体"          # 全局 H1 字体
+fontCoverTitle: "heiti"         # 仅封面标题字体 (优先级最高，覆盖当前页 h1 和 title)
+
+codeFont: "文泉驿正黑等宽"
 
 addons:
   - slidev-addon-quantide-layout
@@ -20,145 +21,54 @@ addons:
 
 # Slidev 字体功能演示
 
-这一页使用的是全局指定的字体：**阿里巴巴普惠体-Regular**。
+这一页是普通页面，使用的是全局指定的正文字体：**阿里巴巴普惠体-Regular**。
 
-- 字体映射允许你使用中文名称，如 `font: "演示夏行"`
-- 字体仅对当前页生效，或者全局生效
-- 所有 `styles/fonts` 下的字体都已预加载
+## 标题字体演示 (H2)
+
+- 所有的 H1 标签现在全局默认使用：**庞门正道粗书体**
+- H2 到 H6 标签全局默认使用：**青柳隶书**
+- 所有的正文 (包括这段文字) 使用：**阿里巴巴普惠体-Regular**
+
+你可以通过控制台检查当前元素的 `font-family` 来验证。
+
+---
+layout: cover
+---
+
+# 这是一个 Cover 页面
+
+在 Cover 页面中，如果你配置了 `fontCoverTitle: "heiti"`，它会自动覆盖 `fontH1` 和 `fontTitle` 的设置。
+
+此时你应该看到标题使用了黑体 (`heiti`)，而正文仍然是：**阿里巴巴普惠体-Regular**。
 
 ---
 layout: default
+font: "微软雅黑"
+fontH1: "演示夏行"
 ---
 
-# 局部元素字体演示
+# 局部页面覆盖演示
 
-除了全局和单页设置，你还可以为特定文字指定字体。由于所有字体都已通过 `styles/font.css` 加载，你可以直接使用 `font-family`。
+这一页通过 frontmatter 进行了局部覆盖：
+- `font: "微软雅黑"` -> 仅将当前页的正文改为微软雅黑。
+- `fontH1: "演示夏行"` -> 仅将当前页的 H1 标题改为演示夏行。
 
-### 1. 使用内联样式 (Inline Style)
+## 未覆盖的 H2 标题
 
-这是一段普通的文字。
-<span style="font-family: 'QingLiuLiShu'; font-size: 2em;">这段文字使用了“青柳隶书”</span>
+注意，我们并没有在当前页覆盖 `fontTitle`，因此这里的 H2 依然继承全局的 **青柳隶书**。
 
-### 2. 使用 HTML 标签
+---
+layout: center
+---
 
-如果你想让某一部分特别突出：
+# 混合使用 HTML 标签演示
+
+如果你想让某一部分特别突出，仍然可以使用内联样式：
 
 <div style="font-family: 'PangMenChuShuTi'; font-size: 3rem; color: #ff6600;">
   庞门正道粗书体：霸气侧漏！
 </div>
 
-### 3. 在 Markdown 中混合使用
-
 - 默认字体：普通列表项
 - <span style="font-family: 'YanShiXiaXing';">演示夏行：书法风格的列表项</span>
 - <span style="font-family: 'ZhuqueFangsong';">朱雀仿宋：文艺范的列表项</span>
-
----
-layout: default
-font: "阿里巴巴普惠体-Regular"
-h1: "青柳隶书"
----
-
-# 这一页演示了层级字体控制
-
-通过以下 Frontmatter 配置：
-- `font: "阿里巴巴普惠体-Regular"` (作用于正文)
-- `h1: "青柳隶书"` (仅作用于一级标题)
-
-正文部分依然使用普惠体，但上面的标题应该已经变成了隶书。
-
----
-layout: center
-headingFont: "庞门正道标题体"
----
-
-# 这一页演示了 headingFont
-
-通过 `headingFont: "庞门正道标题体"`，本页所有的标题（h1-h6）都会应用该字体，而不需要逐个指定。
-
-## 我也是标题 (h2)
-### 我也是标题 (h3)
-
----
-layout: center
-font: "朱雀仿宋"
----
-
-# 这一页使用的是：朱雀仿宋
-
-通过在这一页的 frontmatter 中设置 `font: "朱雀仿宋"`，
-该字体仅对本页生效。
-
----
-layout: default
-font: "演示夏行"
----
-
-# 这一页使用的是：演示夏行
-
-如果你喜欢书法风格，可以使用演示夏行。
-
-```ts
-// 这里的代码使用的是全局指定的代码字体
-const message = "Hello Slidev!"
-console.log(message)
-```
-
----
-layout: cover
-fontTitle: "庞门正道标题体"
-font: "鸿雷板书简体"
----
-
-# 封面页：自定义标题字体
-
-这一页演示了如何通过 `fontTitle` 专门为封面标题指定字体。
-- `fontTitle`: 庞门正道标题体
-- `font`: 鸿雷板书简体 (作用于其他文字)
-
----
-layout: default
-font: "演示春风"
----
-
-# 演示系列：演示春风
-
-还有更多演示系列字体可供选择：
-- 演示夏行
-- 演示秋鸿
-- 演示春风
-
----
-layout: default
----
-
-# 如何使用
-
-1. **全局设置**：在文档顶部的 frontmatter 中设置 `font`。
-2. **单页设置**：在分页符 `---` 下方的 frontmatter 中设置 `font`。
-3. **字体映射**：在 `setup/fonts.ts` 中定义了常用字体的映射关系。
-4. **自定义 CSS/Layout**：你可以直接在元素上使用 `font-family`，或者使用自动注入的 CSS 变量。
-   - `--slidev-font-h1` 到 `--slidev-font-h6`：对应 frontmatter 中定义的各级标题字体。
-   - `--slidev-theme-font-family`：对应全局指定的 `font`。
-
-例如在 Layout 中使用：
-```css
-.custom-title {
-  font-family: var(--slidev-font-h1);
-}
-```
-
----
-
-# 字体列表
-
-| 简洁名称            | 映射后的 CSS Font Family |
-| ------------------- | ------------------------ |
-| 庞门正道标题体      | PangMenTitle             |
-| 青柳隶书            | QingLiuLiShu             |
-| 鸿雷板书简体        | HongLeiBanShuJianTi      |
-| 演示夏行            | YanShiXiaXing            |
-| 阿里巴巴普惠体-Bold | AlibabaPuHuiTi-Bold      |
-| ...                 | ...                      |
-
-详情请参考 `setup/fonts.ts`。

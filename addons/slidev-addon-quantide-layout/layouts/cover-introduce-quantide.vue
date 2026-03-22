@@ -118,7 +118,7 @@ onUnmounted(() => {
     width: 100%;
     /* 基础颜色回退 */
     color: white;
-    font-family: var(--font-title);
+    font-family: var(--slidev-font-h1, var(--slidev-theme-font-family));
     position: absolute;
     text-align: center;
     font-size: 7vw;

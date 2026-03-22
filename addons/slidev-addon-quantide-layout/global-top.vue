@@ -21,73 +21,123 @@ const getFrontmatter = () => {
 
 const cssContent = computed(() => {
   const frontmatter = getFrontmatter()
+  const configs = $slidev.configs || {}
+  
   let styles = ''
 
-  // 1. 处理基础字体 (font) -> 作用于 body 和 CSS 变量
-  const baseFont = frontmatter.font || frontmatter.fontFamily || $slidev.configs?.font || $slidev.configs?.fontFamily
-  const baseFontFamily = getFontFamily(baseFont)
-  
-  if (baseFontFamily) {
-    const ff = baseFontFamily.includes(' ') ? `'${baseFontFamily}'` : baseFontFamily
+  // 辅助函数：按优先级获取解析后的字体族名称
+  const getResolvedFont = (key: string) => {
+    // 优先级：当前页 frontmatter > 全局 configs (headermatter)
+    const name = frontmatter[key] || configs[key]
+    return getFontFamily(name)
+  }
+
+  // 1. font (全局默认正文字体)
+  const baseFont = getResolvedFont('font') || getResolvedFont('fontFamily')
+  if (baseFont) {
+    const ff = baseFont.includes(' ') ? `'${baseFont}'` : baseFont
     styles += `
       :root {
         --slidev-theme-font-family: ${ff}, ui-sans-serif, system-ui, sans-serif;
       }
       body {
-        font-family: ${ff}, ui-sans-serif, system-ui, sans-serif;
+        font-family: var(--slidev-theme-font-family);
       }
     `
   }
 
-  // 2. 处理标题字体 (headingFont 或具体的 h1, h2...)
-  // 优先级：具体的 h1 > headingFont > 基础 font (继承)
-  const headingFont = frontmatter.headingFont
-  const hTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-  
-  hTags.forEach(tag => {
-    const specificFont = frontmatter[tag] || headingFont
-    const fontFamily = getFontFamily(specificFont)
-    if (fontFamily) {
-      const ff = fontFamily.includes(' ') ? `'${fontFamily}'` : fontFamily
-      styles += `
+  // 2. fontTitle (全局标题字体)
+  const titleFont = getResolvedFont('fontTitle')
+  if (titleFont) {
+    const ff = titleFont.includes(' ') ? `'${titleFont}'` : titleFont
+    styles += `
       :root {
-        --slidev-font-${tag}: ${ff}, var(--slidev-theme-font-family);
+        --slidev-font-title: ${ff}, var(--slidev-theme-font-family);
       }
+    `
+  } else {
+    styles += `
+      :root {
+        --slidev-font-title: var(--slidev-theme-font-family);
+      }
+    `
+  }
+
+  // 3. fontH1 (全局 H1 字体)
+  const h1Font = getResolvedFont('fontH1') || titleFont
+  if (h1Font) {
+    const ff = h1Font.includes(' ') ? `'${h1Font}'` : h1Font
+    styles += `
+      :root {
+        --slidev-font-h1: ${ff}, var(--slidev-font-title);
+      }
+    `
+  } else {
+    styles += `
+      :root {
+        --slidev-font-h1: var(--slidev-font-title);
+      }
+    `
+  }
+  styles += `
+    .slidev-layout h1 {
+      font-family: var(--slidev-font-h1);
+    }
+  `
+
+  // 其他标题 h2-h6 默认继承 titleFont
+  const hTags = ['h2', 'h3', 'h4', 'h5', 'h6']
+  hTags.forEach(tag => {
+    const specificFont = getResolvedFont(`font${tag.toUpperCase()}`) || titleFont
+    if (specificFont) {
+      const ff = specificFont.includes(' ') ? `'${specificFont}'` : specificFont
+      styles += `
+        :root {
+          --slidev-font-${tag}: ${ff}, var(--slidev-font-title);
+        }
+      `
+    } else {
+      styles += `
+        :root {
+          --slidev-font-${tag}: var(--slidev-font-title);
+        }
+      `
+    }
+    styles += `
       .slidev-layout ${tag} {
         font-family: var(--slidev-font-${tag});
       }
-      `
-    } else {
-      // 如果没有指定，则变量回退到基础字体
-      styles += `
-      :root {
-        --slidev-font-${tag}: var(--slidev-theme-font-family);
-      }
-      `
-    }
+    `
   })
 
-  // 3. 处理语义化字体变量 (fontTitle, fontMono, fontSerif)
+  // 4. fontCoverTitle (仅封面标题字体)
+  const currentLayout = $slidev.nav.currentLayout || ''
+  const isCover = currentLayout.includes('cover')
+  const coverTitleFont = getResolvedFont('fontCoverTitle')
+  
+  if (isCover && coverTitleFont) {
+    const ff = coverTitleFont.includes(' ') ? `'${coverTitleFont}'` : coverTitleFont
+    styles += `
+      :root {
+        --slidev-font-cover-title: ${ff}, var(--slidev-font-h1);
+        --slidev-font-h1: var(--slidev-font-cover-title);
+        --slidev-font-title: var(--slidev-font-cover-title);
+      }
+    `
+  }
+
+  // 5. 处理其它语义化字体 (mono, serif)
   const semanticFonts = {
-    title: frontmatter.fontTitle || frontmatter.h1 || headingFont || baseFont,
-    mono: frontmatter.fontMono || frontmatter.codeFont || $slidev.configs?.codeFont,
-    serif: frontmatter.fontSerif
+    mono: getResolvedFont('fontMono') || getResolvedFont('codeFont'),
+    serif: getResolvedFont('fontSerif')
   }
 
   Object.entries(semanticFonts).forEach(([key, value]) => {
-    const fontFamily = getFontFamily(value)
-    if (fontFamily) {
-      const ff = fontFamily.includes(' ') ? `'${fontFamily}'` : fontFamily
+    if (value) {
+      const ff = value.includes(' ') ? `'${value}'` : value
       styles += `
       :root {
         --font-${key}: ${ff}, var(--slidev-theme-font-family);
-      }
-      `
-    } else if (key === 'title') {
-      // title 默认回退到 h1 的变量
-      styles += `
-      :root {
-        --font-title: var(--slidev-font-h1);
       }
       `
     }
