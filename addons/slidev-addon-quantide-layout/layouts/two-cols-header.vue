@@ -24,17 +24,28 @@ const props = defineProps({
   },
   layoutClass: {
     type: String,
+  },
+  leftSize: {
+    type: String,
+    default: '1fr',
   }
 })
 
+const gridStyle = computed(() => {
+  const left = props.leftSize === '1fr' ? '1fr' : props.leftSize
+  return {
+    gridTemplateColumns: `${left} 1fr`
+  }
+})
 </script>
 
 <template>
   <div class="slidev-layout two-cols-header w-full h-full" :class="layoutClass">
+    <h1 v-if="$frontmatter.title">{{ $frontmatter.title }}</h1>
     <div class="col-header">
       <slot />
     </div>
-    <div class="two-cols-container">
+    <div class="two-cols-container" :style="gridStyle">
       <div class="col-left" :class="props.class">
         <slot name="left" />
       </div>
@@ -58,13 +69,16 @@ const props = defineProps({
 
 .two-cols-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 40px;
   flex: 1 1 auto;
   overflow: hidden;
 }
 
 .col-left, .col-right {
   height: 100%;
+}
+.col-left > :deep(*:first-child),
+.col-right > :deep(*:first-child) {
+  margin-top: 0 !important;
 }
 </style>

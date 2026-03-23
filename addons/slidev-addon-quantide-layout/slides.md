@@ -9,7 +9,6 @@ background: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/la
 font: "阿里巴巴普惠体-Regular" # 全局默认正文字体
 fontTitle: "青柳隶书"            # 全局标题字体 (h1-h6)
 fontH1: "庞门正道粗书体"          # 全局 H1 字体
-fontLi: "演示夏行"              # 全局列表项字体
 
 # Cover 专属覆盖
 fontCover: "heiti"
@@ -36,12 +35,10 @@ img: https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3
 
 ---
 layout: section
-title: 第一部分：基础概念
+title: /01 基础概念
+img: https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80
 ---
 
-# 基础概念
-
-这里是第一部分的内容。
 
 ---
 layout: intro
@@ -52,25 +49,53 @@ title: 介绍 (Intro Layout)
 
 这是一个为 **Slidev** 打造的增强包，它提供了：
 
-- 🎨 **丰富的内置布局**：支持单栏、双栏、图片左/右、各种风格的 Cover 封面等
-- 🔤 **极其灵活的字体配置**：通过扁平化语法精准控制各个层级的字体
-- 🃏 **动态卡片与 3D 布局**：提供 `cards` 和 `barrel` 高级布局
+- 🎨 **丰富的内置布局** 支持单栏、双栏、图片左/右、各种风格的 Cover 封面等
+- 🔤 **极其灵活的字体配置**通过扁平化语法精准控制各个层级的字体
+- 🃏 **admonition**支持
+- 🎨 **丰富的主题颜色**: 通过quantide-palette提供的颜色方案，你可以轻松自定义主题颜色。
 
 你可以通过 npm 直接安装并在 `addons` 中引入使用。
 
 ---
 layout: section
-title: 第二部分：高级布局
+title: /02 高级布局
+img: https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80
 ---
-
-# 高级布局
-
-探索 Slidev 的高级布局。
 
 ---
 layout: two-cols
 title: 双栏布局演示 (Two Cols)
 ---
+
+::left::
+
+# 左侧内容区
+
+在双栏布局中，我们可以使用 `::left::` 和 `::right::` 来分割内容。
+
+- 支持**任意 Markdown 语法**
+- 可以直接插入图片或组件
+- 这个列表项应用了我们配置的 `fontLi`：演示夏行
+
+::right::
+
+# 右侧内容区
+
+```ts
+// 支持代码高亮，同时字体受 fontCode 影响
+import { computed } from 'vue'
+
+const addon = computed(() => {
+  return "slidev-addon-quantide-layout"
+})
+```
+
+---
+layout: two-cols-header
+title: 双栏布局演示 (Two Cols Header)
+---
+
+与双栏布局不同，two-cols-header 会显示标题，以及横跨双栏的内容。
 
 ::left::
 
