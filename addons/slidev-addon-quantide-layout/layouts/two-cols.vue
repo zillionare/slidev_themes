@@ -40,6 +40,7 @@ const gridStyle = computed(() => {
 
 <template>
   <div class="slidev-layout two-cols-header w-full h-full" :class="layoutClass">
+    <h1 v-if="$frontmatter.title">{{ $frontmatter.title }}</h1>
     <div class="two-cols-container" :style="gridStyle">
       <div class="col-left" :class="props.class">
         <slot name="default" />
@@ -53,11 +54,16 @@ const gridStyle = computed(() => {
 </template>
 
 <style scoped>
+.two-cols-header {
+  display: flex;
+  flex-direction: column;
+}
+
 .two-cols-container {
   display: grid;
   gap: 40px;
   width: 100%;
-  height: 100%;
+  flex: 1 1 auto;
   overflow: hidden;
   align-items: start;
 }

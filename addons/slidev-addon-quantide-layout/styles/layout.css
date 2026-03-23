@@ -85,12 +85,78 @@ table+h2 {
 
 .admonition {
     margin: 25px 0;
+    padding: 1rem 1rem 1rem 3rem;
+    border-left: 0.25rem solid var(--slidev-theme-primary, #42b883);
+    background-color: var(--slidev-theme-background-soft, rgba(128, 128, 128, 0.1));
+    border-radius: 0.25rem;
+    position: relative;
+}
+
+.admonition p.admonition-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 20px !important;
+}
+
+.admonition p.admonition-title::before {
+    font-family: inherit !important;
+    font-weight: 700;
+    margin-right: 0.5rem;
+    display: inline-block;
+}
+
+.admonition.info {
+    border-color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.admonition.info p.admonition-title::before {
+    content: "ℹ";
+}
+
+.admonition.tip {
+    border-color: #10b981;
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+.admonition.tip p.admonition-title::before {
+    content: "✦";
+}
+
+.admonition.warning {
+    border-color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+.admonition.warning p.admonition-title::before {
+    content: "⚠";
+}
+
+.admonition.danger,
+.admonition.error {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.admonition.danger p.admonition-title::before,
+.admonition.error p.admonition-title::before {
+    content: "⛔";
+}
+
+.admonition.abstract {
+    border-color: #8b5cf6;
+    background-color: rgba(139, 92, 246, 0.1);
+}
+
+.admonition.abstract p.admonition-title::before {
+    content: "◈";
 }
 
 .admonition p {
     font-size: 20px !important;
     /*每行30字*/
     line-height: 28px;
+    margin: 0;
 }
 
 .admonition li {
@@ -258,7 +324,12 @@ cap {
 
 .slidev-layout.two-cols-header,
 .slidev-layout.image-left,
-.slidev-layout.image-right {
+.slidev-layout.image-right,
+.slidev-layout.default,
+.slidev-layout.grid-layout,
+.slidev-layout.two-cols,
+.slidev-layout.landscape-two-cols,
+.slidev-layout.barrel-layout {
     padding-top: 40px;
     padding-left: 5%;
     padding-right: 5%;

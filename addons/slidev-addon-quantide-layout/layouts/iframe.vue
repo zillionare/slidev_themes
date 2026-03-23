@@ -32,6 +32,7 @@ const rightPanelStyle = computed(() => {
 <template>
     <div class="w-full h-full">
         <div class="slidev-layout" :style="leftPanelStyle">
+            <h1 v-if="$frontmatter.title">{{ $frontmatter.title }}</h1>
             <slot />
         </div>
         <div class="slidev-layout" :style="rightPanelStyle">

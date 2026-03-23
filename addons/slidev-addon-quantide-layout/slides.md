@@ -41,11 +41,10 @@ img: https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3
 
 
 ---
-layout: intro
+layout: default
 title: 介绍 (Intro Layout)
 ---
 
-# 什么是 Quantide Layout？
 
 这是一个为 **Slidev** 打造的增强包，它提供了：
 
@@ -238,9 +237,8 @@ gridspec: |
 
 ---
 layout: default
+title: 全局与局部字体覆盖演示
 ---
-
-# 全局与局部字体覆盖演示
 
 在全局配置中，我们指定了标题、正文、列表项和代码的字体。
 
@@ -267,5 +265,37 @@ layout: center
 </div>
 
 ---
-layout: end
+layout: grid
+title: Admonition
+gridspec: |
+  ab
+  cd
 ---
+
+::a::
+
+!!! tip 提示
+    这是一个提示 admonition。
+
+::b::
+
+!!! warning "警告"
+    这是一个警告 admonition。
+
+::c::
+
+!!! info "信息"
+    这是一个信息 admonition。
+
+::d::
+
+!!! abstract "摘要"
+    这是一个摘要 admonition。
+
+
+---
+layout: thanks
+---
+
+这是 thanks layout，用来完成演示。
+

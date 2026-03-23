@@ -46,54 +46,54 @@ const colRightStart = computed(() => {
 </script>
 
 <template>
-    <div class="slidev-layout w-full h-full" :class="class">
-        <div class="seq">{{ $frontmatter.title }}</div>
+    <div class="slidev-layout w-full h-full landscape-two-cols" :class="class">
+        <h1 v-if="$frontmatter.title">{{ $frontmatter.title }}</h1>
 
-        <div class="col-left" :style="{
-        '--col-left-width': props.left,
-        '--col-left-padding': colLeftPadding
-    }">
-            <slot />
-        </div>
-        <div class="col-right" :style="{
-        '--col-right-width': props.right,
-        '--col-right-start': colRightStart,
-        '--col-right-padding': colRightPadding
-    }">
-            <slot name="right" />
+        <div class="landscape-container">
+            <div class="col-left" :style="{
+            '--col-left-width': props.left,
+            '--col-left-padding': colLeftPadding
+        }">
+                <slot />
+            </div>
+            <div class="col-right" :style="{
+            '--col-right-width': props.right,
+            '--col-right-start': colRightStart,
+            '--col-right-padding': colRightPadding
+        }">
+                <slot name="right" />
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.seq {
-    position: absolute;
-    top: 0;
-    text-align: left;
-    left: 0;
-    border-left: 5px solid rgba(0, 0, 0, 0.2);
-    border-right: 5px solid rgba(0, 0, 0, 0.2);
-    background-color: aliceblue;
-    padding: 5px 20px 5px 10px;
-    border-radius: 0 20px 0 20px;
+.landscape-two-cols {
+    display: flex;
+    flex-direction: column;
 }
 
+.landscape-container {
+    flex: 1 1 auto;
+    position: relative;
+    width: 100%;
+}
 
 .col-left {
     position: absolute;
-    top: 10%;
+    top: 0;
     width: var(--col-left-width);
-    height: 88%;
+    height: 100%;
     left: 0;
     padding: var(--col-left-padding, 1rem);
 }
 
 .col-right {
     position: absolute;
-    top: 10%;
+    top: 0;
     left: var(--col-right-start);
     width: var(--col-right-width);
-    height: 88%;
+    height: 100%;
     padding: var(--col-right-padding, 1rem);
 }
 </style>

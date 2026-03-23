@@ -1,14 +1,14 @@
 <template>
   <div class="slidev-layout grid-layout">
     <!-- title -->
-    <div class="title" v-if="$frontmatter.title">{{ $frontmatter.title }}</div>
+    <h1 v-if="$frontmatter.title">{{ $frontmatter.title }}</h1>
     
     <div
       class="grid-container"
       :style="{
         paddingTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
           ? (typeof $frontmatter.top === 'number' ? `${$frontmatter.top}px` : String($frontmatter.top))
-          : ($frontmatter.title ? '4rem' : '2rem'),
+          : ($frontmatter.title ? '0' : '0'),
         display: 'grid',
         gridTemplateAreas: getGridTemplateAreas($frontmatter.gridspec),
         gridTemplateColumns: getGridColumnsForAreas($frontmatter.gridspec),
@@ -70,17 +70,6 @@ function getGridRowsForAreas(spec) {
 </script>
 
 <style scoped>
-.title {
-    position: fixed;
-    top: 2px;
-    height: 2.2rem;
-    text-align: left;
-    left: 0;
-    background-color: var(--primary);
-    padding: 0.3rem 1.5rem 0.3rem 1.5rem;
-    border-radius: 0 2rem 0 2rem;
-}
-
 .slidev-layout.grid-layout {
   height: 100%;
   width: 100%;
@@ -91,13 +80,12 @@ function getGridRowsForAreas(spec) {
   margin: 0;
   box-sizing: border-box;
   overflow: hidden;
-  padding: 0;
+  padding: 2rem;
 }
 
 .grid-container {
   width: 100%;
   box-sizing: border-box;
-  padding: 2rem;
   margin-top: 1rem;
 }
 

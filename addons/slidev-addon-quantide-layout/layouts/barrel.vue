@@ -1,7 +1,7 @@
 <template>
-  <div class="slidev-layout barrel-layout" :style="backgroundStyle">
+  <div class="slidev-layout barrel-layout flex flex-col" :style="backgroundStyle">
+    <h1 v-if="$frontmatter.title" class="w-full text-left" style="flex: 0 0 auto; margin-bottom: 1rem;">{{ $frontmatter.title }}</h1>
     <!-- Hidden cards-container for screenshot - 隐藏的卡片容器用于截图 -->
-    <div ref="cardsContainer" class="cards-container">
       <Card
         v-for="(card, index) in parsedCards"
         :key="`card-${index}-${card.title}`"
@@ -451,7 +451,7 @@ onBeforeUnmount(() => {
 
 .barrel-container {
   width: 100%;
-  height: 100%;
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;

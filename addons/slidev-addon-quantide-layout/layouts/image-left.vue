@@ -21,6 +21,7 @@ const style = computed(() => handleBackground(props.img || props.image))
     <div class="grid grid-cols-2 w-full h-full auto-rows-fr">
         <div class="w-full h-full" :style="style" />
         <div class="slidev-layout image-left" :class="props.class">
+            <h1 v-if="$frontmatter.title">{{ $frontmatter.title }}</h1>
             <slot />
         </div>
     </div>

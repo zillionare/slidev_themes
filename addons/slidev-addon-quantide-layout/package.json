@@ -1,6 +1,6 @@
 {
   "name": "slidev-addon-quantide-layout",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Quantide layout addon for Slidev",
   "type": "module",
   "main": "index.js",
@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
+    "markdown-it-admon": "^1.0.1",
     "puppeteer": "^24.40.0",
     "three": "^0.155.0"
   },
