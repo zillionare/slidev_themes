@@ -157,10 +157,7 @@ class: "bg-gray-100 p-10" # 可以使用任意 UnoCSS 类名
 ---
 layout: cards
 title: 卡片网格布局 (Cards Layout)
-gridspec: |
-  AAB
-  AAC
-  DDC
+gridspec: aab
 ---
 
 ## 核心特性
@@ -168,18 +165,14 @@ gridspec: |
 - content: 自动解析 Markdown 列表，将每个带有二级标题 `##` 的部分转换为精美的卡片。
 - backgroundColor: '#f0f8ff'
 
-## 网格系统
-- icon: i-carbon-grid
-- content: 支持 `gridspec`，像写 ASCII 艺术一样定义复杂的自适应网格布局（如左侧示例）。
-
 ## 样式定制
 - icon: i-carbon-color-palette
-- content: 支持自定义图标、背景色、边框色等。底层由 [slidev-addon-card](https://github.com/zillionare/slidev_themes/tree/main/addons/slidev-addon-card) 强力驱动，支持更多高阶用法（如形状、渐进式揭示等）。
+- content: 支持自定义图标、背景色、边框色等。底层由 slidev-addon-card 强力驱动，支持更多高阶用法。
 - borderColor: '#007acc'
 
-## 如何使用
-- icon: i-carbon-code
-- content: 在 Frontmatter 设置 `layout: cards`。使用 `## 标题` 开始新卡片，用 `- key: value` 列表配置属性（如 icon, content）。
+## 网格系统
+- icon: i-carbon-grid
+- content: 支持 gridspec 参数进行简单分列。例如当前页面的 aab 表示：共分两列，其中第一列包含前两张卡片，第二列包含第三张卡片。
 
 ---
 layout: default

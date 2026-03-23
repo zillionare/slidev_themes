@@ -6,31 +6,24 @@
     </div>
     <!-- this is title -->
     <div class="title">{{ $frontmatter.title }}</div>
-    <!-- gridspec grid mode using grid-template-areas -->
+    <!-- gridspec grid mode -->
     <div
-      v-if="$frontmatter.gridspec && parsedCards.length > 0 && isValidGridspec($frontmatter.gridspec, parsedCards.length)"
-      class="cards-grid-areas"
+      v-if="getGridGroups($frontmatter.gridspec)"
+      class="cards-grid"
       :style="{
         marginTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
           ? (typeof $frontmatter.top === 'number' ? `${$frontmatter.top}px` : String($frontmatter.top))
           : '2.5rem',
         display: 'grid',
-        gridTemplateAreas: getGridTemplateAreas($frontmatter.gridspec),
-        gridTemplateColumns: getGridColumnsForAreas($frontmatter.gridspec),
-        gridTemplateRows: getGridRowsForAreas($frontmatter.gridspec),
-        gap: '20px',
-        height: '100%',
-        flex: 1
+        gridTemplateColumns: getGridTemplateColumns($frontmatter.gridspec),
+        justifyContent: 'space-evenly'
       }"
     >
-      <div 
-        v-for="(card, index) in getCardsWithAreas($frontmatter.gridspec, parsedCards)" 
-        :key="index"
-        :style="{ gridArea: card.gridArea }"
-        class="card-area-wrapper"
-      >
+      <div class="cards-col" :class="{ 'cards-col-split': col.length > 1 }" v-for="(col, cidx) in getGridGroups($frontmatter.gridspec)" :key="cidx">
         <Card
+          v-for="(card, index) in col"
           v-show="shouldShowCard(card.originalIndex, $clicks)"
+          :key="index + '-' + cidx"
           :title="card.title"
           :icon="card.icon"
           :img="card.img"
@@ -42,11 +35,9 @@
           :textColor="card.textColor"
           :borderRadius="card.borderRadius"
           :shadow="card.shadow !== false"
-          :width="card.width || '100%'"
-          :height="card.height || '100%'"
+          :width="card.width"
           :iconSize="card.iconSize"
           :iconColor="card.iconColor"
-          style="height: 100%;"
         >
           {{ card.content }}
         </Card>
@@ -250,61 +241,8 @@ function getGridTemplateColumns(spec) {
   return `repeat(${groups.length}, max-content)`
 }
 
-// Helper functions for grid-template-areas implementation
-function getGridAreasInfo(spec) {
-  if (!spec) return null
-  const rows = String(spec).trim().split('\n').map(r => r.trim()).filter(r => r.length > 0)
-  if (rows.length === 0) return null
-  
-  const raw = String(spec).replace(/\s+/g, '')
-  if (!raw) return null
-  
-  // Extract unique identifiers in the order they appear
-  const uniqueChars = [...new Set(raw.split('').map(c => c.toUpperCase()))]
-  
-  return { rows, uniqueChars, colCount: rows[0].length, rowCount: rows.length }
-}
 
-function isValidGridspec(spec, cardsLength) {
-  const info = getGridAreasInfo(spec)
-  if (!info) return false
-  
-  // Check if all rows have the same length
-  const allRowsSameLength = info.rows.every(r => r.length === info.colCount)
-  if (!allRowsSameLength) return false
-  
-  // Must have exactly as many unique chars as cards, or fewer (we ignore extra cards)
-  return info.uniqueChars.length === cardsLength
-}
 
-function getGridTemplateAreas(spec) {
-  const info = getGridAreasInfo(spec)
-  if (!info) return ''
-  return info.rows.map(row => `"${row.split('').join(' ')}"`).join(' ')
-}
-
-function getGridColumnsForAreas(spec) {
-  const info = getGridAreasInfo(spec)
-  if (!info) return ''
-  return `repeat(${info.colCount}, 1fr)`
-}
-
-function getGridRowsForAreas(spec) {
-  const info = getGridAreasInfo(spec)
-  if (!info) return ''
-  return `repeat(${info.rowCount}, 1fr)`
-}
-
-function getCardsWithAreas(spec, cards) {
-  const info = getGridAreasInfo(spec)
-  if (!info || !Array.isArray(cards)) return []
-  
-  return cards.map((card, idx) => ({
-    ...card,
-    originalIndex: idx,
-    gridArea: info.uniqueChars[idx] || 'auto'
-  })).filter((_, idx) => idx < info.uniqueChars.length)
-}
 
 </script>
 
