@@ -135,17 +135,44 @@ const parsedCards = computed(() => {
       const config = { title }
       let content = ''
       
-      // Look for list items in HTML format "<li>key: value</li>"
-      const listItems = configText.match(/<li>([^<]+)<\/li>/g) || []
-
+      // Handle both HTML list items and plain text markdown list items
+      const listItems = []
+      
+      // Match HTML list items
+      const htmlMatches = configText.match(/<li>([\s\S]*?)<\/li>/g) || []
+      htmlMatches.forEach(item => {
+        listItems.push(item.replace(/<\/?li>/g, '').trim())
+      })
+      
+      // Match plain text list items (in case slots are unparsed markdown)
+      const mdMatches = configText.match(/^[ \t]*-[ \t]+(.*)$/gm) || []
+      mdMatches.forEach(item => {
+        listItems.push(item.replace(/^[ \t]*-[ \t]+/, '').trim())
+      })
+      
+      // Match paragraph-based configuration (some markdown renderers output p tags)
+      const pMatches = configText.match(/<p>([\s\S]*?)<\/p>/g) || []
+      pMatches.forEach(item => {
+        const text = item.replace(/<\/?p>/g, '').trim()
+        if (text.startsWith('- ')) {
+          const lines = text.split('\n')
+          lines.forEach(line => {
+            if (line.trim().startsWith('- ')) {
+              listItems.push(line.trim().substring(2).trim())
+            }
+          })
+        }
+      })
+      
       listItems.forEach(item => {
-        const match = item.match(/<li>(\w+):\s*([^<]+)<\/li>/)
+        const match = item.match(/^([\w]+):\s*([\s\S]+)$/)
         if (match) {
           const [, key, value] = match
           if (key === 'content') {
             content = value.trim()
           } else {
-            config[key] = value.trim()
+            // Remove quotes if present
+            config[key] = value.trim().replace(/^['"](.*)['"]$/, '$1')
           }
         }
       })
