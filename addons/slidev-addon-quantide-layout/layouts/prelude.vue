@@ -100,7 +100,7 @@ const welcome_audio = computed(() => {
     opacity: 1;
     width: 100%;
     height: 100%;
-    font-size: 6vw;
+    font-size: 60px;
     animation: 3s linear moveTitle 0s forwards;
     background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
     background-size: contain;
@@ -110,7 +110,7 @@ const welcome_audio = computed(() => {
 
 .subtitle {
     position: absolute;
-    font-size: 3vw;
+    font-size: 30px;
     background-color: cadetblue;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
     background-size: 85%;
@@ -128,7 +128,7 @@ const welcome_audio = computed(() => {
 
 .content {
     position: absolute;
-    top: 20vh;
+    top: 112.5px;
     left: 0;
     width: 100%;
     height: 100%;

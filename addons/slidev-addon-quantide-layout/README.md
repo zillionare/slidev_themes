@@ -50,9 +50,14 @@ You can granularly control fonts using flat properties in your headermatter (for
 ```yaml
 ---
 font: "阿里巴巴普惠体-Regular" # Default font for the body/text
-fontTitle: "青柳隶书"            # Default font for headings (h2-h6), also acts as fallback for h1
+fontTitle: "青柳隶书"            # Default font for headings (h1-h6)
 fontH1: "庞门正道粗书体"          # Specific font for h1 headings
-fontCoverTitle: "heiti"         # Highest priority font for titles in `cover` layouts
+fontH2: "庞门正道标题体"          # Specific font for h2 headings (can also configure fontH3 ~ fontH6)
+fontCode: "文泉驿正黑等宽"        # Font for inline code and code blocks
+fontLi: "演示夏行"              # Font for list items
+fontCover: "阿里巴巴普惠体-Bold"  # Override text font on 'cover' layouts
+fontCoverTitle: "heiti"         # Override title font on 'cover' layouts
+fontCoverH1: "heiti"            # Override H1 font on 'cover' layouts
 ---
 ```
 

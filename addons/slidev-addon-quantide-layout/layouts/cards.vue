@@ -231,7 +231,7 @@ function getGridTemplateColumns(spec) {
     border-radius: 0 2rem 0 2rem;
 }
 .slidev-layout.cards-layout {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;

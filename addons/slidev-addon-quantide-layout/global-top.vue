@@ -32,10 +32,15 @@ const cssContent = computed(() => {
     return getFontFamily(name)
   }
 
-  // 1. font (全局默认正文字体)
-  const baseFont = getResolvedFont('font') || getResolvedFont('fontFamily')
-  if (baseFont) {
-    const ff = baseFont.includes(' ') ? `'${baseFont}'` : baseFont
+  const currentLayout = $slidev.nav.currentLayout || ''
+  const isCover = currentLayout.includes('cover')
+
+  // 1. font (全局/页面默认正文字体)
+  // 如果是 cover 页面，且配置了 fontCover，则覆盖 font
+  const baseFontName = (isCover && getResolvedFont('fontCover')) ? getResolvedFont('fontCover') : (getResolvedFont('font') || getResolvedFont('fontFamily'))
+  
+  if (baseFontName) {
+    const ff = baseFontName.includes(' ') ? `'${baseFontName}'` : baseFontName
     styles += `
       :root {
         --slidev-theme-font-family: ${ff}, ui-sans-serif, system-ui, sans-serif;
@@ -46,10 +51,12 @@ const cssContent = computed(() => {
     `
   }
 
-  // 2. fontTitle (全局标题字体)
-  const titleFont = getResolvedFont('fontTitle')
-  if (titleFont) {
-    const ff = titleFont.includes(' ') ? `'${titleFont}'` : titleFont
+  // 2. fontTitle (全局/页面标题字体，作为 h1-h6 的回退)
+  // 如果是 cover 页面，且配置了 fontCoverTitle，则覆盖 fontTitle
+  const titleFontName = (isCover && getResolvedFont('fontCoverTitle')) ? getResolvedFont('fontCoverTitle') : getResolvedFont('fontTitle')
+  
+  if (titleFontName) {
+    const ff = titleFontName.includes(' ') ? `'${titleFontName}'` : titleFontName
     styles += `
       :root {
         --slidev-font-title: ${ff}, var(--slidev-theme-font-family);
@@ -63,32 +70,14 @@ const cssContent = computed(() => {
     `
   }
 
-  // 3. fontH1 (全局 H1 字体)
-  const h1Font = getResolvedFont('fontH1') || titleFont
-  if (h1Font) {
-    const ff = h1Font.includes(' ') ? `'${h1Font}'` : h1Font
-    styles += `
-      :root {
-        --slidev-font-h1: ${ff}, var(--slidev-font-title);
-      }
-    `
-  } else {
-    styles += `
-      :root {
-        --slidev-font-h1: var(--slidev-font-title);
-      }
-    `
-  }
-  styles += `
-    .slidev-layout h1 {
-      font-family: var(--slidev-font-h1);
-    }
-  `
-
-  // 其他标题 h2-h6 默认继承 titleFont
-  const hTags = ['h2', 'h3', 'h4', 'h5', 'h6']
+  // 3. 处理各级标题 h1 - h6
+  const hTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
   hTags.forEach(tag => {
-    const specificFont = getResolvedFont(`font${tag.toUpperCase()}`) || titleFont
+    const ucTag = tag.toUpperCase() // H1, H2...
+    // 检查是否有针对 cover 的覆盖，例如 fontCoverH1
+    const coverSpecificFont = isCover ? getResolvedFont(`fontCover${ucTag}`) : null
+    const specificFont = coverSpecificFont || getResolvedFont(`font${ucTag}`) || titleFontName
+
     if (specificFont) {
       const ff = specificFont.includes(' ') ? `'${specificFont}'` : specificFont
       styles += `
@@ -110,38 +99,34 @@ const cssContent = computed(() => {
     `
   })
 
-  // 4. fontCoverTitle (仅封面标题字体)
-  const currentLayout = $slidev.nav.currentLayout || ''
-  const isCover = currentLayout.includes('cover')
-  const coverTitleFont = getResolvedFont('fontCoverTitle')
-  
-  if (isCover && coverTitleFont) {
-    const ff = coverTitleFont.includes(' ') ? `'${coverTitleFont}'` : coverTitleFont
+  // 4. 处理列表字体 fontLi
+  const liFontName = getResolvedFont('fontLi')
+  if (liFontName) {
+    const ff = liFontName.includes(' ') ? `'${liFontName}'` : liFontName
     styles += `
       :root {
-        --slidev-font-cover-title: ${ff}, var(--slidev-font-h1);
-        --slidev-font-h1: var(--slidev-font-cover-title);
-        --slidev-font-title: var(--slidev-font-cover-title);
+        --slidev-font-li: ${ff}, var(--slidev-theme-font-family);
+      }
+      .slidev-layout li {
+        font-family: var(--slidev-font-li);
       }
     `
   }
 
-  // 5. 处理其它语义化字体 (mono, serif)
-  const semanticFonts = {
-    mono: getResolvedFont('fontMono') || getResolvedFont('codeFont'),
-    serif: getResolvedFont('fontSerif')
-  }
-
-  Object.entries(semanticFonts).forEach(([key, value]) => {
-    if (value) {
-      const ff = value.includes(' ') ? `'${value}'` : value
-      styles += `
+  // 5. 处理其它语义化字体 (mono/code)
+  const codeFontName = getResolvedFont('fontCode') || getResolvedFont('fontMono') || getResolvedFont('codeFont')
+  if (codeFontName) {
+    const ff = codeFontName.includes(' ') ? `'${codeFontName}'` : codeFontName
+    styles += `
       :root {
-        --font-${key}: ${ff}, var(--slidev-theme-font-family);
+        --slidev-theme-font-mono: ${ff}, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        --font-mono: var(--slidev-theme-font-mono);
       }
-      `
-    }
-  })
+      code, kbd, samp, pre {
+        font-family: var(--slidev-theme-font-mono);
+      }
+    `
+  }
 
   return styles
 })

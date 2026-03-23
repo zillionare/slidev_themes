@@ -10,9 +10,9 @@
             :before {
                 content: 'JIEYU.AI';
                 position: absolute;
-                left: 1vw;;
-                top: 1.5vh;
-                letter-spacing: 0.3vw;
+                left: 10px;;
+                top: 8.44px;
+                letter-spacing: 3px;
                 color: transparent;
                 background: url('/public/text-clip-4.png') 80% 50%  no-repeat;
                 background-clip: text;
@@ -26,16 +26,16 @@
         }
 
         h1 {
-            font-size: 8vw !important;
-            line-height: 17vh !important;
+            font-size: 80px !important;
+            line-height: 95.62px !important;
         }
          h1:after, h1:before, h2:before {
             content: unset !important;
         }
 
         .barcode {
-            height: 15vw;
-            width:15vw;
+            height: 150px;
+            width:150px;
             background-image: url('/public/wechat_gzh.png');
             background-size: contain;
             background-repeat: no-repeat;

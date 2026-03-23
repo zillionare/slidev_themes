@@ -438,7 +438,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .slidev-layout.barrel-layout {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -451,7 +451,7 @@ onBeforeUnmount(() => {
 
 .barrel-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -465,8 +465,8 @@ onBeforeUnmount(() => {
 }
 
 .three-container {
-  width: 90vw;
-  height: 60vh;
+  width: 900px;
+  height: 337.5px;
   max-width: 1200px;
   max-height: 600px;
   position: absolute;

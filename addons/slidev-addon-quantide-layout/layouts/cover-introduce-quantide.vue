@@ -121,19 +121,10 @@ onUnmounted(() => {
     font-family: var(--slidev-font-h1, var(--slidev-theme-font-family));
     position: absolute;
     text-align: center;
-    font-size: 7vw;
     top: 40%;
-    flex: 0 0 auto;
+    transform: translateY(-50%);
+    white-space: nowrap;
     
-    /* 纹理背景设置 */
-    /*background-image: url('https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/golden-mountain-texture.jpg');*/
-    background-size: 200% 100%;
-    /*background-clip: text;*/
-    /*-webkit-background-clip: text;*/
-    /*-webkit-text-fill-color: transparent;*/
-    
-    /* 动态效果：纹理缓慢移动 */
-    /*animation: textureMove 20s linear infinite;*/
     /* 增强立体感 */
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     text-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -147,29 +138,29 @@ onUnmounted(() => {
 
 .logo-wrapper {
     position: absolute;
-    top: 60%;
+    top: 55%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: auto;
+    width: max-content;
+    white-space: nowrap;
 }
 
 .logo {
-    height: 2vw;
+    height: 2.5rem;
     width: auto;
     border-radius: 4px;
 }
 
 .subtitle {
-    @apply text-xl;
+    @apply text-2xl;
     color: gold;
     mix-blend-mode: lighten;
-    font-size: 2vw;
     position: static;
-    width: 100%;
     padding-left: 0.5em;
+    white-space: nowrap;
 }
 
 .cover-image {

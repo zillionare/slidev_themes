@@ -11,7 +11,7 @@ import { computed, onMounted } from 'vue'
 
 .title {
   width: 100%;
-  font-size: 6vw;
+  font-size: 60px;
   color: black;
   display: flex;
   justify-content: center;

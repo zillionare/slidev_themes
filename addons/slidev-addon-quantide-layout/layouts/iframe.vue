@@ -20,7 +20,7 @@ const rightPanelStyle = computed(() => {
     return {
         "width": `${props.width * 100 + 8}` + "%",
         "position": "absolute",
-        "top": "-13vh",
+        "top": "-73.12px",
         "left": `${(1 - props.width) * 100}` + "%",
         "height": "130%"
     }

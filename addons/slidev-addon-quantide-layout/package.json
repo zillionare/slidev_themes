@@ -25,9 +25,9 @@
   "license": "MIT",
   "author": "Quantide",
   "scripts": {
-    "dev": "slidev example.md",
-    "build": "slidev build example.md",
-    "export": "slidev export example.md"
+    "dev": "slidev slides.md",
+    "build": "slidev build slides.md",
+    "export": "slidev export slides.md"
   },
   "slidev": {
     "addons": {
