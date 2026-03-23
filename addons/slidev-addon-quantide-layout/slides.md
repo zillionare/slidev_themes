@@ -164,11 +164,45 @@ gridspec: |
   aac
   ddc
 ---
+<style scoped>
+    h3 {
+        font-size: 0.8rem;
+        border: none;
+        margin: 0;
+        padding: 0.2rem;
+    }
+    p {
+        font-size: 10px;
+        line-height: 1.5;
+    }
+    /* 使用自定义类名来隔离不同区域的样式 */
+    .area-a-style p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    .area-a-style h3 {
+        border: none;
+        font-size: 16px;
+        margin: 0;
+        padding: 10px;
+    }
 
+    .area-d-style p {
+        font-size: 10px;
+        line-height: 1.5;
+        color: var(--primary);
+    }
+    .area-d-style h3 {
+        border: none;
+        font-size: 10px;
+        margin: 0;
+        padding: 10px;
+    }
+</style>
 ::a::
 <div class="area-a-style">
 
-### 网格系统
+### A 网格系统
 
 你可以通`gridspec`属性，像 ASCII艺术一样来定义网格布局。每一个区块使用`::letter::`来定义，其中 letter是字母。
 
@@ -181,49 +215,26 @@ gridspec: |
 </div>
 
 ::b::
-<div class="area-b-style">
 
-### 样式定制
+### B 样式定制
 
-你可以为每个内容块自定义样式，只要在 Markdown 中直接使用 UnoCSS 或内联样式即可。
-
-</div>
+通过页面开头的`<style scoped/>`来为每个区块声明样式。在这个区块中，我们为 `<p>`元素指定了更小的字体。
 
 ::c::
-### 网格系统
+### C 任意内容
 
-通过 `gridspec` 参数像写 ASCII 艺术一样定义 2D 布局。
+你可以在区块内插入任意的内容，就跟写 slide page 一样。
+
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg)
 
 ::d::
-### 响应式支持
+<div class="area-d-style">
 
-每个区域都会自动充满其所在的网格，且内容溢出时会自动出现滚动条。
+### D 区块样式
 
-<style>
-/* 使用自定义类名来隔离不同区域的样式 */
-.area-a-style p {
-    font-size: 14px;
-    line-height: 1.5;
-}
-.area-a-style h3 {
-    border: none;
-    font-size: 16px;
-    margin: 0;
-    padding: 10px;
-}
+每个区块默认都显示为卡片样式。也可以通过`cards: false`来关闭默认的卡片样式。
+</div>
 
-.area-b-style p {
-    font-size: 24px;
-    line-height: 1.5;
-    color: var(--primary);
-}
-.area-b-style h3 {
-    border: none;
-    font-size: 16px;
-    margin: 0;
-    padding: 10px;
-}
-</style>
 
 ---
 layout: default
