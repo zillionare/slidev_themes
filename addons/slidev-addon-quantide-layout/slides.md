@@ -170,7 +170,7 @@ gridspec: |
 
 你可以通`gridspec`属性，像 ASCII艺术一样来定义网格布局。每一个区块使用`::letter::`来定义，其中 letter是字母。
 
-每个区块
+你可以通`gridspec`属性，像 ASCII艺术一样来定义网格布局。每一个区块使用`::letter::`来定义，其中 letter是字母。
 
 ::b::
 ### 样式定制

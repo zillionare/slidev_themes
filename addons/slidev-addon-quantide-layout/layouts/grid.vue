@@ -14,8 +14,8 @@
         gridTemplateColumns: getGridColumnsForAreas($frontmatter.gridspec),
         gridTemplateRows: getGridRowsForAreas($frontmatter.gridspec),
         gap: $frontmatter.gap || '20px',
-        height: '100%',
-        flex: 1
+        flex: 1,
+        minHeight: 0
       }"
     >
       <div
@@ -59,13 +59,13 @@ function getGridTemplateAreas(spec) {
 function getGridColumnsForAreas(spec) {
   const info = getGridAreasInfo(spec);
   if (!info) return '';
-  return `repeat(${info.colCount}, 1fr)`;
+  return `repeat(${info.colCount}, minmax(0, 1fr))`;
 }
 
 function getGridRowsForAreas(spec) {
   const info = getGridAreasInfo(spec);
   if (!info) return '';
-  return `repeat(${info.rowCount}, 1fr)`;
+  return `repeat(${info.rowCount}, minmax(0, 1fr))`;
 }
 </script>
 
