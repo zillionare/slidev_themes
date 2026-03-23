@@ -97,7 +97,8 @@ function getGridRowsForAreas(spec) {
 .grid-container {
   width: 100%;
   box-sizing: border-box;
-  padding: 0 2rem 2rem 2rem; /* Add uniform padding for left, right, bottom */
+  padding: 2rem;
+  margin-top: 1rem;
 }
 
 .grid-area-wrapper {

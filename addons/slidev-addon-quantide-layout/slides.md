@@ -50,9 +50,9 @@ title: 介绍 (Intro Layout)
 这是一个为 **Slidev** 打造的增强包，它提供了：
 
 - 🎨 **丰富的内置布局** 支持单栏、双栏、图片左/右、各种风格的 Cover 封面等
+- **无比灵活的grid 布局** 通过 ascii 艺术来定义网格！
 - 🔤 **极其灵活的字体配置**通过扁平化语法精准控制各个层级的字体
 - 🃏 **admonition**支持
-- 🎨 **丰富的主题颜色**: 通过quantide-palette提供的颜色方案，你可以轻松自定义主题颜色。
 
 你可以通过 npm 直接安装并在 `addons` 中引入使用。
 
@@ -166,16 +166,28 @@ gridspec: |
 ---
 
 ::a::
-### 核心特性
+<div class="area-a-style">
+
+### 网格系统
 
 你可以通`gridspec`属性，像 ASCII艺术一样来定义网格布局。每一个区块使用`::letter::`来定义，其中 letter是字母。
 
-你可以通`gridspec`属性，像 ASCII艺术一样来定义网格布局。每一个区块使用`::letter::`来定义，其中 letter是字母。
+比如，这张 slide 就是使用`gridspec: |
+  aab
+  aac
+  ddc
+`来定义网格布局的。
+
+</div>
 
 ::b::
+<div class="area-b-style">
+
 ### 样式定制
 
 你可以为每个内容块自定义样式，只要在 Markdown 中直接使用 UnoCSS 或内联样式即可。
+
+</div>
 
 ::c::
 ### 网格系统
@@ -186,6 +198,32 @@ gridspec: |
 ### 响应式支持
 
 每个区域都会自动充满其所在的网格，且内容溢出时会自动出现滚动条。
+
+<style>
+/* 使用自定义类名来隔离不同区域的样式 */
+.area-a-style p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+.area-a-style h3 {
+    border: none;
+    font-size: 16px;
+    margin: 0;
+    padding: 10px;
+}
+
+.area-b-style p {
+    font-size: 24px;
+    line-height: 1.5;
+    color: var(--primary);
+}
+.area-b-style h3 {
+    border: none;
+    font-size: 16px;
+    margin: 0;
+    padding: 10px;
+}
+</style>
 
 ---
 layout: default
