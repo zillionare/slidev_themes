@@ -157,7 +157,10 @@ class: "bg-gray-100 p-10" # 可以使用任意 UnoCSS 类名
 ---
 layout: cards
 title: 卡片网格布局 (Cards Layout)
-gridspec: 'AAB\nAAC\nDDC'
+gridspec: |
+  AAB
+  AAC
+  DDC
 ---
 
 ## 核心特性
