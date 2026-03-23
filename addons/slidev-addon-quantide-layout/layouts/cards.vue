@@ -79,7 +79,7 @@
 
 <script setup>
 import { computed, ref, onMounted } from 'vue'
-// Card 组件已通过 slidev-addon-card 全局注册，无需手动导入
+import Card from 'slidev-addon-card/components/Card.vue'
 
 // In Slidev, we need to parse the slot content
 const slotContent = ref('')

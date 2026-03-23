@@ -42,7 +42,7 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import * as THREE from 'three'
 import {snapdom} from '@zumer/snapdom'
 import { handleBackground } from '../layoutHelper'
-// Card 组件已通过 slidev-addon-card 全局注册，无需手动导入
+import Card from 'slidev-addon-card/components/Card.vue'
 
 // Refs
 const threeContainer = ref(null)
