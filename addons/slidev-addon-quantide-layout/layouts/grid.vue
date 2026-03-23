@@ -8,7 +8,7 @@
       :style="{
         marginTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
           ? (typeof $frontmatter.top === 'number' ? `${$frontmatter.top}px` : String($frontmatter.top))
-          : ($frontmatter.title ? '3.5rem' : '0'),
+          : ($frontmatter.title ? '5.5rem' : '2rem'),
         display: 'grid',
         gridTemplateAreas: getGridTemplateAreas($frontmatter.gridspec),
         gridTemplateColumns: getGridColumnsForAreas($frontmatter.gridspec),
