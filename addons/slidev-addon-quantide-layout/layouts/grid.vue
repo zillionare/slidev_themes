@@ -6,9 +6,9 @@
     <div
       class="grid-container"
       :style="{
-        marginTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
+        paddingTop: ($frontmatter.top !== undefined && $frontmatter.top !== null)
           ? (typeof $frontmatter.top === 'number' ? `${$frontmatter.top}px` : String($frontmatter.top))
-          : ($frontmatter.title ? '5.5rem' : '2rem'),
+          : ($frontmatter.title ? '4rem' : '2rem'),
         display: 'grid',
         gridTemplateAreas: getGridTemplateAreas($frontmatter.gridspec),
         gridTemplateColumns: getGridColumnsForAreas($frontmatter.gridspec),
@@ -97,7 +97,7 @@ function getGridRowsForAreas(spec) {
 .grid-container {
   width: 100%;
   box-sizing: border-box;
-  padding-bottom: 1rem;
+  padding: 0 2rem 2rem 2rem; /* Add uniform padding for left, right, bottom */
 }
 
 .grid-area-wrapper {
