@@ -157,6 +157,8 @@ class: "bg-gray-100 p-10" # 可以使用任意 UnoCSS 类名
 ---
 layout: grid
 title: 网格布局 (Grid Layout)
+# 通过 cards: false 可以关闭默认的卡片样式（边框、圆角、阴影）
+# cards: false
 gridspec: |
   aab
   aac
@@ -165,26 +167,25 @@ gridspec: |
 
 ::a::
 # 核心特性
-自动解析 Markdown 列表，将每个带有二级标题 `##` 的部分转换为精美的卡片。
 
-<div class="mt-4 p-4 bg-[#f0f8ff] rounded-lg h-full">
-  可以使用普通的 Markdown 和 HTML 标签进行排版，自由度极高！
-</div>
+网格中的每个区域默认带有**卡片样式**（圆角、边框、阴影和内边距）。你可以通过在 frontmatter 中设置 `cards: false` 来关闭它。
+
+底层已经完全重构，不再依赖 `slidev-addon-card`。你可以自由地使用 Markdown、HTML、甚至是 Vue 组件来填充每一个区域！
 
 ::b::
 # 样式定制
-支持自定义图标、背景色、边框色等。底层由 slidev-addon-card 强力驱动，支持更多高阶用法。
+
+你可以为每个内容块自定义样式，只要在 Markdown 中直接使用 UnoCSS 或内联样式即可。
 
 ::c::
 # 网格系统
-支持 gridspec 参数进行高级网格划分。例如当前页面的 2D 布局，能够像写 ASCII 艺术一样定义复杂的自适应网格。
+
+通过 `gridspec` 参数像写 ASCII 艺术一样定义 2D 布局。
 
 ::d::
 # 响应式支持
-卡片在 2D gridspec 模式下能够自动充满其所在的网格区域，自适应调整大小。
-<div class="mt-2 p-2 bg-[#fff0f5] rounded border border-[#007acc]">
-  这是 D 区域的内容。
-</div>
+
+每个区域都会自动充满其所在的网格，且内容溢出时会自动出现滚动条。
 
 ---
 layout: default

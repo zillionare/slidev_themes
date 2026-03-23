@@ -1,0 +1,12 @@
+Grid layout info: {
+  isGrid: true,
+  gridTemplateAreas: '"a a b" "a a c" "d d c"',
+  wrapperCount: 4,
+  areas: [ 'a', 'b', 'c', 'd' ],
+  content: [
+    '核心特性自动解析 Markdown 列表，将每个带有二级标题',
+    '样式定制支持自定义图标、背景色、边框色等。底层由 slide',
+    '网格系统支持 gridspec 参数进行高级网格划分。例如当',
+    '响应式支持卡片在 2D gridspec 模式下能够自动充满'
+  ]
+}
