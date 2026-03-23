@@ -157,7 +157,10 @@ class: "bg-gray-100 p-10" # 可以使用任意 UnoCSS 类名
 ---
 layout: cards
 title: 卡片网格布局 (Cards Layout)
-gridspec: aab
+gridspec: |
+  AAB
+  AAC
+  DDC
 ---
 
 ## 核心特性
@@ -172,7 +175,12 @@ gridspec: aab
 
 ## 网格系统
 - icon: i-carbon-grid
-- content: 支持 gridspec 参数进行简单分列。例如当前页面的 aab 表示：共分两列，其中第一列包含前两张卡片，第二列包含第三张卡片。
+- content: 支持 gridspec 参数进行高级网格划分。例如当前页面的 2D 布局，能够像写 ASCII 艺术一样定义复杂的自适应网格。
+
+## 响应式支持
+- icon: i-carbon-scale
+- content: 卡片在 2D gridspec 模式下能够自动充满其所在的网格区域，自适应调整大小。
+- backgroundColor: '#fff0f5'
 
 ---
 layout: default
