@@ -6,13 +6,16 @@ const props = defineProps({
     image: {
         type: String
     },
+    img: {
+        type: String
+    },
     imageOrder: {
         type: Number,
         default: 2
     }
 })
 
-const image = computed(() => props.image || '/section-right.jpg')
+const image = computed(() => props.img || props.image || '/section-right.jpg')
 const imageOrder = computed(() => props.imageOrder === 1 ? 'order-1' : 'order-2')
 const textAlignment = computed(() => props.imageOrder === 1
     ? 'text-right order-2 justify-end'

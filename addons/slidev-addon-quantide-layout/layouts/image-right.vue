@@ -6,20 +6,23 @@ const props = defineProps({
   image: {
     type: String,
   },
+  img: {
+    type: String,
+  },
   class: {
     type: String,
   },
 })
 
-const style = computed(() => handleBackground(props.image))
+const style = computed(() => handleBackground(props.img || props.image))
 
 </script>
 
 <template>
   <div class="grid grid-cols-2 w-full h-full auto-rows-fr">
-    <div class="slidev-layout default" :class="props.class">
+    <div class="slidev-layout image-right" :class="props.class">
       <slot />
     </div>
-    <div class="w-full w-full" :style="style" style="margin-top:56.25px;opacity:0.8;" />
+    <div class="w-full h-full" :style="style" />
   </div>
 </template>

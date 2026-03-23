@@ -122,16 +122,36 @@ const addon = computed(() => {
 
 ---
 layout: image-left
-image: https://images.jieyu.ai/images/hot/me-3.png
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/background/lab-mint.jpg
+class: "text-center"
 ---
 
 # 左图右文布局 (Image Left)
 
-只需要在 frontmatter 中配置 `image` 属性，即可轻松实现。
+只需要在 frontmatter 中配置 `img` 属性，即可轻松实现。
 
-- 完美的比例控制
+- 完美的比例控制，图片默认全覆盖
 - 自动适应屏幕大小
-- 当然，你也可以使用 `image-right` 实现相反的效果
+- 支持 `class` 属性传入自定义样式，例如当前页使用了 `class: "text-center"` 使文本居中
+
+---
+layout: image-right
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/background/lab-mint.jpg
+---
+
+# 右图左文布局 (Image Right)
+
+当然，你也可以使用 `image-right` 实现相反的效果。
+
+如果需要对内容区域添加特殊的样式，可以在 frontmatter 中使用 `class` 属性：
+
+```yaml
+---
+layout: image-right
+img: /path/to/image.jpg
+class: "bg-gray-100 p-10" # 可以使用任意 UnoCSS 类名
+---
+```
 
 ---
 layout: cards
