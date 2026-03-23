@@ -132,11 +132,12 @@ class: "text-center"
 
 - 完美的比例控制，图片默认全覆盖
 - 自动适应屏幕大小
-- 支持 `class` 属性传入自定义样式，例如当前页使用了 `class: "text-center"` 使文本居中
+- 支持 `class` 属性以控制文字样式，例如当前页使用了 `class: "text-center"` 使文本居中
 
 ---
 layout: image-right
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/background/lab-mint.jpg
+class: "bg-gray-100 p-10" 
 ---
 
 # 右图左文布局 (Image Right)
@@ -156,18 +157,26 @@ class: "bg-gray-100 p-10" # 可以使用任意 UnoCSS 类名
 ---
 layout: cards
 title: 卡片网格布局 (Cards Layout)
-gridspec: 'AB'
+gridspec: 'AAB\nAAC\nDDC'
 ---
 
-## 第一张卡片
+## 核心特性
 - icon: i-carbon-idea
-- content: 这是第一张卡片的内容，适合用来展示关键特性。
+- content: 自动解析 Markdown 列表，将每个带有二级标题 `##` 的部分转换为精美的卡片。
 - backgroundColor: '#f0f8ff'
 
-## 第二张卡片
-- icon: i-carbon-rocket
-- content: 这是第二张卡片的内容，布局会自动根据 gridspec 响应。
+## 网格系统
+- icon: i-carbon-grid
+- content: 支持 `gridspec`，像写 ASCII 艺术一样定义复杂的自适应网格布局（如左侧示例）。
+
+## 样式定制
+- icon: i-carbon-color-palette
+- content: 支持自定义图标、背景色、边框色等。底层由 [slidev-addon-card](https://github.com/zillionare/slidev_themes/tree/main/addons/slidev-addon-card) 强力驱动，支持更多高阶用法（如形状、渐进式揭示等）。
 - borderColor: '#007acc'
+
+## 如何使用
+- icon: i-carbon-code
+- content: 在 Frontmatter 设置 `layout: cards`。使用 `## 标题` 开始新卡片，用 `- key: value` 列表配置属性（如 icon, content）。
 
 ---
 layout: default
