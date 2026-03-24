@@ -22,7 +22,7 @@
         v-for="area in getUniqueAreas($frontmatter.gridspec)"
         :key="area"
         class="grid-area-wrapper"
-        :class="{ 'grid-area-card': $frontmatter.cards !== false }"
+        :class="{ 'grid-area-card': isCardsEnabled($frontmatter.cards) }"
         :style="{ gridArea: area }"
       >
         <!-- Use slot name based on the area name (lowercase) -->
@@ -66,6 +66,17 @@ function getGridRowsForAreas(spec) {
   const info = getGridAreasInfo(spec);
   if (!info) return '';
   return `repeat(${info.rowCount}, minmax(0, 1fr))`;
+}
+
+function isCardsEnabled(cards) {
+  if (cards === false) return false;
+  if (cards === 0) return false;
+  if (cards == null) return true;
+  if (typeof cards === 'string') {
+    const normalized = cards.trim().toLowerCase();
+    if (['false', '0', 'no', 'off'].includes(normalized)) return false;
+  }
+  return true;
 }
 </script>
 

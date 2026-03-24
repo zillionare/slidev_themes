@@ -12,7 +12,7 @@ import { computed, onMounted } from 'vue'
 .title {
   width: 100%;
   font-size: 60px;
-  color: black;
+  color: var(--heading-primary, var(--text-primary, black));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,7 @@ import { computed, onMounted } from 'vue'
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #303030;
+  color: var(--text-secondary, #303030);
 }
 
 .seq {

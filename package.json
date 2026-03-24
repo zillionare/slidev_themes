@@ -22,6 +22,8 @@
     "slidev-addon-mouse-trail-pen": "workspace:*",
     "slidev-addon-python-runner": "^0.1.3",
     "slidev-addon-quantide-layout": "workspace:*",
+    "slidev-addon-quantide-layout-xhs": "workspace:*",
+    "slidev-addon-quantide-palette": "workspace:*",
     "slidev-addon-rehearsal": "workspace:*",
     "thebe-core": "^0.5.0",
     "three": "^0.180.0",

@@ -1,6 +1,6 @@
-# slidev-addon-quantide-layout
+# slidev-addon-quantide-layout-xhs
 
-A Slidev addon focused on rich layouts (especially cover layouts) and customizable fonts.
+A Slidev addon for Xiaohongshu-style layouts with Pixabay image integration.
 
 ## Install
 
@@ -9,7 +9,7 @@ Add the following frontmatter to your `slides.md`:
 ```yaml
 ---
 addons:
-  - slidev-addon-quantide-layout
+  - slidev-addon-quantide-layout-xhs
 ---
 ```
 
@@ -17,76 +17,68 @@ addons:
 
 This addon provides the following layouts:
 
-- `barrel`
-- `cards`
-- `center`
-- `cover`
-- `cover-figure`
-- `cover-introduce-quantide`
-- `cover-lecture`
-- `cover-random-img-portrait`
-- `default` - The default layout
-- `end`
-- `fact`
-- `iframe`
-- `image-left`
-- `image-right`
-- `intro`
-- `landscape-section`
-- `landscape-two-cols`
-- `prelude`
-- `quantide-cover`
-- `quote`
-- `statement`
-- `thanks`
-- `toc`
-- `two-cols`
-- `two-cols-header`
-
-## Font Customization
-
-You can granularly control fonts using flat properties in your headermatter (for global settings) or frontmatter (for single-page overrides):
-
-```yaml
----
-font: "阿里巴巴普惠体-Regular" # Default font for the body/text
-fontTitle: "青柳隶书"            # Default font for headings (h1-h6)
-fontH1: "庞门正道粗书体"          # Specific font for h1 headings
-fontH2: "庞门正道标题体"          # Specific font for h2 headings (can also configure fontH3 ~ fontH6)
-fontCode: "文泉驿正黑等宽"        # Font for inline code and code blocks
-fontLi: "演示夏行"              # Font for list items
-fontCover: "阿里巴巴普惠体-Bold"  # Override text font on 'cover' layouts
-fontCoverTitle: "heiti"         # Override title font on 'cover' layouts
-fontCoverH1: "heiti"            # Override H1 font on 'cover' layouts
----
-```
-
-You can also override fonts on specific pages. For example, to change only the text font on a single slide without affecting its headings:
-
-```yaml
----
-font: "微软雅黑"
----
-```
-
-Fonts are loaded from CDN via `styles/font.css` (no local font files required in the published package).
+- `cover-photo-down` - Cover with photo at bottom half
+- `cover-photo-up` - Cover with photo at top half
+- `image-down` - Content with image at bottom
+- `image-top` - Content with image at top
+- `grid` - Grid layout for cards
+- `blank` - Blank layout
+- `default` - Default layout
 
 ## Configuration
 
-Cover layouts commonly use the following frontmatter fields:
+### Pixabay API Key Setup
+
+To use the `cover-photo-*` layouts with keyword-based image search, you need to configure a Pixabay API Key:
+
+1. Get your free API key from [Pixabay](https://pixabay.com/api/docs/)
+
+2. Add to your `.env` file (in project root):
+   ```
+   VITE_PIXABAY=your_pixabay_api_key_here
+   ```
+
+3. Restart your Slidev dev server
+
+### Usage Example
 
 ```yaml
 ---
-title: 'Your Presentation Title'
-subtitle: 'Your Presentation Subtitle'
-seq: 'Sequence Number'
-galleryImages:
-  - 'https://example.com/image1.jpg'
-  - 'https://example.com/image2.jpg'
-  - 'https://example.com/image3.jpg'
+layout: cover-photo-down
+title: "My Article Title"
+installment: "Series Name"
+excerpt: "A brief description of the article"
+img: "nature landscape"  # Can be a keyword or full URL
 ---
 ```
 
-## License
+### Frontmatter Options
 
-MIT
+| Property | Type | Description |
+|----------|------|-------------|
+| `title` | string | Article title |
+| `installment` | string | Series name (use "NA" to hide) |
+| `excerpt` | string | Article excerpt/description |
+| `img` | string | Image URL or search keyword |
+| `photo` | string | Custom photo credit text |
+
+### Image Source Priority
+
+1. If `img` is a full URL (starts with http), it will be used directly
+2. If `img` is a keyword and `VITE_PIXABAY` is configured in `.env`, it will search Pixabay
+3. If no API key is configured, the layout will show a placeholder
+
+## Troubleshooting
+
+### Images not loading
+
+1. Check browser console for error messages
+2. Verify `VITE_PIXABAY` is set in `.env` (project root directory)
+3. Ensure you've restarted the dev server after adding the API key
+4. Check that your Pixabay API key is valid and has not exceeded rate limits
+
+### CORS issues
+
+If you encounter CORS errors when loading images, try:
+- Using a different image source
+- Configuring a proxy in your Vite config

@@ -1,9 +1,7 @@
 :root {
-    --slidev-theme-primary: black;
-    /* --slidev-theme-secondary: #E60000; */
-    --slidev-theme-secondary: #09BED9;
+    --quantide-theme-primary: var(--text-primary, var(--slidev-theme-primary, black));
+    --quantide-theme-secondary: var(--heading-accent, var(--primary, var(--slidev-theme-secondary, #09BED9)));
     counter-reset: h2counter;
-    --slidev-background-color: #fcfcfc;
     --slidev-code-font-size: 20px;
 
     .abs {
@@ -17,6 +15,7 @@
     @apply h-full text-left text-$slidev-theme-primary;
     box-sizing: border-box;
     text-align: justify;
+    color: var(--quantide-theme-primary);
 }
 
 p+h2,
@@ -27,7 +26,7 @@ table+h2 {
 
 .slidev-layout h1 {
     font-size: 100px;
-    color: var(--slidev-theme-secondary);
+    color: var(--quantide-theme-secondary);
     margin: 90px 0;
 }
 
@@ -36,9 +35,9 @@ table+h2 {
     text-align: left;
     font-size: 70px;
     margin: 50px 10px;
-    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
-    border-left: 10px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
-    background-color: #09BED910;
+    color: color-mix(in srgb, var(--quantide-theme-secondary), #000 20%);
+    border-left: 10px solid color-mix(in srgb, var(--quantide-theme-secondary), #000 20%);
+    background-color: color-mix(in srgb, var(--quantide-theme-secondary), transparent 94%);
     border-radius: 0px 15px 15px 0;
     padding: 5px 20px;
     line-height: 100px;
@@ -48,10 +47,10 @@ table+h2 {
     text-align: left;
     font-size: 50px;
     margin: 60px 10px;
-    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
-    border-left: 3px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 25%);
+    color: color-mix(in srgb, var(--quantide-theme-secondary), #000 20%);
+    border-left: 3px solid color-mix(in srgb, var(--quantide-theme-secondary), #000 25%);
     padding: 20px;
-    background-color: #09BED907;
+    background-color: color-mix(in srgb, var(--quantide-theme-secondary), transparent 97%);
     border-radius: 0px 5px 5px 0;
 }
 
@@ -59,13 +58,13 @@ table+h2 {
     text-align: left;
     font-size: 40px;
     margin: 50px 10px;
-    border-left: 2px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 30%);
+    border-left: 2px solid color-mix(in srgb, var(--quantide-theme-secondary), #000 30%);
     padding: 8px 8px 8px 20px;
-    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 30%);
+    color: color-mix(in srgb, var(--quantide-theme-secondary), #000 30%);
 }
 
 .slidev-layout a {
-    color: #0000e6;
+    color: var(--primary, var(--quantide-theme-secondary));
 }
 
 .slidev-layout p {
@@ -187,7 +186,7 @@ table+h2 {
     border-radius: .2rem;
     overflow: auto;
     background-color: rgba(255, 255, 255, 0.05);
-    border-left: 4px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 15%);
+    border-left: 4px solid color-mix(in srgb, var(--quantide-theme-secondary), #000 15%);
 
     &:before {
         position: absolute;
@@ -200,26 +199,26 @@ table+h2 {
         font-weight: 400;
         width: 100%;
 
-        border-bottom: 1px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 15%);
-        background-color: color-mix(in srgb, var(--slidev-theme-secondary), #000 15%);
+        border-bottom: 1px solid color-mix(in srgb, var(--quantide-theme-secondary), #000 15%);
+        background-color: color-mix(in srgb, var(--quantide-theme-secondary), #000 15%);
     }
 }
 
 red {
     display: inline;
-    color: color-mix(in srgb, #E60000, #000 15%);
+    color: color-mix(in srgb, var(--error, #E60000), #000 15%);
 }
 
 .slidev-layout strong {
     display: inline;
     font-weight: 500;
-    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 30%);
+    color: color-mix(in srgb, var(--quantide-theme-secondary), #000 30%);
 }
 
 claimer {
     display: block;
     text-align: center;
-    color: #a8a8a8;
+    color: var(--text-tertiary, color-mix(in srgb, var(--quantide-theme-primary), white 45%));
 }
 
 cap {
@@ -227,7 +226,7 @@ cap {
     width: 100%;
     text-align: center;
     font-size: 20px;
-    color: grey;
+    color: var(--text-secondary, color-mix(in srgb, var(--quantide-theme-primary), white 35%));
     font-style: italic;
     position: relative;
     top: -40px;
@@ -270,7 +269,7 @@ cap {
         margin-bottom: 6px;
         border-bottom-width: 1px;
         border-bottom-style: solid;
-        border-image: linear-gradient(to right, var(--slidev-theme-secondary), white) 1;
+        border-image: linear-gradient(to right, var(--quantide-theme-secondary), var(--bg-primary, white)) 1;
     }
 
     h1:after {
@@ -318,7 +317,7 @@ cap {
         text-align: center;
         border-bottom-width: 1px;
         border-bottom-style: solid;
-        border-image: linear-gradient(to left, white 0%, var(--slidev-theme-primary) 50%, white 100%)1;
+        border-image: linear-gradient(to left, var(--bg-primary, white) 0%, var(--quantide-theme-primary) 50%, var(--bg-primary, white) 100%)1;
     }
 }
 

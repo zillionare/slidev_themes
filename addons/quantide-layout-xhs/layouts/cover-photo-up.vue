@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 
-// 计算封面背景样式
 const coverImageUrl = ref('')
 const errorMessage = ref('')
 
@@ -31,7 +30,7 @@ const loadCoverImage = async () => {
     if (!pixabayApiKey) {
         errorMessage.value = '未配置 Pixabay API Key。请在项目根目录的 .env 文件中添加：VITE_PIXABAY=your_api_key'
         coverImageUrl.value = ''
-        console.warn('[cover-photo-down] 未配置 Pixabay API Key。请在 .env 文件中添加 VITE_PIXABAY=your_api_key')
+        console.warn('[cover-photo-up] 未配置 Pixabay API Key。请在 .env 文件中添加 VITE_PIXABAY=your_api_key')
         return
     }
     
@@ -69,7 +68,7 @@ const loadCoverImage = async () => {
     } catch (err) {
         errorMessage.value = '图片加载失败，请检查网络连接'
         coverImageUrl.value = ''
-        console.error('[cover-photo-down] 加载图片失败:', err)
+        console.error('[cover-photo-up] 加载图片失败:', err)
     }
 }
 
@@ -90,13 +89,12 @@ const coverImg = computed(() => {
     }
 })
 
-// 计算 installment-name 的背景样式
 const installmentNameStyle = computed(() => {
     return {
         textAlign: 'left',
         color: 'var(--quantide-theme-primary, var(--text-primary, currentColor))',
         position: 'absolute',
-        top: '30px',
+        top: 'calc(50% + 30px)',
         left: '30px',
         "font-size": '1.2rem',
         "font-weight": "bold",
@@ -108,11 +106,11 @@ const installmentNameStyle = computed(() => {
 })
 
 const title = computed(()=>{ 
-    return $slidev.configs.title || "cover-photo-down 演示"
+    return $slidev.configs.title || "cover-photo-up 演示"
 })
 
 const excerpt = computed(()=>{ 
-    return $slidev.configs.excerpt || "内容摘要： 这是一个专门为小红书图文设计的主题。请继续阅读以了解更多详情。"
+    return $slidev.configs.excerpt || "可设置的属性有： title, installment, excerpt, img。如果不显示某项，可以传入『NA』。img 可以是完整 url， 也可以是查询关键字。当使用查询关键字时，请先配置 PIXABAY 环境变量（API KEY）"
 })
 
 const installment = computed(()=>{
@@ -152,7 +150,6 @@ const showFooter = computed(() => {
 </script>
 
 <style scoped>
-/*layer-2 the content layer*/
 .title-wrapper {
     background-color: white;
     width: 100%;
@@ -164,7 +161,7 @@ const showFooter = computed(() => {
     padding: 2rem 4rem;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%;
 }
 
 .title {
@@ -194,7 +191,7 @@ const showFooter = computed(() => {
 
 .cover-image {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
     width: 100%;
     height: 50%;
@@ -205,24 +202,13 @@ const showFooter = computed(() => {
 .footer {
     @apply text-sm;
     position: absolute;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     color: var(--text-on-dark, white);
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-}
-
-.author {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.date {
-    position: relative;
-    opacity: 0.9;
-    font-size: 1rem;
 }
 
 .cover {
@@ -234,16 +220,12 @@ const showFooter = computed(() => {
 <template>
     <div class="slidev-layout cover">
         <div class="cover-image" :style="coverImg" />
-        
-        <!-- 条件显示 installment-name -->
         <div v-if="installment" class="installment-name" :style="installmentNameStyle">{{ installment }}</div>
-        
         <div class="title-wrapper">
             <div class="title" v-html="title">
             </div>
             <div class="excerpt">{{ excerpt }}</div>
         </div>
-        <!-- 右下角的 footer 区域 -->
         <div v-if="showFooter" class="footer">
             <div class="photo">
                 <span>Photo Credits: {{ photoCreditText }}</span>

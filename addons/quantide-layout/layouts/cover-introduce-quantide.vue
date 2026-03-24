@@ -117,7 +117,7 @@ onUnmounted(() => {
     @apply text-8xl;
     width: 100%;
     /* 基础颜色回退 */
-    color: white;
+    color: var(--text-on-dark, white);
     font-family: var(--slidev-font-h1, var(--slidev-theme-font-family));
     position: absolute;
     text-align: center;
@@ -156,7 +156,7 @@ onUnmounted(() => {
 
 .subtitle {
     @apply text-2xl;
-    color: gold;
+    color: var(--accent, gold);
     mix-blend-mode: lighten;
     position: static;
     padding-left: 0.5em;

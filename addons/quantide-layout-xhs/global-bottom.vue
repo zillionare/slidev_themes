@@ -4,7 +4,7 @@
     width: 100%;
     bottom: 40px;
     height: 2rem;
-    color: #808080;
+    color: var(--text-tertiary, #808080);
     text-align:  center;
     font-size: 1.5em;
 }
