@@ -4,6 +4,24 @@ import { computed, ref, watch } from 'vue'
 const coverImageUrl = ref('')
 const errorMessage = ref('')
 
+const getFrontmatter = () => {
+    const meta = $slidev.nav.currentSlideRoute?.meta || {}
+    return meta.slide?.frontmatter || meta.frontmatter || {}
+}
+
+const currentPage = computed(() => $slidev.nav.currentPage)
+
+const currentFrontmatter = computed(() => {
+    currentPage.value
+    return getFrontmatter()
+})
+
+const getConfig = (key: string) => {
+    const fm = currentFrontmatter.value as any
+    const v = fm?.[key]
+    return v ?? ($slidev.configs as any)?.[key]
+}
+
 // 获取 Pixabay API Key
 // 在 .env 文件中配置：VITE_PIXABAY=your_api_key
 const getPixabayApiKey = (): string => {
@@ -14,7 +32,8 @@ const pixabayApiKey = getPixabayApiKey()
 
 const loadCoverImage = async () => {
     errorMessage.value = ''
-    const imgset = typeof $slidev.configs.img === 'string' ? $slidev.configs.img.trim() : ''
+    const imgValue = getConfig('img')
+    const imgset = typeof imgValue === 'string' ? imgValue.trim() : ''
     
     if (!imgset) {
         coverImageUrl.value = ''
@@ -73,7 +92,7 @@ const loadCoverImage = async () => {
 }
 
 watch(
-    () => $slidev.configs.img,
+    () => getConfig('img'),
     () => {
         void loadCoverImage()
     },
@@ -106,15 +125,16 @@ const installmentNameStyle = computed(() => {
 })
 
 const title = computed(()=>{ 
-    return $slidev.configs.title || "cover-photo-up 演示"
+    return getConfig('title') || "cover-photo-up 演示"
 })
 
 const excerpt = computed(()=>{ 
-    return $slidev.configs.excerpt || "可设置的属性有： title, installment, excerpt, img。如果不显示某项，可以传入『NA』。img 可以是完整 url， 也可以是查询关键字。当使用查询关键字时，请先配置 PIXABAY 环境变量（API KEY）"
+    return getConfig('excerpt') || "可设置的属性有： title, installment, excerpt, img。如果不显示某项，可以传入『NA』。img 可以是完整 url， 也可以是查询关键字。当使用查询关键字时，请先配置 PIXABAY 环境变量（API KEY）"
 })
 
 const installment = computed(()=>{
-    const raw = typeof $slidev.configs.installment === 'string' ? $slidev.configs.installment.trim() : ''
+    const installmentValue = getConfig('installment')
+    const raw = typeof installmentValue === 'string' ? installmentValue.trim() : ''
     if (raw.toLowerCase() === 'na') {
         return ''
     }
@@ -122,11 +142,13 @@ const installment = computed(()=>{
 })
 
 const photoCreditText = computed(() => {
-    const manual = typeof $slidev.configs.photo === 'string' ? $slidev.configs.photo.trim() : ''
+    const photoValue = getConfig('photo')
+    const manual = typeof photoValue === 'string' ? photoValue.trim() : ''
     if (manual) {
         return manual
     }
-    const imgset = typeof $slidev.configs.img === 'string' ? $slidev.configs.img.trim() : ''
+    const imgValue = getConfig('img')
+    const imgset = typeof imgValue === 'string' ? imgValue.trim() : ''
     if (!imgset) {
         return ''
     }
@@ -165,7 +187,7 @@ const showFooter = computed(() => {
 }
 
 .title {
-    @apply text-6xl font-bold;
+    @apply text-4xl font-bold;
     font-family: var(--slidev-font-h1, var(--slidev-theme-font-family));
     color: var(--quantide-theme-secondary, var(--slidev-theme-secondary, var(--heading-accent, var(--primary, var(--slidev-theme-primary)))));
     width: 100%;
@@ -177,7 +199,7 @@ const showFooter = computed(() => {
 }
 
 .excerpt {
-    @apply text-2xl;
+    font-size: 0.9rem;
     width: 80%;
     display: flex;
     justify-content: flex-start;

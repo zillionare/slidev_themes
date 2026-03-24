@@ -98,9 +98,7 @@ table+h2 {
 }
 
 .admonition p.admonition-title::before {
-    font-family: inherit !important;
-    font-weight: 700;
-    margin-right: 0.5rem;
+    content: "";
     display: inline-block;
 }
 
@@ -109,26 +107,14 @@ table+h2 {
     background-color: rgba(59, 130, 246, 0.1);
 }
 
-.admonition.info p.admonition-title::before {
-    content: "ℹ";
-}
-
 .admonition.tip {
     border-color: #10b981;
     background-color: rgba(16, 185, 129, 0.1);
 }
 
-.admonition.tip p.admonition-title::before {
-    content: "✦";
-}
-
 .admonition.warning {
     border-color: #f59e0b;
     background-color: rgba(245, 158, 11, 0.1);
-}
-
-.admonition.warning p.admonition-title::before {
-    content: "⚠";
 }
 
 .admonition.danger,
@@ -137,18 +123,9 @@ table+h2 {
     background-color: rgba(239, 68, 68, 0.1);
 }
 
-.admonition.danger p.admonition-title::before,
-.admonition.error p.admonition-title::before {
-    content: "⛔";
-}
-
 .admonition.abstract {
     border-color: #8b5cf6;
     background-color: rgba(139, 92, 246, 0.1);
-}
-
-.admonition.abstract p.admonition-title::before {
-    content: "◈";
 }
 
 .admonition p {

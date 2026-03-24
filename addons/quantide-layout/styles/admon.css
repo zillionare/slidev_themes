@@ -1,8 +1,16 @@
-@font-face {
-    font-family: "Material Icons";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Material Icons"), local("MaterialIcons-Regular"), url("data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAfIAAsAAAAADDAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFZW7kosY21hcAAAAYAAAADTAAACjtP6ytBnbHlmAAACVAAAAxgAAAQ4zRtvlGhlYWQAAAVsAAAALwAAADYRwZsnaGhlYQAABZwAAAAcAAAAJAeKAzxobXR4AAAFuAAAABIAAAA8OGQAAGxvY2EAAAXMAAAAIAAAACAG5AfwbWF4cAAABewAAAAfAAAAIAEfAERuYW1lAAAGDAAAAVcAAAKFkAhoC3Bvc3QAAAdkAAAAYgAAAK2vz7wkeJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2BkPsQ4gYGVgYOpk+kMAwNDP4RmfM1gxMjBwMDEwMrMgBUEpLmmMDgwVLy4xKzzX4chhrmK4QpQmBEkBwAZygyweJzFkr0NwjAQhZ+TEP6CRUfHBEwRUWaQTICyQbpMwRCskA5RUIONxG0RnnNpKAIV4qzPku/8c353ACYAYrIjCWCuMAh2ptf0/hiL3p/gyPUWa3osqlt0L1zu9r71z8dGrJRykFoauXQd932Lj28.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") format("woff");
+:root {
+    --admonition-icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z'/%3E%3C/svg%3E");
+    --admonition-icon-summary: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 3h8l4 4v14H6zm8 2.2V8h2.8zM8 11h8v2H8zm0 4h8v2H8z'/%3E%3C/svg%3E");
+    --admonition-icon-tip: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 2a7 7 0 0 0-4.4 12.4c.9.8 1.4 1.6 1.7 2.6h5.4c.3-1 .8-1.8 1.7-2.6A7 7 0 0 0 12 2zm2.1 15H9.9c-.4-1.2-1.1-2.3-2.1-3.2A5.5 5.5 0 1 1 16.2 13.8c-1 .9-1.7 2-2.1 3.2zM9 20h6v2H9z'/%3E%3C/svg%3E");
+    --admonition-icon-success: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1 14.2-3.7-3.7 1.4-1.4 2.3 2.3 4.9-4.9 1.4 1.4z'/%3E%3C/svg%3E");
+    --admonition-icon-question: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-2h2zm2.1-7.2-.9.9c-.7.7-1.2 1.3-1.2 2.3h-2v-.5c0-1.1.4-2.1 1.2-2.8l1.2-1.2c.4-.4.6-.9.6-1.5A2.1 2.1 0 0 0 12.9 5 2 2 0 0 0 11 7H9a4 4 0 0 1 8 0c0 1-.4 2-1.1 2.8z'/%3E%3C/svg%3E");
+    --admonition-icon-warning: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M1 21h22L12 2zm12-3h-2v-2h2zm0-4h-2v-4h2z'/%3E%3C/svg%3E");
+    --admonition-icon-attention: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M7 2h10l5 5v10l-5 5H7l-5-5V7zm6 15h-2v-2h2zm0-4h-2V7h2z'/%3E%3C/svg%3E");
+    --admonition-icon-failure: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm4.3 12.9-1.4 1.4L12 13.4l-2.9 2.9-1.4-1.4 2.9-2.9-2.9-2.9 1.4-1.4 2.9 2.9 2.9-2.9 1.4 1.4-2.9 2.9z'/%3E%3C/svg%3E");
+    --admonition-icon-danger: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5zm1 13h-2v-2h2zm0-4h-2V7h2z'/%3E%3C/svg%3E");
+    --admonition-icon-bug: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M14 6h-4V4h4zm5 4h-2.1A5 5 0 0 0 15 7.3V6h2V4h-2V2h-2v2h-2V2H9v2H7v2h2v1.3A5 5 0 0 0 7.1 10H5v2h2v2H5v2h2.1A5 5 0 0 0 9 18.7V20H7v2h2v-2h6v2h2v-2h-2v-1.3A5 5 0 0 0 16.9 16H19v-2h-2v-2H19zm-7 8a3 3 0 0 1-3-3v-4a3 3 0 0 1 6 0v4a3 3 0 0 1-3 3z'/%3E%3C/svg%3E");
+    --admonition-icon-example: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.7 16.6 3.1 11l5.6-5.6L10.1 7 6.5 11l3.6 4zm6.6 0L13.9 15l3.6-4-3.6-4 1.4-1.6 5.6 5.6z'/%3E%3C/svg%3E");
+    --admonition-icon-quote: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M7.5 17H4a1 1 0 0 1-1-1v-4.5A4.5 4.5 0 0 1 7.5 7H9v2H7.5A2.5 2.5 0 0 0 5 11.5V12h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1zm10 0H14a1 1 0 0 1-1-1v-4.5A4.5 4.5 0 0 1 17.5 7H19v2h-1.5A2.5 2.5 0 0 0 15 11.5V12h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1z'/%3E%3C/svg%3E");
 }
 
 .admonition {
@@ -22,24 +30,29 @@
     border-bottom: 1px solid rgba(68, 138, 255, .2);
     background-color: rgba(68, 138, 255, .1);
     font-weight: 700;
+    position: relative;
 }
 
 .admonition>.admonition-title:before {
+    --admonition-icon: var(--admonition-icon-info);
     position: absolute;
     left: 12px;
-    font-size: 25px;
+    top: 50%;
+    width: 1.3rem;
+    height: 1.3rem;
+    transform: translateY(-50%);
     color: var(--info, rgba(68, 138, 255, .8));
-    content: "\E3C9";
-    font-family: Material Icons;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    /* line-height: 2rem; */
-    text-transform: none;
-    white-space: nowrap;
-    speak: none;
-    word-wrap: normal;
-    direction: ltr;
+    content: "";
+    display: block;
+    background-color: currentColor;
+    -webkit-mask-image: var(--admonition-icon);
+    mask-image: var(--admonition-icon);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 .admonition.summary,
@@ -59,8 +72,7 @@
 .admonition.abstract>.admonition-title:before,
 .admonition.tldr>.admonition-title:before {
     color: var(--info, rgba(0, 176, 255, 1));
-    ;
-    content: "\E8D2";
+    --admonition-icon: var(--admonition-icon-summary);
 }
 
 .admonition.hint,
@@ -77,7 +89,7 @@
 .admonition.hint>.admonition-title:before,
 .admonition.tip>.admonition-title:before {
     color: var(--success, rgba(0, 191, 165, 1));
-    content: "\E80E";
+    --admonition-icon: var(--admonition-icon-tip);
 }
 
 .admonition.info,
@@ -94,8 +106,7 @@
 .admonition.info>.admonition-title:before,
 .admonition.todo>.admonition-title:before {
     color: var(--info, rgba(0, 184, 212, 1));
-    ;
-    content: "\E88E";
+    --admonition-icon: var(--admonition-icon-info);
 }
 
 .admonition.success,
@@ -115,8 +126,7 @@
 .admonition.check>.admonition-title:before,
 .admonition.done>.admonition-title:before {
     color: var(--success, rgba(0, 200, 83, 1));
-    ;
-    content: "\E876";
+    --admonition-icon: var(--admonition-icon-success);
 }
 
 .admonition.question,
@@ -136,8 +146,7 @@
 .admonition.help>.admonition-title:before,
 .admonition.faq>.admonition-title:before {
     color: var(--accent, rgba(100, 221, 23, 1));
-    ;
-    content: "\E887";
+    --admonition-icon: var(--admonition-icon-question);
 }
 
 .admonition.warning,
@@ -155,13 +164,13 @@
 
 .admonition.attention>.admonition-title:before {
     color: var(--warning, rgba(255, 145, 0, 1));
-    content: "\E417";
+    --admonition-icon: var(--admonition-icon-attention);
 }
 
 .admonition.warning>.admonition-title:before,
 .admonition.caution>.admonition-title:before {
     color: var(--warning, rgba(255, 145, 0, 1));
-    content: "\E002";
+    --admonition-icon: var(--admonition-icon-warning);
 }
 
 .admonition.failure,
@@ -181,8 +190,7 @@
 .admonition.fail>.admonition-title:before,
 .admonition.missing>.admonition-title:before {
     color: var(--error, rgba(255, 82, 82, 1));
-    ;
-    content: "\E14C";
+    --admonition-icon: var(--admonition-icon-failure);
 }
 
 .admonition.danger,
@@ -200,17 +208,17 @@
 
 .admonition.danger>.admonition-title:before {
     color: var(--error, rgba(255, 23, 68, 1));
-    content: "\E3E7";
+    --admonition-icon: var(--admonition-icon-danger);
 }
 
 .admonition.error>.admonition-title:before {
     color: var(--error, rgba(255, 23, 68, 1));
-    content: "\E14C";
+    --admonition-icon: var(--admonition-icon-failure);
 }
 
 .admonition.bug>.admonition-title:before {
     color: var(--error, rgba(255, 23, 68, 1));
-    content: "\E868";
+    --admonition-icon: var(--admonition-icon-bug);
 }
 
 .admonition.example,
@@ -227,8 +235,7 @@
 .admonition.example>.admonition-title:before,
 .admonition.snippet>.admonition-title:before {
     color: var(--secondary, rgba(0, 184, 212, 1));
-    ;
-    content: "\E242";
+    --admonition-icon: var(--admonition-icon-example);
 }
 
 .admonition.quote,
@@ -245,6 +252,5 @@
 .admonition.quote>.admonition-title:before,
 .admonition.cite>.admonition-title:before {
     color: var(--text-secondary, rgba(158, 158, 158, 1));
-    ;
-    content: "\E244";
+    --admonition-icon: var(--admonition-icon-quote);
 }
