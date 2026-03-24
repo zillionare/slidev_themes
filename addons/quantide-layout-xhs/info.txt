@@ -1,0 +1,21 @@
+Extracted info: {
+  "wrapperCount": 4,
+  "areas": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "cardTitles": [
+    "核心特性",
+    "样式定制",
+    "网格系统",
+    "响应式支持"
+  ],
+  "displayStyles": [
+    "flex",
+    "flex",
+    "flex",
+    "flex"
+  ]
+}

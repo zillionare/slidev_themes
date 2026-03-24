@@ -1,0 +1,360 @@
+:root {
+    --slidev-theme-primary: black;
+    /* --slidev-theme-secondary: #E60000; */
+    --slidev-theme-secondary: #09BED9;
+    counter-reset: h2counter;
+    --slidev-background-color: #fcfcfc;
+    --slidev-code-font-size: 20px;
+
+    .abs {
+        position: absolute;
+    }
+}
+
+.slidev-layout {
+    font-family: inherit;
+    font-size: 40px;
+    @apply h-full text-left text-$slidev-theme-primary;
+    box-sizing: border-box;
+    text-align: justify;
+}
+
+p+h2,
+ul+h2,
+table+h2 {
+    @apply mt-10;
+}
+
+.slidev-layout h1 {
+    font-size: 100px;
+    color: var(--slidev-theme-secondary);
+    margin: 90px 0;
+}
+
+
+.slidev-layout h2 {
+    text-align: left;
+    font-size: 70px;
+    margin: 50px 10px;
+    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
+    border-left: 10px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
+    background-color: #09BED910;
+    border-radius: 0px 15px 15px 0;
+    padding: 5px 20px;
+    line-height: 100px;
+}
+
+.slidev-layout h3 {
+    text-align: left;
+    font-size: 50px;
+    margin: 60px 10px;
+    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 20%);
+    border-left: 3px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 25%);
+    padding: 20px;
+    background-color: #09BED907;
+    border-radius: 0px 5px 5px 0;
+}
+
+.slidev-layout h4 {
+    text-align: left;
+    font-size: 40px;
+    margin: 50px 10px;
+    border-left: 2px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 30%);
+    padding: 8px 8px 8px 20px;
+    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 30%);
+}
+
+.slidev-layout a {
+    color: #0000e6;
+}
+
+.slidev-layout p {
+    font-size: 25px;
+    /* 每行23字*/
+    margin: 20px 0px;
+    line-height: 41px;
+    font-weight: 200;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: normal;
+    text-justify: inter-character
+}
+
+.admonition {
+    margin: 25px 0;
+    padding: 1rem 1rem 1rem 3rem;
+    border-left: 0.25rem solid var(--slidev-theme-primary, #42b883);
+    background-color: var(--slidev-theme-background-soft, rgba(128, 128, 128, 0.1));
+    border-radius: 0.25rem;
+    position: relative;
+}
+
+.admonition p.admonition-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 20px !important;
+}
+
+.admonition p.admonition-title::before {
+    font-family: inherit !important;
+    font-weight: 700;
+    margin-right: 0.5rem;
+    display: inline-block;
+}
+
+.admonition.info {
+    border-color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.admonition.info p.admonition-title::before {
+    content: "ℹ";
+}
+
+.admonition.tip {
+    border-color: #10b981;
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+.admonition.tip p.admonition-title::before {
+    content: "✦";
+}
+
+.admonition.warning {
+    border-color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+.admonition.warning p.admonition-title::before {
+    content: "⚠";
+}
+
+.admonition.danger,
+.admonition.error {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.admonition.danger p.admonition-title::before,
+.admonition.error p.admonition-title::before {
+    content: "⛔";
+}
+
+.admonition.abstract {
+    border-color: #8b5cf6;
+    background-color: rgba(139, 92, 246, 0.1);
+}
+
+.admonition.abstract p.admonition-title::before {
+    content: "◈";
+}
+
+.admonition p {
+    font-size: 20px !important;
+    /*每行30字*/
+    line-height: 28px;
+    margin: 0;
+}
+
+.admonition li {
+    font-size: 20px !important;
+    margin-top: 20px;
+}
+
+.slidev-layout ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.slidev-layout li {
+    font-size: 20px;
+    list-style-type: none;
+    margin-bottom: 0.5em;
+    line-height: 1.5;
+    position: relative;
+}
+
+
+
+.takeaway {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14);
+    position: relative;
+    margin: 20px 0;
+    padding: 50px 10px 10px 10px;
+    border-radius: .2rem;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 15%);
+
+    &:before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 20px;
+        height: 30px;
+        display: block;
+        content: "\00a0\00a0" attr(title);
+        font-weight: 400;
+        width: 100%;
+
+        border-bottom: 1px solid color-mix(in srgb, var(--slidev-theme-secondary), #000 15%);
+        background-color: color-mix(in srgb, var(--slidev-theme-secondary), #000 15%);
+    }
+}
+
+red {
+    display: inline;
+    color: color-mix(in srgb, #E60000, #000 15%);
+}
+
+.slidev-layout strong {
+    display: inline;
+    font-weight: 500;
+    color: color-mix(in srgb, var(--slidev-theme-secondary), #000 30%);
+}
+
+claimer {
+    display: block;
+    text-align: center;
+    color: #a8a8a8;
+}
+
+cap {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    color: grey;
+    font-style: italic;
+    position: relative;
+    top: -40px;
+}
+
+/* .katex {
+        width: 1000px;
+    } */
+
+.slidev-layout.intro {
+    @apply h-full grid;
+
+    h1 {
+        color: inherit;
+        font-size: 80px;
+        line-height: 1.3;
+        margin-bottom: 40px;
+    }
+}
+
+
+.slidev-layout.statement {
+    @apply text-left h-full;
+}
+
+.slidev-layout.quote {
+    @apply h-full;
+
+    h1+p {
+        @apply mt-2;
+    }
+}
+
+.slidev-layout.section {
+    h1 {
+        font-size: 60px;
+        font-weight: 500;
+        line-height: 1.2;
+        margin-left: 40px;
+        margin-bottom: 6px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-image: linear-gradient(to right, var(--slidev-theme-secondary), white) 1;
+    }
+
+    h1:after {
+        content: unset;
+    }
+
+    h2 {
+        font-size: 32px;
+        font-weight: 300;
+        margin-left: 40px;
+        margin-top: 0;
+        border: none;
+        background: none;
+        padding: 0;
+        line-height: 1.5;
+        color: inherit;
+    }
+
+    h2:before {
+        content: unset;
+    }
+}
+
+.slidev-layout.center {
+
+    h1,
+    h2,
+    h3,
+    p {
+        @apply text-center;
+    }
+
+    h1:after,
+    h2:before,
+    h3:before {
+        content: unset;
+    }
+
+    h1 {
+        font-size: 60px;
+        font-weight: 500;
+        line-height: 1.2;
+        margin-left: 75px;
+        margin-bottom: 45px;
+        text-align: center;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-image: linear-gradient(to left, white 0%, var(--slidev-theme-primary) 50%, white 100%)1;
+    }
+}
+
+.slidev-layout.two-cols-header,
+.slidev-layout.image-left,
+.slidev-layout.image-right,
+.slidev-layout.default,
+.slidev-layout.grid-layout,
+.slidev-layout.two-cols,
+.slidev-layout.landscape-two-cols,
+.slidev-layout.barrel-layout {
+    padding-top: 40px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+
+    h1 {
+        font-size: 40px;
+        margin-bottom: 20px;
+        margin-top: 0;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 32px;
+        margin-bottom: 16px;
+        margin-top: 0;
+    }
+}
+
+/* 仅在非演讲者视图隐藏工具条 */
+:not(.slidev-presenter) nav {
+    display: none !important;
+}
+
+/* 可选：允许观众通过快捷键显示工具条（按 ? 键） */
+:not(.slidev-presenter) nav:hover {
+    display: flex !important;
+}
