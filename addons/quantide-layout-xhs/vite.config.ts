@@ -1,7 +1,12 @@
 import { defineConfig } from 'vite';
 import MdItAdmon from 'markdown-it-admon';
 
+const pixabayApiKey = process.env.PIXABAY || ''
+
 export default defineConfig({
+    define: {
+        'import.meta.env.PIXABAY': JSON.stringify(pixabayApiKey),
+    },
     slidev: {
         markdown: {
             markdownItSetup(md: any) {

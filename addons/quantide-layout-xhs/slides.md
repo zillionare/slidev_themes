@@ -1,14 +1,12 @@
 ---
 theme: default
-title: Slidev Quantide Layout XHS 演示
+title: XHS Layout 演示
 aspectRatio: 3/4
-canvasWidth: 810
 font: "阿里巴巴普惠体-Regular"
 addons:
   - ./quantide-layout-xhs
-layout: cover-xhs-neat
-subtitle: 竖版演示布局
-author: Aaron Yang
+img: women
+layout: cover-photo-down
 ---
 
 ---
