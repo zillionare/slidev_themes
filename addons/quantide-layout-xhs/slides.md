@@ -238,6 +238,31 @@ cards: false
 title: 如何使用 palette?
 ---
 
+<style scoped>
+    .palette-page{
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }
+
+    .palette-page :deep(li){
+        margin-bottom: 0.2rem;
+    }
+
+    .palette-page :deep(.admonition){
+        margin: 0.8rem 0 0;
+    }
+
+    .palette-page :deep(.admonition > .admonition-title){
+        font-size: 0.86rem;
+    }
+
+    .palette-page :deep(.admonition p){
+        font-size: 0.8rem !important;
+        line-height: 1.4;
+    }
+</style>
+
+<div class="palette-page">
 quantide-palette 通过 `htmlAttrs.class` 来切换全局调色板，例如：
 
 ```yaml
@@ -261,11 +286,11 @@ htmlAttrs:
 
 !!! tip
     如果只是某一小块内容想换肤，也可以给局部容器加上调色板类名，例如 `<div class="dracula">...</div>`。
+</div>
 
 ---
 layout: cover-photo-up
 title: 这是另一个封面，与首页对称的布局（cover-photo-up）
-img: dogs
 img: dogs
 excerpt: 这是一个图片在上的封面布局。我们可以在发文时，与 cover-photo-down 交替使用，形成更加丰富的首页组合。
 ---
