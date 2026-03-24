@@ -1,9 +1,9 @@
 ---
 theme: default
 addons:
-  - slidev_themes/addons/slidev-addon-palette
-  - slidev_themes/addons/slidev-addon-quantide-layout
-  - slidev_themes/addons/slidev-addon-card
+  - slidev_themes/addons/quantide-palette
+  - slidev_themes/addons/quantide-layout
+  - slidev_themes/addons/quantide-card
 htmlAttrs:
   class: mint
 

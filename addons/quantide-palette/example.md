@@ -3,7 +3,7 @@ theme: default
 transition: slide-left
 title: Slidev Addon Palette Example
 addons:
-  - ./slidev-addon-palette
+  - ./quantide-palette
 ---
 
 # h1 title

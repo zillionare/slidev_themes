@@ -6,13 +6,13 @@ drawings:
   persist: false
   syncAll: true
 addons:
-  - ./slidev_themes/addons/slidev-addon-palette
+  - ./slidev_themes/addons/quantide-palette
   - quantide-layout
-  - ./slidev_themes/addons/slidev-addon-mouse-trail-pen
-  - ./slidev_themes/addons/slidev-addon-array
-  - ./slidev_themes/addons/slidev-addon-interactive-table
-  - ./slidev_themes/addons/slidev-addon-card
-  - ./slidev_themes/addons/slidev-addon-notecell
+  - ./slidev_themes/addons/quantide-mouse-trail-pen
+  - ./slidev_themes/addons/quantide-array
+  - ./slidev_themes/addons/quantide-interactive-table
+  - ./slidev_themes/addons/quantide-card
+  - ./slidev_themes/addons/quantide-notecell
   - slidev-addon-python-runner
   - fancy-arrow
 mouseTrail:

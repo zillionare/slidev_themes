@@ -5,7 +5,7 @@ lunar: 十一月初八
 title: 已实现跳跃波动率
 brand: 每天1分钟 轻松学量化
 addons:
-    - ../addons/slidev-addon-mouse-trail-pen
+    - ../addons/quantide-mouse-trail-pen
 mouseTrailPen:
   preset: fire
   lineWidth: 10
