@@ -1,5 +1,7 @@
 # slidev-addon-quantide-layout-xhs
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/zillionare/slidev_themes/tree/main/addons/quantide-layout-xhs)
+
 A Slidev addon for Xiaohongshu-style layouts with Pixabay image integration.
 
 ## Install
@@ -54,13 +56,13 @@ img: "nature landscape"  # Can be a keyword or full URL
 
 ### Frontmatter Options
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `title` | string | Article title |
+| Property      | Type   | Description                    |
+| ------------- | ------ | ------------------------------ |
+| `title`       | string | Article title                  |
 | `installment` | string | Series name (use "NA" to hide) |
-| `excerpt` | string | Article excerpt/description |
-| `img` | string | Image URL or search keyword |
-| `photo` | string | Custom photo credit text |
+| `excerpt`     | string | Article excerpt/description    |
+| `img`         | string | Image URL or search keyword    |
+| `photo`       | string | Custom photo credit text       |
 
 ### Image Source Priority
 
