@@ -1,5 +1,5 @@
 {
-  "name": "slidev-addon-palette",
+  "name": "slidev-addon-quantide-palette",
   "version": "1.0.0",
   "description": "A Slidev addon for custom color palettes",
   "main": "index.js",

@@ -12,7 +12,7 @@ A Slidev addon for custom color palettes.
 ## Installation
 
 ```bash
-npm install slidev-addon-palette
+npm install slidev-addon-quantide-palette
 ```
 
 ## Quick Start
@@ -22,7 +22,7 @@ npm install slidev-addon-palette
 ```yaml
 ---
 addons:
-  - slidev-addon-palette
+  - slidev-addon-quantide-palette
 htmlAttrs:
   class: academic
 ---
@@ -39,7 +39,7 @@ htmlAttrs:
 ```yaml
 ---
 addons:
-  - slidev-addon-palette
+  - slidev-addon-quantide-palette
 htmlAttrs:
   class: dracula
 ---
