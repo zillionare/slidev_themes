@@ -238,33 +238,9 @@ cards: false
 title: 如何使用 palette?
 ---
 
-<style scoped>
-    .palette-page{
-        font-size: 0.82rem;
-        line-height: 1.45;
-    }
+<p style="font-size:18px;line-height:1.2;">通过 `htmlAttrs.class` 来切换全局调色板，如：</p>
 
-    .palette-page :deep(li){
-        margin-bottom: 0.2rem;
-    }
-
-    .palette-page :deep(.admonition){
-        margin: 0.8rem 0 0;
-    }
-
-    .palette-page :deep(.admonition > .admonition-title){
-        font-size: 0.86rem;
-    }
-
-    .palette-page :deep(.admonition p){
-        font-size: 0.8rem !important;
-        line-height: 1.4;
-    }
-</style>
-
-<div class="palette-page">
-quantide-palette 通过 `htmlAttrs.class` 来切换全局调色板，例如：
-
+<div style="scale: 0.8;margin-top:-40px">
 ```yaml
 ---
 addons:
@@ -273,20 +249,21 @@ htmlAttrs:
   class: autumn
 ---
 ```
+</div>
 
-目前内置的调色板方案有：
+<p style="font-size:18px;line-height:1.2;">目前内置的调色板方案有：</p>
+<ul>
+<li style="font-size:16px">常用亮色：`cupcake`、`valentine`、`pastel`、`fantasy`、`mint`、`winter`</li>
+<li style="font-size:16px">商务与通用：`business`、`academic`、`tech`、`corporate`、`wireframe`、`lofi`</li>
+<li style="font-size:16px">自然与季节：`garden`、`forest`、`autumn`、`lemonade`、`coffee`、`caramellatte`</li>
+<li style="font-size:16px">强风格主题：`halloween`、`dracula`、`night`、`dim`、`nord`、`sunset`</li>
+<li style="font-size:16px">高饱和与实验风格：`bumblebee`、`emerald`、`aqua`、`black`、`luxury`、`cmyk`、`acid`、`abyss`</li>
+</ul>
 
-- 常用亮色：`cupcake`、`valentine`、`pastel`、`fantasy`、`mint`、`winter`
-- 商务与通用：`business`、`academic`、`tech`、`corporate`、`wireframe`、`lofi`
-- 自然与季节：`garden`、`forest`、`autumn`、`lemonade`、`coffee`、`caramellatte`
-- 强风格主题：`halloween`、`dracula`、`night`、`dim`、`nord`、`sunset`
-- 高饱和与实验风格：`bumblebee`、`emerald`、`aqua`、`black`、`luxury`、`cmyk`、`acid`、`abyss`
-
-如果你只是想快速套用一套配色，通常直接修改 `htmlAttrs.class` 就够了。首页当前用的是 `autumn`。
+<p style="font-size:18px;line-height:1.2;">当你要换肤时，直接修改 `htmlAttrs.class` 就够了。当前用的是 `autumn`。</p>
 
 !!! tip
     如果只是某一小块内容想换肤，也可以给局部容器加上调色板类名，例如 `<div class="dracula">...</div>`。
-</div>
 
 ---
 layout: cover-photo-up
