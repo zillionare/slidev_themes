@@ -11,7 +11,7 @@ img: cats
 layout: cover-photo-down
 installment: na
 htmlAttrs:
-  class: autumn
+  class: garden 
 ---
 
 ---
