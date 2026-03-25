@@ -30,6 +30,7 @@ title: 如何使用 quantide-layout-xhs（1） ？
 
 一般地，我们可以这样写 headermatter:
 
+<div style="scale:0.8;margin-top:-60px">
 ```yaml
 ---
 title: XHS Layout 演示
@@ -48,7 +49,7 @@ htmlAttrs:
 ---
 ```
 
-
+</div>
 
 ---
 title: 如何使用 quantide-layout-xhs（2） ？
@@ -97,6 +98,8 @@ fontTitle: 鸿雷板书
 
 在本页面的 frontmatter 中指定了 fontTitle 为`鸿雷板书`，所以，这一页的标题的字体就与其它页不同。
 
+<div style="scale:0.8;margin-top:-30px">
+
 !!! quote
     接下来的两个属性`aspectRatio`和`canvasWidth`属性，用于指定封面的宽高，必须原样照写：
     ```yaml
@@ -105,6 +108,7 @@ fontTitle: 鸿雷板书
         canvasWidth: 600
     ---
     ```
+</div>
 
 ---
 title: 如何使用 quantide-layout-xhs（4） ？

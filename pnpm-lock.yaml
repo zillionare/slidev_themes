@@ -81,6 +81,12 @@ importers:
 
   addons/quantide-admonition:
     dependencies:
+      '@slidev/client':
+        specifier: '>=0.49.0'
+        version: 52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(react@18.3.1)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
+      '@slidev/types':
+        specifier: '>=0.49.0'
+        version: 52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(typescript@5.9.2)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
       markdown-it-admon:
         specifier: ^1.0.1
         version: 1.0.1
@@ -167,11 +173,11 @@ importers:
   addons/quantide-layout-xhs:
     dependencies:
       '@slidev/client':
-        specifier: ^0.49.0-beta.1
-        version: 0.49.29(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(postcss@8.5.6)(react@18.3.1)(rollup@4.48.1)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
+        specifier: '>=0.49.0'
+        version: 52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(react@18.3.1)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
       '@slidev/types':
-        specifier: ^0.49.0-beta.1
-        version: 0.49.29(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(postcss@8.5.6)(rollup@4.48.1)(typescript@5.9.2)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
+        specifier: '>=0.49.0'
+        version: 52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(typescript@5.9.2)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
       animate.css:
         specifier: ^4.1.1
         version: 4.1.1
@@ -179,14 +185,18 @@ importers:
         specifier: ^24.40.0
         version: 24.40.0(typescript@5.9.2)
       slidev-addon-quantide-admonition:
-        specifier: ^0.1.0
-        version: 0.1.0(vue@3.5.20(typescript@5.9.2))
+        specifier: ^0.1.3
+        version: 0.1.3(@slidev/client@52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(react@18.3.1)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1)))(@slidev/types@52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(typescript@5.9.2)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1)))(vue@3.5.20(typescript@5.9.2))
       three:
         specifier: ^0.155.0
         version: 0.155.0
       vue:
         specifier: ^3.0.0
         version: 3.5.20(typescript@5.9.2)
+    devDependencies:
+      playwright:
+        specifier: ^1.58.2
+        version: 1.58.2
 
   addons/quantide-logo:
     dependencies:
@@ -5383,8 +5393,18 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  playwright-core@1.58.2:
+    resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   playwright@1.55.0:
     resolution: {integrity: sha512-sdCWStblvV1YU909Xqx0DhOjPZE4/5lJsIS84IfN9dAZfcl/CIZ5O8l3o0j7hPMjDvqoTF8ZUcc+i/GL5erstA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.58.2:
+    resolution: {integrity: sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -5839,9 +5859,11 @@ packages:
   slidev-addon-python-runner@0.1.3:
     resolution: {integrity: sha512-JzxRnpsLrbTwb6ekCVcD8sKMfvtRD+4fnq16lf5UwbEn3UZTk/EnodSVU7i35RHPVxBxCP9N8l8X6SkUo3TmkA==}
 
-  slidev-addon-quantide-admonition@0.1.0:
-    resolution: {integrity: sha512-ryi6db1JElpMma8Nml00q+5EEuPRvotHNz8QubR5MlQBdEktsyUrvZfAc7gzZmSnJt9Y0HH+XFS1c3gzG7aXIA==}
+  slidev-addon-quantide-admonition@0.1.3:
+    resolution: {integrity: sha512-QvC02UFKcoGu9/5QCKxoQUHke3K7E2WmeK5WoTYYeAI0WLGg+tWYpexDfMrBPds5z/iXmcn+8xMpocO8O+F/cA==}
     peerDependencies:
+      '@slidev/client': '>=0.49.0'
+      '@slidev/types': '>=0.49.0'
       vue: ^3.0.0
 
   smart-buffer@4.2.0:
@@ -14576,9 +14598,17 @@ snapshots:
 
   playwright-core@1.55.0: {}
 
+  playwright-core@1.58.2: {}
+
   playwright@1.55.0:
     dependencies:
       playwright-core: 1.55.0
+    optionalDependencies:
+      fsevents: 2.3.2
+
+  playwright@1.58.2:
+    dependencies:
+      playwright-core: 1.58.2
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -15109,8 +15139,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  slidev-addon-quantide-admonition@0.1.0(vue@3.5.20(typescript@5.9.2)):
+  slidev-addon-quantide-admonition@0.1.3(@slidev/client@52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(react@18.3.1)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1)))(@slidev/types@52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(typescript@5.9.2)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1)))(vue@3.5.20(typescript@5.9.2)):
     dependencies:
+      '@slidev/client': 52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(react@18.3.1)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
+      '@slidev/types': 52.1.0(@nuxt/kit@3.18.1)(@vue/compiler-sfc@3.5.20)(markdown-it-async@2.2.0)(postcss@8.5.6)(typescript@5.9.2)(vite@7.1.3(@types/node@24.3.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
       markdown-it-admon: 1.0.1
       vue: 3.5.20(typescript@5.9.2)
 
