@@ -2,6 +2,7 @@
 title: XHS Layout 演示
 theme: default
 font: "朱雀仿宋"
+fontH1: 鸿雷板书
 addons:
   - quantide-palette
   - quantide-admonition
