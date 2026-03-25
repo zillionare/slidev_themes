@@ -1,7 +1,7 @@
 ---
 title: XHS Layout 演示
 theme: default
-font: "阿里巴巴普惠体-Regular"
+font: "朱雀仿宋"
 addons:
   - quantide-palette
   - quantide-admonition

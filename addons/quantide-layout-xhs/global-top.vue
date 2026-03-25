@@ -19,8 +19,15 @@ const getFrontmatter = () => {
   return meta.slide?.frontmatter || meta.frontmatter || {}
 }
 
+const currentPage = computed(() => $slidev.nav.currentPage)
+const currentLayout = computed(() => $slidev.nav.currentLayout || '')
+const currentFrontmatter = computed(() => {
+  currentPage.value
+  return getFrontmatter()
+})
+
 const cssContent = computed(() => {
-  const frontmatter = getFrontmatter()
+  const frontmatter = currentFrontmatter.value
   const configs = $slidev.configs || {}
   
   let styles = ''
@@ -32,8 +39,7 @@ const cssContent = computed(() => {
     return getFontFamily(name)
   }
 
-  const currentLayout = $slidev.nav.currentLayout || ''
-  const isCover = currentLayout.includes('cover')
+  const isCover = currentLayout.value.includes('cover')
 
   // 1. font (全局/页面默认正文字体)
   // 如果是 cover 页面，且配置了 fontCover，则覆盖 font
@@ -46,7 +52,15 @@ const cssContent = computed(() => {
         --slidev-theme-font-family: ${ff}, ui-sans-serif, system-ui, sans-serif;
       }
       body {
-        font-family: var(--slidev-theme-font-family);
+        font-family: var(--slidev-theme-font-family) !important;
+      }
+      .slidev-layout,
+      .slidev-layout p,
+      .slidev-layout blockquote,
+      .slidev-layout table,
+      .slidev-layout td,
+      .slidev-layout th {
+        font-family: var(--slidev-theme-font-family) !important;
       }
     `
   }
@@ -94,7 +108,7 @@ const cssContent = computed(() => {
     }
     styles += `
       .slidev-layout ${tag} {
-        font-family: var(--slidev-font-${tag});
+        font-family: var(--slidev-font-${tag}) !important;
       }
     `
   })
@@ -108,7 +122,7 @@ const cssContent = computed(() => {
         --slidev-font-li: ${ff}, var(--slidev-theme-font-family);
       }
       .slidev-layout li {
-        font-family: var(--slidev-font-li);
+        font-family: var(--slidev-font-li) !important;
       }
     `
   }
