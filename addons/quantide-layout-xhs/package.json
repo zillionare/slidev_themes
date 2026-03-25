@@ -1,6 +1,6 @@
 {
   "name": "slidev-addon-quantide-layout-xhs",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Quantide portrait layout addon for Slidev",
   "type": "module",
   "main": "index.js",
