@@ -1,0 +1,30 @@
+{
+  "name": "slidev-addon-quantide-admonition",
+  "version": "0.1.0",
+  "description": "Admonition support for Slidev (markdown-it-admon + styles)",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "vite.config.ts",
+    "styles",
+    "setup"
+  ],
+  "keywords": [
+    "slidev-addon",
+    "slidev",
+    "admonition",
+    "markdown-it"
+  ],
+  "license": "MIT",
+  "author": "Quantide",
+  "slidev": {
+    "addon": true
+  },
+  "dependencies": {
+    "markdown-it-admon": "^1.0.1"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  }
+}
