@@ -131,7 +131,7 @@ const title = computed(()=>{
 })
 
 const excerpt = computed(()=>{ 
-    return getConfig('excerpt') || "内容摘要： 这是一个专门为小红书图文设计的主题。请继续阅读以了解更多详情。"
+    return getConfig('excerpt') || "内容摘要： 这是一个专门为小红书图文设计的主题。请修改 excerpt 属性来改变此段内容。关于用法，请参考在线演示文稿：https://stackblitz.com/github/zillionare/slidev_themes/tree/main/addons/quantide-layout-xhs"
 })
 
 const installment = computed(()=>{
@@ -140,7 +140,7 @@ const installment = computed(()=>{
     if (raw.toLowerCase() === 'na') {
         return ''
     }
-    return raw || "系列文章名称，选填"
+    return raw || "系列名称，选填"
 })
 
 const photoCreditText = computed(() => {

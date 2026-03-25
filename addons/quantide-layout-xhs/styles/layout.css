@@ -1,5 +1,5 @@
 :root {
-    --quantide-theme-primary: var(--text-primary, var(--slidev-theme-primary, black));
+    --quantide-theme-primary: var(--text-primary, black);
     --quantide-theme-secondary: var(--heading-accent, var(--primary, var(--slidev-theme-secondary, #09BED9)));
     counter-reset: h2counter;
     --slidev-code-font-size: 20px;
@@ -12,7 +12,7 @@
 .slidev-layout {
     font-family: inherit;
     font-size: 21px;
-    @apply h-full text-left text-$slidev-theme-primary;
+    @apply h-full text-left;
     box-sizing: border-box;
     text-align: justify;
     color: var(--quantide-theme-primary);
@@ -58,9 +58,9 @@ table+h2 {
     text-align: left;
     font-size: 25px;
     margin: 31px 6px;
-    border-left: 1px solid color-mix(in srgb, var(--quantide-theme-secondary), #000 30%);
+    border-left: 1px solid color-mix(in srgb, var(--quantide-theme-primary), #000 30%);
     padding: 5px 5px 5px 12px;
-    color: color-mix(in srgb, var(--quantide-theme-secondary), #000 30%);
+    color: color-mix(in srgb, var(--quantide-theme-primary), #000 15%);
 }
 
 .slidev-layout a {
@@ -71,15 +71,24 @@ table+h2 {
     font-size: 21px;
     /* 每行26字*/
     margin: 20px 0px;
-    line-height: 36px;
+    line-height: 30px;
     font-weight: 200;
     margin-bottom: 25px;
-    letter-spacing: 1px;
+    /* letter-spacing: 1px; */
 
     hyphens: auto;
     overflow-wrap: break-word;
     word-break: normal;
     text-justify: inter-character
+}
+
+.slidev-layout p,
+.slidev-layout li,
+.slidev-layout blockquote,
+.slidev-layout table,
+.slidev-layout td,
+.slidev-layout th {
+    color: var(--quantide-theme-primary);
 }
 
 .slidev-layout ul {
@@ -131,7 +140,7 @@ red {
 .slidev-layout strong {
     display: inline;
     font-weight: 500;
-    color: color-mix(in srgb, var(--quantide-theme-secondary), #000 30%);
+    color: var(--quantide-theme-primary);
 }
 
 claimer {

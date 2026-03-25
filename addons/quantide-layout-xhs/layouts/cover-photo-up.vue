@@ -129,7 +129,7 @@ const title = computed(()=>{
 })
 
 const excerpt = computed(()=>{ 
-    return getConfig('excerpt') || "可设置的属性有： title, installment, excerpt, img。如果不显示某项，可以传入『NA』。img 可以是完整 url， 也可以是查询关键字。当使用查询关键字时，请先配置 PIXABAY 环境变量（API KEY）"
+    return getConfig('excerpt') || "内容摘要： 这是一个专门为小红书图文设计的主题。请修改 excerpt 属性来改变此段内容。关于用法，请参考在线演示文稿：https://stackblitz.com/github/zillionare/slidev_themes/tree/main/addons/quantide-layout-xhs"
 })
 
 const installment = computed(()=>{
