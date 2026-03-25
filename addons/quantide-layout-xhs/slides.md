@@ -5,6 +5,7 @@ font: "阿里巴巴普惠体-Regular"
 addons:
   - quantide-palette
   - quantide-admonition
+  - quantide-layout-xhs
 aspectRatio: 3/4
 canvasWidth: 600
 img: cats
