@@ -79,6 +79,15 @@ importers:
         specifier: ^1.55.0
         version: 1.55.0
 
+  addons/quantide-admonition:
+    dependencies:
+      markdown-it-admon:
+        specifier: ^1.0.1
+        version: 1.0.1
+      vue:
+        specifier: ^3.0.0
+        version: 3.5.20(typescript@5.9.2)
+
   addons/quantide-array:
     dependencies:
       slidev-addon-array:
@@ -166,12 +175,12 @@ importers:
       animate.css:
         specifier: ^4.1.1
         version: 4.1.1
-      markdown-it-admon:
-        specifier: ^1.0.1
-        version: 1.0.1
       puppeteer:
         specifier: ^24.40.0
         version: 24.40.0(typescript@5.9.2)
+      slidev-addon-quantide-admonition:
+        specifier: ^0.1.0
+        version: 0.1.0(vue@3.5.20(typescript@5.9.2))
       three:
         specifier: ^0.155.0
         version: 0.155.0
@@ -5829,6 +5838,11 @@ packages:
 
   slidev-addon-python-runner@0.1.3:
     resolution: {integrity: sha512-JzxRnpsLrbTwb6ekCVcD8sKMfvtRD+4fnq16lf5UwbEn3UZTk/EnodSVU7i35RHPVxBxCP9N8l8X6SkUo3TmkA==}
+
+  slidev-addon-quantide-admonition@0.1.0:
+    resolution: {integrity: sha512-ryi6db1JElpMma8Nml00q+5EEuPRvotHNz8QubR5MlQBdEktsyUrvZfAc7gzZmSnJt9Y0HH+XFS1c3gzG7aXIA==}
+    peerDependencies:
+      vue: ^3.0.0
 
   smart-buffer@4.2.0:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
@@ -15094,6 +15108,11 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  slidev-addon-quantide-admonition@0.1.0(vue@3.5.20(typescript@5.9.2)):
+    dependencies:
+      markdown-it-admon: 1.0.1
+      vue: 3.5.20(typescript@5.9.2)
 
   smart-buffer@4.2.0: {}
 

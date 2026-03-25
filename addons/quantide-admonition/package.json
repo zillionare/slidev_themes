@@ -1,6 +1,6 @@
 {
   "name": "slidev-addon-quantide-admonition",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Admonition support for Slidev (markdown-it-admon + styles)",
   "type": "module",
   "main": "index.js",

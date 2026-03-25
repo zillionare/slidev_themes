@@ -1,6 +1,6 @@
 {
   "name": "slidev-addon-quantide-layout-xhs",
-  "version": "0.1.2",
+  "version": "0.2.1",
   "description": "Quantide portrait layout addon for Slidev",
   "type": "module",
   "main": "index.js",
@@ -10,8 +10,6 @@
     "global-bottom.vue",
     "layoutHelper.ts",
     "layouts",
-    "setup",
-    "styles/admon.css",
     "styles/font.css",
     "styles/index.js",
     "styles/layout.css",
@@ -36,8 +34,8 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
-    "markdown-it-admon": "^1.0.1",
     "puppeteer": "^24.40.0",
+    "slidev-addon-quantide-admonition": "^0.1.0",
     "three": "^0.155.0"
   },
   "peerDependencies": {

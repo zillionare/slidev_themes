@@ -4,6 +4,7 @@ theme: default
 font: "阿里巴巴普惠体-Regular"
 addons:
   - quantide-palette
+  - quantide-admonition
 aspectRatio: 3/4
 canvasWidth: 600
 img: cats
@@ -34,6 +35,7 @@ title: XHS Layout 演示
 addons:
   - quantide-layout-xhs
   - quantide-palette
+  - quantide-admonition
 font: "阿里巴巴普惠体-Regular"
 aspectRatio: 3/4
 canvasWidth: 600
@@ -189,7 +191,10 @@ title: 使用admonition
 cards: false
 ---
 <style scoped>
-    .grid-area-card{
+    :deep(.grid-area-wrapper) {
+       overflow: visible !important;
+    }
+    :deep(.grid-area-card) {
         padding: 0;
     }
 </style>
@@ -262,8 +267,11 @@ htmlAttrs:
 
 <p style="font-size:18px;line-height:1.2;">当你要换肤时，直接修改 `htmlAttrs.class` 就够了。当前用的是 `autumn`。</p>
 
+<div style="scale:0.8;margin-top:-40px">
+
 !!! tip
     如果只是某一小块内容想换肤，也可以给局部容器加上调色板类名，例如 `<div class="dracula">...</div>`。
+</div>
 
 ---
 layout: cover-photo-up

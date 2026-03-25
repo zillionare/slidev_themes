@@ -82,63 +82,6 @@ table+h2 {
     text-justify: inter-character
 }
 
-.admonition {
-    margin: 25px 0;
-    padding: 1rem 1rem 2rem 3rem;
-    border-left: 0.25rem solid var(--slidev-theme-primary, #42b883);
-    background-color: transparent;
-    border-radius: 0.25rem;
-    position: relative;
-}
-
-.admonition p.admonition-title {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.admonition p.admonition-title::before {
-    content: "";
-    display: inline-block;
-}
-
-.admonition.info {
-    border-color: #3b82f6;
-    background-color: transparent;
-}
-
-.admonition.tip {
-    border-color: #10b981;
-    background-color: transparent;
-}
-
-.admonition.warning {
-    border-color: #f59e0b;
-    background-color: transparent;
-}
-
-.admonition.danger,
-.admonition.error {
-    border-color: #ef4444;
-    background-color: transparent;
-}
-
-.admonition.abstract {
-    border-color: #8b5cf6;
-    background-color: transparent;
-}
-
-.admonition p {
-    font-size: 18px !important;
-    /*每行30字*/
-    line-height: 28px;
-    margin: 0;
-}
-
-.admonition li {
-    font-size: 18px !important;
-    margin-top: 20px;
-}
-
 .slidev-layout ul {
     list-style-type: none;
     padding-left: 0;

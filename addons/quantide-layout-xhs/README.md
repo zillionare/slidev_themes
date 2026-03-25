@@ -15,6 +15,16 @@ addons:
 ---
 ```
 
+If you want to use `!!! tip`, `!!! note`, `!!! warning` and other admonition syntax, add `slidev-addon-quantide-admonition` explicitly:
+
+```yaml
+---
+addons:
+  - slidev-addon-quantide-layout-xhs
+  - slidev-addon-quantide-admonition
+---
+```
+
 ## Layouts
 
 This addon provides the following layouts:
