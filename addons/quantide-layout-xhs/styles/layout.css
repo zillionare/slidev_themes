@@ -37,10 +37,9 @@ table+h2 {
     margin: 31px 6px;
     color: color-mix(in srgb, var(--quantide-theme-secondary), #000 20%);
     border-left: 6px solid color-mix(in srgb, var(--quantide-theme-secondary), #000 20%);
-    background-color: color-mix(in srgb, var(--quantide-theme-secondary), transparent 94%);
+    /* background-color: color-mix(in srgb, var(--quantide-theme-secondary), transparent 94%); */
     border-radius: 0px 9px 9px 0;
     padding: 3px 12px;
-    line-height: 62px;
 }
 
 .slidev-layout h3 {
@@ -89,6 +88,10 @@ table+h2 {
 .slidev-layout td,
 .slidev-layout th {
     color: var(--quantide-theme-primary);
+}
+
+.slidev-layout blockquote p {
+    font-size: 80%;
 }
 
 .slidev-layout ul {

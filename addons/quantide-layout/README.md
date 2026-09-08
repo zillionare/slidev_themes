@@ -61,6 +61,32 @@ fontCoverH1: "heiti"            # Override H1 font on 'cover' layouts
 ---
 ```
 
+all available fonts:
+
+| 中文名                             | @font-face family        | 类型     |
+| ---------------------------------- | ------------------------ | -------- |
+| 庞门正道标题体                     | PangMenTitle             | 标题     |
+| 庞门正道粗书体                     | PangMenChuShuTi          | 粗书     |
+| 演示夏行                           | YanShiXiaXing            | 行书     |
+| 演示春风                           | YanShiChunFeng           | 行书     |
+| 演示秋鸿                           | YanShiQiuHong            | 行书     |
+| 阿里巴巴普惠体-Black               | AlibabaPuHuiTi-Black     | 黑体     |
+| 阿里巴巴普惠体-Thin                | AlibabaPuHuiTi-Thin      | 黑体     |
+| 阿里巴巴普惠体-Regular             | AlibabaPuHuiTi-RegularL3 | 黑体     |
+| 阿里巴巴普惠体-Bold                | AlibabaPuHuiTi-Bold      | 黑体     |
+| 青柳隶书                           | QingLiuLiShu             | 隶书     |
+| 鸿雷板书                           | HongLeiBanShuJianTi      | 板书     |
+| 鸿雷行书                           | HongLeiXingShuJianTi     | 行书     |
+| 辰余落雁细                         | ChenYuLuoYanXi           | 细体     |
+| 文泉驿微米黑                       | WenQuanWeiMiHei          | 黑体     |
+| 文泉驿微米黑-轻                    | wqy-microhei-lite        | 细黑     |
+| 文泉驿微米黑等宽-轻                | wqy-microhei-mono-lite   | 细黑等宽 |
+| 文泉驿正黑                         | WenQuanYiZenHei          | 黑体     |
+| 文泉驿正黑等宽                     | WenQuanYiZenHeiMono      | 等宽     |
+| 朱雀仿宋                           | ZhuqueFangsong           | 仿宋     |
+| OPPOSans-Bold / -Medium / -Regular | 同名                     | 无衬线   |
+
+
 You can also override fonts on specific pages. For example, to change only the text font on a single slide without affecting its headings:
 
 ```yaml

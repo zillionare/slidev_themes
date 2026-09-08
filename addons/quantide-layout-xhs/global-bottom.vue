@@ -2,18 +2,18 @@
 .footer {
     position: fixed;
     width: 100%;
-    bottom: 40px;
+    bottom: 0px;
     height: 2rem;
-    color: var(--text-tertiary, #808080);
-    text-align:  center;
-    font-size: 1.5em;
+    color: color-mix(in srgb, var(--text-primary) 55%, var(--bg-primary, white));
+    text-align: center;
+    font-size: 0.8em;
+    z-index: 100;
 }
-
-
 </style>
 
 <template>
-    <div v-if="($slidev.nav.currentPage !== $slidev.nav.total) & ($slidev.nav.currentPage !== 1) & ($slidev.configs.showFooter)" class="footer">
+    <div v-if="$slidev.nav.currentPage !== $slidev.nav.total && $slidev.nav.currentPage !== 1 && $slidev.configs.showFooter"
+        class="footer">
         <!-- middle pages -->
         <div>
             {{ $slidev.nav.currentPage }}/{{ $slidev.nav.total }} ﹫匡醍量化

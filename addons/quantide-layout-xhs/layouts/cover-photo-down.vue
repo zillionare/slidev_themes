@@ -35,29 +35,29 @@ const loadCoverImage = async () => {
     errorMessage.value = ''
     const imgValue = getConfig('img')
     const imgset = typeof imgValue === 'string' ? imgValue.trim() : ''
-    
+
     if (!imgset) {
         coverImageUrl.value = ''
         return
     }
-    
+
     const isRemoteUrl = /^https?:\/\//i.test(imgset)
     if (isRemoteUrl) {
         coverImageUrl.value = imgset
         return
     }
-    
+
     if (!pixabayApiKey) {
         errorMessage.value = '未配置 Pixabay API Key。请在项目根目录的 .env 文件中添加：VITE_PIXABAY=your_api_key'
         coverImageUrl.value = ''
         console.warn('[cover-photo-down] 未配置 Pixabay API Key。请在 .env 文件中添加 VITE_PIXABAY=your_api_key')
         return
     }
-    
+
     const query = imgset.replace(/=+$/g, '')
     const page = Math.floor(Math.random() * 5) + 1
     const requestUrl = `https://pixabay.com/api/?key=${encodeURIComponent(pixabayApiKey)}&q=${encodeURIComponent(query)}&image_type=photo&orientation=vertical&per_page=20&page=${page}&min_width=1200&min_height=1600&safesearch=true`
-    
+
     try {
         const res = await fetch(requestUrl)
         if (!res.ok) {
@@ -66,21 +66,21 @@ const loadCoverImage = async () => {
             return
         }
         const data = await res.json()
-        
+
         // 检查 API 错误
         if (data.error) {
             errorMessage.value = `Pixabay API 错误: ${data.error}`
             coverImageUrl.value = ''
             return
         }
-        
+
         const hits = Array.isArray(data?.hits) ? data.hits : []
         if (!hits.length) {
             errorMessage.value = `未找到关键词 "${query}" 的图片`
             coverImageUrl.value = ''
             return
         }
-        
+
         const suitableHits = hits.filter((hit: any) => Number(hit.imageWidth) >= 1200 && Number(hit.imageHeight) >= 1600)
         const candidates = suitableHits.length ? suitableHits : hits
         const pick = candidates[Math.floor(Math.random() * candidates.length)]
@@ -126,15 +126,15 @@ const installmentNameStyle = computed(() => {
     }
 })
 
-const title = computed(()=>{ 
+const title = computed(() => {
     return getConfig('title') || "cover-photo-down 演示"
 })
 
-const excerpt = computed(()=>{ 
+const excerpt = computed(() => {
     return getConfig('excerpt') || "内容摘要： 这是一个专门为小红书图文设计的主题。请修改 excerpt 属性来改变此段内容。关于用法，请参考在线演示文稿：https://stackblitz.com/github/zillionare/slidev_themes/tree/main/addons/quantide-layout-xhs"
 })
 
-const installment = computed(()=>{
+const installment = computed(() => {
     const installmentValue = getConfig('installment')
     const raw = typeof installmentValue === 'string' ? installmentValue.trim() : ''
     if (raw.toLowerCase() === 'na') {
@@ -171,6 +171,14 @@ const showFooter = computed(() => {
     return !!photoCreditText.value
 })
 
+// 印章默认显示，可通过 frontmatter `seal: false` 关闭
+const showSeal = computed(() => {
+    const v = getConfig('seal')
+    return v === undefined || v === true
+})
+
+const sealUrl = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/seal.png'
+
 </script>
 
 <style scoped>
@@ -183,14 +191,14 @@ const showFooter = computed(() => {
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem 4rem;
+    padding: 2rem 1rem;
     position: absolute;
     left: 0;
     top: 0;
 }
 
 .title {
-    @apply text-4xl font-bold;
+    @apply text-6xl font-bold;
     font-family: var(--slidev-font-h1, var(--slidev-theme-font-family));
     color: var(--quantide-theme-secondary, var(--slidev-theme-secondary, var(--heading-accent, var(--primary, var(--slidev-theme-primary)))));
     width: 100%;
@@ -227,13 +235,13 @@ const showFooter = computed(() => {
 .footer {
     @apply text-sm;
     position: absolute;
-    bottom: 20px;
+    bottom: 0px;
     right: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     color: var(--text-on-dark, white);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .author {
@@ -251,15 +259,28 @@ const showFooter = computed(() => {
     background-color: white;
 }
 
+.seal {
+    position: absolute;
+    top: 16px;
+    right: 0px;
+    width: 72px;
+    height: 72px;
+    z-index: 20;
+    pointer-events: none;
+    opacity: 0.92;
+}
 </style>
 
 <template>
     <div class="slidev-layout cover">
         <div class="cover-image" :style="coverImg" />
-        
+
         <!-- 条件显示 installment-name -->
         <div v-if="installment" class="installment-name" :style="installmentNameStyle">{{ installment }}</div>
-        
+
+        <!-- 右上角印章（默认显示，frontmatter seal: false 关闭） -->
+        <img v-if="showSeal" class="seal" :src="sealUrl" alt="seal" aria-hidden="true" />
+
         <div class="title-wrapper">
             <div class="title" v-html="title">
             </div>

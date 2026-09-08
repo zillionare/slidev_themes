@@ -7,3 +7,4 @@ dist
 components.d.ts
 public/tldraw
 _tmp_slides.md
+.env
